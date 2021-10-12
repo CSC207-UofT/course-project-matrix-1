@@ -25,10 +25,10 @@ public class WorksheetGenerator {
      * @param numEquation Number of equations in a Worksheet.
      * @param difficulty Difficulty level of the question, either 1, 2, or 3 (Easy, Medium, or Hard respectively).
      */
-    public static void generateWorksheet(String equationType, int numEquation, int difficulty){
+    public void generateWorksheet(String equationType, int numEquation, int difficulty){
         String[][] WorksheetEquationArray = new String[numEquation][2];
-        for (int i = 1; i <= numEquation; i++){
-            WorksheetEquationArray.push(eg.createEquation(equationType, difficulty));
+        for (int i = 0; i < numEquation; i++){
+            WorksheetEquationArray[i] = eg.createEquation(equationType, difficulty);
         }
         this.ws.setEquations(WorksheetEquationArray);
 

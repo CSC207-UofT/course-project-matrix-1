@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @since 2021-10-12
  */
 public class EquationGenerator {
+    private static final String ADDITION = "+";
     public EquationGenerator(){
 
     }
@@ -18,10 +19,7 @@ public class EquationGenerator {
      * @param difficulty Difficulty level of the question, either 1, 2, or 3 (Easy, Medium, or Hard respectively).
      */
     public String[] createEquation(String equationType, int difficulty){
-        equationType (bedmas, multiply, fraction, easy);
-
-
-//        Hashable<String, > equationType =
+        //        Hashable<String, > equationType =
 //        if (bedmas){
 //            BedmasEquation e = createBedmasEquation();
 //        }else if (lcmgcm){
@@ -31,19 +29,34 @@ public class EquationGenerator {
 //
 //        }
 //
-
-        if (equationType == "standard add"){
+        int max;
+        int min;
+        Equation e;
+        if (equationType.equals("standard add")){
             if (difficulty == 1){
-                int max = 10;
-                int min = 0;
-                int firstNum = ThreadLocalRandom.current().nextInt(min, max + 1);
-                int secondNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+                max = 30;
+                min = 0;
+            }else if (difficulty == 2){
+                max = 100;
+                min = 0;
             }
-            Equation e = BedmasEquation(firstNum, secondNum, "add");
+            else if (difficulty == 3){
+                max = 100;
+                min = -100;
+            }
+            int firstNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+            int secondNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+            e = BedmasEquation(firstNum, secondNum, ADDITION);
+        }else{
+            e = null;
         }
 
-        e.solve();
-        return e.getEquation(); //returns equation as a string;
+        if (e != null) {
+            e.solve();
+            return e.getEquation(); //returns equation as a string;
+        }else{
+            return null;
+        }
     }
 
 
