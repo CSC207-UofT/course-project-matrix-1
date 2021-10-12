@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * An interface adapter that can generate and retrieve a PDF.
  *
@@ -30,7 +28,7 @@ public class WorksheetGenerator {
     public static void generateWorksheet(String equationType, int numEquation, int difficulty){
         String[][] WorksheetEquationArray = new String[numEquation][2];
         for (int i = 1; i <= numEquation; i++){
-            WorksheetEquationArray.push(eg.createEquations(equationType, difficulty));
+            WorksheetEquationArray.push(eg.createEquation(equationType, difficulty));
         }
         this.ws.setEquations(WorksheetEquationArray);
 
