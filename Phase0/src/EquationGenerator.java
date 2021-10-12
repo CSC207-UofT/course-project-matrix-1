@@ -46,7 +46,7 @@ public class EquationGenerator {
             }
             int firstNum = ThreadLocalRandom.current().nextInt(min, max + 1);
             int secondNum = ThreadLocalRandom.current().nextInt(min, max + 1);
-            e = BedmasEquation(firstNum, secondNum, ADDITION);
+            e = new BedmasEquation(firstNum, secondNum, ADDITION);
         }else{
             e = null;
         }

@@ -9,7 +9,7 @@ public class BedmasEquation implements Equation{
         this.answer = "answer";
     }
     @Override
-    public String[] getEquation(Equation eq){
+    public String[] getEquation(){
         String[] returnableEquation = {this.question, this.answer};
         return returnableEquation;
     }
