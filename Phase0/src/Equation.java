@@ -1,5 +1,5 @@
 /**
- * An Equation interface class.
+ * An equation that can be solved and returns its stored equation.
  *
  * @author Sean Jeong
  * @version 1.0
