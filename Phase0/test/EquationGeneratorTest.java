@@ -2,6 +2,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author Will Jeong
+ * @version 1.0
+ * @since 2021-10-12
+ */
 public class EquationGeneratorTest {
     EquationGenerator eg = new EquationGenerator();
 

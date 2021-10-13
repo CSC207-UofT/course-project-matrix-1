@@ -1,7 +1,7 @@
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * An interface adapter that can generate and retrieve a PDF.
+ * Uses the user input to generate a single equation.
  *
  * @author Sean Jeong
  * @version 1.0
@@ -10,27 +10,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class EquationGenerator {
     private static final String ADDITION = "+";
 
-    public EquationGenerator() {
-
-    }
-
     /**
      * Create a single randomized equation using the given parameters.
      *
      * @param equationType The type of equations in a worksheet.
      * @param difficulty   Difficulty level of the question, either 1, 2, or 3 (Easy, Medium, or Hard respectively).
      */
-    public String[] createEquation(String equationType, int difficulty) throws InvalidInputException{
-        //        Hashable<String, > equationType =
-//        if (bedmas){
-//            BedmasEquation e = createBedmasEquation();
-//        }else if (lcmgcm){
-//            LcmGcmEquation e = createLcmGcmEquation();
-//        }
-//        if (multiply, fraction, easy){
-//
-//        }
-//
+    public String[] createEquation(String equationType, int difficulty) throws InvalidInputException {
         int max;
         int min;
         int firstNum;
@@ -57,8 +43,5 @@ public class EquationGenerator {
         }
         randomEqn.solve();
         return randomEqn.getEquation(); //returns equation as a string;
-
     }
-
-
 }
