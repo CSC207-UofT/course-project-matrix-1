@@ -9,16 +9,18 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class EquationGenerator {
     private static final String ADDITION = "+";
-    public EquationGenerator(){
+
+    public EquationGenerator() {
 
     }
 
     /**
      * Create a single randomized equation using the given parameters.
+     *
      * @param equationType The type of equations in a worksheet.
-     * @param difficulty Difficulty level of the question, either 1, 2, or 3 (Easy, Medium, or Hard respectively).
+     * @param difficulty   Difficulty level of the question, either 1, 2, or 3 (Easy, Medium, or Hard respectively).
      */
-    public String[] createEquation(String equationType, int difficulty){
+    public String[] createEquation(String equationType, int difficulty) throws InvalidInputException{
         //        Hashable<String, > equationType =
 //        if (bedmas){
 //            BedmasEquation e = createBedmasEquation();
@@ -31,34 +33,32 @@ public class EquationGenerator {
 //
         int max;
         int min;
-        Equation e;
-        if (equationType.equals("standard add")){
-            if (difficulty == 1){
+        int firstNum;
+        int secondNum;
+        Equation randomEqn;
+        if (equationType.equals("standard add")) {
+            if (difficulty == 1) {
                 max = 30;
                 min = 0;
-            }else if (difficulty == 2){
+            } else if (difficulty == 2) {
                 max = 100;
                 min = 0;
-            }
-            else if (difficulty == 3){
+            } else if (difficulty == 3) {
                 max = 100;
                 min = -100;
+            } else {
+                throw new InvalidInputException();
             }
-            int firstNum = ThreadLocalRandom.current().nextInt(min, max + 1);
-            int secondNum = ThreadLocalRandom.current().nextInt(min, max + 1);
-            e = new BedmasEquation(firstNum, secondNum, ADDITION);
-        }else{
-            e = null;
+            firstNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+            secondNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+            randomEqn = new BedmasEquation(firstNum, secondNum, ADDITION);
+        } else {
+            throw new InvalidInputException();
         }
+        randomEqn.solve();
+        return randomEqn.getEquation(); //returns equation as a string;
 
-        if (e != null) {
-            e.solve();
-            return e.getEquation(); //returns equation as a string;
-        }else{
-            return null;
-        }
     }
-
 
 
 }
