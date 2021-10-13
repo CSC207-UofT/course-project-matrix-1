@@ -6,18 +6,25 @@
  * @since 2021-10-12
  */
 public class BedmasEquation implements Equation{
-    private final String question;
-    private String answer;
+    private final String operator;
+    private final int[] operands;
+    private int answer;
 
     public BedmasEquation(int firstNum, int secondNum, String operator) {
-        this.question = firstNum + " " + operator + " " + secondNum;
+        this.operands = new int[] {firstNum, secondNum};
+        this.operator = operator;
     }
     /**
-     * Solve the equation. It takes the question String and calculates an answer String and saves it under answer.
+     * Solve the equation. Uses the operator and operands to calculate answer.
      */
     @Override
-    public void solve(){
-        this.answer = "answer";
+    public void solve() throws InvalidInputException{
+        String ADDITION = "+";
+        if (operator.equals(ADDITION)){
+            this.answer = operands[0] + operands[1];
+        }else{
+            throw new InvalidInputException();
+        }
     }
 
     //TODO: finish comments
@@ -27,7 +34,9 @@ public class BedmasEquation implements Equation{
      */
     @Override
     public String[] getEquation(){
-        return new String[]{this.question, this.answer};
+        String questionString = operands[0] + " " + operator + " " + operands[1];
+        String answerString = String.valueOf(this.answer);
+        return new String[]{questionString, answerString};
     }
 
 

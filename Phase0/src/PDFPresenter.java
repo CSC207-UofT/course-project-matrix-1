@@ -1,5 +1,5 @@
 /**
- * An interface adapter that can generate, retrieve, and download a PDF to your computer.
+ * An interface adapter that generates, retrieves, and downloads a PDF to the users computer.
  *
  * @author Will Jeong
  * @version 1.0
@@ -8,13 +8,10 @@
 public class PDFPresenter {
     public Worksheet ws; //TODO: Change to private once you can use WorksheetGenerator
 
-    public static void main(String[] args) {
-        System.out.println("ss");
-    }
     /**
      * Creates an instance of PDFPresenter that shares a worksheet with WorksheetGenerator.
      *
-     * @param ws an instance of a worksheet that is shared with the WorksheetGenerator
+     * @param ws an instance of a worksheet that is shared with the WorksheetGenerator.
      */
     public PDFPresenter(Worksheet ws) {
         this.ws = ws;
@@ -33,6 +30,7 @@ public class PDFPresenter {
         String[][] equations = ws.getEquations();
         StringBuilder pdfNoAnswers = new StringBuilder();
         StringBuilder pdfWithAnswers = new StringBuilder();
+
         pdfNoAnswers.append("Title: ").append(title).append(". Font size: ").append(fontSize).
                 append(". Equation format: ").append(equationFormat).append(".").append("\n");
         pdfWithAnswers.append("Title: ").append(title).append(". Font size: ").append(fontSize).
@@ -48,7 +46,7 @@ public class PDFPresenter {
     /**
      * Accesses the PDFs stored in Worksheet using getPdfs.
      *
-     * @return the formatted PDFs. The first has no answers, the second has answers.
+     * @return formatted PDFs. The first has no answers, the second has answers.
      */
     public String[] getPDFs() {
         return ws.getPDFs();
@@ -63,8 +61,6 @@ public class PDFPresenter {
         System.out.println("You downloaded these PDF's to " + path);
         System.out.println(ws.getPDFs()[0]);
         System.out.println(ws.getPDFs()[1]);
-
-
     }
 
 }
