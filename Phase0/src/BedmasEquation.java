@@ -19,7 +19,6 @@ public class BedmasEquation implements Equation{
      * @param secondNum the second number in the equation
      * @param operator  the operator used to add the two numbers
      */
-    //TODO: Update this to take in an expression tree
     public BedmasEquation(int firstNum, int secondNum, String operator) {
         this.operands = new int[] {firstNum, secondNum};
         this.operator = operator;
@@ -49,7 +48,4 @@ public class BedmasEquation implements Equation{
         String answerString = String.valueOf(this.answer);
         return new String[]{questionString, answerString};
     }
-
-
-
 }

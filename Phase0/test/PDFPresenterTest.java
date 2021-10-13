@@ -8,12 +8,11 @@ import static org.junit.Assert.*;
 public class PDFPresenterTest {
 
     private PDFPresenter p;
-    private WorksheetGenerator wg;
 
     @org.junit.Before
     public void init() {
         Worksheet ws = new Worksheet();
-        wg = new WorksheetGenerator(ws);
+        WorksheetGenerator wg = new WorksheetGenerator(ws);
         p = new PDFPresenter(ws);
         wg.generateWorksheet("standard add", 10, 3);
         //String[][] equations = {{"q1", "a1"}, {"q2", "a2"}};
