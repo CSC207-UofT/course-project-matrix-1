@@ -1,5 +1,5 @@
 public class BedmasEquation implements Equation{
-    private String question;
+    private final String question;
     private String answer;
     public BedmasEquation(int firstNum, int secondNum, String operator){
         this.question = firstNum + operator + secondNum;
@@ -10,8 +10,7 @@ public class BedmasEquation implements Equation{
     }
     @Override
     public String[] getEquation(){
-        String[] returnableEquation = {this.question, this.answer};
-        return returnableEquation;
+        return new String[]{this.question, this.answer};
     }
 
 
