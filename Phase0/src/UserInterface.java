@@ -17,7 +17,6 @@ public class UserInterface {
     private WorksheetGenerator wGenerator = new WorksheetGenerator(sharedWorksheet);
     private PDFPresenter pPresenter = new PDFPresenter(sharedWorksheet);
 
-
     public UserInterface() {
         Scanner sc = new Scanner(System.in);
 
