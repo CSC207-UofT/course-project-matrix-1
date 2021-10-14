@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 public class User {
     private final String username;
@@ -9,11 +10,12 @@ public class User {
     private HashMap<String, Integer> scores;    // worksheet name : scores
     private ArrayList<HashMap> history;         // list of Worksheet details stored in a HashMap
 
-    /** Instantiate User object.
-     * @param username  // username used to access account
-     * @param name      // name of User
-     * @param age       // age of User
-     * @param role      // position of user (student/teacher/parent)
+    /**
+     * Instantiate User object.
+     * @param username      // username used to access account
+     * @param name          // name of User
+     * @param age           // age of User
+     * @param role          // position of user (student/teacher/parent)
      */
     public User(String username, String name, int age, String role){
         this.username = username;
@@ -59,16 +61,87 @@ public class User {
     }
 
     // SETTER METHODS
-    /** Record score on worksheet (with difficulty). Overrides existing values
-     * @param worksheetKey  // unique identifier for worksheet
-     * @param score         // integer score on worksheet
+    /**
+     * Record score on specific worksheet type (with difficulty).
+     * Checks if input score exceeds number of questions IFF a worksheet was recently generated of specified type.
+     * Overrides existing values.
+     * @param worksheetKey      // unique identifier for worksheet
+     * @param score             // integer score on worksheet
      */
     public void setWorksheetScore(String worksheetKey, int score){
-        // TODO: Verify score is >= 0 and <= number of questions on worksheet
+        // Verify score is >= 0
+        if (score < 0){
+            throw new IllegalArgumentException("Negative score input!");
+        }
+
+        // Retrieve worksheet generated details
+        Optional<HashMap> detailsOptional = findWorksheetInHistory(worksheetKey);
+        if (detailsOptional.isEmpty()) {
+            // TODO: If no worksheet of specified type was generated, throw an exception
+//             throw new IllegalArgumentException("Worksheet type has not been generated yet!");
+        } else {
+            // Get worksheet details
+            HashMap<String, Object> details = detailsOptional.get();
+            // If details available, check if input score is within the max score.
+            Object numQuestions = details.get("numQuestions");
+            if (score > (int) numQuestions){
+                throw new IllegalArgumentException("Score input exceeds maximum possible score!");
+            }
+        }
+        // Record score
         this.scores.put(worksheetKey, score);
     }
 
+
+    /**
+     * Returns details for latest worksheet generated of specified type.
+     * @param worksheetKey      // specifies worksheet type and difficulty
+     * @return optional HashMap of worksheet details
+     */
+    public Optional<HashMap> findWorksheetInHistory(String worksheetKey){
+        // Loop from the end of history to find a worksheet of specified worksheetKey.
+        int i = this.history.size();
+        while (i != 0) {
+            i = i - 1;
+            HashMap currMap = this.history.get(i);
+            if (currMap.get("worksheetKey") == worksheetKey){
+                // Wraps object in Optional object
+                return Optional.of(currMap);
+            }
+        }
+        return Optional.empty();
+    }
+
+
+    /**
+     * Add details of worksheet generation to history.
+     * @param worksheetDetails  // HashMap of details for some generated worksheet
+     */
     public void addToHistory(HashMap worksheetDetails){
         this.history.add(worksheetDetails);
     }
+
+
+    /**
+     * Removes action in history at specified position.
+     * Precondition:
+     *      - index must be within a valid range.
+     * @param index         // index of action in history to remove
+     */
+    public void removeFromHistory(int index){
+        // Check if index exceeds current number of items in history.
+        if (Math.abs(index) >= this.history.size()){
+            throw new ArrayIndexOutOfBoundsException("Index provided exceeds length of list of user history.");
+        }
+
+        // If negative index given, convert to its equivalent positive index.
+        int elementIndex;
+        if (index < 0){
+            elementIndex = this.history.size() + index;
+        } else {
+            elementIndex = index;
+        }
+        this.history.remove(elementIndex);
+    }
+
 }
