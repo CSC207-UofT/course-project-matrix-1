@@ -2,7 +2,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * User Interface First Version
+ * User Interface V1
  */
 public class UserInterface {
 
