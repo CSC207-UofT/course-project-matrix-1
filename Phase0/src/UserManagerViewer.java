@@ -8,7 +8,7 @@ public class UserManagerViewer {
 
     // TODO: Finish verifyUsername!
     // TODO: Test verifyUsername!
-    private ArrayList<User> users;
+    private final ArrayList<User> users;
     public UserManagerViewer(ArrayList<User> users){this.users = users;}
     public boolean verifyUsername(String username){
         //TODO: Actually implement it HERE!
