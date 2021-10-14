@@ -14,7 +14,7 @@ public class PDFPresenterTest {
         Worksheet ws = new Worksheet();
         WorksheetGenerator wg = new WorksheetGenerator(ws);
         p = new PDFPresenter(ws);
-        wg.generateWorksheet("standard add", 10, 3);
+        wg.generateWorksheet("standard add", 10, "Hard");
         //String[][] equations = {{"q1", "a1"}, {"q2", "a2"}};
         p.createWorksheetPDF("Sample Worksheet", 12, "Horizontal");
     }

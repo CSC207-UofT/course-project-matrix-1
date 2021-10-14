@@ -26,10 +26,18 @@ public class WorksheetGenerator {
      * @param numEquation  Number of Equations in ws.
      * @param difficulty   Difficulty level of an Equation in ws, either 1, 2, or 3 (Easy, Medium, or Hard).
      */
-    public void generateWorksheet(String equationType, int numEquation, int difficulty) {
+    public void generateWorksheet(String equationType, int numEquation, String difficulty) {
         String[][] WorksheetEquationArray = new String[numEquation][2];
+        int difficultyInt;
+        if (difficulty.equals("Easy")) {
+            difficultyInt = 1;
+        } else if (difficulty.equals("Medium")) {
+            difficultyInt = 2;
+        } else {
+            difficultyInt = 3;
+        }
         for (int i = 0; i < numEquation; i++) {
-            WorksheetEquationArray[i] = eg.createEquation(equationType, difficulty);
+            WorksheetEquationArray[i] = eg.createEquation(equationType, difficultyInt);
         }
         this.ws.setEquations(WorksheetEquationArray);
 
