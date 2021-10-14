@@ -6,13 +6,7 @@ import java.util.Scanner;
  */
 public class UserInterface {
 
-    private String equationType;
-    private int numEquations;
-    private String difficulty;
     public String userName;
-    private int fontSize;
-    private String worksheetTitle;
-    private String questionFormat;
 
 
     public UserInterface() {
@@ -29,23 +23,23 @@ public class UserInterface {
 
         // Get the topic the user is interested in
         System.out.println("Choose a topic: ");
-        this.equationType = sc.nextLine();
+        String equationType = sc.nextLine();
 
         // Get the difficult level of the topic
-        this.difficulty = chooseDifficulty();
+        String difficulty = chooseDifficulty();
 
         // Get the number of questions
         System.out.println("Choose the number of questions: ");
-        this.numEquations = sc.nextInt();
+        int numEquations = sc.nextInt();
 
         Scanner sct = new Scanner(System.in);
 
         // Let user customize the page details
         System.out.println("Choose the worksheet title: ");
-        this.worksheetTitle = sct.nextLine();
+        String worksheetTitle = sct.nextLine();
         System.out.println("Choose the font size?");
-        this.fontSize = sct.nextInt();
-        this.questionFormat = chooseQuestionFormat();
+        int fontSize = sct.nextInt();
+        String questionFormat = chooseQuestionFormat();
 
         finalPage();
 
