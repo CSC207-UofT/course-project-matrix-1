@@ -5,7 +5,6 @@ public class UserController {
     * Collaborators:
     * UserManagerViewer
     * UserManagerUpdater
-    * User?
     */
 
     private String currentUsername;
@@ -13,11 +12,13 @@ public class UserController {
     public String getCurrentUsername() {
         return currentUsername;
     }
-    public String verifyUsername(String username){
+    public Boolean verifyUsername(String username){
+        /*
         UserManagerViewer viewer = new UserManagerViewer();
-        if(viewer.verifyUsername(username)){
+         if(viewer.verifyUsername(username)){
             HashMap<String, Object> userDetails = viewer.getUserDetails();
         }
-        return "Invalid user name, please try again";
+         */
+        return true;
     }
 }
