@@ -30,7 +30,7 @@ public class UserInterface {
         System.out.println("Create a new Worksheet");
 
         // Get the topic the user is interested in
-        System.out.println("Choose a topic: ");
+        System.out.println("Choose a topic (you can only use 'standard add'): ");
         this.equationType = sc.nextLine();
 
         // Get the difficult level of the topic
@@ -56,7 +56,12 @@ public class UserInterface {
     public void pressGenerateWorksheet() {
         wGenerator.generateWorksheet(this.equationType, this.numEquations, this.difficulty);
         pPresenter.createWorksheetPDF(this.worksheetTitle, this.fontSize, this.equationFormat);
-        pPresenter.getPDFs();
+        String[] pdfs = pPresenter.getPDFs();
+        System.out.println("Questions");
+        System.out.println(pdfs[0]);
+        System.out.println("Questions + Answers");
+        System.out.println(pdfs[1]);
+
     }
 
     public void pressDownloadPDF() {
@@ -94,17 +99,15 @@ public class UserInterface {
     }
 
     public void finalPage() {
-        System.out.println("The worksheet is customized. Type \n 1 to generate+preview worksheet " +
-                "\n 2 to download the worksheet \n 3 to exit");
         int decision;
         do {
+            System.out.println("The worksheet is customized. Type \n 1 to generate+preview worksheet " +
+                    "\n 2 to download the worksheet \n 3 to exit");
             Scanner sc = new Scanner(System.in);
             decision = sc.nextInt();
 
             if (decision == 1) {
-                System.out.println("test");
                 pressGenerateWorksheet();
-                System.out.println("test2");
             } else if (decision == 2) {
                 pressDownloadPDF();
             } else if (decision == 3) {
