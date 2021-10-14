@@ -20,17 +20,20 @@ public class UserInterface {
         System.out.println("Enter your username:");
         this.userName = sc.nextLine();
 
+        boolean done = false;
+        while(!done) {
         System.out.println("Create a new worksheet? Y or N");
         String decision = sc.nextLine();
 
-        switch (decision) {
+        switch(decision) {
             case "Y":
+                done = true;
                 break;
             case "N":
+                done = true;
                 System.exit(0);
             default:
-                System.out.println("please enter again ");
-
+                System.out.println("please enter again ");}
         }
 
         System.out.println("ye");
