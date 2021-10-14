@@ -8,7 +8,6 @@ public class UserInterface {
 
     public String userName;
 
-
     public UserInterface() {
         Scanner sc = new Scanner(System.in);
 
