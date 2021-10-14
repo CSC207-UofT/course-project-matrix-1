@@ -8,7 +8,7 @@ public class UserManagerViewer {
     // UserManager Class creates an arraylist of user objects. It passes that list to both viewer and Manager
 
 
-    private List<User> users;  // This variable is aliased with UserManagerUpdater.users variable
+    private final List<User> users;  // This variable is aliased with UserManagerUpdater.users variable
     public UserManagerViewer(List<User> users){this.users = users;}
     public boolean verifyUsername(String username){
         for(User u: this.getUsers()){
