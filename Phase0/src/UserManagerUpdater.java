@@ -4,7 +4,7 @@ import java.util.List;
 
 public class UserManagerUpdater {
     // when you update a user here, also update it at UserManagerViewer
-    private List<User> users;  // This variable is aliased with UserManagerViewer.users variable
+    private final List<User> users;  // This variable is aliased with UserManagerViewer.users variable
     public UserManagerUpdater(List<User> users){
         this.users = users;
     }
