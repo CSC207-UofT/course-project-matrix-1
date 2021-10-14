@@ -11,7 +11,7 @@ public class UserTest {
     User newUser;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         newUser = new User("haddock99", "Sarah", 19, "Student");
     }
 
@@ -22,7 +22,7 @@ public class UserTest {
 
     @Test
     public void testGetDetails() {
-        HashMap userDetails = newUser.getDetails();
+        HashMap<String, Object> userDetails = newUser.getDetails();
         assertEquals(userDetails.get("name"), "Sarah");
         assertEquals(userDetails.get("age"), 19);
         assertEquals(userDetails.get("role"), "Student");
@@ -34,7 +34,7 @@ public class UserTest {
     @Test
     public void testGetScoresEmpty() {
         User newUser2 = new User("catfish22", "Angel", 44, "Teacher");
-        HashMap scores = newUser2.getScores();
+        HashMap<String, Integer> scores = newUser2.getScores();
         assertTrue(scores.isEmpty());
     }
 
@@ -44,7 +44,7 @@ public class UserTest {
     @Test
     public void testGetHistoryEmpty() {
         User newUser2 = new User("catfish22", "Angel", 44, "Teacher");
-        ArrayList<HashMap> scores = newUser2.getHistory();
+        ArrayList<HashMap<String, Object>> scores = newUser2.getHistory();
         assertTrue(scores.isEmpty());
     }
 
@@ -56,7 +56,7 @@ public class UserTest {
         // Set worksheet score
         newUser.setWorksheetScore("standard-add-easy", 40);
         // Check if scores were saved properly
-        HashMap scores = newUser.getScores();
+        HashMap<String, Integer> scores = newUser.getScores();
         assertFalse(scores.isEmpty());
     }
 
@@ -66,21 +66,27 @@ public class UserTest {
     @Test
     public void testAddToHistory() {
         // Create mock worksheetDetails map
-        HashMap<String, Object> worksheetDetails = new HashMap();
+        HashMap<String, Object> worksheetDetails = new HashMap<>();
         worksheetDetails.put("worksheetKey", "standard-add-easy");
         worksheetDetails.put("numQuestions", 40);
         // Add details to history
         newUser.addToHistory(worksheetDetails);
 
         // Check if history was modified properly
-        ArrayList currHistory = newUser.getHistory();
+        ArrayList<HashMap<String, Object>> currHistory = newUser.getHistory();
         assertFalse(currHistory.isEmpty());
     }
 
 
     // TODO: Create test for findWorksheetInHistory
     @Test
-    public void testFindWorksheetInHistory(){
+    public void testFindWorksheetInHistory() {
+
+    }
+
+    // TODO: Create test for findWorksheetInHistory
+    @Test
+    public void removeFromHistory() {
 
     }
 }
