@@ -29,7 +29,6 @@ public class UserManagerUpdaterTest {
         assert userDetails2.get("name").equals("Arnold");
         assert userDetails2.get("age").equals(20);
         assert userDetails2.get("role").equals("Student");
-
     }
 
 }

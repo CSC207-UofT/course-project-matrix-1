@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserManagerUpdater {
     // when you update a user here, also update it at UserManagerViewer
-    private ArrayList<User> users;
-    public UserManagerUpdater(ArrayList<User> users){
+    private List<User> users;  // This variable is aliased with UserManagerViewer.users variable
+    public UserManagerUpdater(List<User> users){
         this.users = users;
     }
 
-    public ArrayList<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 

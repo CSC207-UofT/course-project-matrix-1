@@ -6,6 +6,8 @@ public class UserController {
     * UserManagerViewer
     * UserManagerUpdater
     */
+    private UserManagerUpdater updater;
+    private UserManagerViewer viewer;
 
     private String currentUsername;
 

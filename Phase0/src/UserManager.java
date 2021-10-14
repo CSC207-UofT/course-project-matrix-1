@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class UserManager {
     // TODO: Treat this as a factory method --> Factory Design Pattern
@@ -8,18 +9,18 @@ public class UserManager {
 
     // Create an Arraylist of User objects
     // Pass the same Arraylist to both viewer and manager
-    // create subbranch to stan-kerim and merge it
     // TODO: create random users for findUsers
-    public static ArrayList<User> findUsers(){
+
+    public static List<User> findUsers(){
         // In the future findUsers will read from the text file and get the users
+        // Input Source Interface will read the text file and allow us achieve dependency inversion
         // TODO: create random users for findUsers
-        User user1 = new User("main", "MainUser", 21, "Student");
-        ArrayList<User> users = new ArrayList<>(Arrays.asList(user1));
-        return users;
+        User user1 = new User("main", "MainUser", 21, "Student");  // default user for testing
+        return new ArrayList<>(List.of(user1));
     }
 
-    public static ArrayList<Object> createViewerAndUpdater(){
-        ArrayList<User> users = UserManager.findUsers();
+    public static List<Object> createViewerAndUpdater(){
+        List<User> users = UserManager.findUsers();
         UserManagerViewer viewer = new UserManagerViewer(users);
         UserManagerUpdater updater = new UserManagerUpdater(users);
         /* same users array is set to both viewer and updater so that when we update user objects in updater,
