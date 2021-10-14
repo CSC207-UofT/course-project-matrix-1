@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class UserManagerUpdater {
     // when you update a user here, also update it at UserManagerViewer
-    private ArrayList<User> users;
+    private final ArrayList<User> users;
     public UserManagerUpdater(ArrayList<User> users){
         this.users = users;
     }

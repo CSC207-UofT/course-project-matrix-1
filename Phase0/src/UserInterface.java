@@ -6,16 +6,16 @@ import java.util.Scanner;
  */
 public class UserInterface {
 
-    private String equationType;
-    private int numEquations;
-    private String difficulty;
+    private final String equationType;
+    private final int numEquations;
+    private final String difficulty;
     public String userName;
-    private int fontSize;
-    private String worksheetTitle;
-    private String equationFormat;
-    private Worksheet sharedWorksheet = new Worksheet();
-    private WorksheetGenerator wGenerator = new WorksheetGenerator(sharedWorksheet);
-    private PDFPresenter pPresenter = new PDFPresenter(sharedWorksheet);
+    private final int fontSize;
+    private final String worksheetTitle;
+    private final String equationFormat;
+    private final Worksheet sharedWorksheet = new Worksheet();
+    private final WorksheetGenerator wGenerator = new WorksheetGenerator(sharedWorksheet);
+    private final PDFPresenter pPresenter = new PDFPresenter(sharedWorksheet);
 
     public UserInterface() {
         Scanner sc = new Scanner(System.in);
