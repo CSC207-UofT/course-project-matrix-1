@@ -3,8 +3,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class UserManagerViewer {
-    // txt file to store all the users?
-    // load the users that are stored in the txt
     // UserManager Class creates an arraylist of user objects. It passes that list to both viewer and Manager
 
 
@@ -35,7 +33,7 @@ public class UserManagerViewer {
         return new HashMap<>();  //Return empty hash map if the username is invalid
     }
 
-    public ArrayList<HashMap> getUserHistory(String username){
+    public ArrayList<HashMap<String, Object>> getUserHistory(String username){
         for(User u: this.users){
             if(u.getUsername().equals(username)){return u.getHistory();}
         }

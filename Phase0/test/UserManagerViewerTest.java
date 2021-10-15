@@ -28,6 +28,16 @@ public class UserManagerViewerTest {
         assert userDetails2.isEmpty();
     }
 
+    @Test
+    public void testGetUserScores(){
+        assert newViewer.getUserScores("main").equals(new HashMap<>());
+    }
+
+    @Test
+    public void testGetUserHistory(){
+        assert newViewer.getUserHistory("main").equals(new ArrayList<>());
+    }
+
 
 
 
