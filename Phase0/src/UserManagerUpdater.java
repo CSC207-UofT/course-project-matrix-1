@@ -4,6 +4,7 @@ import java.util.List;
 /**
  * Updates user information based on inputs from UserInterface.
  * Collaborators: UserManager.
+ *
  * @author Kerim
  */
 
@@ -41,6 +42,7 @@ public class UserManagerUpdater {
 
     /**
      * Stores the action of the user.
+     *
      * @param username:         Username
      * @param worksheetDetails: WorksheetDetails
      */
@@ -54,6 +56,7 @@ public class UserManagerUpdater {
 
     /**
      * Removes the action of the user at the specified index.
+     *
      * @param username: UserName
      * @param index:    Index of the worksheet
      */
@@ -68,12 +71,13 @@ public class UserManagerUpdater {
 
     /**
      * Stores the score the user received on the specified worksheet.
-     * @param username: UserName
+     *
+     * @param username:     UserName
      * @param worksheetKey: Name of the worksheet
-     * @param score: Score the user received on the specified worksheet
+     * @param score:        Score the user received on the specified worksheet
      */
     public void storeUserScore(String username, String worksheetKey, int score) {
-        for (User u : this.users){
+        for (User u : this.users) {
             if (u.getUsername().equals(username)) {  // Check whether the user is valid.
                 u.setWorksheetScore(worksheetKey, score); // Invalid worksheet keys are handled in setWorksheetScore.
             }

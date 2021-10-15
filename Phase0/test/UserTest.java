@@ -54,6 +54,11 @@ public class UserTest {
      */
     @Test
     public void testSetWorksheetScore() {
+        HashMap<String, Object> worksheetDetails = new HashMap<>();
+        worksheetDetails.put("worksheetKey", "standard-add-easy");
+        worksheetDetails.put("numQuestions", 40);
+        // Add details to history
+        newUser.addToHistory(worksheetDetails);
         // Set worksheet score
         newUser.setWorksheetScore("standard-add-easy", 40);
         // Check if scores were saved properly

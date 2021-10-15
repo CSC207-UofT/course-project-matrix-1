@@ -9,6 +9,7 @@ import java.util.List;
  * and UserManagerUpdater. Thus, the updates to the users that we make in the UserManagerUpdater can also be seen in the
  * UserManagerViewer.
  * Collaborators: UserManagerViewer, UserManagerUpdater
+ *
  * @author Kerim
  * @version 1.0
  */
