@@ -30,6 +30,10 @@ public class UserManagerViewer {
         return users;
     }
 
+    /**
+     * @param username: Username of the user
+     * @return HashMap representing the details of the
+     */
     public HashMap<String, Object> getUserDetails(String username) {
         for (User u : this.users) {
             if (u.getUsername().equals(username)) {
@@ -39,6 +43,10 @@ public class UserManagerViewer {
         return new HashMap<>();  // Return empty hash map if the username is invalid
     }
 
+    /**
+     * @param username Username of the user
+     * @return Hash map representing User scores
+     */
     public HashMap<String, Integer> getUserScores(String username) {
         for (User u : this.users) {
             if (u.getUsername().equals(username)) {
@@ -48,6 +56,10 @@ public class UserManagerViewer {
         return new HashMap<>();  // Return empty hash map if the username is invalid
     }
 
+    /**
+     * @param username: Username of the user
+     * @return Arraylists of hash maps representing past actions of the user
+     */
     public ArrayList<HashMap<String, Object>> getUserHistory(String username) {
         for (User u : this.users) {
             if (u.getUsername().equals(username)) {
