@@ -2,13 +2,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Accesses or updates user information based on inputs from UserInterface.
+ * Collaborators: UserManagerViewer, UserManagerUpdater, UserManager.
+ * @author Kerim
+ * @version 1.0
+ * @since 2021-10-13
+ */
 public class UserController {
-    /*
-    * Collaborators:
-    * UserManagerViewer
-    * UserManagerUpdater
-    *
-    */
     private final UserManagerUpdater  updater;
     private final UserManagerViewer viewer;
     private String currentUsername;
@@ -18,6 +19,7 @@ public class UserController {
         viewer = ((UserManagerViewer) managers.get(0));
         updater = ((UserManagerUpdater) managers.get(1));
     }
+
     public String getCurrentUsername() {
         return currentUsername;
     }
