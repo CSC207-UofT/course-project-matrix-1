@@ -3,10 +3,14 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
- * Collaborators:
- * UserManagerViewer
- * UserManagerUpdater
+ * Utilizes the factory design pattern and creates instances of both UserManagerViewer and UserManagerUpdater in its-
+ * factory method createViewerAndUpdater.
+ * The method createViewerAndUpdater passes the same list of users for the instances of UserManagerViewer
+ * and UserManagerUpdater. Thus, the updates to the users that we make in the UserManagerUpdater can also be seen in the
+ * UserManagerViewer.
+ * Collaborators: UserManagerViewer, UserManagerUpdater
+ * @author Kerim
+ * @version 1.0
  */
 public class UserManager {
     // TODO: Treat this as a factory method --> Factory Design Pattern
