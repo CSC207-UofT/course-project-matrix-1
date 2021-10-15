@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserController {
     /*
@@ -8,11 +9,15 @@ public class UserController {
     * UserManagerUpdater
     *
     */
-    private UserManagerUpdater updater;
-    private UserManagerViewer viewer;
+    public final UserManagerUpdater  updater;
+    public final UserManagerViewer viewer;
     private String currentUsername;
 
-
+    public UserController(){
+        List<Object> managers = UserManager.createViewerAndUpdater();
+        viewer = ((UserManagerViewer) managers.get(0));
+        updater = ((UserManagerUpdater) managers.get(1));
+    }
     public String getCurrentUsername() {
         return currentUsername;
     }
@@ -36,9 +41,17 @@ public class UserController {
         return this.viewer.getUserHistory(username);
     }
 
+    /**
+     * Registers a new User. Throws Exception if another User exists with the same username.
+     * @param username  // potential username
+     * @param name      // name of User
+     * @param age       // age of User
+     * @param role      // role of User (Student/Parent/Teacher)
+     */
     public void createUser(String username, String name, Integer age, String role){
         this.updater.createUser(username, name, age, role);
     }
+
 
     public void storeUserScore(String username,String worksheetKey, Integer score){
         this.updater.storeUserScore(username, worksheetKey, score);
