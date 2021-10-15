@@ -70,6 +70,16 @@ public class UserControllerTest {
         assert newController.getUserHistory("main").isEmpty();
     }
 
+    @Test
+    public void testStoreUserScore(){
+        HashMap<String, Object> record = new HashMap<>();
+        record.put("numQuestions", 40);
+        record.put("worksheetKey", "standard-add-easy");
+        newController.storeUserAction("main", record);
+        newController.storeUserScore("main", "standard-add-easy", 39);
+        assert newController.getUserScores("main").get("standard-add-easy").equals(39);
+    }
+
 
 
 
