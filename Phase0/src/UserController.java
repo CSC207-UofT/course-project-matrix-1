@@ -92,6 +92,11 @@ public class UserController {
         this.updater.storeUserAction(username, userAction);
     }
 
+    /**
+     * Removes the user action from the user's history.
+     * @param username: Username of the user
+     * @param index: Index of the action to be removed from the list of actions
+     */
     public void removeUserAction(String username, Integer index){
         this.updater.removeUserAction(username, index);
     }
