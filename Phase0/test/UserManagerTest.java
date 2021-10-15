@@ -1,4 +1,3 @@
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -7,7 +6,6 @@ public class UserManagerTest {
     /**
      * Create instance of User class to test methods.
      */
-    UserManager newManager;
 
 
     @Test
