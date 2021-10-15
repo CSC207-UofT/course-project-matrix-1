@@ -56,4 +56,14 @@ public class UserManagerUpdaterTest {
         assert newUpdater.getUsers().get(0).getScores().get("standard-add-easy").equals(39);
     }
 
+    @Test
+    public void testStoreUserScores(){
+        HashMap<String, Object> record = new HashMap<>();
+        record.put("numQuestions", 40);
+        record.put("worksheetKey", "standard-add-easy");
+        newUpdater.storeUserAction("main", record);
+        newUpdater.storeUserScore("main", "standard-add-easy", 39);
+        assert newUpdater.getUsers().get(0).getScores().get("standard-add-easy").equals(39);
+    }
+
 }
