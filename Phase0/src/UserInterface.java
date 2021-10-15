@@ -28,12 +28,13 @@ public class UserInterface {
 
         // Welcome and prompt user for their username.
         System.out.println("Welcome to Matrix!");
-        this.userName = getUsername();
+        userController.setCurrentUsername(getUsername());
 
-        System.out.println("Welcome " + this.userName);
+        System.out.println("Welcome " + userController.getCurrentUsername());
 
-        // Ask if the user would like to create a new worksheet
-        System.out.println("Create a new Worksheet");
+        // Ask if the user would like to create a new worksheet, user profile TODO: or view user history (currently at bottom)
+        menuSelectChoice();
+        System.out.println("Create a new worksheet");
 
         // Get the topic the user is interested in.
         System.out.println("Choose a topic (you can only use 'standard add'): ");
@@ -57,6 +58,24 @@ public class UserInterface {
 
         finalPage();
 
+    }
+
+    private void menuSelectChoice() {
+        Scanner sc = new Scanner(System.in);
+        boolean selectWorksheet = false;
+        do {
+            System.out.println("Type \n 1 to view your profile " +
+                    "\n 2 to generate worksheets");
+            int decision = sc.nextInt();
+            if (decision == 1) {
+                System.out.println(userController.getUserDetails(userController.getCurrentUsername()));
+            } else if (decision == 2) {
+                selectWorksheet = true;
+            } else {
+                System.out.println("Invalid Input. Type \n 1 to view your profile " +
+                        "\n 2 to generate worksheets");
+            }
+        } while (!selectWorksheet);
     }
 
     public void pressGenerateWorksheet() {
@@ -91,16 +110,45 @@ public class UserInterface {
 
     public String getUsername() {
         String username;
-        System.out.println("Enter your username ('main' is the only username that is registered - choose something else if you want):");
+        boolean usernameEntered = false;
+        System.out.println("Enter your username ('main' is the only username that works):");
         do {
             Scanner sc = new Scanner(System.in);
             username = sc.nextLine();
 
             if (!userController.verifyUsername(username)) {
-                System.out.println("Invalid username. Enter your username ('main' is the only userName that works):");
+                System.out.println("This username does not exist. Type \n 1 to register a account for this username " +
+                        "\n anything other int to re-enter your username");
+                int registerChoice = sc.nextInt();
+                if (registerChoice == 1) {
+                    registerUsername(username);
+                    usernameEntered = true;
+                }
+            } else {
+                usernameEntered = true;
             }
-        } while (!Objects.equals(username, "main"));
+        } while (!usernameEntered);
         return username;
+    }
+
+    private void registerUsername(String username) {
+        boolean registered = false;
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.println("Enter your name");
+            String name = sc.nextLine();
+            System.out.println("Enter your age");
+            int age = sc.nextInt();
+            System.out.println("Enter your role (teacher, student)");
+            sc.nextLine(); // Removes the /n char
+            String role = sc.nextLine();
+            try {
+                userController.createUser(username, name, age, role);
+                registered = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } while (!registered);
     }
 
     public String chooseDifficulty() {
