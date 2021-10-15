@@ -82,7 +82,7 @@ public class User {
         Optional<HashMap<String, Object>> detailsOptional = findWorksheetInHistory(worksheetKey);
         if (detailsOptional.isEmpty()) {
             // TODO: If no worksheet of specified type was generated, throw an exception
-             throw new IllegalArgumentException("Worksheet type has not been generated yet!");
+            throw new IllegalArgumentException("Worksheet type has not been generated yet!");
         } else {
             // Get worksheet details
             HashMap<String, Object> details = detailsOptional.get();

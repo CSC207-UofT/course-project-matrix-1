@@ -8,13 +8,14 @@ public class UserControllerTest {
      * Create instance of User class to test methods.
      */
     UserController newController;
+
     @Before
-    public void setUp(){
+    public void setUp() {
         newController = new UserController();
     }
 
     @Test
-    public void testVerifyUsername(){
+    public void testVerifyUsername() {
         assert newController.verifyUsername("main");
         newController.setCurrentUsername("user2");
         assert !newController.verifyUsername("user2"); // not in the users list, just set as the current user
@@ -22,7 +23,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testGetUserDetails(){
+    public void testGetUserDetails() {
         HashMap<String, Object> userDetails = newController.getUserDetails("main");
         assert userDetails.get("name").equals("MainUser");
         assert userDetails.get("age").equals(21);
@@ -33,17 +34,17 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testGetUserScores(){
+    public void testGetUserScores() {
         assert newController.getUserScores("main").isEmpty();
     }
 
     @Test
-    public void testGetUserHistory(){
+    public void testGetUserHistory() {
         assert newController.getUserHistory("main").isEmpty();
     }
 
     @Test
-    public void testCreateUser(){
+    public void testCreateUser() {
         newController.createUser("SCH99", "Arnold", 20, "Student");
         HashMap<String, Object> userDetails = newController.getUserDetails("SCH99");
         assert userDetails.get("name").equals("Arnold");
@@ -52,7 +53,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testStoreUserAction(){
+    public void testStoreUserAction() {
         HashMap<String, Object> record = new HashMap<>();
         record.put("numQuestions", 40);
         record.put("worksheetKey", "standard-add-easy");
@@ -61,7 +62,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testRemoveUserAction(){
+    public void testRemoveUserAction() {
         HashMap<String, Object> record = new HashMap<>();
         record.put("numQuestions", 40);
         record.put("worksheetKey", "standard-add-easy");
@@ -71,7 +72,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testStoreUserScore(){
+    public void testStoreUserScore() {
         HashMap<String, Object> record = new HashMap<>();
         record.put("numQuestions", 40);
         record.put("worksheetKey", "standard-add-easy");
@@ -79,8 +80,6 @@ public class UserControllerTest {
         newController.storeUserScore("main", "standard-add-easy", 39);
         assert newController.getUserScores("main").get("standard-add-easy").equals(39);
     }
-
-
 
 
 }

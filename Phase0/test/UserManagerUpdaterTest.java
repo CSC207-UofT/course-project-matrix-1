@@ -10,7 +10,7 @@ public class UserManagerUpdaterTest {
     UserManagerUpdater newUpdater;
 
     @Before
-    public void setUp(){
+    public void setUp() {
 
         newUpdater = (UserManagerUpdater) UserManager.createViewerAndUpdater().get(1);
     }
@@ -30,7 +30,7 @@ public class UserManagerUpdaterTest {
     }
 
     @Test
-    public void testStoreUserAction(){
+    public void testStoreUserAction() {
         HashMap<String, Object> action = new HashMap<>();
         action.put("Some action", 1);
         newUpdater.storeUserAction("main", action);
@@ -38,7 +38,7 @@ public class UserManagerUpdaterTest {
     }
 
     @Test
-    public void testRemoveUserAction(){
+    public void testRemoveUserAction() {
         HashMap<String, Object> action = new HashMap<>();
         action.put("worksheetKey", "some action");
         newUpdater.storeUserAction("main", action);
@@ -47,7 +47,7 @@ public class UserManagerUpdaterTest {
     }
 
     @Test
-    public void testStoreUserScore(){
+    public void testStoreUserScore() {
         HashMap<String, Object> record = new HashMap<>();
         record.put("numQuestions", 40);
         record.put("worksheetKey", "standard-add-easy");
@@ -57,7 +57,7 @@ public class UserManagerUpdaterTest {
     }
 
     @Test
-    public void testStoreUserScores(){
+    public void testStoreUserScores() {
         HashMap<String, Object> record = new HashMap<>();
         record.put("numQuestions", 40);
         record.put("worksheetKey", "standard-add-easy");

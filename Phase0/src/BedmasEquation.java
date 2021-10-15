@@ -7,7 +7,7 @@
  * @version 1.0
  * @since 2021-10-12
  */
-public class BedmasEquation implements Equation{
+public class BedmasEquation implements Equation {
     private final String operator;
     private final int[] operands;
     private int answer;
@@ -20,7 +20,7 @@ public class BedmasEquation implements Equation{
      * @param operator  the operator used to add the two numbers
      */
     public BedmasEquation(int firstNum, int secondNum, String operator) {
-        this.operands = new int[] {firstNum, secondNum};
+        this.operands = new int[]{firstNum, secondNum};
         this.operator = operator;
     }
 
@@ -30,11 +30,11 @@ public class BedmasEquation implements Equation{
      * answer.
      */
     @Override
-    public void solve() throws InvalidInputException{
+    public void solve() throws InvalidInputException {
         String ADDITION = "+";
-        if (operator.equals(ADDITION)){
+        if (operator.equals(ADDITION)) {
             this.answer = operands[0] + operands[1];
-        }else{
+        } else {
             throw new InvalidInputException();
         }
     }
@@ -43,7 +43,7 @@ public class BedmasEquation implements Equation{
      * @return the equation, as an array with the equation and answer.
      */
     @Override
-    public String[] getEquation(){
+    public String[] getEquation() {
         String questionString = operands[0] + " " + operator + " " + operands[1];
         String answerString = String.valueOf(this.answer);
         return new String[]{questionString, answerString};
