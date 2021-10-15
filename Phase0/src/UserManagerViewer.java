@@ -12,7 +12,12 @@ public class UserManagerViewer {
         this.users = users;
     }
 
+    /**
+     * @param username Potential Username of the user
+     * @return true if and only if the user is in the system.
+     */
     public boolean verifyUsername(String username) {
+        // search for the username amongst the registered users in the system
         for (User u : this.getUsers()) {
             if (u.getUsername().equals(username)) {
                 return true;
@@ -31,7 +36,7 @@ public class UserManagerViewer {
                 return u.getDetails();
             }
         }
-        return new HashMap<>();  //Return empty hash map if the username is invalid
+        return new HashMap<>();  // Return empty hash map if the username is invalid
     }
 
     public HashMap<String, Integer> getUserScores(String username) {
@@ -40,7 +45,7 @@ public class UserManagerViewer {
                 return u.getScores();
             }
         }
-        return new HashMap<>();  //Return empty hash map if the username is invalid
+        return new HashMap<>();  // Return empty hash map if the username is invalid
     }
 
     public ArrayList<HashMap<String, Object>> getUserHistory(String username) {
@@ -49,7 +54,6 @@ public class UserManagerViewer {
                 return u.getHistory();
             }
         }
-        // Note: The return type was not specified in the CRC cards so feel free to change it
         return new ArrayList<>(); //Return empty arraylist if the username is invalid
     }
 
