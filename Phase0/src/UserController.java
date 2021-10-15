@@ -4,12 +4,12 @@ import java.util.List;
 
 public class UserController {
     /*
-    * Collaborators:
-    * UserManagerViewer
-    * UserManagerUpdater
-    *
-    */
-    private final UserManagerUpdater  updater;
+     * Collaborators:
+     * UserManagerViewer
+     * UserManagerUpdater
+     *
+     */
+    private final UserManagerUpdater updater;
     private final UserManagerViewer viewer;
     private String currentUsername;
 
