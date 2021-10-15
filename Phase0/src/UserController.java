@@ -56,7 +56,6 @@ public class UserController {
         }
     }
 
-
     public void storeUserScore(String username,String worksheetKey, Integer score){
         this.updater.storeUserScore(username, worksheetKey, score);
     }

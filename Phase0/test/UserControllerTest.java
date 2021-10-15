@@ -43,11 +43,32 @@ public class UserControllerTest {
     }
 
     @Test
-    public void createUser(){
+    public void testCreateUser(){
         newController.createUser("SCH99", "Arnold", 20, "Student");
         HashMap<String, Object> userDetails = newController.getUserDetails("SCH99");
         assert userDetails.get("name").equals("Arnold");
         assert userDetails.get("age").equals(20);
         assert userDetails.get("role").equals("Student");
     }
+
+    @Test
+    public void testStoreUserAction(){
+        HashMap<String, Object> record = new HashMap<>();
+        record.put("numQuestions", 40);
+        record.put("worksheetKey", "standard-add-easy");
+        newController.storeUserAction("main", record);
+        assert newController.getUserHistory("main").get(0).equals(record);
+    }
+
+    @Test
+    public void testRemoveUserAction(){
+        HashMap<String, Object> record = new HashMap<>();
+        record.put("numQuestions", 40);
+        record.put("worksheetKey", "standard-add-easy");
+        newController.storeUserAction("main", record);
+        newController.removeUserAction("main", 0);
+        assert newController.getUserHistory("main").isEmpty();
+    }
+
+
 }
