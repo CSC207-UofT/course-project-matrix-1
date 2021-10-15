@@ -16,14 +16,15 @@ public class UserInterface {
     private final Worksheet sharedWorksheet = new Worksheet();
     private final WorksheetGenerator wGenerator = new WorksheetGenerator(sharedWorksheet);
     private final PDFPresenter pPresenter = new PDFPresenter(sharedWorksheet);
+    private final UserController userController = new UserController();
 
     public UserInterface() {
         Scanner sc = new Scanner(System.in);
 
         // Welcome and prompt user for their username
         System.out.println("Welcome to Matrix!");
-        System.out.println("Enter your username:");
-        this.userName = sc.nextLine();
+        this.userName = GetUsername();
+
         System.out.println("Welcome " + this.userName);
 
         // Ask if the user would like to create a new worksheet
@@ -66,6 +67,20 @@ public class UserInterface {
 
     public void pressDownloadPDF() {
         pPresenter.downloadPDF("path/path/path");
+    }
+
+    public String GetUsername() {
+        String username;
+        System.out.println("Enter your username ('main' is the only username that works):");
+        do {
+            Scanner sc = new Scanner(System.in);
+            username = sc.nextLine();
+
+            if (!userController.verifyUsername(username)) {
+                System.out.println("Invalid username. Enter your username ('main' is the only userName that works):");
+            }
+        } while (!Objects.equals(username, "main"));
+        return username;
     }
 
     public String chooseDifficulty() {
@@ -113,7 +128,7 @@ public class UserInterface {
                 System.out.println("Invalid Input. Type \n 1 to generate and preview the worksheet " +
                         "\n 2 to exit");
             }
-        } while (decision!=1);
+        } while (decision != 1);
 
         System.out.println("Would you like to download the worksheet? Type \n 1 to download " +
                 "\n 2 to cancel");
