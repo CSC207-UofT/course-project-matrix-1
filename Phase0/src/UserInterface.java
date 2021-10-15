@@ -1,8 +1,13 @@
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * User Interface V1
+ * A User interface. Can interact directly with the user, converts input into method calls for higher level code.
+ *
+ * @author Ethan Ing, Piotr Pralat, Sean Jeong, Will Jeong
+ * @version 1.0
+ * @since 2021-10-13
  */
 public class UserInterface {
 
@@ -21,7 +26,7 @@ public class UserInterface {
     public UserInterface() {
         Scanner sc = new Scanner(System.in);
 
-        // Welcome and prompt user for their username
+        // Welcome and prompt user for their username.
         System.out.println("Welcome to Matrix!");
         this.userName = getUsername();
 
@@ -30,20 +35,20 @@ public class UserInterface {
         // Ask if the user would like to create a new worksheet
         System.out.println("Create a new Worksheet");
 
-        // Get the topic the user is interested in
+        // Get the topic the user is interested in.
         System.out.println("Choose a topic (you can only use 'standard add'): ");
         this.equationType = sc.nextLine();
 
-        // Get the difficult level of the topic
+        // Get the difficult level of the topic.
         this.difficulty = chooseDifficulty();
 
-        // Get the number of questions
+        // Get the number of questions.
         System.out.println("Choose the number of questions: ");
         this.numEquations = sc.nextInt();
 
         Scanner sct = new Scanner(System.in);
 
-        // Let user customize the page details
+        // Let user customize the page details.
         System.out.println("Choose the worksheet title: ");
         this.worksheetTitle = sct.nextLine();
         System.out.println("Choose the font size?");
@@ -55,17 +60,33 @@ public class UserInterface {
     }
 
     public void pressGenerateWorksheet() {
+        //Generate the randomized equation for this worksheet.
         wGenerator.generateWorksheet(this.equationType, this.numEquations, this.difficulty);
+        //Make the worksheet viewable by adding formatting parameters.
         pPresenter.createWorksheetPDF(this.worksheetTitle, this.fontSize, this.equationFormat);
+
+        //Display the worksheet in the console (temporary).
         String[] pdfs = pPresenter.getPDFs();
         System.out.println("Questions");
         System.out.println(pdfs[0]);
         System.out.println("Questions + Answers");
         System.out.println(pdfs[1]);
+
+        //Store the user's actions into User.
+        HashMap<String, Object> userAction = new HashMap<>();
+        userAction.put("Equation type", this.equationType);
+        userAction.put("Number of equations", this.numEquations);
+        userAction.put("Difficulty", this.difficulty);
+        userController.storeUserAction(userController.getCurrentUsername(), userAction);
+
     }
 
     public void pressDownloadPDF() {
         pPresenter.downloadPDF("path/path/path");
+    }
+
+    public void pressUserHistory() {
+        System.out.println(userController.getUserHistory(userController.getCurrentUsername()));
     }
 
     public String getUsername() {
@@ -115,6 +136,8 @@ public class UserInterface {
     public void finalPage() {
         int decision;
         Scanner sc = new Scanner(System.in);
+
+        //Prompt user to generate and preview the worksheet.
         do {
             System.out.println("The worksheet is customized. Type \n 1 to generate and preview the worksheet " +
                     "\n 2 to exit");
@@ -129,17 +152,22 @@ public class UserInterface {
             }
         } while (decision != 1);
 
-        System.out.println("Would you like to download the worksheet? Type \n 1 to download " +
-                "\n 2 to cancel");
-        decision = sc.nextInt();
-        if (decision == 1) {
-            pressDownloadPDF();
-        } else if (decision == 2) {
-            System.exit(0);
-        } else {
-            System.out.println("Invalid Input.Type \n 1 to download " +
-                    "\n 2 to cancel");
-        }
+        do {
+            //Prompt user to download the worksheet or see their history.
+            System.out.println("Would you like to download the worksheet or see your history? Type \n 1 to download " +
+                    "\n 2 to view history" + "\n 3 to exit the program");
+            decision = sc.nextInt();
+            if (decision == 1) {
+                pressDownloadPDF();
+            } else if (decision == 2) {
+                pressUserHistory();
+            } else if (decision == 3) {
+                System.exit(0);
+            } else {
+                System.out.println("Invalid Input.Type \n 1 to download " +
+                        "\n 2 to view history" + "\n 3 to exit the program");
+            }
+        } while (true);
 
     }
 
