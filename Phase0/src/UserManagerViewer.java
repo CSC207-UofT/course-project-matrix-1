@@ -58,7 +58,7 @@ public class UserManagerViewer {
 
     /**
      * @param username: Username of the user
-     * @return Arraylists of hash maps representing past actions of the user
+     * @return Arraylists of hash maps representing past actions of the user.
      */
     public ArrayList<HashMap<String, Object>> getUserHistory(String username) {
         for (User u : this.users) {
