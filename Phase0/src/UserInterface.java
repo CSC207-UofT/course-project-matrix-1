@@ -62,7 +62,6 @@ public class UserInterface {
         System.out.println(pdfs[0]);
         System.out.println("Questions + Answers");
         System.out.println(pdfs[1]);
-
     }
 
     public void pressDownloadPDF() {
