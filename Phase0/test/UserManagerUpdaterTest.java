@@ -1,7 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserManagerUpdaterTest {
@@ -43,7 +42,7 @@ public class UserManagerUpdaterTest {
         HashMap<String, Object> action = new HashMap<>();
         action.put("worksheetKey", "some action");
         newUpdater.storeUserAction("main", action);
-        newUpdater.removeUserAction("main", 0, "some action");
+        newUpdater.removeUserAction("main", 0);
         assert newUpdater.getUsers().get(0).getHistory().size() == 0;
     }
 

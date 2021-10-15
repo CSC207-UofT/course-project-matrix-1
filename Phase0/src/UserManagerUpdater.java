@@ -21,7 +21,6 @@ public class UserManagerUpdater {
      * @param role      // role of User (Student/Parent/Teacher)
      */
     public void createUser(String username, String name, Integer age, String role) throws Exception {
-
         for (User user : users) {
             if (user.getUsername().equals(username)) {
                 // TODO: Create new Exception class: UsernameTakenError
@@ -46,7 +45,7 @@ public class UserManagerUpdater {
      * @param username: UserName
      * @param index: Index of the worksheet
      */
-    public void removeUserAction(String username, Integer index, String worksheetKey){
+    public void removeUserAction(String username, Integer index){
         for(User u: this.users){
             if(u.getUsername().equals(username)){
                 u.removeFromHistory(index);}

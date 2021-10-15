@@ -9,8 +9,8 @@ public class UserController {
     * UserManagerUpdater
     *
     */
-    public final UserManagerUpdater  updater;
-    public final UserManagerViewer viewer;
+    private final UserManagerUpdater  updater;
+    private final UserManagerViewer viewer;
     private String currentUsername;
 
     public UserController(){
@@ -49,7 +49,11 @@ public class UserController {
      * @param role      // role of User (Student/Parent/Teacher)
      */
     public void createUser(String username, String name, Integer age, String role){
-        this.updater.createUser(username, name, age, role);
+        try {
+            updater.createUser(username, name, age, role);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -61,8 +65,8 @@ public class UserController {
         this.updater.storeUserAction(username, userAction);
     }
 
-    public void removeUserAction(String username, String worksheetKey, Integer index){
-        this.updater.removeUserAction(username, index, worksheetKey);
+    public void removeUserAction(String username, Integer index){
+        this.updater.removeUserAction(username, index);
     }
 
 }
