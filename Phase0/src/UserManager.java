@@ -2,10 +2,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *
+ * Collaborators:
+ * UserManagerViewer
+ * UserManagerUpdater
+ */
 public class UserManager {
     // TODO: Treat this as a factory method --> Factory Design Pattern
     // TODO: Refactor the name of UserManager to UserManagerFactory in the future
-    // This one needs to get the real users list from the txt file
+    // This one needs to get the real users list from the txt file ()
     // A function named getUsers, to get the
 
     // Create an Arraylist of User objects
@@ -15,7 +21,7 @@ public class UserManager {
     public static List<User> findUsers() {
         // In the future findUsers will read from the text file and get the users
         // Input Source Interface will read the text file and allow us achieve dependency inversion
-        // TODO: create random users for findUsers.
+        // TODO: implement Input Source Interface
         User user1 = new User("main", "MainUser", 21, "Student");  // default user for testing
         return new ArrayList<>(List.of(user1));
     }
