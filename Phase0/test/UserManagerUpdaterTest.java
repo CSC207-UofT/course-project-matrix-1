@@ -17,7 +17,7 @@ public class UserManagerUpdaterTest {
     }
 
     @Test
-    public void testCreateUser(){
+    public void testCreateUser() throws Exception {
         newUpdater.createUser("SCH99", "Arnold", 20, "Student");
         HashMap<String, Object> userDetails = newUpdater.getUsers().get(0).getDetails();
         assert userDetails.get("name").equals("MainUser");

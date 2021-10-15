@@ -13,7 +13,21 @@ public class UserManagerUpdater {
         return users;
     }
 
-    public void createUser(String username, String name, Integer age, String role){
+    /**
+     * Registers a new User. Throws Exception if another User exists with the same username.
+     * @param username  // potential username
+     * @param name      // name of User
+     * @param age       // age of User
+     * @param role      // role of User (Student/Parent/Teacher)
+     */
+    public void createUser(String username, String name, Integer age, String role) throws Exception {
+
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                // TODO: Create new Exception class: UsernameTakenError
+                throw new Exception("Username is already taken!");
+            }
+        }
         User newUser = new User(username, name, age, role);
         this.getUsers().add(newUser);  // adds the new user to the users list
     }

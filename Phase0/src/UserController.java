@@ -9,36 +9,14 @@ public class UserController {
     * UserManagerUpdater
     *
     */
-    public final UserManagerUpdater  updater;
-    public final UserManagerViewer viewer;
+    private final UserManagerUpdater updater;
+    private final UserManagerViewer viewer;
     private String currentUsername;
 
     public UserController(){
         List<Object> managers = UserManager.createViewerAndUpdater();
         viewer = ((UserManagerViewer) managers.get(0));
         updater = ((UserManagerUpdater) managers.get(1));
-    }
-    public String getCurrentUsername() {
-        return currentUsername;
-    }
-
-    public void setCurrentUsername(String username){
-        this.currentUsername = username;
-    }
-    public Boolean verifyUsername(String username){
-        return this.viewer.verifyUsername(username);
-    }
-
-    public HashMap<String, Object> getUserDetails(String username){
-        return this.viewer.getUserDetails(username);  // returns an empty hashmap if the username is invalid
-    }
-
-    public HashMap<String, Integer> getUserScores(String username){
-        return this.viewer.getUserScores(username);
-    }
-
-    public ArrayList<HashMap<String, Object>> getUserHistory(String username){
-        return this.viewer.getUserHistory(username);
     }
 
     /**
@@ -48,21 +26,67 @@ public class UserController {
      * @param age       // age of User
      * @param role      // role of User (Student/Parent/Teacher)
      */
-    public void createUser(String username, String name, Integer age, String role){
-        this.updater.createUser(username, name, age, role);
+    public void createUser(String username, String name, Integer age, String role) throws Exception {
+        // Attempt to create new User
+        updater.createUser(username, name, age, role);
+        // Stores username for future method calls. "Logs in" to User.
+        currentUsername = username;
     }
 
 
-    public void storeUserScore(String username,String worksheetKey, Integer score){
-        this.updater.storeUserScore(username, worksheetKey, score);
+    /**
+     * If username is valid, user "logs into" User account by storing the username.
+     * @param username  // username input by user
+     * @return true if username valid
+     */
+    public Boolean verifyUsername(String username){
+        Boolean verified = this.viewer.verifyUsername(username);
+        if (verified) {
+            // Stores username for future method calls. "Logs in" to User.
+            currentUsername = username;
+        }
+        return verified;
     }
 
-    public void storeUserAction(String username, HashMap<String, Object> userAction){
-        this.updater.storeUserAction(username, userAction);
+    public HashMap<String, Object> getUserDetails() throws Exception {
+        checkLoggedIn();
+        return this.viewer.getUserDetails(this.currentUsername);
     }
 
-    public void removeUserAction(String username, String worksheetKey, Integer index){
-        this.updater.removeUserAction(username, index, worksheetKey);
+    public HashMap<String, Integer> getUserScores() throws Exception {
+        checkLoggedIn();
+        return this.viewer.getUserScores(this.currentUsername);
     }
 
+    public ArrayList<HashMap<String, Object>> getUserHistory() throws Exception {
+        checkLoggedIn();
+        return this.viewer.getUserHistory(currentUsername);
+    }
+
+    public void storeUserScore(String worksheetKey, Integer score) throws Exception {
+        checkLoggedIn();
+        this.updater.storeUserScore(currentUsername, worksheetKey, score);
+    }
+
+    public void storeUserAction(HashMap<String, Object> userAction) throws Exception {
+        checkLoggedIn();
+        this.updater.storeUserAction(currentUsername, userAction);
+    }
+
+    public void removeUserAction(String worksheetKey, Integer index) throws Exception {
+        checkLoggedIn();
+        this.updater.removeUserAction(currentUsername, index, worksheetKey);
+    }
+
+
+    /**
+     * Checks if a User has been successfully logged in.
+     * NOTE: Registering a new account logs the user into the new account.
+     * @throws Exception if no current used logged in. (i.e. no valid user verified or created).
+     */
+    private void checkLoggedIn() throws Exception {
+        // Throw exceptions if no user logged in and method is called.
+        // TODO: Create new exception class NoUserLoggedInError
+        if (currentUsername == null) throw new Exception("No user logged in!");
+    }
 }
