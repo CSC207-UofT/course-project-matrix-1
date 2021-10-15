@@ -91,7 +91,7 @@ public class UserInterface {
 
     public String getUsername() {
         String username;
-        System.out.println("Enter your username ('main' is the only username that works):");
+        System.out.println("Enter your username ('main' is the only username that is registered - choose something else if you want):");
         do {
             Scanner sc = new Scanner(System.in);
             username = sc.nextLine();
