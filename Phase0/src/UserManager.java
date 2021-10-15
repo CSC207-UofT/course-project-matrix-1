@@ -4,6 +4,7 @@ import java.util.List;
 
 public class UserManager {
     // TODO: Treat this as a factory method --> Factory Design Pattern
+    // TODO: Refactor the name of UserManager to UserManagerFactory in the future
     // This one needs to get the real users list from the txt file
     // A function named getUsers, to get the
 

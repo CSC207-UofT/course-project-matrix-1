@@ -25,6 +25,12 @@ public class UserController {
     public void setCurrentUsername(String username){
         this.currentUsername = username;
     }
+
+    /**
+     * Verifies whether the user is in the system or not.
+     * @param username: Potential username for the user
+     * @return true if and only if the username is registered in the system.
+     */
     public Boolean verifyUsername(String username){
         return this.viewer.verifyUsername(username);
     }
@@ -33,12 +39,22 @@ public class UserController {
         return this.viewer.getUserDetails(username);  // returns an empty hashmap if the username is invalid
     }
 
+    /**
+     * Returns the names and the scores of the past worksheets.
+     * @param username: Username of the user
+     * @return a hash map of scores for the specified user with keys: WorkSheet name, value: Score
+     */
     public HashMap<String, Integer> getUserScores(String username){
-        return this.viewer.getUserScores(username);
+        return this.viewer.getUserScores(username);  // returns an empty hash map if the user is not in the system
     }
 
+    /**
+     * Returns the past actions of the user.
+     * @param username: Username of the user
+     * @return An arraylist of hash maps.
+     */
     public ArrayList<HashMap<String, Object>> getUserHistory(String username){
-        return this.viewer.getUserHistory(username);
+        return this.viewer.getUserHistory(username);  // returns an arraylist if the user is not in the system
     }
 
     /**
@@ -56,10 +72,22 @@ public class UserController {
         }
     }
 
+    /**
+     * Stores the user's score for the respective worksheet.
+     * @param username: Username of the user
+     * @param worksheetKey: Name of the worksheet
+     * @param score: Score of the user for that worksheet
+     */
     public void storeUserScore(String username,String worksheetKey, Integer score){
         this.updater.storeUserScore(username, worksheetKey, score);
     }
 
+
+    /**
+     * Stores the action of the user (such as creating a worksheet) in the user's history.
+     * @param username: Username of the user
+     * @param userAction: Action of the user (such as creating a worksheet)
+     */
     public void storeUserAction(String username, HashMap<String, Object> userAction){
         this.updater.storeUserAction(username, userAction);
     }
