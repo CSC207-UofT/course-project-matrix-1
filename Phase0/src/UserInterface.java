@@ -100,26 +100,33 @@ public class UserInterface {
 
     public void finalPage() {
         int decision;
+        Scanner sc = new Scanner(System.in);
         do {
-            System.out.println("The worksheet is customized. Type \n 1 to generate+preview worksheet " +
-                    "\n 2 to download the worksheet \n 3 to exit");
-            Scanner sc = new Scanner(System.in);
+            System.out.println("The worksheet is customized. Type \n 1 to generate and preview the worksheet " +
+                    "\n 2 to exit");
             decision = sc.nextInt();
-
             if (decision == 1) {
                 pressGenerateWorksheet();
             } else if (decision == 2) {
-                pressDownloadPDF();
-            } else if (decision == 3) {
                 System.exit(0);
             } else {
-                System.out.println("Invalid Input. Type \n 1 to generate+preview worksheet " +
-                        "\n 2 to download the worksheet \n 3 to exit");
+                System.out.println("Invalid Input. Type \n 1 to generate and preview the worksheet " +
+                        "\n 2 to exit");
             }
+        } while (decision!=1);
 
+        System.out.println("Would you like to download the worksheet? Type \n 1 to download " +
+                "\n 2 to cancel");
+        decision = sc.nextInt();
+        if (decision == 1) {
+            pressDownloadPDF();
+        } else if (decision == 2) {
+            System.exit(0);
+        } else {
+            System.out.println("Invalid Input.Type \n 1 to download " +
+                    "\n 2 to cancel");
+        }
 
-
-        } while (true);
     }
 
     public static void main(String[] args) {
