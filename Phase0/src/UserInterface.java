@@ -23,7 +23,7 @@ public class UserInterface {
 
         // Welcome and prompt user for their username
         System.out.println("Welcome to Matrix!");
-        this.userName = GetUsername();
+        this.userName = getUsername();
 
         System.out.println("Welcome " + this.userName);
 
@@ -69,7 +69,7 @@ public class UserInterface {
         pPresenter.downloadPDF("path/path/path");
     }
 
-    public String GetUsername() {
+    public String getUsername() {
         String username;
         System.out.println("Enter your username ('main' is the only username that works):");
         do {
