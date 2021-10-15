@@ -14,7 +14,6 @@ public class UserInterface {
     private final String equationType;
     private final int numEquations;
     private final String difficulty;
-    public String userName;
     private final int fontSize;
     private final String worksheetTitle;
     private final String equationFormat;
