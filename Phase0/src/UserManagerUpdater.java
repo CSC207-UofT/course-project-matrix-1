@@ -84,4 +84,8 @@ public class UserManagerUpdater {
         }
     }
 
+    // TODO: Save serialized Users to files
+    public static void saveUsers(){
+
+    }
 }

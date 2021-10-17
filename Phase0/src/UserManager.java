@@ -21,8 +21,8 @@ public class UserManager {
 
     // Create an Arraylist of User objects
     // Pass the same Arraylist to both viewer and manager
-    // TODO: create random users for findUsers
 
+    // TODO: Retrieve serialized Users from directory
     public static List<User> findUsers() {
         // In the future findUsers will read from the text file and get the users
         // Input Source Interface will read the text file and allow us achieve dependency inversion

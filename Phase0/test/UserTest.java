@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.junit.*;
 
@@ -68,7 +69,7 @@ public class UserTest {
     }
 
     /**
-     * Tests testAddToHistory if history is updated.
+     * Tests testAddToHistory. Checks if history is updated after calling method.
      */
     @Test
     public void testAddToHistory() {
@@ -85,15 +86,41 @@ public class UserTest {
     }
 
 
-    // TODO: Create test for findWorksheetInHistory
+    /**
+     * Tests findWorksheetInHistory. Checks if an item added to history can be found via its worksheetKey.
+     */
     @Test
     public void testFindWorksheetInHistory() {
+        // Create mock worksheetDetails map
+        HashMap<String, Object> worksheetDetails = new HashMap<>();
+        worksheetDetails.put("worksheetKey", "standard-add-easy");
+        worksheetDetails.put("numQuestions", 40);
+        // Add details to history
+        newUser.addToHistory(worksheetDetails);
 
+        // Check if worksheet is in history
+        Optional<Map<String, Object>> detailsOptional = newUser.findWorksheetInHistory("standard-add-easy");
+        assertTrue(detailsOptional.isPresent());
     }
 
-    // TODO: Create test for findWorksheetInHistory
+    /**
+     * Tests removeFromHistory. Verifies if history is empty after removing only item in history.
+     */
     @Test
-    public void removeFromHistory() {
+    public void testRemoveFromHistory() {
+        // Create dummy User
+        User newUser2 = new User("catfish22", "Angel", 44, "Teacher");
+        // Create mock worksheetDetails map
+        HashMap<String, Object> worksheetDetails = new HashMap<>();
+        worksheetDetails.put("worksheetKey", "standard-add-easy");
+        worksheetDetails.put("numQuestions", 40);
+        // Add details to history
+        newUser2.addToHistory(worksheetDetails);
 
+        // Remove item from history
+        newUser2.removeFromHistory(0);
+
+        // Verify history is empty
+        assertTrue(newUser2.getHistory().isEmpty());
     }
 }
