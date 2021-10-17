@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Accesses or updates user information based on inputs from UserInterface.
@@ -39,7 +38,7 @@ public class UserController {
         return this.viewer.verifyUsername(username);
     }
 
-    public HashMap<String, Object> getUserDetails(String username) {
+    public Map<String, Object> getUserDetails(String username) {
         return this.viewer.getUserDetails(username);  // returns an empty hashmap if the username is invalid
     }
 
@@ -49,7 +48,7 @@ public class UserController {
      * @param username: Username of the user
      * @return a hash map of scores for the specified user with keys: WorkSheet name, value: Score
      */
-    public HashMap<String, Integer> getUserScores(String username) {
+    public Map<String, Integer> getUserScores(String username) {
         return this.viewer.getUserScores(username);  // returns an empty hash map if the user is not in the system
     }
 
@@ -59,7 +58,7 @@ public class UserController {
      * @param username: Username of the user
      * @return An arraylist of hash maps.
      */
-    public ArrayList<HashMap<String, Object>> getUserHistory(String username) {
+    public List<Map<String, Object>> getUserHistory(String username) {
         return this.viewer.getUserHistory(username);  // returns an arraylist if the user is not in the system
     }
 
@@ -97,7 +96,7 @@ public class UserController {
      * @param username:   Username of the user
      * @param userAction: Action of the user (such as creating a worksheet)
      */
-    public void storeUserAction(String username, HashMap<String, Object> userAction) {
+    public void storeUserAction(String username, Map<String, Object> userAction) {
         this.updater.storeUserAction(username, userAction);
     }
 

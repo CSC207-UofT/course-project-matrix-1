@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class UserManagerUpdaterTest {
     /**
@@ -18,12 +19,12 @@ public class UserManagerUpdaterTest {
     @Test
     public void testCreateUser() throws Exception {
         newUpdater.createUser("SCH99", "Arnold", 20, "Student");
-        HashMap<String, Object> userDetails = newUpdater.getUsers().get(0).getDetails();
+        Map<String, Object> userDetails = newUpdater.getUsers().get(0).getDetails();
         assert userDetails.get("name").equals("MainUser");
         assert userDetails.get("age").equals(21);
         assert userDetails.get("role").equals("Student");
 
-        HashMap<String, Object> userDetails2 = newUpdater.getUsers().get(1).getDetails();
+        Map<String, Object> userDetails2 = newUpdater.getUsers().get(1).getDetails();
         assert userDetails2.get("name").equals("Arnold");
         assert userDetails2.get("age").equals(20);
         assert userDetails2.get("role").equals("Student");

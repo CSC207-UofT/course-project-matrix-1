@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class UserControllerTest {
     /**
@@ -24,12 +25,12 @@ public class UserControllerTest {
 
     @Test
     public void testGetUserDetails() {
-        HashMap<String, Object> userDetails = newController.getUserDetails("main");
+        Map<String, Object> userDetails = newController.getUserDetails("main");
         assert userDetails.get("name").equals("MainUser");
         assert userDetails.get("age").equals(21);
         assert userDetails.get("role").equals("Student");
 
-        HashMap<String, Object> userDetails2 = newController.getUserDetails("non existent user");
+        Map<String, Object> userDetails2 = newController.getUserDetails("non existent user");
         assert userDetails2.isEmpty();
     }
 
@@ -46,7 +47,7 @@ public class UserControllerTest {
     @Test
     public void testCreateUser() {
         newController.createUser("SCH99", "Arnold", 20, "Student");
-        HashMap<String, Object> userDetails = newController.getUserDetails("SCH99");
+        Map<String, Object> userDetails = newController.getUserDetails("SCH99");
         assert userDetails.get("name").equals("Arnold");
         assert userDetails.get("age").equals(20);
         assert userDetails.get("role").equals("Student");
@@ -54,7 +55,7 @@ public class UserControllerTest {
 
     @Test
     public void testStoreUserAction() {
-        HashMap<String, Object> record = new HashMap<>();
+        Map<String, Object> record = new HashMap<>();
         record.put("numQuestions", 40);
         record.put("worksheetKey", "standard-add-easy");
         newController.storeUserAction("main", record);

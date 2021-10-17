@@ -1,5 +1,5 @@
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Updates user information based on inputs from UserInterface.
@@ -46,7 +46,7 @@ public class UserManagerUpdater {
      * @param username:         Username
      * @param worksheetDetails: WorksheetDetails
      */
-    public void storeUserAction(String username, HashMap<String, Object> worksheetDetails) {
+    public void storeUserAction(String username, Map<String, Object> worksheetDetails) {
         for (User u : this.users) {
             if (u.getUsername().equals(username)) {
                 u.addToHistory(worksheetDetails);

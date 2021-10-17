@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserManagerViewer {
     // UserManager Class creates an arraylist of user objects. It passes that list to both viewer and Manager
@@ -34,7 +35,7 @@ public class UserManagerViewer {
      * @param username: Username of the user
      * @return HashMap representing the details of the
      */
-    public HashMap<String, Object> getUserDetails(String username) {
+    public Map<String, Object> getUserDetails(String username) {
         for (User u : this.users) {
             if (u.getUsername().equals(username)) {
                 return u.getDetails();
@@ -47,7 +48,7 @@ public class UserManagerViewer {
      * @param username Username of the user
      * @return Hash map representing User scores
      */
-    public HashMap<String, Integer> getUserScores(String username) {
+    public Map<String, Integer> getUserScores(String username) {
         for (User u : this.users) {
             if (u.getUsername().equals(username)) {
                 return u.getScores();
@@ -60,7 +61,7 @@ public class UserManagerViewer {
      * @param username: Username of the user
      * @return Arraylists of hash maps representing past actions of the user.
      */
-    public ArrayList<HashMap<String, Object>> getUserHistory(String username) {
+    public List<Map<String, Object>> getUserHistory(String username) {
         for (User u : this.users) {
             if (u.getUsername().equals(username)) {
                 return u.getHistory();

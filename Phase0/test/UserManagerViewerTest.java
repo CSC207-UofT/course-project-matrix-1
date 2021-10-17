@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class UserManagerViewerTest {
     UserManagerViewer newViewer;
@@ -20,11 +21,11 @@ public class UserManagerViewerTest {
 
     @Test
     public void testGetUserDetails() {
-        HashMap<String, Object> userDetails = newViewer.getUserDetails("main");
+        Map<String, Object> userDetails = newViewer.getUserDetails("main");
         assert userDetails.get("name").equals("MainUser");
         assert userDetails.get("age").equals(21);
         assert userDetails.get("role").equals("Student");
-        HashMap<String, Object> userDetails2 = newViewer.getUserDetails("NonExistent"); // not a user
+        Map<String, Object> userDetails2 = newViewer.getUserDetails("NonExistent"); // not a user
         assert userDetails2.isEmpty();
     }
 
