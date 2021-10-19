@@ -1,13 +1,15 @@
+package userPackage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class UserManagerViewer {
-    // UserManager Class creates an arraylist of user objects. It passes that list to both viewer and Manager
+    // userPackage.UserManager Class creates an arraylist of user objects. It passes that list to both viewer and Manager
 
 
-    private final List<User> users;  // This variable is aliased with UserManagerUpdater.users variable
+    private final List<User> users;  // This variable is aliased with userPackage.UserManagerUpdater.users variable
 
     public UserManagerViewer(List<User> users) {
         this.users = users;
@@ -46,7 +48,7 @@ public class UserManagerViewer {
 
     /**
      * @param username Username of the user
-     * @return Hash map representing User scores
+     * @return Hash map representing userPackage.User scores
      */
     public Map<String, Integer> getUserScores(String username) {
         for (User u : this.users) {

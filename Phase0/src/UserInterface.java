@@ -1,9 +1,11 @@
+import userPackage.UserController;
+
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * A User interface. Can interact directly with the user, converts input into method calls for higher level code.
+ * A userPackage.User interface. Can interact directly with the user, converts input into method calls for higher level code.
  *
  * @author Ethan Ing, Piotr Pralat, Sean Jeong, Will Jeong
  * @version 1.0
@@ -90,7 +92,7 @@ public class UserInterface {
         System.out.println("Questions + Answers");
         System.out.println(pdfs[1]);
 
-        //Store the user's actions into User.
+        //Store the user's actions into userPackage.User.
         HashMap<String, Object> userAction = new HashMap<>();
         userAction.put("Equation type", this.equationType);
         userAction.put("Number of equations", this.numEquations);

@@ -1,3 +1,5 @@
+package userPackage;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -10,11 +12,11 @@ public class User implements Serializable {
     private final List<Map<String, Object>> history;            // list of Worksheet details stored in a HashMap
 
     /**
-     * Instantiate User object.
+     * Instantiate userPackage.User object.
      *
      * @param username // username used to access account
-     * @param name     // name of User
-     * @param age      // age of User
+     * @param name     // name of userPackage.User
+     * @param age      // age of userPackage.User
      * @param role     // position of user (student/teacher/parent)
      */
     public User(String username, String name, int age, String role) {
@@ -30,14 +32,14 @@ public class User implements Serializable {
     // GETTER METHODS
 
     /**
-     * @return <String> username of User
+     * @return <String> username of userPackage.User
      */
     public String getUsername() {
         return username;
     }
 
     /**
-     * @return <HashMap> containing User information (name, age, role)
+     * @return <HashMap> containing userPackage.User information (name, age, role)
      */
     public Map<String, Object> getDetails() {
         Map<String, Object> userDetails = new HashMap<>();

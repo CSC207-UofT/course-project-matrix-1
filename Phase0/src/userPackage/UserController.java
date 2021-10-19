@@ -1,9 +1,11 @@
+package userPackage;
+
 import java.util.List;
 import java.util.Map;
 
 /**
  * Accesses or updates user information based on inputs from UserInterface.
- * Collaborators: UserManagerViewer, UserManagerUpdater, UserManager.
+ * Collaborators: userPackage.UserManagerViewer, userPackage.UserManagerUpdater, userPackage.UserManager.
  *
  * @author Kerim
  * @version 1.0
@@ -63,12 +65,12 @@ public class UserController {
     }
 
     /**
-     * Registers a new User. Throws Exception if another User exists with the same username.
+     * Registers a new userPackage.User. Throws Exception if another userPackage.User exists with the same username.
      *
      * @param username // potential username
-     * @param name     // name of User
-     * @param age      // age of User
-     * @param role     // role of User (Student/Parent/Teacher)
+     * @param name     // name of userPackage.User
+     * @param age      // age of userPackage.User
+     * @param role     // role of userPackage.User (Student/Parent/Teacher)
      */
     public void createUser(String username, String name, Integer age, String role) {
         try {

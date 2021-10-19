@@ -1,10 +1,15 @@
+package userPackageTester;
+
 import org.junit.Test;
+import userPackage.UserManager;
+import userPackage.UserManagerUpdater;
+import userPackage.UserManagerViewer;
 
 import java.util.List;
 
 public class UserManagerTest {
     /**
-     * Create instance of User class to test methods.
+     * Create instance of userPackage.User class to test methods.
      */
 
 

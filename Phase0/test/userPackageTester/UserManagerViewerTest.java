@@ -1,5 +1,9 @@
+package userPackageTester;
+
 import org.junit.Before;
 import org.junit.Test;
+import userPackage.UserManager;
+import userPackage.UserManagerViewer;
 
 import java.util.ArrayList;
 import java.util.HashMap;

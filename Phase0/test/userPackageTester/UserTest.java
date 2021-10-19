@@ -1,15 +1,18 @@
+package userPackageTester;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.junit.*;
+import userPackage.User;
 
 import static org.junit.Assert.*;
 
 public class UserTest {
     /**
-     * Create instance of User class to test methods.
+     * Create instance of userPackage.User class to test methods.
      */
     User newUser;
 
@@ -32,7 +35,7 @@ public class UserTest {
     }
 
     /**
-     * Tests getScores on newly initialized User instance.
+     * Tests getScores on newly initialized userPackage.User instance.
      */
     @Test
     public void testGetScoresEmpty() {
@@ -42,7 +45,7 @@ public class UserTest {
     }
 
     /**
-     * Tests getHistory on newly initialized User instance.
+     * Tests getHistory on newly initialized userPackage.User instance.
      */
     @Test
     public void testGetHistoryEmpty() {
@@ -108,7 +111,7 @@ public class UserTest {
      */
     @Test
     public void testRemoveFromHistory() {
-        // Create dummy User
+        // Create dummy userPackage.User
         User newUser2 = new User("catfish22", "Angel", 44, "Teacher");
         // Create mock worksheetDetails map
         HashMap<String, Object> worksheetDetails = new HashMap<>();

@@ -1,12 +1,16 @@
+package userPackageTester;
+
 import org.junit.Before;
 import org.junit.Test;
+import userPackage.UserManager;
+import userPackage.UserManagerUpdater;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserManagerUpdaterTest {
     /**
-     * Create instance of User class to test methods.
+     * Create instance of userPackage.User class to test methods.
      */
     UserManagerUpdater newUpdater;
 

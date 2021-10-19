@@ -1,12 +1,15 @@
+package userPackageTester;
+
 import org.junit.Before;
 import org.junit.Test;
+import userPackage.UserController;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserControllerTest {
     /**
-     * Create instance of User class to test methods.
+     * Create instance of userPackage.User class to test methods.
      */
     UserController newController;
 

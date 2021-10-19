@@ -1,25 +1,27 @@
+package userPackage;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Utilizes the factory design pattern and creates instances of both UserManagerViewer and UserManagerUpdater in its-
+ * Utilizes the factory design pattern and creates instances of both userPackage.UserManagerViewer and userPackage.UserManagerUpdater in its-
  * factory method createViewerAndUpdater.
- * The method createViewerAndUpdater passes the same list of users for the instances of UserManagerViewer
- * and UserManagerUpdater. Thus, the updates to the users that we make in the UserManagerUpdater can also be seen in the
- * UserManagerViewer.
- * Collaborators: UserManagerViewer, UserManagerUpdater
+ * The method createViewerAndUpdater passes the same list of users for the instances of userPackage.UserManagerViewer
+ * and userPackage.UserManagerUpdater. Thus, the updates to the users that we make in the userPackage.UserManagerUpdater can also be seen in the
+ * userPackage.UserManagerViewer.
+ * Collaborators: userPackage.UserManagerViewer, userPackage.UserManagerUpdater
  *
  * @author Kerim
  * @version 1.0
  */
 public class UserManager {
     // TODO: Treat this as a factory method --> Factory Design Pattern
-    // TODO: Refactor the name of UserManager to UserManagerFactory in the future
+    // TODO: Refactor the name of userPackage.UserManager to UserManagerFactory in the future
     // This one needs to get the real users list from the txt file ()
     // A function named getUsers, to get the
 
-    // Create an Arraylist of User objects
+    // Create an Arraylist of userPackage.User objects
     // Pass the same Arraylist to both viewer and manager
 
     // TODO: Retrieve serialized Users from directory
