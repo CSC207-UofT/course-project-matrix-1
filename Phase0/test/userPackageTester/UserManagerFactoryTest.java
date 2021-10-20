@@ -1,13 +1,13 @@
 package userPackageTester;
 
 import org.junit.Test;
-import userPackage.UserManager;
+import userPackage.UserManagerFactory;
 import userPackage.UserManagerUpdater;
 import userPackage.UserManagerViewer;
 
 import java.util.List;
 
-public class UserManagerTest {
+public class UserManagerFactoryTest {
     /**
      * Create instance of userPackage.User class to test methods.
      */
@@ -15,7 +15,7 @@ public class UserManagerTest {
 
     @Test
     public void testCreateViewerAndUpdater(){
-        List<Object> managers = UserManager.createViewerAndUpdater();
+        List<Object> managers = UserManagerFactory.createViewerAndUpdater();
         UserManagerViewer viewer = (UserManagerViewer) managers.get(0);
         UserManagerUpdater updater = (UserManagerUpdater) managers.get(1);
         assert viewer.verifyUsername("main");

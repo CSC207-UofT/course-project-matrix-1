@@ -17,7 +17,7 @@ public class UserController {
     private String currentUsername;
 
     public UserController() {
-        List<Object> managers = UserManager.createViewerAndUpdater();
+        List<Object> managers = UserManagerFactory.createViewerAndUpdater();
         viewer = ((UserManagerViewer) managers.get(0));
         updater = ((UserManagerUpdater) managers.get(1));
     }

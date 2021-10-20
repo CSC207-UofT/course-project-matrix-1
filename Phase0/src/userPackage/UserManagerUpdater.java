@@ -2,6 +2,7 @@ package userPackage;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -88,15 +89,19 @@ public class UserManagerUpdater {
         }
     }
 
-    // TODO: Save serialized Users to files
-    public static void saveUsers(){
+    /**
+     * Serializes and saves list of all current User objects at /src/userPackage/usersData/.
+     */
+    public void saveUsers(){
         try {
-            FileOutputStream usersOut = new FileOutputStream("");
-        } catch (IOException i){
+            // TODO: Remove Phase0
+            FileOutputStream usersOut = new FileOutputStream("Phase0/src/userPackage/usersData/users.ser");
+            ObjectOutputStream out = new ObjectOutputStream(usersOut);
+            out.writeObject(this.users);
+            out.close();
+            usersOut.close();
+        } catch (IOException i){    // if IO exception occurs, print exception details
             i.printStackTrace();
         }
-
-
-
     }
 }

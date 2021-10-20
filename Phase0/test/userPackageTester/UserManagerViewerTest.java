@@ -2,7 +2,7 @@ package userPackageTester;
 
 import org.junit.Before;
 import org.junit.Test;
-import userPackage.UserManager;
+import userPackage.UserManagerFactory;
 import userPackage.UserManagerViewer;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class UserManagerViewerTest {
 
     @Before
     public void setUp() {
-        newViewer = (UserManagerViewer) UserManager.createViewerAndUpdater().get(0);
+        newViewer = (UserManagerViewer) UserManagerFactory.createViewerAndUpdater().get(0);
     }
 
     @Test

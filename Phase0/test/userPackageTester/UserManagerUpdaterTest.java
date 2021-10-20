@@ -2,7 +2,7 @@ package userPackageTester;
 
 import org.junit.Before;
 import org.junit.Test;
-import userPackage.UserManager;
+import userPackage.UserManagerFactory;
 import userPackage.UserManagerUpdater;
 
 import java.util.HashMap;
@@ -17,7 +17,7 @@ public class UserManagerUpdaterTest {
     @Before
     public void setUp() {
 
-        newUpdater = (UserManagerUpdater) UserManager.createViewerAndUpdater().get(1);
+        newUpdater = (UserManagerUpdater) UserManagerFactory.createViewerAndUpdater().get(1);
     }
 
     @Test
