@@ -4,30 +4,27 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AddBedmasEquationBuilder extends BedmasEquationBuilder {
+    @Override
     public void buildOperator() {
         bedmasEquation.setOperator("+");
     }
 
-    public void buildAnswer(int minOperand, int maxOperand) {
-        bedmasEquation.solve();
-    }
-
-    public void buildOperand1(int minOperand, int maxOperand, boolean negAns) {
+    @Override
+    public void buildOperands(int minOperand, int maxOperand, boolean negAnsAllowed) {
         int operand1 = ThreadLocalRandom.current().nextInt(minOperand, maxOperand + 1);
-        if (negAns){
-            bedmasEquation.setOperand1(operand1*-1);
-        }else{
-            bedmasEquation.setOperand1(operand1);
-        }
-    }
-
-    public void buildOperand2(int minOperand, int maxOperand, boolean negAns) {
-        //TODO: Redundant, how can we stop this?
         int operand2 = ThreadLocalRandom.current().nextInt(minOperand, maxOperand + 1);
-        if (negAns){
-            bedmasEquation.setOperand2(operand2*-1);
-        }else{
+        if (negAnsAllowed) {
+            bedmasEquation.setOperand1(makeNegativeRandom(operand1));
+            bedmasEquation.setOperand2(makeNegativeRandom(operand2));
+        } else {
+            bedmasEquation.setOperand1(operand1);
             bedmasEquation.setOperand2(operand2);
         }
     }
+
+    @Override
+    public void buildAnswer() {
+        bedmasEquation.solve();
+    }
+
 }

@@ -1,16 +1,19 @@
 package EquationBuilder;
 
 public class DivideBedmasEquationBuilder extends BedmasEquationBuilder{
-    public void buildOperator(){
+
+    @Override
+    public void buildOperator() {
 
     }
-    public void buildAnswer(){
+
+    @Override
+    public void buildOperands(int minOperand, int maxOperand, boolean negAns) {
 
     }
-    public void buildOperand1(){
 
-    }
-    public void buildOperand2(){
+    @Override
+    public void buildAnswer() {
 
     }
 }

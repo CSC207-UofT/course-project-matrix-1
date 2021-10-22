@@ -14,8 +14,7 @@ public class BedmasEquationDirector {
     public void constructBedmasEquation(int minOperand, int maxOperand, boolean negAnsAllowed){
         bedmasEquationBuilder.createNewBedmasEquationProduct();
         bedmasEquationBuilder.buildOperator();
-        bedmasEquationBuilder.buildAnswer(minOperand, maxOperand);
-        bedmasEquationBuilder.buildOperand1(minOperand, maxOperand, negAnsAllowed);
-        bedmasEquationBuilder.buildOperand2(minOperand, maxOperand, negAnsAllowed);
+        bedmasEquationBuilder.buildOperands(minOperand, maxOperand, negAnsAllowed);
+        bedmasEquationBuilder.buildAnswer();
     }
 }

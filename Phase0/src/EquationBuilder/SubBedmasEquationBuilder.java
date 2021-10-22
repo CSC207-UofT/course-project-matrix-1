@@ -3,37 +3,29 @@ package EquationBuilder;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class SubBedmasEquationBuilder extends BedmasEquationBuilder{
-    public void buildOperator(){
+public class SubBedmasEquationBuilder extends BedmasEquationBuilder {
+    @Override
+    public void buildOperator() {
         bedmasEquation.setOperator("-");
     }
-    public void buildAnswer(int minOperand, int maxOperand, Boolean negAnsAllowed){
-        bedmasEquation.solve()
-    }
-    public void buildOperand1(int minOperand, int maxOperand, Boolean negAnsAllowed){
-        int operand1 = ThreadLocalRandom.current().nextInt(minOperand, maxOperand);
-        if (negAnsAllowed){
-            operand1 = makeNegativeRnadom(operand1);
+
+    @Override
+    public void buildOperands(int minOperand, int maxOperand, boolean negAnsAllowed) {
+        int operand1 = ThreadLocalRandom.current().nextInt(minOperand, maxOperand + 1);
+        int operand2;
+        if (negAnsAllowed) {
+            operand1 = makeNegativeRandom(operand1);
+            operand2 = makeNegativeRandom(ThreadLocalRandom.current().nextInt(minOperand, maxOperand + 1));
+        }else{
+            operand2 = ThreadLocalRandom.current().nextInt(minOperand, operand1 + 1);
         }
         bedmasEquation.setOperand1(operand1);
+        bedmasEquation.setOperand2(operand2);
     }
 
-    private int makeNegativeRnadom(int operand1) {
-        Random rand=new Random();
-        int x = rand.nextInt(2);
-        if (x == 0) {
-            operand1 = -1 * operand1;
-        }
-        return operand1;
+    @Override
+    public void buildAnswer() {
+        bedmasEquation.solve();
     }
 
-    public void buildOperand2(int minOperand, int maxOperand){
-        int operand2 = ThreadLocalRandom.current().nextInt(minOperand, maxOperand);
-        if (negAnsAllowed){
-            operand2 = ThreadLocalRandom.current().nextInt(minOperand, maxOperand);
-            operand2 = -1 * operand2;
-        } else {
-
-        }
-    }
 }

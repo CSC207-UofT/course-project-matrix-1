@@ -1,5 +1,7 @@
 package EquationBuilder;
 
+import java.util.Random;
+
 abstract class BedmasEquationBuilder {
     protected BedmasEquation bedmasEquation;
 
@@ -12,7 +14,15 @@ abstract class BedmasEquationBuilder {
     }
 
     public abstract void buildOperator();
-    public abstract void buildAnswer(int minOperand, int maxOperand);
-    public abstract void buildOperand1(int minOperand, int maxOperand, boolean negAns);
-    public abstract void buildOperand2(int minOperand, int maxOperand, boolean negAns);
+    public abstract void buildOperands(int minOperand, int maxOperand, boolean negAns);
+    public abstract void buildAnswer();
+
+    protected static int makeNegativeRandom(int num) {
+        Random rand = new Random();
+        int x = rand.nextInt(2);
+        if (x == 0) {
+            num = -1 * num;
+        }
+        return num;
+    }
 }

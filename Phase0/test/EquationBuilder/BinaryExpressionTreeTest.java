@@ -1,5 +1,5 @@
-import EquationBuilder.BinaryExpressionTree;
-import EquationBuilder.Node;
+package EquationBuilder;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
  */
 public class BinaryExpressionTreeTest {
     BinaryExpressionTree bet;
+
     @Before
     public void init() {
         bet = new BinaryExpressionTree("+");
@@ -19,9 +20,10 @@ public class BinaryExpressionTreeTest {
         n.setLeftNode(new Node("3"));
         Node r = new Node("/");
         r.setLeftNode(new Node("8"));
-        r.setRightNode(new Node ("4"));
+        r.setRightNode(new Node("4"));
         n.setRightNode(r);
     }
+
     @Test
     public void testSolveLongBET() {
         assertEquals(bet.solve(), 5);
