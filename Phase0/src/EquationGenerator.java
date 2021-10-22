@@ -45,6 +45,6 @@ public class EquationGenerator {
             throw new InvalidInputException();
         }
         randomEqn.solve();
-        return randomEqn.getEquation(); //returns EquationBuilder.Equation as a string;
+        return randomEqn.getQuestion(); //returns EquationBuilder.Equation as a string;
     }
 }
