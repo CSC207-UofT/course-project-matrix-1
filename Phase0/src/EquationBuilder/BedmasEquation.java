@@ -25,6 +25,8 @@ public class BedmasEquation implements Equation {
     public void setOperand2(int operand2){
         this.question.getRoot().setRightNode(new Node (Integer.toString(operand2)));
     }
+
+
 //    /**
 //     * Creates a bedmas equation with two numbers, one operator.
 //     *
@@ -41,11 +43,14 @@ public class BedmasEquation implements Equation {
      * @return the equation, as an array with the equation and answer.
      */
     @Override
-    public String getQuestion() {
-        return question.getRoot().getLeftNode().getValue() + " " + question.getRoot().getValue() + " " + question.getRoot().getRightNode().getValue();
+    public String[] getEquation() {
+        String q = question.getRoot().getLeftNode().getValue() + " " + question.getRoot().getValue() + " " + question.getRoot().getRightNode().getValue();
+        String a = String.valueOf(this.answer);
+        return new String[] {q, a};
     }
     @Override
-    public String getAnswer(){
-        return String.valueOf(this.answer);
+    public void solve(){
+        this.answer = question.solve();
     }
+
 }

@@ -8,7 +8,6 @@ package EquationBuilder;
  * @since 2021-10-12
  */
 public interface Equation {
-    String getQuestion();
-    String getAnswer();
-
+    String [] getEquation();
+    void solve();
 }

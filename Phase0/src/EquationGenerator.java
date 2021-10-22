@@ -44,7 +44,7 @@ public class EquationGenerator {
         } else {
             throw new InvalidInputException();
         }
-        randomEqn.solve();
-        return randomEqn.getQuestion(); //returns EquationBuilder.Equation as a string;
+//        randomEqn.solve();
+        return randomEqn.getEquation(); //returns EquationBuilder.Equation as a string;
     }
 }

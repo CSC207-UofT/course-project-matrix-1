@@ -11,11 +11,11 @@ public class BedmasEquationDirector {
         return bedmasEquationBuilder.getBedmasEquation();
     }
 
-    public void constructBedmasEquation(int minOperand, int maxOperand){
+    public void constructBedmasEquation(int minOperand, int maxOperand, boolean negAns){
         bedmasEquationBuilder.createNewBedmasEquationProduct();
         bedmasEquationBuilder.buildOperator();
         bedmasEquationBuilder.buildAnswer(minOperand, maxOperand);
-        bedmasEquationBuilder.buildOperand1(minOperand, maxOperand);
-        bedmasEquationBuilder.buildOperand2(minOperand, maxOperand);
+        bedmasEquationBuilder.buildOperand1(minOperand, maxOperand, negAns);
+        bedmasEquationBuilder.buildOperand2(minOperand, maxOperand, negAns);
     }
 }
