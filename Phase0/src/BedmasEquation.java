@@ -4,40 +4,37 @@
  * string.
  *
  * @author Sean Jeong
- * @version 1.0
+ * @version 2.0
  * @since 2021-10-12
  */
 public class BedmasEquation implements Equation {
-    private final String operator;
-    private final int[] operands;
+    private BinaryExpressionTree question;
     private int answer;
 
-    /**
-     * Creates a bedmas equation with two numbers, one operator.
-     *
-     * @param firstNum  the first number in the equation
-     * @param secondNum the second number in the equation
-     * @param operator  the operator used to add the two numbers
-     */
-    public BedmasEquation(int firstNum, int secondNum, String operator) {
-        this.operands = new int[]{firstNum, secondNum};
-        this.operator = operator;
+    public void setOperator(String operator){
+        question = new BinaryExpressionTree(operator);
     }
+    public void setAnswer(int answer){
+        this.answer = answer;
+    }
+    public void setOperand1(){
+        this.question
+    }
+    public void setOperand2(){
 
-    /**
-     * Solve the equation. Uses the operator and operands to calculate answer.
-     * Uses the equation assigned in the constructor to calculate the answer and assigns it to
-     * answer.
-     */
-    @Override
-    public void solve() throws InvalidInputException {
-        String ADDITION = "+";
-        if (operator.equals(ADDITION)) {
-            this.answer = operands[0] + operands[1];
-        } else {
-            throw new InvalidInputException();
-        }
     }
+//    /**
+//     * Creates a bedmas equation with two numbers, one operator.
+//     *
+//     * @param firstNum  the first number in the equation
+//     * @param secondNum the second number in the equation
+//     * @param operator  the operator used to add the two numbers
+//     */
+//    public BedmasEquation(int firstNum, int secondNum, String operator) {
+//        this.operands = new int[]{firstNum, secondNum};
+//        this.operator = operator;
+//    }
+
 
     /**
      * @return the equation, as an array with the equation and answer.
