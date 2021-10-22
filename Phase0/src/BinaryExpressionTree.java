@@ -1,60 +1,5 @@
 public class BinaryExpressionTree {
-    Node root;
-    private enum Operators {
-        ADD,
-        SUBTRACT,
-        MULTIPLY,
-        DIVIDE
-    }
-    private class Node {
-        private String value;
-        private Node leftNode;
-        private Node rightNode;
-
-        Node(String value) {
-            this.value = value;
-            this.leftNode = this.rightNode = null;
-        }
-
-        public boolean isLeaf() {
-            return leftNode == null && rightNode == null;
-        }
-
-        public void setLeftNode(Node leftNode) {
-            this.leftNode = leftNode;
-        }
-
-        public void setRightNode(Node rightNode) {
-            this.rightNode = rightNode;
-        }
-
-        public Node getLeftNode(){
-            return leftNode;
-        }
-        public Node getRightNode(){
-            return rightNode;
-        }
-        public String getValue() {
-            return value;
-        }
-
-        public int solve(){
-            if (this.isLeaf()) {
-                //Means it's a value
-                return Integer.parseInt(value);
-            }else{
-                if (value.equals(Operators.ADD.toString())) {
-                    return leftNode.solve() + rightNode.solve();
-                }else if (value.equals(Operators.SUBTRACT.toString())) {
-                    return leftNode.solve() - rightNode.solve();
-                }else if (value.equals(Operators.DIVIDE.toString())) {
-                    return leftNode.solve()*rightNode.solve();
-                }else{
-                    return leftNode.solve()/rightNode.solve();
-                }
-            }
-        }
-    }
+    private final Node root;
 
     BinaryExpressionTree(String operator) {
         this.root = new Node(operator);
@@ -64,7 +9,15 @@ public class BinaryExpressionTree {
         return root;
     }
 
-    public int solve(){
+    public int solve() {
         return root.solve();
+    }
+
+    public static void main(String[] args) {
+        BinaryExpressionTree bet = new BinaryExpressionTree("+");
+        Node n = bet.getRoot();
+        n.setLeftNode(new Node("3"));
+        n.setRightNode(new Node("10"));
+        System.out.println(bet.solve());
     }
 }
