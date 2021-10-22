@@ -22,7 +22,7 @@ public class PDFPresenterTest {
     @org.junit.Test
     public void testCreateWorksheetPDF() {
         String pdfNoAnswers = p.ws.getPDFs()[0];
-        assertEquals("Title: Sample Worksheet. Font size: 12. Equation format: Horizontal.", pdfNoAnswers.substring(0, 68));
+        assertEquals("Title: Sample Worksheet. Font size: 12. EquationBuilder.Equation format: Horizontal.", pdfNoAnswers.substring(0, 68));
     }
 
     @org.junit.Test

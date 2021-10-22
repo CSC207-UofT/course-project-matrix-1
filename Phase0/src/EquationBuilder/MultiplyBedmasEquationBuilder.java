@@ -1,4 +1,6 @@
-public class SubBedmasEquationBuilder extends BedmasEquationBuilder{
+package EquationBuilder;
+
+public class MultiplyBedmasEquationBuilder extends BedmasEquationBuilder{
     public void buildOperator(){
 
     }

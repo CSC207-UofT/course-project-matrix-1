@@ -1,3 +1,5 @@
+package EquationBuilder;
+
 public class BinaryExpressionTree {
     private final Node root;
 

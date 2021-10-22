@@ -1,3 +1,5 @@
+package EquationBuilder;
+
 public class Node {
     private final String value;
     private Node leftNode;

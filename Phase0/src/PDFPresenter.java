@@ -32,9 +32,9 @@ public class PDFPresenter {
         StringBuilder pdfWithAnswers = new StringBuilder();
 
         pdfNoAnswers.append("Title: ").append(title).append(". Font size: ").append(fontSize).
-                append(". Equation format: ").append(equationFormat).append(".").append("\n");
+                append(". EquationBuilder.Equation format: ").append(equationFormat).append(".").append("\n");
         pdfWithAnswers.append("Title: ").append(title).append(". Font size: ").append(fontSize).
-                append(". Equation format: ").append(equationFormat).append(".").append("\n");
+                append(". EquationBuilder.Equation format: ").append(equationFormat).append(".").append("\n");
         for (String[] equation : equations) {
             pdfNoAnswers.append(equation[0]).append(" = ___").append("\n");
             pdfWithAnswers.append(equation[0]).append(" = ").append(equation[1]).append("\n");

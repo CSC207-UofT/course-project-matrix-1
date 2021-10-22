@@ -1,6 +1,8 @@
-public class AddBedmasEquationBuilder extends BedmasEquationBuilder{
+package EquationBuilder;
+
+public class SubBedmasEquationBuilder extends BedmasEquationBuilder{
     public void buildOperator(){
-        bedmasEquation.setOperator();
+
     }
     public void buildAnswer(){
 

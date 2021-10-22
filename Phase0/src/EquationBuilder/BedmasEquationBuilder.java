@@ -1,3 +1,5 @@
+package EquationBuilder;
+
 abstract class BedmasEquationBuilder {
     protected BedmasEquation bedmasEquation;
 

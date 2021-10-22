@@ -1,3 +1,5 @@
+package EquationBuilder;
+
 public class DivideBedmasEquationBuilder extends BedmasEquationBuilder{
     public void buildOperator(){
 

@@ -1,3 +1,6 @@
+import EquationBuilder.BedmasEquation;
+import EquationBuilder.Equation;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -42,6 +45,6 @@ public class EquationGenerator {
             throw new InvalidInputException();
         }
         randomEqn.solve();
-        return randomEqn.getEquation(); //returns Equation as a string;
+        return randomEqn.getEquation(); //returns EquationBuilder.Equation as a string;
     }
 }

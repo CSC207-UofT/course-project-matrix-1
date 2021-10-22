@@ -1,3 +1,5 @@
+package EquationBuilder;
+
 /**
  * An equation that can be solved and returns its stored equation.
  *

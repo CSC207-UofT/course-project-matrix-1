@@ -24,7 +24,7 @@ public class WorksheetGenerator {
      *
      * @param equationType The type of Equations in ws.
      * @param numEquation  Number of Equations in ws.
-     * @param difficulty   Difficulty level of an Equation in ws, either 1, 2, or 3 (Easy, Medium, or Hard).
+     * @param difficulty   Difficulty level of an EquationBuilder.Equation in ws, either 1, 2, or 3 (Easy, Medium, or Hard).
      */
     public void generateWorksheet(String equationType, int numEquation, String difficulty) {
         String[][] WorksheetEquationArray = new String[numEquation][2];

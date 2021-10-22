@@ -92,7 +92,7 @@ public class UserInterface {
 
         //Store the user's actions into User.
         HashMap<String, Object> userAction = new HashMap<>();
-        userAction.put("Equation type", this.equationType);
+        userAction.put("EquationBuilder.Equation type", this.equationType);
         userAction.put("Number of equations", this.numEquations);
         userAction.put("Difficulty", this.difficulty);
         userController.storeUserAction(userController.getCurrentUsername(), userAction);

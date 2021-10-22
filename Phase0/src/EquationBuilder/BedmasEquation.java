@@ -1,5 +1,7 @@
+package EquationBuilder;
+
 /**
- * A subclass of Equation. Refers to an equation with any number of operands that use bedmas operators.
+ * A subclass of EquationBuilder.Equation. Refers to an equation with any number of operands that use bedmas operators.
  * An example is 5 + 3 = 8. The question will be stored as a binary expression tree, while the answer will be a
  * string.
  *
@@ -18,7 +20,7 @@ public class BedmasEquation implements Equation {
         this.answer = answer;
     }
     public void setOperand1(){
-        this.question
+        this.question.
     }
     public void setOperand2(){
 
@@ -30,7 +32,7 @@ public class BedmasEquation implements Equation {
 //     * @param secondNum the second number in the equation
 //     * @param operator  the operator used to add the two numbers
 //     */
-//    public BedmasEquation(int firstNum, int secondNum, String operator) {
+//    public EquationBuilder.BedmasEquation(int firstNum, int secondNum, String operator) {
 //        this.operands = new int[]{firstNum, secondNum};
 //        this.operator = operator;
 //    }
