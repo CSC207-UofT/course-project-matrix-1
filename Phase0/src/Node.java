@@ -2,12 +2,10 @@ public class Node {
     private final String value;
     private Node leftNode;
     private Node rightNode;
-    private enum Operators {
-        ADD,
-        SUBTRACT,
-        MULTIPLY,
-        DIVIDE
-    }
+    private final String ADD = "+";
+    private final String SUBTRACT = "-";
+    private final String MULTIPLY = "*";
+    private final String DIVIDE = "/";
     Node(String value) {
         this.value = value;
         this.leftNode = this.rightNode = null;
@@ -40,14 +38,17 @@ public class Node {
             //Means it's a value
             return Integer.parseInt(value);
         }else{
-            if (value.equals(Operators.ADD.toString())) {
+            if (value.equals(ADD)) {
                 return leftNode.solve() + rightNode.solve();
-            }else if (value.equals(Operators.SUBTRACT.toString())) {
+            }else if (value.equals(SUBTRACT)) {
                 return leftNode.solve() - rightNode.solve();
-            }else if (value.equals(Operators.DIVIDE.toString())) {
+            }else if (value.equals(DIVIDE)) {
+                return leftNode.solve()/rightNode.solve();
+            }else if (value.equals(MULTIPLY)){
                 return leftNode.solve()*rightNode.solve();
             }else{
-                return leftNode.solve()/rightNode.solve();
+                //TODO: Change this exception
+                throw new RuntimeException("There shouldn't be any other symbol here");
             }
         }
     }

@@ -17,7 +17,10 @@ public class BinaryExpressionTree {
         BinaryExpressionTree bet = new BinaryExpressionTree("+");
         Node n = bet.getRoot();
         n.setLeftNode(new Node("3"));
-        n.setRightNode(new Node("10"));
+        Node r = new Node("/");
+        r.setLeftNode(new Node("8"));
+        r.setRightNode(new Node ("4"));
+        n.setRightNode(r);
         System.out.println(bet.solve());
     }
 }
