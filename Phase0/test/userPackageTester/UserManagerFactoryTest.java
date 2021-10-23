@@ -21,4 +21,9 @@ public class UserManagerFactoryTest {
         assert viewer.verifyUsername("main");
         assert updater.getUsers().get(0).getUsername().equals("main");
     }
+
+    @Test
+    // TODO: Create test for findU         sers
+    public void findUsers() {
+    }
 }
