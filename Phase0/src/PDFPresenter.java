@@ -59,8 +59,6 @@ public class PDFPresenter {
      */
     public void downloadPDF(String path) {
         System.out.println("You downloaded these PDF's to " + path);
-        System.out.println(ws.getPDFs()[0]);
-        System.out.println(ws.getPDFs()[1]);
     }
 
 }

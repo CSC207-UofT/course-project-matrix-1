@@ -1,21 +1,22 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Optional;
+package userPackage;
 
-public class User {
+import java.io.Serializable;
+import java.util.*;
+
+public class User implements Serializable {
     private final String username;
     private final String name;
     private final int age;
-    private final String role;                  // e.g. student / teacher / parent
-    private final HashMap<String, Integer> scores;    // worksheet name : scores
-    private final ArrayList<HashMap<String, Object>> history;         // list of Worksheet details stored in a HashMap
+    private final String role;                                  // e.g. student / teacher / parent
+    private final Map<String, Integer> scores;                  // worksheet name : scores
+    private final List<Map<String, Object>> history;            // list of Worksheet details stored in a HashMap
 
     /**
-     * Instantiate User object.
+     * Instantiate userPackage.User object.
      *
      * @param username // username used to access account
-     * @param name     // name of User
-     * @param age      // age of User
+     * @param name     // name of userPackage.User
+     * @param age      // age of userPackage.User
      * @param role     // position of user (student/teacher/parent)
      */
     public User(String username, String name, int age, String role) {
@@ -31,17 +32,17 @@ public class User {
     // GETTER METHODS
 
     /**
-     * @return <String> username of User
+     * @return <String> username of userPackage.User
      */
     public String getUsername() {
         return username;
     }
 
     /**
-     * @return <HashMap> containing User information (name, age, role)
+     * @return <HashMap> containing userPackage.User information (name, age, role)
      */
-    public HashMap<String, Object> getDetails() {
-        HashMap<String, Object> userDetails = new HashMap<>();
+    public Map<String, Object> getDetails() {
+        Map<String, Object> userDetails = new HashMap<>();
         userDetails.put("name", this.name);
         userDetails.put("age", this.age);
         userDetails.put("role", this.role);
@@ -51,14 +52,14 @@ public class User {
     /**
      * @return <HashMap> of worksheet identifier (key) to recorded score (value)
      */
-    public HashMap<String, Integer> getScores() {
+    public Map<String, Integer> getScores() {
         return scores;
     }
 
     /**
      * @return <HashMap> of action identifier (key) to worksheet details (value)
      */
-    public ArrayList<HashMap<String, Object>> getHistory() {
+    public List<Map<String, Object>> getHistory() {
         return history;
     }
 
@@ -79,13 +80,13 @@ public class User {
         }
 
         // Retrieve worksheet generated details
-        Optional<HashMap<String, Object>> detailsOptional = findWorksheetInHistory(worksheetKey);
+        Optional<Map<String, Object>> detailsOptional = findWorksheetInHistory(worksheetKey);
         if (detailsOptional.isEmpty()) {
             // TODO: If no worksheet of specified type was generated, throw an exception
-             throw new IllegalArgumentException("Worksheet type has not been generated yet!");
+            throw new IllegalArgumentException("Worksheet type has not been generated yet!");
         } else {
             // Get worksheet details
-            HashMap<String, Object> details = detailsOptional.get();
+            Map<String, Object> details = detailsOptional.get();
             // If details available, check if input score is within the max score.
             Object numQuestions = details.get("numQuestions");
             if (score > (int) numQuestions) {
@@ -103,12 +104,12 @@ public class User {
      * @param worksheetKey // specifies worksheet type and difficulty
      * @return optional HashMap of worksheet details
      */
-    public Optional<HashMap<String, Object>> findWorksheetInHistory(String worksheetKey) {
+    public Optional<Map<String, Object>> findWorksheetInHistory(String worksheetKey) {
         // Loop from the end of history to find a worksheet of specified worksheetKey.
         int i = this.history.size();
         while (i != 0) {
             i = i - 1;
-            HashMap<String, Object> currMap = this.history.get(i);
+            Map<String, Object> currMap = this.history.get(i);
             if (currMap.get("worksheetKey") == worksheetKey) {
                 // Wraps object in Optional object
                 return Optional.of(currMap);
@@ -123,13 +124,14 @@ public class User {
      *
      * @param worksheetDetails // HashMap of details for some generated worksheet
      */
-    public void addToHistory(HashMap<String, Object> worksheetDetails) {
+    public void addToHistory(Map<String, Object> worksheetDetails) {
         this.history.add(worksheetDetails);
     }
 
 
     /**
-     * Removes action in history at specified position.
+     * Removes item in history at specified position (each item contains worksheet generation details and score).
+     * If score of item was the best so far for
      * Precondition:
      * - index must be within a valid range.
      *
@@ -148,6 +150,36 @@ public class User {
         } else {
             elementIndex = index;
         }
+        // Temporarily store details of history item, then remove from history.
+        Map<String, Object> worksheetDetails = this.history.get(elementIndex);
+        Object worksheetKey = worksheetDetails.get("worksheetKey");
+        Object recordScore = worksheetDetails.get("score");
+
         this.history.remove(elementIndex);
+
+        // If recorded score to be removed is the best so far, look for replacement, or set to null.
+        if (this.scores.get((String) worksheetKey) == recordScore){
+
+            int bestScore = -1;
+            // Loop through remaining records for the best score
+            for (Map<String, Object> currRecord : this.history){
+                // Access record
+                Object currKey = currRecord.get("worksheetKey");
+                Object currScore= currRecord.get("score");
+
+                // If same exact worksheet type, record score if better than current best score
+                if (currKey.equals(worksheetKey) & ((int) currScore > bestScore)) bestScore = (int) currScore;
+            }
+
+            // Update score
+            if (bestScore != -1){
+                // Update to next best score if replacement found
+                this.scores.put((String) worksheetKey, bestScore);
+            } else {
+                // If not, remove worksheetKey from map
+                this.scores.remove(worksheetKey);
+            }
+        }
+
     }
 }
