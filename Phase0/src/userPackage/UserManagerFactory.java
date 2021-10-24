@@ -25,7 +25,6 @@ import java.util.List;
  */
 public class UserManagerFactory {
     // TODO: Make class non-static and instantiate attribute storing userGetter object implementing InputUserSource.
-
     // TODO: Implement separate Input Source interface (must implement getUsers()).
     /**
      * Deserializes and retrieves list of all existing Users that are stored locally.
