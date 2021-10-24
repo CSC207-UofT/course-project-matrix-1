@@ -14,7 +14,7 @@ abstract class BedmasEquationBuilder {
     }
 
     public abstract void buildOperator();
-    public abstract void buildOperands(int minOperand, int maxOperand, boolean negAns);
+    public abstract void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAns);
     public abstract void buildAnswer();
 
     protected static int makeNegativeRandom(int num) {

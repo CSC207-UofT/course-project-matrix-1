@@ -19,7 +19,7 @@ public class BedmasEquationDirectorTest {
         BedmasEquationDirector bed = new BedmasEquationDirector();
         BedmasEquationBuilder addBeb = new AddBedmasEquationBuilder();
         bed.setBedmasEquationBuilder(addBeb);
-        bed.constructBedmasEquation(0,10,false);
+        bed.constructBedmasEquation(new int[]{0,10},new int[]{0,10},false);
         System.out.println(Arrays.toString(bed.getBedmasEquation().getEquation()));
     }
     @Test
@@ -27,7 +27,7 @@ public class BedmasEquationDirectorTest {
         BedmasEquationDirector bed = new BedmasEquationDirector();
         BedmasEquationBuilder addBeb = new AddBedmasEquationBuilder();
         bed.setBedmasEquationBuilder(addBeb);
-        bed.constructBedmasEquation(0,10,true);
+        bed.constructBedmasEquation(new int[]{0,10},new int[]{0,10},true);
         System.out.println(Arrays.toString(bed.getBedmasEquation().getEquation()));
     }
     @Test
@@ -35,7 +35,7 @@ public class BedmasEquationDirectorTest {
         BedmasEquationDirector bed = new BedmasEquationDirector();
         BedmasEquationBuilder subBeb = new SubBedmasEquationBuilder();
         bed.setBedmasEquationBuilder(subBeb);
-        bed.constructBedmasEquation(0,10,false);
+        bed.constructBedmasEquation(new int[]{0,10},new int[]{0,10},false);
         System.out.println(Arrays.toString(bed.getBedmasEquation().getEquation()));
     }
     @Test
@@ -43,7 +43,7 @@ public class BedmasEquationDirectorTest {
         BedmasEquationDirector bed = new BedmasEquationDirector();
         BedmasEquationBuilder subBeb = new SubBedmasEquationBuilder();
         bed.setBedmasEquationBuilder(subBeb);
-        bed.constructBedmasEquation(0,10,true);
+        bed.constructBedmasEquation(new int[]{0,10},new int[]{0,10},true);
         System.out.println(Arrays.toString(bed.getBedmasEquation().getEquation()));
     }
 }

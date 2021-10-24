@@ -8,7 +8,7 @@ public class DivideBedmasEquationBuilder extends BedmasEquationBuilder{
     }
 
     @Override
-    public void buildOperands(int minOperand, int maxOperand, boolean negAns) {
+    public void buildOperands(int [] operandRange1, int [] operandRange2, boolean negAnsAllowed) {
 
     }
 
