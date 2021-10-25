@@ -1,8 +1,5 @@
 package EquationBuilder;
 
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
 public class AddBedmasEquationBuilder extends BedmasEquationBuilder {
     @Override
     public void buildOperator() {
@@ -10,21 +7,16 @@ public class AddBedmasEquationBuilder extends BedmasEquationBuilder {
     }
 
     @Override
-    public void buildOperands(int [] operandRange1, int [] operandRange2, boolean negAnsAllowed) {
-//        int operand1 = ThreadLocalRandom.current().nextInt(minOperand, maxOperand + 1);
-//        int operand2 = ThreadLocalRandom.current().nextInt(minOperand, maxOperand + 1);
-//        if (negAnsAllowed) {
-//            bedmasEquation.setOperand1(makeNegativeRandom(operand1));
-//            bedmasEquation.setOperand2(makeNegativeRandom(operand2));
-//        } else {
-//            bedmasEquation.setOperand1(operand1);
-//            bedmasEquation.setOperand2(operand2);
-//        }
+    public void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
+        int operand1 = randomize(operandRange1);
+        int operand2 = randomize(operandRange2);
+        if (negAllowed) {
+            operand1 = makeNegativeRandom(operand1);
+            operand2 = makeNegativeRandom(operand2);
+        }
+        bedmasEquation.setOperand1(operand1);
+        bedmasEquation.setOperand2(operand2);
     }
 
-    @Override
-    public void buildAnswer() {
-        bedmasEquation.solve();
-    }
 
 }

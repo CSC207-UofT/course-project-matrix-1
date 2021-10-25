@@ -1,0 +1,27 @@
+    /**
+     * Returns the factors of an int, from lowest to highest.
+     *
+     * @param number the number to find factors for
+     * @return an array of unsorted factors.
+     */
+    protected static ArrayList<Integer> findFactors(int number) {
+        ArrayList<Integer> factors = new ArrayList<>();
+        factors.add(1);
+        for (int i = 2; i < number / 2 + 1; i++) {
+            if (number % i == 0) {
+                factors.add(i);
+            }
+        }
+        factors.add(number);
+        return factors;
+    }
+
+    /**
+     * Removes any elements of the list that are outside the given range
+     *
+     * @param list  The list of numbers that will be restricted
+     * @param range The [min, max] (inclusive) that each number in the final array will fall between
+     */
+    protected static void restrictArray(ArrayList<Integer> list, int[] range) {
+        list.removeIf(item -> item < range[0] || item > range[1]);
+    }
