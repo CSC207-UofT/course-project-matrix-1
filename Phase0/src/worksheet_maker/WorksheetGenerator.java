@@ -32,7 +32,6 @@ public class WorksheetGenerator implements IWorksheetGenerator {
             bedmasEquationDirector.constructBedmasEquation(operandRange1, operandRange2, negAllowed);
             Worksheet.addEquation(bedmasEquationDirector.getBedmasEquation());
         }
-
     }
 
 }
