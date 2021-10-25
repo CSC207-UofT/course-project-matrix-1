@@ -14,7 +14,8 @@ public class PDFPresenter {
      * Uses the worksheet information stored in ws and formattign details from UI to create a new formatted PDF version of the worksheet. This will also dispaly the PDF.
      *
      * @param title          the title of the PDF, displayed at the top
-     * @param fontSize       the font size of the PDF
+     * @param numRows        the number of question rows on the PDF
+     * @param numColumns     the number of question columns on the PDF
      * @param equationFormat how the equation should be displayed. For example, "horizontal" refers to 4 + 5, whereas
      *                       vertical refers to 4 + 5 stacked on top of each other
      */
