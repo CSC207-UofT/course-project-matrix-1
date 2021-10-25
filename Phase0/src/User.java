@@ -8,7 +8,7 @@ public class User {
     private final int age;
     private final String role;                  // e.g. student / teacher / parent
     private final HashMap<String, Integer> scores;    // worksheet name : scores
-    private final ArrayList<HashMap<String, Object>> history;         // list of Worksheet details stored in a HashMap
+    private final ArrayList<HashMap<String, Object>> history;         // list of old_worksheet_maker.Worksheet details stored in a HashMap
 
     /**
      * Instantiate User object.
@@ -82,7 +82,7 @@ public class User {
         Optional<HashMap<String, Object>> detailsOptional = findWorksheetInHistory(worksheetKey);
         if (detailsOptional.isEmpty()) {
             // TODO: If no worksheet of specified type was generated, throw an exception
-            throw new IllegalArgumentException("Worksheet type has not been generated yet!");
+            throw new IllegalArgumentException("old_worksheet_maker.Worksheet type has not been generated yet!");
         } else {
             // Get worksheet details
             HashMap<String, Object> details = detailsOptional.get();

@@ -1,4 +1,4 @@
-package EquationBuilder;
+package worksheet_maker;
 
 public class BinaryExpressionTree {
     private final Node root;

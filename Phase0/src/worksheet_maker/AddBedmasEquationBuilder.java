@@ -1,15 +1,13 @@
-package EquationBuilder;
+package worksheet_maker;
 
-public class MultiplyBedmasEquationBuilder extends BedmasEquationBuilder {
-
+public class AddBedmasEquationBuilder extends BedmasEquationBuilder {
     @Override
     public void buildOperator() {
-        bedmasEquation.setOperator("*");
+        bedmasEquation.setOperator("+");
     }
 
     @Override
     public void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
-        //TODO: Duplicate code, how do we fix this?
         int operand1 = randomize(operandRange1);
         int operand2 = randomize(operandRange2);
         if (negAllowed) {
@@ -19,5 +17,6 @@ public class MultiplyBedmasEquationBuilder extends BedmasEquationBuilder {
         bedmasEquation.setOperand1(operand1);
         bedmasEquation.setOperand2(operand2);
     }
+
 
 }

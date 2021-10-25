@@ -1,4 +1,4 @@
-package EquationBuilder;
+package worksheet_maker;
 
 /**
  * A subclass of EquationBuilder.Equation. Refers to an equation with any number of operands that use bedmas operators.
@@ -56,6 +56,14 @@ public class BedmasEquation implements Equation {
     @Override
     public void solve() {
         answer = question.solve();
+    }
+    @Override
+    public String questionToString(){
+        return this.question.toString();
+    }
+    @Override
+    public String answerToString(){
+        return String.valueOf(this.answer);
     }
 
     /**

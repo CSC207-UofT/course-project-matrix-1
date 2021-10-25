@@ -1,4 +1,4 @@
-package EquationBuilder;
+package worksheet_maker;
 
 /**
  * An equation that can be solved and returns its stored equation.
@@ -8,6 +8,12 @@ package EquationBuilder;
  * @since 2021-10-12
  */
 public interface Equation {
-    String [] getEquation();
+    //TODO make sure you override everything.
+    String[] getEquation();
+
     void solve();
+
+    String questionToString();
+
+    String answerToString();
 }

@@ -1,4 +1,4 @@
-package EquationBuilder;
+package worksheet_maker;
 
 import java.util.ArrayList;
 import java.util.Random;

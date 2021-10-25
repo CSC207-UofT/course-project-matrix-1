@@ -1,4 +1,4 @@
-package EquationBuilder;
+package worksheet_maker;
 
 public class Node {
     private final String value;
@@ -43,17 +43,18 @@ public class Node {
             //Means it's a value
             return Integer.parseInt(value);
         } else {
-            if (value.equals(ADD)) {
-                return leftNode.solve() + rightNode.solve();
-            } else if (value.equals(SUBTRACT)) {
-                return leftNode.solve() - rightNode.solve();
-            } else if (value.equals(DIVIDE)) {
-                return leftNode.solve() / rightNode.solve();
-            } else if (value.equals(MULTIPLY)) {
-                return leftNode.solve() * rightNode.solve();
-            } else {
-                //TODO: Change this exception
-                throw new RuntimeException("There shouldn't be any other symbol here");
+            switch (value) {
+                case ADD:
+                    return leftNode.solve() + rightNode.solve();
+                case SUBTRACT:
+                    return leftNode.solve() - rightNode.solve();
+                case DIVIDE:
+                    return leftNode.solve() / rightNode.solve();
+                case MULTIPLY:
+                    return leftNode.solve() * rightNode.solve();
+                default:
+                    //TODO: Change this exception
+                    throw new RuntimeException("There shouldn't be any other symbol here");
             }
         }
     }

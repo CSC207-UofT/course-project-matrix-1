@@ -1,3 +1,5 @@
+package worksheet_maker;
+
 /**
  * Signifies that the user gave an invalid input.
  *
