@@ -7,9 +7,11 @@ package worksheet_maker;
  * @version 1.0
  * @since 2021-10-24.
  */
-public class WorksheetGenerator implements IWorksheetGenerator {
-    public void createWorksheet(int numOfEquations, char operator, int[] operandRange1, int[] operandRange2, boolean negAllowed) {
+public class WorksheetGenerator {
+    public WorksheetInput createWorksheet(int numOfEquations, char operator, int[] operandRange1, int[] operandRange2, boolean negAllowed) {
+        WorksheetInput ws = new Worksheet();
         BedmasEquationDirector bedmasEquationDirector = new BedmasEquationDirector();
+
         //Create and assign the correct BedmasEquationBuilder.
         char ADD = '+';
         char SUBTRACT = '-';
@@ -30,8 +32,9 @@ public class WorksheetGenerator implements IWorksheetGenerator {
         //Construct the specified number of Equations and save them in Worksheet.
         for (int i = 0; i < numOfEquations; i++) {
             bedmasEquationDirector.constructBedmasEquation(operandRange1, operandRange2, negAllowed);
-            Worksheet.addEquation(bedmasEquationDirector.getBedmasEquation());
+            ws.addEquation(bedmasEquationDirector.getBedmasEquation());
         }
+        return ws;
     }
 
 }

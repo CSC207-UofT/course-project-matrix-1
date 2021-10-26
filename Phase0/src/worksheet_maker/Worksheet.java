@@ -10,20 +10,23 @@ import java.util.List;
  * @version 1.0
  * @since 2021-10-24.
  */
-public class Worksheet {
-    //TODO add WorksheetDataSetter and WorksheetDataGetter interfaces for ISP
-    //TODO: Consider resetting worksheet
-    private final static List<Equation> equations = new ArrayList<>();
+public class Worksheet implements WorksheetInput, WorksheetOutput {
+    /**
+     * This Worksheet's list of equations.
+     */
+    private List<Equation> equations = new ArrayList<>();
 
-    //Used by WorksheetGenerator
-    public static void addEquation(Equation e) {
+    @Override
+    public void addEquation(Equation e) {
         equations.add(e);
     }
 
-    //Used by PDFPresenter
-    public static String[][] equationsToStringArray() {
+    @Override
+    public String[][] equationsToStringArray() {
         //TODO: worry about corner case where there is nothing in equations
+        //Create an empty 2D list to store the equations as String[].
         String[][] equationsString = new String[equations.size()][];
+        //Loops through its own equation to generate String[] of them.
         for (int i = 0; i < equations.size(); i++) {
             equationsString[i] = new String[]{equations.get(i).questionToString(), equations.get(i).answerToString()};
         }
