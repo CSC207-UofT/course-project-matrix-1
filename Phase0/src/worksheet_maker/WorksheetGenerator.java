@@ -1,7 +1,7 @@
 package worksheet_maker;
 
 /**
- * Generates a Worksheet.
+ * Generates a worksheet through the WorksheetInput interface.
  *
  * @author Sean Jeong
  * @version 1.0
@@ -26,8 +26,7 @@ public class WorksheetGenerator {
         } else if (operator == DIVIDE) {
             bedmasEquationDirector.setBedmasEquationBuilder(new DivideBedmasEquationBuilder());
         } else {
-            //TODO: improve the exception.
-            throw new RuntimeException("There shouldn't be any other symbol here");
+            throw new InvalidInputException();
         }
         //Construct the specified number of Equations and save them in Worksheet.
         for (int i = 0; i < numOfEquations; i++) {
@@ -36,5 +35,6 @@ public class WorksheetGenerator {
         }
         return ws;
     }
+
 
 }
