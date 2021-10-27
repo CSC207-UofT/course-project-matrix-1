@@ -1,9 +1,7 @@
-package userPackageTester;
+package userPackage;
 
 import org.junit.Before;
 import org.junit.Test;
-import userPackage.UserManagerFactory;
-import userPackage.UserManagerViewer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,11 +9,6 @@ import java.util.Map;
 
 public class UserManagerViewerTest {
     UserManagerViewer newViewer;
-
-    @Before
-    public void setUp() {
-        newViewer = (UserManagerViewer) UserManagerFactory.createViewerAndUpdater().get(0);
-    }
 
     @Test
     public void testVerifyUsername() {
@@ -36,11 +29,6 @@ public class UserManagerViewerTest {
     @Test
     public void testGetUserScores() {
         assert newViewer.getUserScores("main").equals(new HashMap<>());
-    }
-
-    @Test
-    public void testGetUserHistory() {
-        assert newViewer.getUserHistory("main").equals(new ArrayList<>());
     }
 
 

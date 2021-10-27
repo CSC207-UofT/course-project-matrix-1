@@ -1,25 +1,30 @@
 package userPackage;
 
+import exceptions.RecordDoesNotExistException;
+
 import java.util.List;
 import java.util.Map;
 
 /**
  * Accesses or updates user information based on inputs from UserInterface.
+ * <p>
+ * Using dependency injection, existing users and their histories are retrieved and injected into UserManager and
+ * HistoryManager.
+ * <p>
  * Collaborators: userPackage.UserManagerViewer, userPackage.UserManagerUpdater, userPackage.UserManager.
  *
- * @author Kerim
- * @version 1.0
- * @since 2021-10-13
+ * @author Kerim, Stanley
+ * @version 2.0
+ * @since 2021-10-26
  */
 public class UserController {
-    private final UserManagerUpdater updater;
-    private final UserManagerViewer viewer;
+    private final UserManager userManager;
+    private final HistoryManager historyManager;
     private String currentUsername;
 
     public UserController() {
-        List<Object> managers = UserManagerFactory.createViewerAndUpdater();
-        viewer = ((UserManagerViewer) managers.get(0));
-        updater = ((UserManagerUpdater) managers.get(1));
+        userManager = new UserManager(LocalDataAccess.getUsers());
+        historyManager = new HistoryManager(LocalDataAccess.getHistories());
     }
 
     public String getCurrentUsername() {
@@ -33,51 +38,37 @@ public class UserController {
     /**
      * Verifies whether the user is in the system or not.
      *
-     * @param username: Potential username for the user
-     * @return true if and only if the username is registered in the system.
+     * @param username username for the user
+     * @return true iff the username corresponds to existing user
      */
     public Boolean verifyUsername(String username) {
-        return this.viewer.verifyUsername(username);
+        return userManager.verifyUsername(username);
     }
 
     public Map<String, Object> getUserDetails(String username) {
-        return this.viewer.getUserDetails(username);  // returns an empty hashmap if the username is invalid
+        return userManager.getUserDetails(username);
     }
 
     /**
-     * Returns the names and the scores of the past worksheets.
+     * Returns the history of worksheet generation records of a user.
      *
-     * @param username: Username of the user
-     * @return a hash map of scores for the specified user with keys: WorkSheet name, value: Score
-     */
-    public Map<String, Integer> getUserScores(String username) {
-        return this.viewer.getUserScores(username);  // returns an empty hash map if the user is not in the system
-    }
-
-    /**
-     * Returns the past actions of the user.
-     *
-     * @param username: Username of the user
-     * @return An arraylist of hash maps.
+     * @param username of user
+     * @return list containing worksheet generation records (details)
      */
     public List<Map<String, Object>> getUserHistory(String username) {
-        return this.viewer.getUserHistory(username);  // returns an arraylist if the user is not in the system
+        return historyManager.getUserHistoryRaw(username);
     }
 
     /**
      * Registers a new userPackage.User. Throws Exception if another userPackage.User exists with the same username.
      *
-     * @param username // potential username
-     * @param name     // name of userPackage.User
-     * @param age      // age of userPackage.User
-     * @param role     // role of userPackage.User (Student/Parent/Teacher)
+     * @param username potential username
+     * @param name     name of userPackage.User
+     * @param age      age of userPackage.User
+     * @param role     role of userPackage.User (Student/Parent/Teacher)
      */
-    public void createUser(String username, String name, Integer age, String role) {
-        try {
-            updater.createUser(username, name, age, role);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void createUser(String username, String name, Integer age, String role) throws Exception {
+        userManager.createUser(username, name, age, role);
     }
 
     /**
@@ -87,29 +78,29 @@ public class UserController {
      * @param worksheetKey: Name of the worksheet
      * @param score:        Score of the user for that worksheet
      */
-    public void storeUserScore(String username, String worksheetKey, Integer score) {
-        this.updater.storeUserScore(username, worksheetKey, score);
+    public void storeUserScore(String username, String worksheetKey, Integer score) throws RecordDoesNotExistException {
+        historyManager.setUserScoreForRecord(username, worksheetKey, score);
     }
 
 
     /**
      * Stores the action of the user (such as creating a worksheet) in the user's history.
      *
-     * @param username:   Username of the user
-     * @param userAction: Action of the user (such as creating a worksheet)
+     * @param username:         Username of the user
+     * @param worksheetDetails: details for worksheet generation
      */
-    public void storeUserAction(String username, Map<String, Object> userAction) {
-        this.updater.storeUserAction(username, userAction);
+    public void storeUserRecord(String username, Map<String, Object> worksheetDetails) {
+        historyManager.storeUserRecord(username, worksheetDetails);
     }
 
     /**
      * Removes the user action from the user's history.
      *
      * @param username: Username of the user
-     * @param index:    Index of the action to be removed from the list of actions of the user.
+     * @param worksheetKey:    Index of the action to be removed from the list of actions of the user.
      */
-    public void removeUserAction(String username, Integer index) {
-        this.updater.removeUserAction(username, index);
+    public void removeUserRecord(String username, String worksheetKey) throws RecordDoesNotExistException {
+        historyManager.removeUserRecord(username, worksheetKey);
     }
 
 }

@@ -1,3 +1,5 @@
+import exceptions.InvalidInputException;
+
 /**
  * A subclass of Equation. Refers to an equation with any number of operands that use bedmas operators.
  * An example is 5 + 3 = 8. The question will be stored as a binary expression tree, while the answer will be a

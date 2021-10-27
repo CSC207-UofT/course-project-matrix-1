@@ -97,7 +97,7 @@ public class UserInterface {
         userAction.put("Equation type", this.equationType);
         userAction.put("Number of equations", this.numEquations);
         userAction.put("Difficulty", this.difficulty);
-        userController.storeUserAction(userController.getCurrentUsername(), userAction);
+        userController.storeUserRecord(userController.getCurrentUsername(), userAction);
 
     }
 
