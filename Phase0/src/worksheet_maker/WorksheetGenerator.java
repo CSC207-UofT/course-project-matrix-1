@@ -1,5 +1,7 @@
 package worksheet_maker;
 
+import equation_builders.*;
+
 /**
  * Generates a worksheet through the WorksheetInput interface.
  *

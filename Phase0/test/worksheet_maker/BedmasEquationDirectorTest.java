@@ -1,5 +1,6 @@
 package worksheet_maker;
 
+import equation_builders.*;
 import org.junit.Test;
 
 import java.util.Arrays;

@@ -1,4 +1,7 @@
-package worksheet_maker;
+package equation_builders;
+
+import equation_entities.BedmasEquation;
+import equation_builders.BedmasEquationBuilder;
 
 public class BedmasEquationDirector {
     private BedmasEquationBuilder bedmasEquationBuilder;

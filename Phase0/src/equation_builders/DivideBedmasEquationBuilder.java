@@ -1,4 +1,4 @@
-package worksheet_maker;
+package equation_builders;
 
 public class DivideBedmasEquationBuilder extends BedmasEquationBuilder {
 

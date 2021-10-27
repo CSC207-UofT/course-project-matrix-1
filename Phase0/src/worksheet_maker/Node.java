@@ -43,19 +43,13 @@ public class Node {
             //Means it's a value
             return Integer.parseInt(value);
         } else {
-            switch (value) {
-                case ADD:
-                    return leftNode.solve() + rightNode.solve();
-                case SUBTRACT:
-                    return leftNode.solve() - rightNode.solve();
-                case DIVIDE:
-                    return leftNode.solve() / rightNode.solve();
-                case MULTIPLY:
-                    return leftNode.solve() * rightNode.solve();
-                default:
-                    //TODO: Change this exception
-                    throw new RuntimeException("There shouldn't be any other symbol here");
-            }
+            return switch (value) {
+                case ADD -> leftNode.solve() + rightNode.solve();
+                case SUBTRACT -> leftNode.solve() - rightNode.solve();
+                case DIVIDE -> leftNode.solve() / rightNode.solve();
+                case MULTIPLY -> leftNode.solve() * rightNode.solve();
+                default -> throw new InvalidInputException();
+            };
         }
     }
 }

@@ -1,5 +1,7 @@
 package worksheet_maker;
 
+import equation_entities.Equation;
+
 import java.util.ArrayList;
 import java.util.List;
 

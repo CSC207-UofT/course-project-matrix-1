@@ -1,5 +1,6 @@
 package worksheet_maker;
 
+import equation_entities.BinaryExpressionTree;
 import org.junit.Before;
 import org.junit.Test;
 

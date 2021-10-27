@@ -1,10 +1,11 @@
-package worksheet_maker;
+package equation_builders;
 
-import java.util.ArrayList;
+import equation_entities.BedmasEquation;
+
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-abstract class BedmasEquationBuilder {
+public abstract class BedmasEquationBuilder {
     protected BedmasEquation bedmasEquation;
 
     public BedmasEquation getBedmasEquation() {

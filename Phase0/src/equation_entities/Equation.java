@@ -1,4 +1,4 @@
-package worksheet_maker;
+package equation_entities;
 
 /**
  * An equation that can be solved and returns its stored equation.

@@ -1,4 +1,6 @@
-package worksheet_maker;
+package equation_entities;
+
+import worksheet_maker.Node;
 
 /**
  * A subclass of EquationBuilder.Equation. Refers to an equation with any number of operands that use bedmas operators.

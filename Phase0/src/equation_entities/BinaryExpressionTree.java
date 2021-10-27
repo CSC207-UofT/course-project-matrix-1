@@ -1,4 +1,6 @@
-package worksheet_maker;
+package equation_entities;
+
+import worksheet_maker.Node;
 
 public class BinaryExpressionTree {
     private final Node root;

@@ -1,5 +1,7 @@
 package worksheet_maker;
 
+import equation_entities.Equation;
+
 /**
  * Assigns equations to a Worksheet.
  *
