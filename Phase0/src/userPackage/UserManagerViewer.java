@@ -45,31 +45,4 @@ public class UserManagerViewer {
         }
         return new HashMap<>();  // Return empty hash map if the username is invalid
     }
-
-    /**
-     * @param username Username of the user
-     * @return Hash map representing userPackage.User scores
-     */
-    public Map<String, Integer> getUserScores(String username) {
-        for (User u : this.users) {
-            if (u.getUsername().equals(username)) {
-                return u.getScores();
-            }
-        }
-        return new HashMap<>();  // Return empty hash map if the username is invalid
-    }
-
-    /**
-     * @param username: Username of the user
-     * @return Arraylists of hash maps representing past actions of the user.
-     */
-    public List<Map<String, Object>> getUserHistory(String username) {
-        for (User u : this.users) {
-            if (u.getUsername().equals(username)) {
-                return u.getHistory();
-            }
-        }
-        return new ArrayList<>(); //Return empty arraylist if the username is invalid
-    }
-
 }

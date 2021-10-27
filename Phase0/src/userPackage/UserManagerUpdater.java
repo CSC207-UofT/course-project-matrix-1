@@ -3,7 +3,6 @@ package userPackage;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,49 +45,6 @@ public class UserManagerUpdater {
         this.getUsers().add(newUser);  // adds the new user to the users list
     }
 
-    /**
-     * Stores the action of the user.
-     *
-     * @param username:         Username
-     * @param worksheetDetails: WorksheetDetails
-     */
-    public void storeUserAction(String username, Map<String, Object> worksheetDetails) {
-        for (User u : this.users) {
-            if (u.getUsername().equals(username)) {
-                u.addToHistory(worksheetDetails);
-            }
-        }
-    }
-
-    /**
-     * Removes the action of the user at the specified index.
-     *
-     * @param username: UserName
-     * @param index:    Index of the worksheet
-     */
-    public void removeUserAction(String username, Integer index) {
-        for (User u : this.users) {
-            if (u.getUsername().equals(username)) {
-                // Index out of bounds exception is handled in removeFromHistory method
-                u.removeFromHistory(index);
-            }
-        }
-    }
-
-    /**
-     * Stores the score the user received on the specified worksheet.
-     *
-     * @param username:     UserName
-     * @param worksheetKey: Name of the worksheet
-     * @param score:        Score the user received on the specified worksheet
-     */
-    public void storeUserScore(String username, String worksheetKey, int score) {
-        for (User u : this.users) {
-            if (u.getUsername().equals(username)) {  // Check whether the user is valid.
-                u.setWorksheetScore(worksheetKey, score); // Invalid worksheet keys are handled in setWorksheetScore.
-            }
-        }
-    }
 
     /**
      * Serializes and saves list of all current User objects at /src/userPackage/usersData/.

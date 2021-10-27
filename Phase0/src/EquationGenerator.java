@@ -1,3 +1,5 @@
+import exceptions.InvalidInputException;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 /**

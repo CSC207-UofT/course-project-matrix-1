@@ -1,9 +1,7 @@
-package userPackageTester;
+package userPackage;
 
 import org.junit.Before;
 import org.junit.Test;
-import userPackage.UserManagerFactory;
-import userPackage.UserManagerUpdater;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +15,7 @@ public class UserManagerUpdaterTest {
     @Before
     public void setUp() {
 
-        newUpdater = (UserManagerUpdater) UserManagerFactory.createViewerAndUpdater().get(1);
+        newUpdater = (UserManagerUpdater) UserManager.createViewerAndUpdater().get(1);
     }
 
     @Test
@@ -53,16 +51,6 @@ public class UserManagerUpdaterTest {
 
     @Test
     public void testStoreUserScore() {
-        HashMap<String, Object> record = new HashMap<>();
-        record.put("numQuestions", 40);
-        record.put("worksheetKey", "standard-add-easy");
-        newUpdater.storeUserAction("main", record);
-        newUpdater.storeUserScore("main", "standard-add-easy", 39);
-        assert newUpdater.getUsers().get(0).getScores().get("standard-add-easy").equals(39);
-    }
-
-    @Test
-    public void testStoreUserScores() {
         HashMap<String, Object> record = new HashMap<>();
         record.put("numQuestions", 40);
         record.put("worksheetKey", "standard-add-easy");
