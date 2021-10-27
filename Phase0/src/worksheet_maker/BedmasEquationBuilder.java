@@ -15,9 +15,19 @@ abstract class BedmasEquationBuilder {
         bedmasEquation = new BedmasEquation();
     }
 
+    /**
+     * Creates an operator in the bedmas equation's question.
+     */
     public abstract void buildOperator();
 
-    public abstract void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAns);
+    /**
+     * Creates operands (first and second) in the bedmas equation's question.
+     *
+     * @param operandRange1 the absolute range of values that the first operand can be.
+     * @param operandRange2 the absolute range of values that the second operand can be.
+     * @param negAllowed    specifies if the operands or answer are allowed to be negative.
+     */
+    public abstract void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed);
 
     public void buildAnswer() {
         bedmasEquation.solve();

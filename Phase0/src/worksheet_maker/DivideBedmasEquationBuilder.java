@@ -7,6 +7,14 @@ public class DivideBedmasEquationBuilder extends BedmasEquationBuilder {
         bedmasEquation.setOperator("/");
     }
 
+    /**
+     * Creates operands (first and second) in the division bedmas equation's question. Operand 1 must be divisible by
+     * operand 2, as in, they will result in an integer answer.
+     *
+     * @param operandRange1 the absolute range of values that the first operand can be.
+     * @param operandRange2 the absolute range of values that the second operand can be.
+     * @param negAllowed    specifies if the operands or answer are allowed to be negative.
+     */
     @Override
     public void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
         //TODO: Zeros are not allowed for operator 2. At UI level, restrict this.

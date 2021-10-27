@@ -26,7 +26,7 @@ public class BedmasEquationDirector {
      *
      * @param operandRange1 the absolute range of values that the first operand can be.
      * @param operandRange2 the absolute range of values that the second operand can be.
-     * @param negAllowed    specifies if the operands are allowed to be negative.
+     * @param negAllowed    specifies if the operands or answer are allowed to be negative.
      */
     public void constructBedmasEquation(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
         bedmasEquationBuilder.createNewBedmasEquationProduct();
