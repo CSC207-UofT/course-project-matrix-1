@@ -1,7 +1,6 @@
 package worksheet_maker;
 
-import equation_entities.BinaryExpressionTree;
-import equation_entities.Node;
+import equation_entities.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,17 +16,17 @@ public class BinaryExpressionTreeTest {
 
     @Before
     public void init() {
-        bet = new BinaryExpressionTree("+");
+        bet = new BinaryExpressionTree(new Add());
         Node n = bet.getRoot();
-        n.setLeftNode(new Node("3"));
-        Node r = new Node("/");
-        r.setLeftNode(new Node("8"));
-        r.setRightNode(new Node("4"));
+        n.setLeftNode(new Node(new WholeNum(3)));
+        Node r = new Node(new Divide());
+        r.setLeftNode(new Node(new WholeNum(8)));
+        r.setRightNode(new Node(new WholeNum(4)));
         n.setRightNode(r);
     }
 
     @Test
     public void testSolveLongBET() {
-        assertEquals(bet.solve(), 5);
+        assertEquals(bet.solve().toString(), "5");
     }
 }

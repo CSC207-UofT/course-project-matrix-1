@@ -9,11 +9,17 @@ package equation_entities;
  */
 public interface Equation {
 
+    /**
+     * Returns the equation, as a [question, answer] string representation
+     *
+     * @return the list representation of the equation
+     */
     String[] getEquation();
 
+    /**
+     * Uses the question assigned to the equation to determine the answer, and assigns this answer to this equation's
+     * instance of answer.
+     */
     void solve();
 
-    String questionToString();
-
-    String answerToString();
 }

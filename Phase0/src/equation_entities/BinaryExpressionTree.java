@@ -11,8 +11,9 @@ package equation_entities;
 public class BinaryExpressionTree {
     private final Node root;
 
-    public BinaryExpressionTree(String operator) {
-        this.root = new Node(operator);
+
+    public BinaryExpressionTree(Symbol term) {
+        this.root = new Node(term);
     }
 
     public Node getRoot() {
@@ -24,7 +25,7 @@ public class BinaryExpressionTree {
      *
      * @return The answer of the expression stored in the tree.
      */
-    public int solve() {
+    public Value solve() {
         return root.solve();
     }
 

@@ -10,7 +10,7 @@ package equation_entities;
  * @since 2021-10-21
  */
 public class Node {
-    private final String symbol;
+    private final Symbol symbol;
     private Node leftNode;
     private Node rightNode;
     private final String ADD = "+";
@@ -24,7 +24,8 @@ public class Node {
     }
 
     /**
-     * Determines if this node is a leaf. A leaf is a node where both the left and right node are null.
+     * Determines if this node is a leaf. A leaf is a node where both the left and right node are null. Leaves only
+     * contain Operator's as their symbol.
      *
      * @return true if this node is a leaf, false if otherwise.
      */
@@ -48,8 +49,13 @@ public class Node {
         return rightNode;
     }
 
-    public String getSymbol() {
+    public Symbol getSymbol() {
         return symbol;
+    }
+
+    @Override
+    public String toString() {
+        return symbol.toString();
     }
 
     /**
@@ -60,19 +66,12 @@ public class Node {
      *
      * @return The solution of the expression stored in the node.
      */
-    public int solve() {
+    public Value solve() {
         if (this.isLeaf()) {
             //Means it's a value
-            return Integer.parseInt(symbol);
+            return (Value) (this.symbol);
         } else {
-            return switch (symbol) {
-                case "+" -> leftNode.solve() + rightNode.solve();
-                case "-" -> leftNode.solve() - rightNode.solve();
-                case "/" -> leftNode.solve() / rightNode.solve();
-                case "*" -> leftNode.solve() * rightNode.solve();
-                case "^" -> leftNode.solve() ^ rightNode.solve();
-                default -> throw new RuntimeException("There shouldn't be any other operator here");
-            };
+            return ((Operator) symbol).solveBinaryExpression(leftNode.solve(), rightNode.solve());
         }
     }
 }

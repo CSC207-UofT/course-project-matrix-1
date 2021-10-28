@@ -1,9 +1,16 @@
 package equation_builders;
 
+import equation_entities.Subtract;
+import equation_entities.WholeNum;
+
 public class SubBedmasEquationBuilder extends BedmasEquationBuilder {
+
+    /**
+     * Assigns the subtraction operator to the equation.
+     */
     @Override
     public void buildOperator() {
-        bedmasEquation.setOperator("-");
+        bedmasEquation.setOperator(new Subtract());
     }
 
     /**
@@ -25,8 +32,8 @@ public class SubBedmasEquationBuilder extends BedmasEquationBuilder {
         } else {
             operand2 = randomize(operandRange2[0], operand1);
         }
-        bedmasEquation.setOperand1(operand1);
-        bedmasEquation.setOperand2(operand2);
+        bedmasEquation.setOperand1(new WholeNum(operand1));
+        bedmasEquation.setOperand2(new WholeNum(operand2));
     }
 
 

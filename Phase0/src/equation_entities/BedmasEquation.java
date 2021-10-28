@@ -11,14 +11,14 @@ package equation_entities;
  */
 public class BedmasEquation implements Equation {
     private BinaryExpressionTree question;
-    private int answer;
+    private Value answer;
 
     /**
      * Sets the operator for the equation as the root of the binary expression tree
      *
      * @param operator A string of either +, -, *, / meaning add, subtract, multiply, and divide respectively.
      */
-    public void setOperator(String operator) {
+    public void setOperator(Operator operator) {
         question = new BinaryExpressionTree(operator);
     }
 
@@ -27,8 +27,8 @@ public class BedmasEquation implements Equation {
      *
      * @param operand1 the second operand in the binary expression
      */
-    public void setOperand1(int operand1) {
-        question.getRoot().setLeftNode(new Node(Integer.toString(operand1)));
+    public void setOperand1(Value operand1) {
+        question.getRoot().setLeftNode(new Node(operand1));
     }
 
     /**
@@ -36,8 +36,8 @@ public class BedmasEquation implements Equation {
      *
      * @param operand2 the second operand in the binary expression
      */
-    public void setOperand2(int operand2) {
-        question.getRoot().setRightNode(new Node(Integer.toString(operand2)));
+    public void setOperand2(Value operand2) {
+        question.getRoot().setRightNode(new Node(operand2));
     }
 
     /**
@@ -45,8 +45,9 @@ public class BedmasEquation implements Equation {
      */
     @Override
     public String[] getEquation() {
-        String q = question.getRoot().getLeftNode().getSymbol() + " " + question.getRoot().getSymbol() + " " + question.getRoot().getRightNode().getSymbol();
-        String a = String.valueOf(answer);
+        String q = question.getRoot().getLeftNode().getSymbol() + " " + question.getRoot().getSymbol() + " " +
+                question.getRoot().getRightNode().getSymbol();
+        String a = answer.toString();
         return new String[]{q, a};
     }
 
@@ -57,22 +58,5 @@ public class BedmasEquation implements Equation {
     public void solve() {
         answer = question.solve();
     }
-    @Override
-    public String questionToString(){
-        return this.question.toString();
-    }
-    @Override
-    public String answerToString(){
-        return String.valueOf(this.answer);
-    }
 
-    /**
-     * Returns the operands and answers separately for testing purposes.
-     *
-     * @return the parts of the equation, as [operand1, operand2, answer]
-     */
-    public int[] getEquationParts() {
-        return new int[]{Integer.parseInt(question.getRoot().getLeftNode().getSymbol()),
-                Integer.parseInt(question.getRoot().getRightNode().getSymbol()), answer};
-    }
 }

@@ -30,7 +30,7 @@ public class Worksheet implements WorksheetInput, WorksheetOutput {
         String[][] equationsString = new String[equations.size()][];
         //Loops through its own equation to generate String[] of them.
         for (int i = 0; i < equations.size(); i++) {
-            equationsString[i] = new String[]{equations.get(i).questionToString(), equations.get(i).answerToString()};
+            equationsString[i] = equations.get(i).getEquation();
         }
         return equationsString;
     }

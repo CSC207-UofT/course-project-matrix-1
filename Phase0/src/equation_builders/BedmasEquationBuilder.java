@@ -17,12 +17,12 @@ public abstract class BedmasEquationBuilder {
     }
 
     /**
-     * Creates an operator in the bedmas equation's question.
+     * Builds the bedmasEquation's operator.
      */
     public abstract void buildOperator();
 
     /**
-     * Creates operands (first and second) in the bedmas equation's question.
+     * Builds the operands (first and second) for the bedmasEquation.
      *
      * @param operandRange1 the absolute range of values that the first operand can be.
      * @param operandRange2 the absolute range of values that the second operand can be.
@@ -30,10 +30,19 @@ public abstract class BedmasEquationBuilder {
      */
     public abstract void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed);
 
+    /**
+     * Builds the bedmasEquation's answer.
+     */
     public void buildAnswer() {
         bedmasEquation.solve();
     }
 
+    /**
+     * Randomly returns either a positive or negative version of the number given (50:50 chance).
+     *
+     * @param num the original number
+     * @return a negative or positive version of num
+     */
     protected static int makeNegativeRandom(int num) {
         Random rand = new Random();
         int x = rand.nextInt(2);

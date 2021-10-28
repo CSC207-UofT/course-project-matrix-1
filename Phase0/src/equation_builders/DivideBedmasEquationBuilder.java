@@ -1,10 +1,15 @@
 package equation_builders;
 
-public class DivideBedmasEquationBuilder extends BedmasEquationBuilder {
+import equation_entities.Divide;
+import equation_entities.WholeNum;
 
+public class DivideBedmasEquationBuilder extends BedmasEquationBuilder {
+    /**
+     * Assigns the division operator to the equation.
+     */
     @Override
     public void buildOperator() {
-        bedmasEquation.setOperator("/");
+        bedmasEquation.setOperator(new Divide());
     }
 
     /**
@@ -29,8 +34,8 @@ public class DivideBedmasEquationBuilder extends BedmasEquationBuilder {
             operand1 = makeNegativeRandom(operand1);
             operand2 = makeNegativeRandom(operand2);
         }
-        bedmasEquation.setOperand1(operand1);
-        bedmasEquation.setOperand2(operand2);
+        bedmasEquation.setOperand1(new WholeNum(operand1));
+        bedmasEquation.setOperand2(new WholeNum(operand2));
     }
 
 }

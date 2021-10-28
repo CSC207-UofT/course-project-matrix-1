@@ -1,9 +1,15 @@
 package equation_builders;
 
+import equation_entities.Add;
+import equation_entities.WholeNum;
+
 public class AddBedmasEquationBuilder extends BedmasEquationBuilder {
+    /**
+     * Assigns the addition operator to the equation.
+     */
     @Override
     public void buildOperator() {
-        bedmasEquation.setOperator("+");
+        bedmasEquation.setOperator(new Add());
     }
 
     /**
@@ -21,8 +27,8 @@ public class AddBedmasEquationBuilder extends BedmasEquationBuilder {
             operand1 = makeNegativeRandom(operand1);
             operand2 = makeNegativeRandom(operand2);
         }
-        bedmasEquation.setOperand1(operand1);
-        bedmasEquation.setOperand2(operand2);
+        bedmasEquation.setOperand1(new WholeNum(operand1));
+        bedmasEquation.setOperand2(new WholeNum(operand2));
     }
 
 
