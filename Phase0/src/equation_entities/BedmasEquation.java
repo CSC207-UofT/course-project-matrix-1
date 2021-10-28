@@ -1,7 +1,5 @@
 package equation_entities;
 
-import worksheet_maker.Node;
-
 /**
  * A subclass of EquationBuilder.Equation. Refers to an equation with any number of operands that use bedmas operators.
  * An example is 5 + 3 = 8. The question will be stored as a binary expression tree, while the answer will be a
@@ -47,7 +45,7 @@ public class BedmasEquation implements Equation {
      */
     @Override
     public String[] getEquation() {
-        String q = question.getRoot().getLeftNode().getValue() + " " + question.getRoot().getValue() + " " + question.getRoot().getRightNode().getValue();
+        String q = question.getRoot().getLeftNode().getSymbol() + " " + question.getRoot().getSymbol() + " " + question.getRoot().getRightNode().getSymbol();
         String a = String.valueOf(answer);
         return new String[]{q, a};
     }
@@ -74,7 +72,7 @@ public class BedmasEquation implements Equation {
      * @return the parts of the equation, as [operand1, operand2, answer]
      */
     public int[] getEquationParts() {
-        return new int[]{Integer.parseInt(question.getRoot().getLeftNode().getValue()),
-                Integer.parseInt(question.getRoot().getRightNode().getValue()), answer};
+        return new int[]{Integer.parseInt(question.getRoot().getLeftNode().getSymbol()),
+                Integer.parseInt(question.getRoot().getRightNode().getSymbol()), answer};
     }
 }

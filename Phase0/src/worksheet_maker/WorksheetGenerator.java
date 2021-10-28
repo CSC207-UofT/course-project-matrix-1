@@ -1,6 +1,7 @@
 package worksheet_maker;
 
 import equation_builders.*;
+import equation_entities.InvalidInputException;
 
 /**
  * Generates a worksheet through the WorksheetInput interface.

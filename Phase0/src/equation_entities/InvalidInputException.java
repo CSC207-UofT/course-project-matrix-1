@@ -1,4 +1,4 @@
-package worksheet_maker;
+package equation_entities;
 
 /**
  * Signifies that the user gave an invalid input.
@@ -8,7 +8,7 @@ package worksheet_maker;
  * @since 2021-10-12
  */
 public class InvalidInputException extends RuntimeException {
-    InvalidInputException() {
+    public InvalidInputException() {
         super("Invalid input - we will deal with this eventually.");
     }
 }

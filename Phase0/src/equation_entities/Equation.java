@@ -8,7 +8,7 @@ package equation_entities;
  * @since 2021-10-12
  */
 public interface Equation {
-    //TODO make sure you override everything.
+
     String[] getEquation();
 
     void solve();

@@ -1,7 +1,13 @@
 package equation_entities;
 
-import worksheet_maker.Node;
-
+/**
+ * A BinaryExpressionTree that holds a single root node. This root node can be manipulated to access the entire tree
+ * recursively.
+ *
+ * @author Will Jeong
+ * @version 1.0
+ * @since 2021-10-21
+ */
 public class BinaryExpressionTree {
     private final Node root;
 
@@ -13,6 +19,11 @@ public class BinaryExpressionTree {
         return root;
     }
 
+    /**
+     * Uses the root node to solve the value of the tree recursively
+     *
+     * @return The answer of the expression stored in the tree.
+     */
     public int solve() {
         return root.solve();
     }
