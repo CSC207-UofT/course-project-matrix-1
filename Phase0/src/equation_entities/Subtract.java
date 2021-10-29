@@ -10,7 +10,7 @@ public class Subtract extends Operator {
      */
     @Override
     public Value solveBinaryExpression(Value operand1, Value operand2) {
-        return operand1.add(operand2);
+        return operand1.subtract(operand2);
     }
 
     /**

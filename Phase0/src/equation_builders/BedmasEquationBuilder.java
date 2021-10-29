@@ -2,6 +2,7 @@ package equation_builders;
 
 import equation_entities.BedmasEquation;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -71,6 +72,16 @@ public abstract class BedmasEquationBuilder {
      */
     protected static int randomize(int[] range) {
         return ThreadLocalRandom.current().nextInt(range[0], range[1] + 1);
+    }
+
+    /**
+     * Returns a random int from a specified list of numbers.
+     *
+     * @param possibleInts the possible ints in no particular order.
+     * @return a randomized int from the possibleInts.
+     */
+    protected static int randomize(ArrayList<Integer> possibleInts) {
+        return possibleInts.get(randomize(0, possibleInts.size() - 1));
     }
 
 }
