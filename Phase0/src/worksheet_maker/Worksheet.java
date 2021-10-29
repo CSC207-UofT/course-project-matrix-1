@@ -16,7 +16,7 @@ public class Worksheet implements WorksheetInput, WorksheetOutput {
     /**
      * This Worksheet's list of equations.
      */
-    private List<Equation> equations = new ArrayList<>();
+    private final List<Equation> equations = new ArrayList<>();
 
     /**
      * Adds a new equation to Worksheet.

@@ -3,6 +3,8 @@ package worksheet_maker;
 import equation_builders.*;
 import equation_entities.InvalidInputException;
 
+import java.util.HashMap;
+
 /**
  * Generates a worksheet through the WorksheetInput interface.
  *
@@ -20,8 +22,21 @@ public class WorksheetGenerator {
      * @param operandRange2  the absolute range of values that the second operand can be.
      * @param negAllowed     specifies if the operands are allowed to be negative.
      */
-    public WorksheetInput createWorksheet(int numOfEquations, char operator, int[] operandRange1, int[] operandRange2, boolean negAllowed) {
-        WorksheetInput ws = new Worksheet();
+    //Worksheet input rather than Worksheet
+    private final WorksheetInput ws;
+
+    public WorksheetGenerator(Worksheet ws){
+        this.ws = ws;
+    }
+    //TODO: change this to hashmap input instead of parameter list
+    public void createWorksheet(HashMap<String, Object> equationDetails) {
+        //Parse equationDetails for parameters
+        int numOfEquations = (int) equationDetails.get("numOfEquations");
+        char operator = (char) equationDetails.get("operator");
+        int[] operandRange1 = (int[]) equationDetails.get("operandRange1");
+        int[] operandRange2 = (int[]) equationDetails.get("operandRange2");
+        boolean negAllowed = (boolean) equationDetails.get("negAllowed");
+
         BedmasEquationDirector bedmasEquationDirector = new BedmasEquationDirector();
 
         //Create and assign the correct BedmasEquationBuilder.
@@ -43,9 +58,9 @@ public class WorksheetGenerator {
         //Construct the specified number of Equations and save them in Worksheet.
         for (int i = 0; i < numOfEquations; i++) {
             bedmasEquationDirector.constructBedmasEquation(operandRange1, operandRange2, negAllowed);
-            ws.addEquation(bedmasEquationDirector.getBedmasEquation());
+            this.ws.addEquation(bedmasEquationDirector.getBedmasEquation());
         }
-        return ws;
+
     }
 
 
