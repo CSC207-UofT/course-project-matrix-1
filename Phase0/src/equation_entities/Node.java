@@ -13,13 +13,15 @@ public class Node {
     private final Symbol symbol;
     private Node leftNode;
     private Node rightNode;
-    private final String ADD = "+";
-    private final String SUBTRACT = "-";
-    private final String MULTIPLY = "*";
-    private final String DIVIDE = "/";
 
-    public Node(String value) {
-        this.symbol = value;
+    /**
+     * Instantiates the left node and right node as null, while assigning the symbol provided in the constructor to this
+     * node's instance of symbol.
+     *
+     * @param symbol The symbol that this node directly contains.
+     */
+    public Node(Symbol symbol) {
+        this.symbol = symbol;
         this.leftNode = this.rightNode = null;
     }
 

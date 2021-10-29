@@ -18,11 +18,21 @@ public class Worksheet implements WorksheetInput, WorksheetOutput {
      */
     private List<Equation> equations = new ArrayList<>();
 
+    /**
+     * Adds a new equation to Worksheet.
+     *
+     * @param e the Equation to be added to Worksheet.
+     */
     @Override
     public void addEquation(Equation e) {
         equations.add(e);
     }
 
+    /**
+     * Returns a String representation of a Worksheet.
+     *
+     * @return equations formatted as [question, answer] in an array
+     */
     @Override
     public String[][] equationsToStringArray() {
         //TODO: worry about corner case where there is nothing in equations

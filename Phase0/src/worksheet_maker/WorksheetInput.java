@@ -10,10 +10,5 @@ import equation_entities.Equation;
  * @since 2021-10-25.
  */
 public interface WorksheetInput {
-    /**
-     * Adds a new equation to Worksheet.
-     *
-     * @param e the Equation to be added to Worksheet.
-     */
     public void addEquation(Equation e);
 }
