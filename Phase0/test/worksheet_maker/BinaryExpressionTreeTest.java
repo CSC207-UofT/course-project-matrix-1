@@ -16,7 +16,7 @@ public class BinaryExpressionTreeTest {
 
     @Before
     public void init() {
-        bet = new BinaryExpressionTree(new Add());
+        bet = new BinaryExpressionTree(new Multiply());
         Node n = bet.getRoot();
         n.setLeftNode(new Node(new WholeNum(3)));
         Node r = new Node(new Divide());
@@ -27,6 +27,6 @@ public class BinaryExpressionTreeTest {
 
     @Test
     public void testSolveLongBET() {
-        assertEquals(bet.solve().toString(), "5");
+        assertEquals(bet.solve().toString(), "6");
     }
 }
