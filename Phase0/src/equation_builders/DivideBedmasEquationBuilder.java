@@ -33,8 +33,6 @@ public class DivideBedmasEquationBuilder extends BedmasEquationBuilder {
         //TODO: Zeros are not allowed for operator 2. At UI level, restrict this.
         ArrayList<Integer> possibleOperand2 = restrictRanges(operandRange1, operandRange2);
         int operand2 = randomize(possibleOperand2);
-        // now that operand2 is fixed, it is possible to create a possible range of answers that will satisfy the
-        //equation. Creating this range will allow us to determine operand1.
         int[] answerRange = new int[]{(int) Math.ceil((float) operandRange1[0] / operand2),
                 (int) Math.floor((float) operandRange1[1] / operand2)};
         int answer = randomize(answerRange);
@@ -48,14 +46,14 @@ public class DivideBedmasEquationBuilder extends BedmasEquationBuilder {
     }
 
     /**
-     * Restricts the ranges of the two operands so that division is possible, returning a possible list for
-     * operand2
+     * Restricts the ranges of the two operands so that division is possible, and then further restricts operand2 into
+     * an array list of possible list integers.
      *
      * @param operandRange1 the absolute range of values (min, max) that the first operand can be. The max of
      *                      operandRange1 must be greater than or equal to the min of operandRange2. At least one number
      *                      in this range must be divisible by a number in operandRange2.
      * @param operandRange2 the absolute range of values (min, max) that the second operand can be. Cannot include 0.
-     * @return a list of new possible operand2 ranges.
+     * @return the possible integers operand2 can be.
      */
     private ArrayList<Integer> restrictRanges(int[] operandRange1, int[] operandRange2) {
         operandRange2[1] = Math.min(operandRange1[1], operandRange2[1]);

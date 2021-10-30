@@ -25,7 +25,7 @@ public class WorksheetGenerator {
     //Worksheet input rather than Worksheet
     private final WorksheetInput ws;
 
-    public WorksheetGenerator(Worksheet ws){
+    public WorksheetGenerator(WorksheetInput ws){
         this.ws = ws;
     }
     //TODO: change this to hashmap input instead of parameter list

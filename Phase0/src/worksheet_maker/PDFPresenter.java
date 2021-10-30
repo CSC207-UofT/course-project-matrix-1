@@ -6,7 +6,7 @@ public class PDFPresenter {
     //Worksheet output rather than Worksheet
     private final WorksheetOutput ws;
 
-    public PDFPresenter(Worksheet ws){
+    public PDFPresenter(WorksheetOutput ws){
         this.ws = ws;
     }
     //TODO: change this to hashmap input instead of parameter list

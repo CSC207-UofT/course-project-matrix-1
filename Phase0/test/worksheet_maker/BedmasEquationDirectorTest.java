@@ -80,6 +80,31 @@ public class BedmasEquationDirectorTest {
     }
 
     @Test
+    public void testOperand1AlwaysSmallerThanOperand2() {
+        try {
+            BedmasEquationBuilder divBeb = new DivideBedmasEquationBuilder();
+            bed.setBedmasEquationBuilder(divBeb);
+            bed.constructBedmasEquation(generateRange(0, 5), generateRange(10, 20), false);
+            String[] equation = bed.getBedmasEquation().getEquation();
+            System.out.println(Arrays.toString(equation));
+        } catch (IllegalArgumentException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
+    }
+
+    @Test
+    public void testImpossibleDivision() {
+        try {
+            BedmasEquationBuilder divBeb = new DivideBedmasEquationBuilder();
+            bed.setBedmasEquationBuilder(divBeb);
+            bed.constructBedmasEquation(generateRange(19, 20), generateRange(6, 7), false);
+            String[] equation = bed.getBedmasEquation().getEquation();
+            System.out.println(Arrays.toString(equation));
+        } catch (IllegalArgumentException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
+    }
+    @Test
     public void testSmallOperandRangeDiv() {
         BedmasEquationBuilder divBeb = new DivideBedmasEquationBuilder();
         bed.setBedmasEquationBuilder(divBeb);
@@ -106,18 +131,7 @@ public class BedmasEquationDirectorTest {
         System.out.println(Arrays.toString(equation));
     }
 
-    @Test
-    public void testImpossibleDiv() {
-        try {
-            BedmasEquationBuilder divBeb = new DivideBedmasEquationBuilder();
-            bed.setBedmasEquationBuilder(divBeb);
-            bed.constructBedmasEquation(generateRange(19, 20), generateRange(6, 7), false);
-            String[] equation = bed.getBedmasEquation().getEquation();
-            System.out.println(Arrays.toString(equation));
-        } catch (IllegalArgumentException e) {
-            System.out.println(Arrays.toString(e.getStackTrace()));
-        }
-    }
+
 
     @Test
     public void testOnePossibilityDiv() {
@@ -130,7 +144,7 @@ public class BedmasEquationDirectorTest {
     @Test
     public void testStandardDiv() {
         System.out.println("================");
-        for (int i=0;i<100;i++) {
+        for (int i=0;i<10;i++) {
             BedmasEquationBuilder divBeb = new DivideBedmasEquationBuilder();
             bed.setBedmasEquationBuilder(divBeb);
             bed.constructBedmasEquation(generateRange(0, 100), generateRange(1, 10), false);
