@@ -1,7 +1,8 @@
 package equation_entities;
 
 /**
- * A value such as integers, decimals, or fractions.
+ * Stores an abstract value for a number that can appear in various forms (whole number, decimals, or fraction).
+ * Standard BEDMAS operations can be applied to these values.
  *
  * @author Will Jeong
  * @version 1.0

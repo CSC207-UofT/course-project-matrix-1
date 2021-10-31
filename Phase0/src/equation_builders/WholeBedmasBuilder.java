@@ -2,16 +2,28 @@ package equation_builders;
 
 import equation_entities.BedmasEquation;
 
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class BedmasEquationBuilder {
+/**
+ * An abstract builder for all whole number BEDMAS equation builders.
+ *
+ * @author Will Jeong
+ * @version 1.0
+ * @since 2021-10-30
+ */
+public abstract class WholeBedmasBuilder {
     protected BedmasEquation bedmasEquation;
 
+    
     public BedmasEquation getBedmasEquation() {
         return bedmasEquation;
     }
 
+    /**
+     * Creates a new instance of the bedmas equation.
+     */
     public void createNewBedmasEquationProduct() {
         bedmasEquation = new BedmasEquation();
     }
@@ -71,6 +83,16 @@ public abstract class BedmasEquationBuilder {
      */
     protected static int randomize(int[] range) {
         return ThreadLocalRandom.current().nextInt(range[0], range[1] + 1);
+    }
+
+    /**
+     * Returns a random int from a specified list of numbers.
+     *
+     * @param possibleInts the possible ints in no particular order.
+     * @return a randomized int from the possibleInts.
+     */
+    protected static int randomize(List<Integer> possibleInts) {
+        return possibleInts.get(randomize(0, possibleInts.size() - 1));
     }
 
 }

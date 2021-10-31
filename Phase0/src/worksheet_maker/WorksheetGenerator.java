@@ -66,6 +66,7 @@ public class WorksheetGenerator {
      */
     private BedmasEquationDirector getBedmasEquationDirector(char operator) {
         BedmasEquationDirector bedmasEquationDirector = new BedmasEquationDirector();
+        WholeBedmasDirector bedmasEquationDirector = new WholeBedmasDirector();
 
         char ADD = '+';
         char SUBTRACT = '-';
@@ -73,16 +74,18 @@ public class WorksheetGenerator {
         char DIVIDE = '/';
 
         if (operator == ADD) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new AddBedmasEquationBuilder());
+            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasAddBuilder());
         } else if (operator == SUBTRACT) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new SubBedmasEquationBuilder());
+            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasSubBuilder());
         } else if (operator == MULTIPLY) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new MultiplyBedmasEquationBuilder());
+            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasMultiplyBuilder());
         } else if (operator == DIVIDE) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new DivideBedmasEquationBuilder());
+            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasDivideBuilder());
         } else {
             throw new InvalidInputException();
         }
         return bedmasEquationDirector;
     }
+
+
 }

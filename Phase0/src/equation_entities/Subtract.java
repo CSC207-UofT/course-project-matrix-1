@@ -1,5 +1,11 @@
 package equation_entities;
-
+/**
+ * Subtracts two Values and returns the string representation of this operator.
+ *
+ * @author Will Jeong
+ * @version 1.0
+ * @since 2021-10-30
+ */
 public class Subtract extends Operator {
     /**
      * Subtracts the two operands together.
@@ -10,7 +16,7 @@ public class Subtract extends Operator {
      */
     @Override
     public Value solveBinaryExpression(Value operand1, Value operand2) {
-        return operand1.add(operand2);
+        return operand1.subtract(operand2);
     }
 
     /**

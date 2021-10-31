@@ -2,8 +2,15 @@ package equation_builders;
 
 import equation_entities.Subtract;
 import equation_entities.WholeNum;
-
-public class SubBedmasEquationBuilder extends BedmasEquationBuilder {
+/**
+ * Builds whole number subtraction equations. If negatives are not specified, only subtraction equations that yield
+ * positive answers are produced.
+ *
+ * @author Sean Jeong
+ * @version 1.0
+ * @since 2021-10-30
+ */
+public class WholeBedmasSubBuilder extends WholeBedmasBuilder {
 
     /**
      * Assigns the subtraction operator to the equation.

@@ -1,9 +1,9 @@
 package equation_entities;
 
 /**
- * A node that is used in the BinaryExpressionTree. Any leaves are values (such as integers, fractions, or decimals)
- * Any nodes that are not leaves are operators (+, -, *, /, ^). Every node contains an expression in the form of
- * leftNode.solve(), symbol, rightNode.solve().
+ * Stores a node which holds a left and right leaf. Any leaves are values (such as integers, fractions, or decimals)
+ * Any nodes that are not leaves are operators (+, -, *, /, ^). All nodes with operators must contain a left leaf and
+ * right leaf. Every node contains an expression in the form of leftNode.solve(), symbol, rightNode.solve().
  *
  * @author Will Jeong
  * @version 1.0

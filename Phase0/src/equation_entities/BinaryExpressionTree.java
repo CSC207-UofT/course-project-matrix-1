@@ -1,8 +1,7 @@
 package equation_entities;
 
 /**
- * A BinaryExpressionTree that holds a single root node. This root node can be manipulated to access the entire tree
- * recursively.
+ * Stores a single root Node. This root node can be manipulated to access a binary tree recursively.
  *
  * @author Will Jeong
  * @version 1.0

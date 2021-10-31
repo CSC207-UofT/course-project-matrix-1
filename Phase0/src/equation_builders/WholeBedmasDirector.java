@@ -3,23 +3,23 @@ package equation_builders;
 import equation_entities.BedmasEquation;
 
 /**
- * Director of all BedmasEquationBuilders. Contains the BedmasEquationBuilder to be used by the client and specifies
- * which order the build methods should be done in.
+ * Directs the construction of whole number BEDMAS equations, starting from the operator, then the operands, and finally
+ * the answer.
  *
- * @author Sean Jeong
+ * @author Will Jeong
  * @version 1.0
- * @since 2021-10-24.
+ * @since 2021-10-30
  */
-public class BedmasEquationDirector {
-    private BedmasEquationBuilder bedmasEquationBuilder;
+public class WholeBedmasDirector {
+    private WholeBedmasBuilder bedmasEquationBuilder;
 
     /**
      * Set the BedmasEquationBuilder.
      *
-     * @param bedmasEquationBuilder the BedmasEquationBuilder which this director will use.
+     * @param beb the BedmasEquationBuilder which this director will use.
      */
-    public void setBedmasEquationBuilder(BedmasEquationBuilder bedmasEquationBuilder) {
-        this.bedmasEquationBuilder = bedmasEquationBuilder;
+    public void setBedmasEquationBuilder(WholeBedmasBuilder beb) {
+        this.bedmasEquationBuilder = beb;
     }
 
     /**

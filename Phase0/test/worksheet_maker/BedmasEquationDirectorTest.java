@@ -1,7 +1,6 @@
 package worksheet_maker;
 
 import equation_builders.*;
-import equation_entities.Value;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -15,14 +14,13 @@ import static org.junit.Assert.assertTrue;
  * @since 2021-10-12
  */
 public class BedmasEquationDirectorTest {
-    private final BedmasEquationDirector bed = new BedmasEquationDirector();
-    private final int[] zeroToTen = new int[]{0, 10};
+    private final WholeBedmasDirector bed = new WholeBedmasDirector();
 
     @Test
     public void testAddPosAns() {
-        BedmasEquationBuilder addBeb = new AddBedmasEquationBuilder();
+        WholeBedmasBuilder addBeb = new WholeBedmasAddBuilder();
         bed.setBedmasEquationBuilder(addBeb);
-        bed.constructBedmasEquation(zeroToTen, zeroToTen, false);
+        bed.constructBedmasEquation(generateRange(0, 10), generateRange(0, 10), false);
         String[] equation = bed.getBedmasEquation().getEquation();
         System.out.println(Arrays.toString(equation));
         int answer = Integer.parseInt(equation[1]);
@@ -31,9 +29,9 @@ public class BedmasEquationDirectorTest {
 
     @Test
     public void testAddNegAns() {
-        BedmasEquationBuilder addBeb = new AddBedmasEquationBuilder();
+        WholeBedmasBuilder addBeb = new WholeBedmasAddBuilder();
         bed.setBedmasEquationBuilder(addBeb);
-        bed.constructBedmasEquation(zeroToTen, zeroToTen, true);
+        bed.constructBedmasEquation(generateRange(0, 10), generateRange(0, 10), true);
         String[] equation = bed.getBedmasEquation().getEquation();
         System.out.println(Arrays.toString(equation));
         int answer = Integer.parseInt(equation[1]);
@@ -42,9 +40,9 @@ public class BedmasEquationDirectorTest {
 
     @Test
     public void testSubPosAns() {
-        BedmasEquationBuilder subBeb = new SubBedmasEquationBuilder();
+        WholeBedmasBuilder subBeb = new WholeBedmasSubBuilder();
         bed.setBedmasEquationBuilder(subBeb);
-        bed.constructBedmasEquation(zeroToTen, zeroToTen, false);
+        bed.constructBedmasEquation(generateRange(0, 10), generateRange(0, 10), false);
         String[] equation = bed.getBedmasEquation().getEquation();
         System.out.println(Arrays.toString(equation));
         int answer = Integer.parseInt(equation[1]);
@@ -53,9 +51,9 @@ public class BedmasEquationDirectorTest {
 
     @Test
     public void testSubNegAns() {
-        BedmasEquationBuilder subBeb = new SubBedmasEquationBuilder();
+        WholeBedmasBuilder subBeb = new WholeBedmasSubBuilder();
         bed.setBedmasEquationBuilder(subBeb);
-        bed.constructBedmasEquation(zeroToTen, zeroToTen, true);
+        bed.constructBedmasEquation(generateRange(0, 10), generateRange(0, 10), true);
         String[] equation = bed.getBedmasEquation().getEquation();
         System.out.println(Arrays.toString(equation));
         int answer = Integer.parseInt(equation[1]);
@@ -64,19 +62,98 @@ public class BedmasEquationDirectorTest {
 
     @Test
     public void testDivNegAns() {
-        BedmasEquationBuilder divBeb = new DivideBedmasEquationBuilder();
+        WholeBedmasBuilder divBeb = new WholeBedmasDivideBuilder();
         bed.setBedmasEquationBuilder(divBeb);
-        bed.constructBedmasEquation(zeroToTen, zeroToTen, true);
+        bed.constructBedmasEquation(generateRange(0, 10), generateRange(1, 10), true);
         String[] equation = bed.getBedmasEquation().getEquation();
         System.out.println(Arrays.toString(equation));
     }
 
     @Test
     public void testDivPosAns() {
-        BedmasEquationBuilder divBeb = new DivideBedmasEquationBuilder();
+        WholeBedmasBuilder divBeb = new WholeBedmasDivideBuilder();
         bed.setBedmasEquationBuilder(divBeb);
-        bed.constructBedmasEquation(zeroToTen, zeroToTen, false);
+        bed.constructBedmasEquation(generateRange(0, 10), generateRange(1, 10), false);
         String[] equation = bed.getBedmasEquation().getEquation();
         System.out.println(Arrays.toString(equation));
+    }
+
+    @Test
+    public void testOperand1AlwaysSmallerThanOperand2() {
+        try {
+            WholeBedmasBuilder divBeb = new WholeBedmasDivideBuilder();
+            bed.setBedmasEquationBuilder(divBeb);
+            bed.constructBedmasEquation(generateRange(0, 5), generateRange(10, 20), false);
+            String[] equation = bed.getBedmasEquation().getEquation();
+            System.out.println(Arrays.toString(equation));
+        } catch (IllegalArgumentException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
+    }
+
+    @Test
+    public void testImpossibleDivision() {
+        try {
+            WholeBedmasBuilder divBeb = new WholeBedmasDivideBuilder();
+            bed.setBedmasEquationBuilder(divBeb);
+            bed.constructBedmasEquation(generateRange(19, 20), generateRange(6, 7), false);
+            String[] equation = bed.getBedmasEquation().getEquation();
+            System.out.println(Arrays.toString(equation));
+        } catch (IllegalArgumentException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
+    }
+    @Test
+    public void testSmallOperandRangeDiv() {
+        WholeBedmasBuilder divBeb = new WholeBedmasDivideBuilder();
+        bed.setBedmasEquationBuilder(divBeb);
+        bed.constructBedmasEquation(generateRange(0, 2), generateRange(1, 10), false);
+        String[] equation = bed.getBedmasEquation().getEquation();
+        System.out.println(Arrays.toString(equation));
+    }
+
+    @Test
+    public void testGreaterOperandRangeTwoDiv() {
+        WholeBedmasBuilder divBeb = new WholeBedmasDivideBuilder();
+        bed.setBedmasEquationBuilder(divBeb);
+        bed.constructBedmasEquation(generateRange(1, 10), generateRange(5, 20), false);
+        String[] equation = bed.getBedmasEquation().getEquation();
+        System.out.println(Arrays.toString(equation));
+    }
+
+    @Test
+    public void testMuchGreaterOperandRangeOneDiv() {
+        WholeBedmasBuilder divBeb = new WholeBedmasDivideBuilder();
+        bed.setBedmasEquationBuilder(divBeb);
+        bed.constructBedmasEquation(generateRange(10, 20), generateRange(5, 7), false);
+        String[] equation = bed.getBedmasEquation().getEquation();
+        System.out.println(Arrays.toString(equation));
+    }
+
+
+
+    @Test
+    public void testOnePossibilityDiv() {
+        WholeBedmasBuilder divBeb = new WholeBedmasDivideBuilder();
+        bed.setBedmasEquationBuilder(divBeb);
+        bed.constructBedmasEquation(generateRange(19, 21), generateRange(6, 7), false);
+        String[] equation = bed.getBedmasEquation().getEquation();
+        System.out.println(Arrays.toString(equation));
+    }
+    @Test
+    public void testStandardDiv() {
+        System.out.println("================");
+        for (int i=0;i<100;i++) {
+            WholeBedmasBuilder divBeb = new WholeBedmasDivideBuilder();
+            bed.setBedmasEquationBuilder(divBeb);
+            bed.constructBedmasEquation(generateRange(0, 100), generateRange(1, 10), false);
+            String[] equation = bed.getBedmasEquation().getEquation();
+            System.out.println(Arrays.toString(equation));
+        }
+        System.out.println("================");
+    }
+
+    public int[] generateRange(int min, int max) {
+        return new int[]{min, max};
     }
 }

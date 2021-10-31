@@ -3,7 +3,14 @@ package equation_builders;
 import equation_entities.Add;
 import equation_entities.WholeNum;
 
-public class AddBedmasEquationBuilder extends BedmasEquationBuilder {
+/**
+ * Builds whole number addition equations. Both operands are uniformly distributed across their specified range.
+ *
+ * @author Sean Jeong
+ * @version 1.0
+ * @since 2021-10-30
+ */
+public class WholeBedmasAddBuilder extends WholeBedmasBuilder {
     /**
      * Assigns the addition operator to the equation.
      */
@@ -13,11 +20,11 @@ public class AddBedmasEquationBuilder extends BedmasEquationBuilder {
     }
 
     /**
-     * Creates operands (first and second) in the addition bedmas equation's question. No limitations.
+     * Creates operands (first and second) in the addition bedmas equation's question.
      *
-     * @param operandRange1 the absolute range of values that the first operand can be.
-     * @param operandRange2 the absolute range of values that the second operand can be.
-     * @param negAllowed    specifies if the operands or answer are allowed to be negative.
+     * @param operandRange1 the inclusive absolute range of values that the first operand can be.
+     * @param operandRange2 the inclusive absolute range of values that the second operand can be.
+     * @param negAllowed    if true, each operand has a 50% of becoming negative after being randomly determined.
      */
     @Override
     public void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
@@ -30,6 +37,4 @@ public class AddBedmasEquationBuilder extends BedmasEquationBuilder {
         bedmasEquation.setOperand1(new WholeNum(operand1));
         bedmasEquation.setOperand2(new WholeNum(operand2));
     }
-
-
 }
