@@ -1,5 +1,11 @@
 package equation_entities;
-
+/**
+ * Subtracts two Values and returns the string representation of this operator.
+ *
+ * @author Will Jeong
+ * @version 1.0
+ * @since 2021-10-30
+ */
 public class Subtract extends Operator {
     /**
      * Subtracts the two operands together.

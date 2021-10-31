@@ -44,5 +44,4 @@ public class Worksheet implements WorksheetInput, WorksheetOutput {
         }
         return equationsString;
     }
-
 }

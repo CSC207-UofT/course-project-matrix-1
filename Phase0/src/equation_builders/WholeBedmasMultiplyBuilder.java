@@ -3,7 +3,14 @@ package equation_builders;
 import equation_entities.Multiply;
 import equation_entities.WholeNum;
 
-public class MultiplyBedmasEquationBuilder extends BedmasEquationBuilder {
+/**
+ * Builds whole number multiplication equations. Both operands are uniformly distributed across their specified range.
+ *
+ * @author Will Jeong
+ * @version 1.0
+ * @since 2021-10-30
+ */
+public class WholeBedmasMultiplyBuilder extends WholeBedmasBuilder {
     /**
      * Assigns the multiplication operator to the equation.
      */
@@ -15,9 +22,9 @@ public class MultiplyBedmasEquationBuilder extends BedmasEquationBuilder {
     /**
      * Creates operands (first and second) in the multiplication bedmas equation's question.
      *
-     * @param operandRange1 the absolute range of values that the first operand can be.
-     * @param operandRange2 the absolute range of values that the second operand can be.
-     * @param negAllowed    specifies if the operands or answer are allowed to be negative.
+     * @param operandRange1 the inclusive absolute range of values that the first operand can be.
+     * @param operandRange2 the inclusive absolute range of values that the second operand can be.
+     * @param negAllowed    if true, each operand has a 50% of becoming negative after being randomly determined.
      */
     @Override
     public void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed) {

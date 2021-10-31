@@ -1,7 +1,11 @@
 package equation_entities;
 
 /**
- * A whole number which is represented by a single integer.
+ * Stores a whole number which is represented by a single integer.
+ *
+ * @author Will Jeong
+ * @version 1.0
+ * @since 2021-10-30
  */
 public class WholeNum extends Value {
     private final int wholeNumber;

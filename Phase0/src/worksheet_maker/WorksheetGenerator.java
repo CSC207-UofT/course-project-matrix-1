@@ -37,7 +37,7 @@ public class WorksheetGenerator {
         int[] operandRange2 = (int[]) equationDetails.get("operandRange2");
         boolean negAllowed = (boolean) equationDetails.get("negAllowed");
 
-        BedmasEquationDirector bedmasEquationDirector = new BedmasEquationDirector();
+        WholeBedmasDirector bedmasEquationDirector = new WholeBedmasDirector();
 
         //Create and assign the correct BedmasEquationBuilder.
         char ADD = '+';
@@ -45,13 +45,13 @@ public class WorksheetGenerator {
         char MULTIPLY = '*';
         char DIVIDE = '/';
         if (operator == ADD) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new AddBedmasEquationBuilder());
+            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasAddBuilder());
         } else if (operator == SUBTRACT) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new SubBedmasEquationBuilder());
+            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasSubBuilder());
         } else if (operator == MULTIPLY) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new MultiplyBedmasEquationBuilder());
+            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasMultiplyBuilder());
         } else if (operator == DIVIDE) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new DivideBedmasEquationBuilder());
+            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasDivideBuilder());
         } else {
             throw new InvalidInputException();
         }
