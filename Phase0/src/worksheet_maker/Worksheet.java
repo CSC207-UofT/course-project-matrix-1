@@ -45,4 +45,11 @@ public class Worksheet implements WorksheetInput, WorksheetOutput {
         return equationsString;
     }
 
+
+
+    //Only used in test methods.
+    public List<Equation> getEquations() {
+        return equations;
+    }
+
 }

@@ -1,18 +1,25 @@
 package equation_builders;
 
 import equation_entities.BedmasEquation;
-import equation_builders.BedmasEquationBuilder;
 
+/**
+ * Director of all BedmasEquationBuilders. Contains the BedmasEquationBuilder to be used by the client and specifies
+ * which order the build methods should be done in.
+ *
+ * @author Sean Jeong
+ * @version 1.0
+ * @since 2021-10-24.
+ */
 public class BedmasEquationDirector {
     private BedmasEquationBuilder bedmasEquationBuilder;
 
     /**
      * Set the BedmasEquationBuilder.
      *
-     * @param beb the BedmasEquationBuilder which this director will use.
+     * @param bedmasEquationBuilder the BedmasEquationBuilder which this director will use.
      */
-    public void setBedmasEquationBuilder(BedmasEquationBuilder beb) {
-        this.bedmasEquationBuilder = beb;
+    public void setBedmasEquationBuilder(BedmasEquationBuilder bedmasEquationBuilder) {
+        this.bedmasEquationBuilder = bedmasEquationBuilder;
     }
 
     /**

@@ -52,7 +52,7 @@ public class WholeNum extends Value {
      */
     @Override
     public Value multiply(Value otherValue) {
-        return null;
+        return new WholeNum(this.wholeNumber * ((WholeNum) otherValue).getValue());
     }
 
     /**
@@ -63,7 +63,7 @@ public class WholeNum extends Value {
      */
     @Override
     public Value exponentiate(Value otherValue) {
-        return null;
+        return new WholeNum((int) Math.pow (this.wholeNumber, ((WholeNum) otherValue).getValue()));
     }
 
     /**
