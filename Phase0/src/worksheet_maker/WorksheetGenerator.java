@@ -35,25 +35,25 @@ public class WorksheetGenerator {
         boolean negAllowed = (boolean) equationDetails.get("negAllowed");
 
         //Create and assign the appropriate builder to a director.
-        BedmasEquationDirector bedmasEquationDirector = getBedmasEquationDirector(operator);
+        WholeBedmasDirector wholeBedmasDirector = getWholeBedmasDirector(operator);
 
         //Use the director and parameters to add Equations to the previously empty worksheet
-        createEquationsInWorksheet(numOfEquations, operandRange1, operandRange2, negAllowed, bedmasEquationDirector);
+        createEquationsInWorksheet(numOfEquations, operandRange1, operandRange2, negAllowed, wholeBedmasDirector);
     }
 
     /**
      * Creates a numOfEquations number of Equations with the following parameters in worksheet and using the operator
-     * found within the BedmasEquationDirector.
+     * found within the WholeBedmasDirector.
      *
      * @param numOfEquations the number of equations in this worksheet.
      * @param operandRange1  the absolute range of values that the first operand can be.
      * @param operandRange2  the absolute range of values that the second operand can be.
      * @param negAllowed     specifies if the operands are allowed to be negative.
      */
-    private void createEquationsInWorksheet(int numOfEquations, int[] operandRange1, int[] operandRange2, boolean negAllowed, BedmasEquationDirector bedmasEquationDirector) {
+    private void createEquationsInWorksheet(int numOfEquations, int[] operandRange1, int[] operandRange2, boolean negAllowed, WholeBedmasDirector wholeBedmasDirector) {
         for (int i = 0; i < numOfEquations; i++) {
-            bedmasEquationDirector.constructBedmasEquation(operandRange1, operandRange2, negAllowed);
-            this.worksheet.addEquation(bedmasEquationDirector.getBedmasEquation());
+            wholeBedmasDirector.constructBedmasEquation(operandRange1, operandRange2, negAllowed);
+            this.worksheet.addEquation(wholeBedmasDirector.getBedmasEquation());
         }
     }
 
@@ -62,11 +62,10 @@ public class WorksheetGenerator {
      * returns.
      *
      * @param operator the operator in the equations of the worksheet.
-     * @return BedmasEquationDirector with the correct BedmasEquationBuilder set to it.
+     * @return WholeBedmasDirector with the correct WholeBedmasBuilder set to it.
      */
-    private BedmasEquationDirector getBedmasEquationDirector(char operator) {
-        BedmasEquationDirector bedmasEquationDirector = new BedmasEquationDirector();
-        WholeBedmasDirector bedmasEquationDirector = new WholeBedmasDirector();
+    private WholeBedmasDirector getWholeBedmasDirector(char operator) {
+        WholeBedmasDirector wholeBedmasDirector = new WholeBedmasDirector();
 
         char ADD = '+';
         char SUBTRACT = '-';
@@ -74,17 +73,17 @@ public class WorksheetGenerator {
         char DIVIDE = '/';
 
         if (operator == ADD) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasAddBuilder());
+            wholeBedmasDirector.setBedmasEquationBuilder(new WholeBedmasAddBuilder());
         } else if (operator == SUBTRACT) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasSubBuilder());
+            wholeBedmasDirector.setBedmasEquationBuilder(new WholeBedmasSubBuilder());
         } else if (operator == MULTIPLY) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasMultiplyBuilder());
+            wholeBedmasDirector.setBedmasEquationBuilder(new WholeBedmasMultiplyBuilder());
         } else if (operator == DIVIDE) {
-            bedmasEquationDirector.setBedmasEquationBuilder(new WholeBedmasDivideBuilder());
+            wholeBedmasDirector.setBedmasEquationBuilder(new WholeBedmasDivideBuilder());
         } else {
             throw new InvalidInputException();
         }
-        return bedmasEquationDirector;
+        return wholeBedmasDirector;
     }
 
 
