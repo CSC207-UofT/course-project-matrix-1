@@ -11,7 +11,7 @@ import java.util.Map;
  * Using dependency injection, existing users and their histories are retrieved and injected into UserManager and
  * HistoryManager.
  * <p>
- * Collaborators: userPackage.UserManagerViewer, userPackage.UserManagerUpdater, userPackage.UserManager.
+ * Collaborators: userPackage.UserManager, userPackage.HistoryManager
  *
  * @author Kerim, Stanley
  * @version 2.0
@@ -94,7 +94,7 @@ public class UserController {
     }
 
     /**
-     * Removes the user action from the user's history.
+     * Removes the a specified worksheet generation record from the user's history.
      *
      * @param username: Username of the user
      * @param worksheetKey:    Index of the action to be removed from the list of actions of the user.
