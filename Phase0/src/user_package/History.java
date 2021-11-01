@@ -1,4 +1,4 @@
-package userPackage;
+package user_package;
 
 import exceptions.RecordDoesNotExistException;
 
@@ -28,7 +28,7 @@ public class History implements Serializable {
     // TODO: Later on, do something to aggregate scores for topics.
 
     /**
-     * @return copy list of all worksheets generated in history
+     * @return copy ArrayList of all worksheets generated in history
      */
     public List<Map<String, Object>> getWorksheetHistory() {
         List<Map<String, Object>> historyCopy = new ArrayList<>();

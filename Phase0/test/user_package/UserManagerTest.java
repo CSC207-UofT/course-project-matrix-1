@@ -1,4 +1,4 @@
-package userPackage;
+package user_package;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,11 +10,14 @@ import static org.junit.Assert.*;
 
 public class UserManagerTest {
     UserManager userManager;
+    LocalDataAccess dataAccess;
     @Before
     public void setUp() {
         Map<String, User> users = new HashMap<>();
+        LocalDataAccess dataAccess = new LocalDataAccess();
         users.put("main", new User("main", "MainUser", 21, "Student"));
-        userManager = new UserManager(users);
+        dataAccess.storeUsers(users);
+        userManager = new UserManager(dataAccess);
     }
 
     @Test

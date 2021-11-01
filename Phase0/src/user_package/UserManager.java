@@ -1,4 +1,4 @@
-package userPackage;
+package user_package;
 
 import exceptions.UsernameTakenException;
 
@@ -12,9 +12,13 @@ import java.util.Map;
  */
 public class UserManager {
     private final Map<String, User> users;
+    private final DataAccessInterface dataSource; // TODO: should it say as variable to fix the warning?
 
-    public UserManager(Map<String, User> existingUsers) {
-        users = existingUsers;
+    public UserManager(DataAccessInterface dataSource) {
+        // Map<String, User> existingUsers,
+        // users = existingUsers;
+        this.dataSource = dataSource;
+        users = this.dataSource.getUsers();
     }
 
     /**

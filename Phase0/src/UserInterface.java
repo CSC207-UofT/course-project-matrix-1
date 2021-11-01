@@ -1,4 +1,4 @@
-import userPackage.UserController;
+import user_package.UserController;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -117,7 +117,7 @@ public class UserInterface {
             Scanner sc = new Scanner(System.in);
             username = sc.nextLine();
 
-            if (!userController.verifyUsername(username)) {
+            if (!userController.login(username)) {
                 System.out.println("This username does not exist. Type \n 1 to register a account for this username " +
                         "\n anything other int to re-enter your username");
                 int registerChoice = sc.nextInt();
@@ -144,7 +144,7 @@ public class UserInterface {
             sc.nextLine(); // Removes the /n char
             String role = sc.nextLine();
             try {
-                userController.createUser(username, name, age, role);
+                userController.registerUser(username, name, age, role);
                 registered = true;
             } catch (Exception e) {
                 e.printStackTrace();

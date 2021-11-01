@@ -1,4 +1,4 @@
-package userPackage;
+package user_package;
 
 import exceptions.RecordDoesNotExistException;
 import org.junit.Before;
@@ -11,10 +11,11 @@ import static org.junit.Assert.*;
 
 public class HistoryManagerTest {
     HistoryManager exampleHistoryManager;
-
+    LocalDataAccess dataAccess;
     @Before
     public void setUp() {
-        exampleHistoryManager = new HistoryManager(LocalDataAccess.getHistories());
+        LocalDataAccess dataAccess = new LocalDataAccess();
+        exampleHistoryManager = new HistoryManager(dataAccess);
     }
 
     /**

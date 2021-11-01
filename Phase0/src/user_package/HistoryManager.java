@@ -1,4 +1,4 @@
-package userPackage;
+package user_package;
 
 import exceptions.RecordDoesNotExistException;
 
@@ -14,13 +14,13 @@ import java.util.Map;
  */
 public class HistoryManager {
     private final Map<String, History> userHistoryMapping;        // stores username to history mapping
-
     /**
      * Instantiates new HistoryManager with histories.
-     * @param histories
+     * @param dataSource: The source of the user data.
+     *
      */
-    public HistoryManager(Map<String, History> histories) {
-        userHistoryMapping = histories;
+    public HistoryManager(DataAccessInterface dataSource) {
+        userHistoryMapping = dataSource.getHistories();
     }
 
     /**

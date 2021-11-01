@@ -1,4 +1,4 @@
-package userPackage;
+package user_package;
 
 import java.io.Serializable;
 import java.util.HashMap;
