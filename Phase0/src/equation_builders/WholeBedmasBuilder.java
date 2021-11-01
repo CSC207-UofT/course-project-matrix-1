@@ -13,10 +13,12 @@ import java.util.concurrent.ThreadLocalRandom;
  * @version 1.0
  * @since 2021-10-30
  */
-public abstract class WholeBedmasBuilder {
+abstract class WholeBedmasBuilder {
     protected BedmasEquation bedmasEquation;
+    private final Random rand = new Random();
 
-    
+
+
     public BedmasEquation getBedmasEquation() {
         return bedmasEquation;
     }
@@ -55,8 +57,7 @@ public abstract class WholeBedmasBuilder {
      * @param num the original number
      * @return a negative or positive version of num
      */
-    protected static int makeNegativeRandom(int num) {
-        Random rand = new Random();
+    protected int makeNegativeRandom(int num) {
         int x = rand.nextInt(2);
         if (x == 0) {
             num = -1 * num;
@@ -71,7 +72,7 @@ public abstract class WholeBedmasBuilder {
      * @param max the maximum possible int.
      * @return a randomized int between [min, max] (inclusive).
      */
-    protected static int randomize(int min, int max) {
+    protected int randomize(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
@@ -81,7 +82,7 @@ public abstract class WholeBedmasBuilder {
      * @param range the range of possible ints, as [min, max].
      * @return a randomized int between [min, max] (inclusive).
      */
-    protected static int randomize(int[] range) {
+    protected int randomize(int[] range) {
         return ThreadLocalRandom.current().nextInt(range[0], range[1] + 1);
     }
 
@@ -91,7 +92,7 @@ public abstract class WholeBedmasBuilder {
      * @param possibleInts the possible ints in no particular order.
      * @return a randomized int from the possibleInts.
      */
-    protected static int randomize(List<Integer> possibleInts) {
+    protected int randomize(List<Integer> possibleInts) {
         return possibleInts.get(randomize(0, possibleInts.size() - 1));
     }
 

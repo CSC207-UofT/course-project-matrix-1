@@ -10,7 +10,7 @@ import equation_entities.WholeNum;
  * @version 1.0
  * @since 2021-10-30
  */
-public class WholeBedmasSubBuilder extends WholeBedmasBuilder {
+class WholeBedmasSubBuilder extends WholeBedmasBuilder {
 
     /**
      * Assigns the subtraction operator to the equation.

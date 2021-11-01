@@ -10,7 +10,7 @@ import equation_entities.WholeNum;
  * @version 1.0
  * @since 2021-10-30
  */
-public class WholeBedmasMultiplyBuilder extends WholeBedmasBuilder {
+class WholeBedmasMultiplyBuilder extends WholeBedmasBuilder {
     /**
      * Assigns the multiplication operator to the equation.
      */
