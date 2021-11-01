@@ -1,4 +1,4 @@
-package userPackage;
+package user_package;
 
 import exceptions.RecordDoesNotExistException;
 
@@ -23,8 +23,9 @@ public class UserController {
     private String currentUsername;
 
     public UserController() {
-        userManager = new UserManager(LocalDataAccess.getUsers());
-        historyManager = new HistoryManager(LocalDataAccess.getHistories());
+        DataAccessInterface dataSource = new LocalDataAccess();
+        userManager = new UserManager(dataSource);
+        historyManager = new HistoryManager(dataSource);
     }
 
     public String getCurrentUsername() {
@@ -41,7 +42,9 @@ public class UserController {
      * @param username username for the user
      * @return true iff the username corresponds to existing user
      */
-    public Boolean verifyUsername(String username) {
+    public Boolean login(String username) {
+        // For simplicity verifyUsername method was renamed as login
+        // TODO: Should we send a login unsuccessful message?
         return userManager.verifyUsername(username);
     }
 
@@ -67,7 +70,7 @@ public class UserController {
      * @param age      age of userPackage.User
      * @param role     role of userPackage.User (Student/Parent/Teacher)
      */
-    public void createUser(String username, String name, Integer age, String role) throws Exception {
+    public void registerUser(String username, String name, Integer age, String role) throws Exception {
         userManager.createUser(username, name, age, role);
     }
 
