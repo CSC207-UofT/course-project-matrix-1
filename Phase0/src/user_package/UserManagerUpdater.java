@@ -1,10 +1,9 @@
-package userPackage;
+package user_package;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Updates user information based on inputs from UserInterface.

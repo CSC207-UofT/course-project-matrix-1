@@ -1,4 +1,4 @@
-package userPackage;
+package user_package;
 
 import java.util.List;
 import java.util.Map;
@@ -7,7 +7,7 @@ import java.util.Map;
  * UserDataAccessInterface interface. Expects getUsers, storeUsers, getHistories, and storeHistories to be implemented.
  *
  * @version 1.0
- * @authors Stanley
+ * @author Stanley
  */
 public interface DataAccessInterface {
     /**

@@ -1,4 +1,4 @@
-package userPackage;
+package user_package;
 
 import java.io.*;
 import java.util.HashMap;
@@ -13,10 +13,13 @@ import java.util.Map;
 public class LocalDataAccess implements DataAccessInterface {
 
     /**
-     * Stores list of Users.
+     * Stores a Map of Users.
      * @param existingUsers list of existing Users
      */
-    public static void storeUsers(Map<String, User> existingUsers){
+    Map<String, User> userMap;
+
+    public void storeUsers(Map<String, User> existingUsers){
+        this.userMap = existingUsers;
         try {
             // TODO: Remove Phase0
             FileOutputStream usersOut = new FileOutputStream("Phase0/src/userPackage/usersData/users.ser");
@@ -27,12 +30,14 @@ public class LocalDataAccess implements DataAccessInterface {
         } catch (IOException i){    // if IO exception occurs, print exception details
             i.printStackTrace();
         }
+
+
     }
 
     /**
      * Stores all existing users' worksheet history.
      */
-    public static void storeHistories(Map<String, History> existingHistories){
+    public void storeHistories(Map<String, History> existingHistories){
         try {
             // TODO: Remove Phase0
             FileOutputStream historiesOut = new FileOutputStream("Phase0/src/userPackage/usersData/history.ser");
@@ -49,7 +54,7 @@ public class LocalDataAccess implements DataAccessInterface {
      * Retrieves list of Users.
      * @return list of Users
      */
-    public static Map<String, User> getUsers(){
+    public Map<String, User> getUsers(){
         try {
             // Attempt to read from file
             FileInputStream usersIn = new FileInputStream("Phase0/src/userPackage/usersData/users.ser");
@@ -69,14 +74,15 @@ public class LocalDataAccess implements DataAccessInterface {
         Map<String, User> exampleExistingUsers = new HashMap<>();
         User user1 = new User("main", "MainUser", 21, "Student");  // default user for testing
         exampleExistingUsers.put("main", user1);
-        return exampleExistingUsers;
+        userMap.put("main", user1);
+        return userMap;
     }
 
     /**
      * Retrieves all existing users' worksheet history.
      * @return mapping of username to History
      */
-    public static Map<String, History> getHistories(){
+    public Map<String, History> getHistories(){
         try {
             // Attempt to read from file
             FileInputStream historiesIn = new FileInputStream("Phase0/src/userPackage/usersData/history.ser");
@@ -106,9 +112,10 @@ public class LocalDataAccess implements DataAccessInterface {
 
 
     public static void main(String[] args) {
-        Map<String, User> users = getUsers();
-        Map<String, History> histories = getHistories();
-        storeUsers(users);
-        storeHistories(histories);
+        LocalDataAccess dataAccess = new LocalDataAccess();
+        Map<String, User> users = dataAccess.getUsers();
+        Map<String, History> histories = dataAccess.getHistories();
+        dataAccess.storeUsers(users);
+        dataAccess.storeHistories(histories);
     }
 }

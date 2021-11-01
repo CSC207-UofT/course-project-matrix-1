@@ -1,4 +1,4 @@
-package userPackage;
+package user_package;
 
 import org.junit.Before;
 import org.junit.Test;

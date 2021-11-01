@@ -1,4 +1,4 @@
-package userPackage;
+package user_package;
 
 import exceptions.RecordDoesNotExistException;
 import org.junit.Before;
@@ -19,15 +19,16 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testVerifyUsername() {
-        assert userController.verifyUsername("main");
+    public void testVerifyUsername() throws Exception {
+        assert userController.login("main");
         userController.setCurrentUsername("user2");
-        assert !userController.verifyUsername("user2"); // not in the users list, just set as the current user
+        assert !userController.login("user2"); // not in the users list, just set as the current user
         assert userController.getCurrentUsername().equals("user2");
     }
 
     @Test
     public void testGetUserDetails() {
+        // You Have to register users first!
         Map<String, Object> userDetails = userController.getUserDetails("main");
         assert userDetails.get("name").equals("MainUser");
         assert userDetails.get("age").equals(21);
@@ -44,7 +45,7 @@ public class UserControllerTest {
 
     @Test
     public void testCreateUser() throws Exception {
-        userController.createUser("SCH99", "Arnold", 20, "Student");
+        userController.registerUser("SCH99", "Arnold", 20, "Student");
         Map<String, Object> userDetails = userController.getUserDetails("SCH99");
         assert userDetails.get("name").equals("Arnold");
         assert userDetails.get("age").equals(20);
