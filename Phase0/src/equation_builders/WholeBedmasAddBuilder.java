@@ -10,7 +10,7 @@ import equation_entities.WholeNum;
  * @version 1.0
  * @since 2021-10-30
  */
-public class WholeBedmasAddBuilder extends WholeBedmasBuilder {
+class WholeBedmasAddBuilder extends WholeBedmasBuilder {
     /**
      * Assigns the addition operator to the equation.
      */

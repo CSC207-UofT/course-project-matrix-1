@@ -66,23 +66,7 @@ public class WorksheetGenerator {
      */
     private WholeBedmasDirector getWholeBedmasDirector(char operator) {
         WholeBedmasDirector wholeBedmasDirector = new WholeBedmasDirector();
-
-        char ADD = '+';
-        char SUBTRACT = '-';
-        char MULTIPLY = '*';
-        char DIVIDE = '/';
-
-        if (operator == ADD) {
-            wholeBedmasDirector.setBedmasEquationBuilder(new WholeBedmasAddBuilder());
-        } else if (operator == SUBTRACT) {
-            wholeBedmasDirector.setBedmasEquationBuilder(new WholeBedmasSubBuilder());
-        } else if (operator == MULTIPLY) {
-            wholeBedmasDirector.setBedmasEquationBuilder(new WholeBedmasMultiplyBuilder());
-        } else if (operator == DIVIDE) {
-            wholeBedmasDirector.setBedmasEquationBuilder(new WholeBedmasDivideBuilder());
-        } else {
-            throw new InvalidInputException();
-        }
+        wholeBedmasDirector.setBedmasEquationBuilder(operator);
         return wholeBedmasDirector;
     }
 

@@ -1,9 +1,10 @@
 package equation_builders;
 
 import equation_entities.BedmasEquation;
+import equation_entities.InvalidInputException;
 
 /**
- * Directs the construction of whole number BEDMAS equations, starting from the operator, then the operands, and finally
+ * Directs the construction  of whole number BEDMAS equations, starting from the operator, then the operands, and finally
  * the answer.
  *
  * @author Will Jeong
@@ -11,16 +12,33 @@ import equation_entities.BedmasEquation;
  * @since 2021-10-30
  */
 public class WholeBedmasDirector {
-    private WholeBedmasBuilder bedmasEquationBuilder;
+    private WholeBedmasBuilder wholeBedmasBuilder;
 
     /**
      * Set the BedmasEquationBuilder.
      *
-     * @param beb the BedmasEquationBuilder which this director will use.
+     * @param operator the char that determines whihc builder this director will use.
      */
-    public void setBedmasEquationBuilder(WholeBedmasBuilder beb) {
-        this.bedmasEquationBuilder = beb;
+    //TODO: Use Class.forName, have them assign the class directly instead.
+    public void setBedmasEquationBuilder(char operator) {
+        char ADD = '+';
+        char SUBTRACT = '-';
+        char MULTIPLY = '*';
+        char DIVIDE = '/';
+
+        if (operator == ADD) {
+            this.wholeBedmasBuilder = new WholeBedmasAddBuilder();
+        } else if (operator == SUBTRACT) {
+            this.wholeBedmasBuilder = new WholeBedmasSubBuilder();
+        } else if (operator == MULTIPLY) {
+            this.wholeBedmasBuilder = new WholeBedmasMultiplyBuilder();
+        } else if (operator == DIVIDE) {
+            this.wholeBedmasBuilder = new WholeBedmasDivideBuilder();
+        } else {
+            throw new InvalidInputException();
+        }
     }
+
 
     /**
      * Returns the BedmasEquation held within the BedmasEquationBuilder.
@@ -28,7 +46,7 @@ public class WholeBedmasDirector {
      * @return the bedmas equation from the builder.
      */
     public BedmasEquation getBedmasEquation() {
-        return bedmasEquationBuilder.getBedmasEquation();
+        return wholeBedmasBuilder.getBedmasEquation();
     }
 
     /**
@@ -39,9 +57,9 @@ public class WholeBedmasDirector {
      * @param negAllowed    specifies if the operands or answer are allowed to be negative.
      */
     public void constructBedmasEquation(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
-        bedmasEquationBuilder.createNewBedmasEquationProduct();
-        bedmasEquationBuilder.buildOperator();
-        bedmasEquationBuilder.buildOperands(operandRange1, operandRange2, negAllowed);
-        bedmasEquationBuilder.buildAnswer();
+        wholeBedmasBuilder.createNewBedmasEquationProduct();
+        wholeBedmasBuilder.buildOperator();
+        wholeBedmasBuilder.buildOperands(operandRange1, operandRange2, negAllowed);
+        wholeBedmasBuilder.buildAnswer();
     }
 }
