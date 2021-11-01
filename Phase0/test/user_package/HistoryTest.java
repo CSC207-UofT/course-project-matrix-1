@@ -17,8 +17,11 @@ public class HistoryTest {
     public void setUp() {
         this.historyExample = new History();
         Map<String, Object> testRecord1 = new HashMap<>();
-        testRecord1.put("numQuestions", 100);
         testRecord1.put("worksheetKey", "1");
+
+        Map<String, Object> equationDetails = new HashMap<>();
+        equationDetails.put("numOfEquations", 100);
+        testRecord1.put("equationDetails", equationDetails);
         historyExample.addWorksheetRecord(testRecord1);
     }
 
@@ -62,8 +65,12 @@ public class HistoryTest {
     @Test
     public void testAddWorksheetRecord() {
         Map<String, Object> testRecord2 = new HashMap<>();
-        testRecord2.put("numQuestions", 40);
         testRecord2.put("worksheetKey", "2");
+
+        Map<String, Object> equationDetails2 = new HashMap<>();
+        equationDetails2.put("numOfEquations", 40);
+        testRecord2.put("equationDetails", equationDetails2);
+
         historyExample.addWorksheetRecord(testRecord2);
 
         // Check if added
@@ -84,8 +91,12 @@ public class HistoryTest {
     public void testRemoveWorksheetRecord() throws RecordDoesNotExistException {
         // Add dummy record
         Map<String, Object> testRecord3 = new HashMap<>();
-        testRecord3.put("numQuestions", 60);
         testRecord3.put("worksheetKey", "3");
+
+        Map<String, Object> equationDetails3 = new HashMap<>();
+        equationDetails3.put("numOfEquations", 60);
+        testRecord3.put("equationDetails", equationDetails3);
+
         historyExample.addWorksheetRecord(testRecord3);
 
         // Try to remove record

@@ -19,7 +19,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testVerifyUsername() throws Exception {
+    public void testVerifyUsername() {
         assert userController.login("main");
         userController.setCurrentUsername("user2");
         assert !userController.login("user2"); // not in the users list, just set as the current user

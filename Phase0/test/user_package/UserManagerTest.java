@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class UserManagerTest {
     UserManager userManager;
-    LocalDataAccess dataAccess;
+
     @Before
     public void setUp() {
         Map<String, User> users = new HashMap<>();

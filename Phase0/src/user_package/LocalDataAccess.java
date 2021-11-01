@@ -11,13 +11,12 @@ import java.util.Map;
  * @authors Stanley Hua
  */
 public class LocalDataAccess implements DataAccessInterface {
+    Map<String, User> userMap;
 
     /**
      * Stores a Map of Users.
-     * @param existingUsers list of existing Users
+     * @param existingUsers map of existing Users
      */
-    Map<String, User> userMap;
-
     public void storeUsers(Map<String, User> existingUsers){
         this.userMap = existingUsers;
         try {
@@ -30,8 +29,6 @@ public class LocalDataAccess implements DataAccessInterface {
         } catch (IOException i){    // if IO exception occurs, print exception details
             i.printStackTrace();
         }
-
-
     }
 
     /**

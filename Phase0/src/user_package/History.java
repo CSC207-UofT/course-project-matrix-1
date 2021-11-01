@@ -1,5 +1,6 @@
 package user_package;
 
+import exceptions.InvalidInputException;
 import exceptions.RecordDoesNotExistException;
 
 import java.io.Serializable;
@@ -83,8 +84,13 @@ public class History implements Serializable {
      */
     public void setScore(String worksheetKey, int score) throws RecordDoesNotExistException {
         Map<String, Object> worksheet = this.findWorksheetRecord(worksheetKey);
-        if ((int) worksheet.get("numQuestions") >= score & score >= 0) {
+        Map<String, Object> equationDetails = (Map<String, Object>) worksheet.get("equationDetails");
+
+        if ((int) equationDetails.get("numOfEquations") >= score & score >= 0) {
             worksheet.put("score", score);
+        } else {
+            throw new InvalidInputException();
         }
+
     }
 }
