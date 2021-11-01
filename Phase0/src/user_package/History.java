@@ -15,7 +15,7 @@ import java.util.*;
  * @since 2021-10-26
  */
 public class History implements Serializable {
-    private final List<Map<String, Object>> history;
+    private final ArrayList<Map<String, Object>> history;
 
     /**
      * Instantiate userPackage.History object.
@@ -28,10 +28,10 @@ public class History implements Serializable {
     // TODO: Later on, do something to aggregate scores for topics.
 
     /**
-     * @return copy list of all worksheets generated in history
+     * @return copy ArrayList of all worksheets generated in history
      */
-    public List<Map<String, Object>> getWorksheetHistory() {
-        List<Map<String, Object>> historyCopy = new ArrayList<>();
+    public ArrayList<Map<String, Object>> getWorksheetHistory() {
+        ArrayList<Map<String, Object>> historyCopy = new ArrayList<>();
         for (Map<String, Object> worksheet : history) {
             Map<String, Object> worksheetCopy = new HashMap<>(worksheet);
             historyCopy.add(worksheetCopy);

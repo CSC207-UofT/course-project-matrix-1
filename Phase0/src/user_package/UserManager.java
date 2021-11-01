@@ -12,9 +12,9 @@ import java.util.Map;
  */
 public class UserManager {
     private final Map<String, User> users;
-    private final LocalDataAccess dataSource; // TODO: should it say as variable to fix the warning?
+    private final DataAccessInterface dataSource; // TODO: should it say as variable to fix the warning?
 
-    public UserManager(LocalDataAccess dataSource) {
+    public UserManager(DataAccessInterface dataSource) {
         // Map<String, User> existingUsers,
         // users = existingUsers;
         this.dataSource = dataSource;

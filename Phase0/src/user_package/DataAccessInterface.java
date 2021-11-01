@@ -15,26 +15,22 @@ public interface DataAccessInterface {
      *
      * @return list of Users
      */
-    static List<User> getUsers() {
-        return null;
-    }
+    Map<String, User> getUsers();
 
     /**
      * Stores list of Users.
      */
-    static void storeUsers(List<User> existingUsers) {}
+    void storeUsers(Map<String, User> existingUsers);
 
     /**
      * Retrieves all existing users' worksheet history.
      *
      * @return mapping of username to History
      */
-    static Map<String, History> getHistories() {
-        return null;
-    }
+    Map<String, History> getHistories();
 
     /**
      * Stores all existing users' worksheet history.
      */
-    static void storeHistories(Map<String, History> existingHistories) {}
+    void storeHistories(Map<String, History> existingHistories);
 }

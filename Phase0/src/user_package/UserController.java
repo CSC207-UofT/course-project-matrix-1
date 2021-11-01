@@ -23,7 +23,7 @@ public class UserController {
     private String currentUsername;
 
     public UserController() {
-        LocalDataAccess dataSource = new LocalDataAccess();
+        DataAccessInterface dataSource = new LocalDataAccess();
         userManager = new UserManager(dataSource);
         historyManager = new HistoryManager(dataSource);
     }

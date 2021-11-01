@@ -22,7 +22,7 @@ public class LocalDataAccess implements DataAccessInterface {
         this.userMap = existingUsers;
         try {
             // TODO: Remove Phase0
-            FileOutputStream usersOut = new FileOutputStream("Phase0/src/userPackage/usersData/users.ser");
+            FileOutputStream usersOut = new FileOutputStream("Phase0/src/user_package/users_data/users.ser");
             ObjectOutputStream out = new ObjectOutputStream(usersOut);
             out.writeObject(existingUsers);
             out.close();
@@ -40,7 +40,7 @@ public class LocalDataAccess implements DataAccessInterface {
     public void storeHistories(Map<String, History> existingHistories){
         try {
             // TODO: Remove Phase0
-            FileOutputStream historiesOut = new FileOutputStream("Phase0/src/userPackage/usersData/history.ser");
+            FileOutputStream historiesOut = new FileOutputStream("Phase0/src/user_package/users_data/history.ser");
             ObjectOutputStream out = new ObjectOutputStream(historiesOut);
             out.writeObject(historiesOut);
             out.close();
@@ -74,8 +74,7 @@ public class LocalDataAccess implements DataAccessInterface {
         Map<String, User> exampleExistingUsers = new HashMap<>();
         User user1 = new User("main", "MainUser", 21, "Student");  // default user for testing
         exampleExistingUsers.put("main", user1);
-        userMap.put("main", user1);
-        return userMap;
+        return exampleExistingUsers;
     }
 
     /**
@@ -85,7 +84,8 @@ public class LocalDataAccess implements DataAccessInterface {
     public Map<String, History> getHistories(){
         try {
             // Attempt to read from file
-            FileInputStream historiesIn = new FileInputStream("Phase0/src/userPackage/usersData/history.ser");
+
+            FileInputStream historiesIn = new FileInputStream("Phase0/src/user_package/users_data/history.ser");
             ObjectInputStream in = new ObjectInputStream(historiesIn);
             Map<String, History> existingHistories = (Map<String, History>) in.readObject();
             in.close();

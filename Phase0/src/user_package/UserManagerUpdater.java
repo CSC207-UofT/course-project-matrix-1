@@ -46,12 +46,12 @@ public class UserManagerUpdater {
 
 
     /**
-     * Serializes and saves list of all current User objects at /src/userPackage/usersData/.
+     * Serializes and saves list of all current User objects at /src/userPackage/user_package.usersData/.
      */
     public void saveUsers(){
         try {
             // TODO: Remove Phase0
-            FileOutputStream usersOut = new FileOutputStream("Phase0/src/userPackage/usersData/users.ser");
+            FileOutputStream usersOut = new FileOutputStream("Phase0/src/userPackage/user_package.usersData/users.ser");
             ObjectOutputStream out = new ObjectOutputStream(usersOut);
             out.writeObject(this.users);
             out.close();
