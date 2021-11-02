@@ -51,7 +51,7 @@ public class HistoryManager {
     }
 
     /**
-     * For some User specified by username, stores a record of latest worksheet generation details.
+     * For some User specified by username, stores a record of the latest worksheet generation details.
      *
      * @param username         of User
      * @param worksheetDetails for latest worksheet generated

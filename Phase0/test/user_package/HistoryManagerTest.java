@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class HistoryManagerTest {
     HistoryManager exampleHistoryManager;
-    LocalDataAccess dataAccess;
+
     @Before
     public void setUp() {
         LocalDataAccess dataAccess = new LocalDataAccess();
@@ -49,6 +49,7 @@ public class HistoryManagerTest {
     /**
      * Tests removeUserAction method. Simulate User and worksheet record. Removes added worksheet record. Another call
      * to remove the already removed record should throw a RecordDoesNotExistException.
+     *
      * @throws RecordDoesNotExistException since record does not exist after deleting it
      */
     @Test(expected = RecordDoesNotExistException.class)
@@ -70,8 +71,12 @@ public class HistoryManagerTest {
     public void testSetUserScoreForRecord() throws RecordDoesNotExistException {
         exampleHistoryManager.beginUserHistory("newUser3");
         Map<String, Object> worksheetDetails = new HashMap<>();
-        worksheetDetails.put("numQuestions", 100);
         worksheetDetails.put("worksheetKey", "4");
+
+        Map<String, Object> equationDetails = new HashMap<>();
+        equationDetails.put("numOfEquations", 100);
+        worksheetDetails.put("equationDetails", equationDetails);
+
         exampleHistoryManager.storeUserRecord("newUser3", worksheetDetails);
         exampleHistoryManager.setUserScoreForRecord("newUser3", "4", 99);
 

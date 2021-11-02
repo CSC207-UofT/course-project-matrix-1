@@ -97,7 +97,7 @@ public class UserController {
     }
 
     /**
-     * Removes the a specified worksheet generation record from the user's history.
+     * Removes the specified worksheet generation record from the user's history.
      *
      * @param username: Username of the user
      * @param worksheetKey:    Index of the action to be removed from the list of actions of the user.

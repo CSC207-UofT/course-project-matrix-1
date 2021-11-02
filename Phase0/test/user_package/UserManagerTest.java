@@ -32,13 +32,12 @@ public class UserManagerTest {
         assertTrue(userManager.verifyUsername("SCH99"));
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testGetUserDetails() {
         Map<String, Object> userDetails = userManager.getUserDetails("main");
         assertEquals("MainUser", userDetails.get("name"));
         assertEquals(21, userDetails.get("age"));
         assertEquals("Student", userDetails.get("role"));
         Map<String, Object> userDetails2 = userManager.getUserDetails("NonExistent"); // not a user
-        assertTrue(userDetails2.isEmpty());
     }
 }

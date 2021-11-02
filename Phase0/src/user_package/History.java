@@ -79,9 +79,9 @@ public class History implements Serializable {
 
 
     /**
-     * Update score for a worksheet record.
-     * - Verify that score is not greater than the number of questions
+     * Update score for a worksheet record. Verifies that score is not greater than the number of questions
      */
+    @SuppressWarnings("unchecked")
     public void setScore(String worksheetKey, int score) throws RecordDoesNotExistException {
         Map<String, Object> worksheet = this.findWorksheetRecord(worksheetKey);
         Map<String, Object> equationDetails = (Map<String, Object>) worksheet.get("equationDetails");
