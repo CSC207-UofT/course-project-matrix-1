@@ -44,11 +44,22 @@ public class BedmasEquation implements Equation {
      */
     @Override
     public String[] getEquation() {
-        String q = question.getRoot().getLeftNode().getSymbol() + " " + question.getRoot().getSymbol() + " " +
+        String q = "" + question.getRoot().getLeftNode().getSymbol() + question.getRoot().getSymbol() +
                 question.getRoot().getRightNode().getSymbol();
         String a = answer.toString();
         return new String[]{q, a};
     }
+
+    /**
+     * Returns the parts of the equation as a list of symbols. Used for testing purposes.
+     *
+     * @return the equation parts, as an array where the operands, operator, and answer are seperated.
+     */
+    public Symbol[] getEquationParts() {
+        return new Symbol[]{question.getRoot().getLeftNode().getSymbol(), question.getRoot().getSymbol(),
+                question.getRoot().getRightNode().getSymbol(), answer};
+    }
+
 
     /**
      * Solves the method using the binary expression tree's solve method.

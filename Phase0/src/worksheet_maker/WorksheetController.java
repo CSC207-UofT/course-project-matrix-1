@@ -13,10 +13,10 @@ public class WorksheetController {
     /**
      * Create the worksheet and PDF.
      *
-     * @param formatDetails   How the Worksheet will be formatted. Includes equation format, title, number of rows
-     *                        and number of columns of questions in a worksheet
      * @param equationDetails Number and types of equations in this Worksheet as follows: numEquations, operator,
      *                        operandRange1, operandRange2, negAllowed.
+     * @param formatDetails   How the Worksheet will be formatted. Includes equation format, title, number of rows
+     *                        and number of columns of questions in a worksheet
      * @return String representation of the Worksheet
      */
     public String[][] generateWorksheetAndPDF(Map<String, Object> equationDetails, Map<String, Object> formatDetails) {
