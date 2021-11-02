@@ -45,6 +45,7 @@ public class UserController {
     public Boolean login(String username) {
         // For simplicity verifyUsername method was renamed as login
         // TODO: Should we send a login unsuccessful message?
+        // Maybe a wrong username exception?
         return userManager.verifyUsername(username);
     }
 
