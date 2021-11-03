@@ -1,6 +1,7 @@
 package user_package;
 
 import exceptions.RecordDoesNotExistException;
+import exceptions.UsernameTakenException;
 
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,6 @@ public class UserController {
      * @return true iff the username corresponds to existing user
      */
     public Boolean login(String username) {
-        // For simplicity verifyUsername method was renamed as login
         // TODO: Should we send a login unsuccessful message?
         return userManager.verifyUsername(username);
     }
@@ -70,7 +70,7 @@ public class UserController {
      * @param age      age of userPackage.User
      * @param role     role of userPackage.User (Student/Parent/Teacher)
      */
-    public void registerUser(String username, String name, Integer age, String role) throws Exception {
+    public void registerUser(String username, String name, Integer age, String role) throws UsernameTakenException {
         userManager.createUser(username, name, age, role);
     }
 

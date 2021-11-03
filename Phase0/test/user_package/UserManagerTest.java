@@ -27,17 +27,20 @@ public class UserManagerTest {
     }
 
     @Test
-    public void testCreateUser() throws Exception {
+    public void testCreateUser() {
         userManager.createUser("SCH99", "Arnold", 20, "Student");
         assertTrue(userManager.verifyUsername("SCH99"));
     }
 
+    /**
+     * Tests getUserDetails on a non-existent user.
+     */
     @Test(expected = NullPointerException.class)
     public void testGetUserDetails() {
         Map<String, Object> userDetails = userManager.getUserDetails("main");
         assertEquals("MainUser", userDetails.get("name"));
         assertEquals(21, userDetails.get("age"));
         assertEquals("Student", userDetails.get("role"));
-        Map<String, Object> userDetails2 = userManager.getUserDetails("NonExistent"); // not a user
+        assertNull(userManager.getUserDetails("NonExistent"));
     }
 }
