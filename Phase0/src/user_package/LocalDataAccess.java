@@ -1,7 +1,9 @@
 package user_package;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,13 +13,12 @@ import java.util.Map;
  * @authors Stanley Hua
  */
 public class LocalDataAccess implements DataAccessInterface {
+    Map<String, User> userMap;
 
     /**
      * Stores a Map of Users.
-     * @param existingUsers list of existing Users
+     * @param existingUsers map of existing Users
      */
-    Map<String, User> userMap;
-
     public void storeUsers(Map<String, User> existingUsers){
         this.userMap = existingUsers;
         try {
@@ -30,8 +31,6 @@ public class LocalDataAccess implements DataAccessInterface {
         } catch (IOException i){    // if IO exception occurs, print exception details
             i.printStackTrace();
         }
-
-
     }
 
     /**
@@ -42,7 +41,7 @@ public class LocalDataAccess implements DataAccessInterface {
             // TODO: Remove Phase0
             FileOutputStream historiesOut = new FileOutputStream("Phase0/src/user_package/users_data/history.ser");
             ObjectOutputStream out = new ObjectOutputStream(historiesOut);
-            out.writeObject(historiesOut);
+            out.writeObject(existingHistories);
             out.close();
             historiesOut.close();
         } catch (IOException i){    // if IO exception occurs, print exception details
@@ -54,6 +53,7 @@ public class LocalDataAccess implements DataAccessInterface {
      * Retrieves list of Users.
      * @return list of Users
      */
+    @SuppressWarnings("unchecked")
     public Map<String, User> getUsers(){
         try {
             // Attempt to read from file
@@ -102,8 +102,12 @@ public class LocalDataAccess implements DataAccessInterface {
         Map<String, History> exampleHistoryManager = new HashMap<>();
         History exampleHistory = new History();
         Map<String, Object> worksheetDetails = new HashMap<>();
-        worksheetDetails.put("numQuestions", 100);
         worksheetDetails.put("worksheetKey", "1");
+
+        Map<String, Object> equationDetails = new HashMap<>();
+        equationDetails.put("numOfEquations", 100);
+        worksheetDetails.put("equationDetails", equationDetails);
+
         exampleHistory.addWorksheetRecord(worksheetDetails);
         exampleHistoryManager.put("main", exampleHistory);
 

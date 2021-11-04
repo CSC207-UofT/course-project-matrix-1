@@ -1,6 +1,7 @@
 package user_package;
 
 import exceptions.RecordDoesNotExistException;
+import exceptions.UsernameTakenException;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
  * Using dependency injection, existing users and their histories are retrieved and injected into UserManager and
  * HistoryManager.
  * <p>
- * Collaborators: userPackage.UserManagerViewer, userPackage.UserManagerUpdater, userPackage.UserManager.
+ * Collaborators: userPackage.UserManager, userPackage.HistoryManager
  *
  * @author Kerim, Stanley
  * @version 2.0
@@ -43,7 +44,6 @@ public class UserController {
      * @return true iff the username corresponds to existing user
      */
     public Boolean login(String username) {
-        // For simplicity verifyUsername method was renamed as login
         // TODO: Should we send a login unsuccessful message?
         return userManager.verifyUsername(username);
     }
@@ -70,7 +70,7 @@ public class UserController {
      * @param age      age of userPackage.User
      * @param role     role of userPackage.User (Student/Parent/Teacher)
      */
-    public void registerUser(String username, String name, Integer age, String role) throws Exception {
+    public void registerUser(String username, String name, Integer age, String role) throws UsernameTakenException {
         userManager.createUser(username, name, age, role);
     }
 
@@ -97,7 +97,7 @@ public class UserController {
     }
 
     /**
-     * Removes the user action from the user's history.
+     * Removes the specified worksheet generation record from the user's history.
      *
      * @param username: Username of the user
      * @param worksheetKey:    Index of the action to be removed from the list of actions of the user.

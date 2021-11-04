@@ -34,18 +34,20 @@ public class UserManager {
 
     /**
      * Registers a new userPackage.User. Throws Exception if another userPackage.User exists with the same username.
+     * Afterwards, stores new user in data storage/retrieval location.
      *
      * @param username potential username
      * @param name     name of userPackage.User
      * @param age      age of userPackage.User
      * @param role     role of userPackage.User (Student/Parent/Teacher)
      */
-    public void createUser(String username, String name, Integer age, String role) throws Exception {
+    public void createUser(String username, String name, Integer age, String role) throws UsernameTakenException {
         if (verifyUsername(username)) {
             throw new UsernameTakenException();
         }
         User newUser = new User(username, name, age, role);
         this.users.put(username, newUser);
+        this.dataSource.storeUsers(this.users);
     }
 
     /**

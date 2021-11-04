@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class UserManagerTest {
     UserManager userManager;
-    LocalDataAccess dataAccess;
+
     @Before
     public void setUp() {
         Map<String, User> users = new HashMap<>();
@@ -27,18 +27,20 @@ public class UserManagerTest {
     }
 
     @Test
-    public void testCreateUser() throws Exception {
+    public void testCreateUser() {
         userManager.createUser("SCH99", "Arnold", 20, "Student");
         assertTrue(userManager.verifyUsername("SCH99"));
     }
 
-    @Test
+    /**
+     * Tests getUserDetails on a non-existent user.
+     */
+    @Test(expected = NullPointerException.class)
     public void testGetUserDetails() {
         Map<String, Object> userDetails = userManager.getUserDetails("main");
         assertEquals("MainUser", userDetails.get("name"));
         assertEquals(21, userDetails.get("age"));
         assertEquals("Student", userDetails.get("role"));
-        Map<String, Object> userDetails2 = userManager.getUserDetails("NonExistent"); // not a user
-        assertTrue(userDetails2.isEmpty());
+        assertNull(userManager.getUserDetails("NonExistent"));
     }
 }

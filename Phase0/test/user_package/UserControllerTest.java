@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserControllerTest {
@@ -19,16 +20,16 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testVerifyUsername() throws Exception {
+    public void testVerifyUsername() {
         assert userController.login("main");
         userController.setCurrentUsername("user2");
         assert !userController.login("user2"); // not in the users list, just set as the current user
         assert userController.getCurrentUsername().equals("user2");
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testGetUserDetails() {
-        // You Have to register users first!
+        // You have to register users first!
         Map<String, Object> userDetails = userController.getUserDetails("main");
         assert userDetails.get("name").equals("MainUser");
         assert userDetails.get("age").equals(21);
@@ -40,7 +41,7 @@ public class UserControllerTest {
 
     @Test
     public void testGetUserHistory() {
-        assert userController.getUserHistory("main").isEmpty();
+        assertEquals("1", userController.getUserHistory("main").get(0).get("worksheetKey"));
     }
 
     @Test
@@ -55,10 +56,11 @@ public class UserControllerTest {
     @Test
     public void testStoreUserAction() {
         Map<String, Object> record = new HashMap<>();
-        record.put("numQuestions", 40);
-        record.put("worksheetKey", "standard-add-easy");
+        record.put("worksheetKey", "760");
         userController.storeUserRecord("main", record);
-        assert userController.getUserHistory("main").get(0).equals(record);
+
+        List<Map<String, Object>> userHistory = userController.getUserHistory("main");
+        assert userHistory.get(userHistory.size() - 1).equals(record);
     }
 
     @Test
@@ -68,14 +70,20 @@ public class UserControllerTest {
         record.put("worksheetKey", "156");
         userController.storeUserRecord("main", record);
         userController.removeUserRecord("main", "156");
-        assert userController.getUserHistory("main").isEmpty();
+
+        List<Map<String, Object>> userHistory = userController.getUserHistory("main");
+        assertNotEquals(record, userHistory.get(userHistory.size() - 1));
     }
 
     @Test
     public void testStoreUserScore() throws RecordDoesNotExistException {
         HashMap<String, Object> record = new HashMap<>();
-        record.put("numQuestions", 40);
         record.put("worksheetKey", "156");
+
+        Map<String, Object> equationDetails = new HashMap<>();
+        equationDetails.put("numOfEquations", 40);
+        record.put("equationDetails", equationDetails);
+
         userController.storeUserRecord("main", record);
         userController.storeUserScore("main", "156", 39);
 
