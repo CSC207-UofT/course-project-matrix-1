@@ -1,5 +1,8 @@
 package equation_entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Stores a node which holds a left and right leaf. Any leaves are values (such as integers, fractions, or decimals)
  * Any nodes that are not leaves are operators (+, -, *, /, ^). All nodes with operators must contain a left leaf and
@@ -75,5 +78,21 @@ public class Node {
         } else {
             return ((Operator) symbol).solveBinaryExpression(leftNode.solve(), rightNode.solve());
         }
+    }
+
+    /**
+     * Recursively adds all elements in the tree to the array list in the correct order.
+     * @return  the string list of equations
+     */
+    public List<String> toArrayList() {
+        List<String>  equationList = new ArrayList<>();
+        if (this.isLeaf()){
+            equationList.add(this.getSymbol().toString());
+        }else{
+            equationList.addAll(this.getLeftNode().toArrayList());
+            equationList.add(this.getSymbol().toString());
+            equationList.addAll(this.getRightNode().toArrayList());
+        }
+        return equationList;
     }
 }

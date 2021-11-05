@@ -22,7 +22,7 @@ public class BinaryExpressionTree {
     }
 
     /**
-     * Uses the root node to solve the value of the tree recursively
+     * Uses the root node to solve the value of the tree recursively.
      *
      * @return The answer of the expression stored in the tree.
      */
@@ -32,10 +32,11 @@ public class BinaryExpressionTree {
 
 
     /**
-     * Recursively adds all elements in the tree to the array list in the correct order.
-     * @param equationList the string list of equations
+     * Uses the root node to convert the values of the tree into a List of Strings recursively.
+     *
+     * @return  the string list of equations
      */
-    public void addToArrayList(List<String> equationList) {
-        //TODO: Add the recursive part
+    public List<String> toStringArrayList() {
+        return root.toArrayList();
     }
 }

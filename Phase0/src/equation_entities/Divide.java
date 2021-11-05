@@ -20,12 +20,14 @@ public class Divide extends Operator {
     }
 
     /**
-     * Returns the divide operator as /
+     * Returns the divide operator as \div
      *
-     * @return the symbol /
+     * @return \div
      */
     @Override
     public String toString() {
-        return "/";
+        return "\\div";
+        //TODO: change test cases
     }
+
 }

@@ -49,8 +49,7 @@ public class BedmasEquation implements Equation {
      */
     @Override
     public List<String> getEquation() {
-        List<String> equationList = new ArrayList<>();
-        question.addToArrayList(equationList);
+        List<String> equationList = new ArrayList<>(question.toStringArrayList());
         equationList.add("=");
         equationList.add(answer.toString());
         return equationList;
