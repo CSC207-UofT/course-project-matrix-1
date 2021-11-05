@@ -1,0 +1,37 @@
+    @Test
+    public void testOddFindFactors(){
+        ArrayList<Integer> factors = new ArrayList<Integer>();
+        Collections.addAll(factors, 1,3,5,15);
+        assertEquals( factors, BedmasEquationBuilder.findFactors(15));
+    }
+    @Test
+    public void testEvenFindFactors(){
+        ArrayList<Integer> factors = new ArrayList<Integer>();
+        Collections.addAll(factors, 1,2,5,10);
+        assertEquals(factors,BedmasEquationBuilder.findFactors(10));
+    }
+    @Test
+    public void testPrimeFindFactors(){
+        ArrayList<Integer> factors = new ArrayList<Integer>();
+        Collections.addAll(factors, 1,11);
+        assertEquals(factors,BedmasEquationBuilder.findFactors(11));
+
+    }
+    @Test
+    public void testOuterBoundsRestrictArray(){
+        ArrayList<Integer> factors = new ArrayList<Integer>();
+        Collections.addAll(factors, 1,3,5,10,15);
+        ArrayList<Integer> restrictedFactors = new ArrayList<Integer>();
+        Collections.addAll(restrictedFactors, 1,3,5,10,15);
+        BedmasEquationBuilder.restrictArray(factors, new int[] {1,15});
+        assertEquals(restrictedFactors, factors);
+    }
+    @Test
+    public void testNormalBoundsRestrictArray(){
+        ArrayList<Integer> factors = new ArrayList<Integer>();
+        Collections.addAll(factors, 1,3,5,10,15);
+        ArrayList<Integer> restrictedFactors = new ArrayList<Integer>();
+        Collections.addAll(restrictedFactors, 3,5,10);
+        BedmasEquationBuilder.restrictArray(factors, new int[] {2,11});
+        assertEquals(restrictedFactors, factors);
+    }
