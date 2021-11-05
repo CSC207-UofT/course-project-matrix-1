@@ -5,7 +5,10 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,6 +21,9 @@ import java.util.Map;
 public class PDFPresenter {
     //Worksheet output rather than Worksheet
     private final WorksheetOutput worksheet;
+    private final ImageFacade imageFacade = new ImageFacade();
+
+    ImageFacade();
 
     public PDFPresenter(WorksheetOutput worksheet) {
         this.worksheet = worksheet;
@@ -28,39 +34,28 @@ public class PDFPresenter {
      *
      * @param formatDetails Hashmap showing details necessary for formatting a PDF. Includes equation format, title,
      *                      number of rows, and number of columns.
-     * @return String[][] displaying all the equations in worksheet.
+     * @return A list of PDF's, where the first is a question sheet and the second is the answer sheet. Both pdfs can
+     * be saved to a path using .save().
      */
-    public String[][] createPDF(Map<String, Object> formatDetails) {
-        return worksheet.equationsToStringArray();
+    public PDDocument[] createPDF(Map<String, Object> formatDetails) {
+        PDDocument[] qAndAPDF = new PDDocument[]{new PDDocument(), new PDDocument()};
+        BufferedImage[][] qAndAImages = imageFacade.createResizedImages(formatDetails, worksheet);
+        arrangeOnPDFs(qAndAImages, qAndAPDF, formatDetails);
+        return qAndAPDF;
     }
 
-//    public static void test() {
-//        PDDocument doc = new PDDocument();
-//        PDPage page = new PDPage();
-//        try {
-//            doc.addPage(page);
-//            PDPageContentStream contentStream = new PDPageContentStream(doc, page);
-//            //----
-//            contentStream.beginText();
-//            contentStream.setFont(PDType1Font.TIMES_ROMAN, 12);
-//            contentStream.newLineAtOffset(25, 500);
-//            contentStream.setLeading(14.5f);
-//            String text = "This is the sample document and we are adding content to it.";
-//            contentStream.showText(text);
-//            contentStream.newLine();
-//            contentStream.showText(text);
-//            contentStream.endText();
-//            contentStream.close();
-//            //----
-//            doc.save("C:/Users/willj/OneDrive - University of Toronto/Desktop/my_doc.pdf");
-//            doc.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public static void main(String[] args) {
-//        PDFPresenter.test();
-//    }
+    /**
+     * Arranges a list of images on a PDF given the rowNum and columnNum. Enough space will be made at the top for a
+     * title.
+     *
+     * @param qAndAImages   The first list of images is for the question sheet and the second list of images is for the
+     *                      answer sheet.
+     * @param qAndAPDF      The first PDF is a question sheet and the second PDF is the answer sheet.
+     * @param formatDetails Hashmap showing details necessary for formatting a PDF. Includes equation format, title,
+     *                      number of rows, and number of columns.
+     */
+    private void arrangeOnPDFs(Image[][] qAndAImages, PDDocument[] qAndAPDF, Map<String, Object> formatDetails) {
+
+    }
 
 }

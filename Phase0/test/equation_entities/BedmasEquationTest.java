@@ -12,8 +12,8 @@ public class BedmasEquationTest {
         bedmasEquation.setOperator(new Add());
         bedmasEquation.setOperand1(new WholeNum(9));
         bedmasEquation.setOperand2(new WholeNum(-10));
-        assertTrue(bedmasEquation.getEquation()[0].indexOf('+') != -1);
-        assertEquals(-1, bedmasEquation.getEquation()[1].indexOf('+'));
+        assertTrue(bedmasEquation.getEquation().get(0).indexOf('+') != -1);
+        assertEquals(-1, bedmasEquation.getEquation().get(1).indexOf('+'));
     }
 
 }

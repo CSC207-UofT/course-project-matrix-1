@@ -31,25 +31,19 @@ public class Worksheet implements WorksheetInput, WorksheetOutput {
     /**
      * Returns a String representation of a Worksheet.
      *
-     * @return equations formatted as [question, answer] in an array
+     * @return an array of equations arrays, where each symbol in the equation array is a separate term.
+     * Ex. [5, +, 4, =, 9]
      */
     @Override
     public String[][] equationsToStringArray() {
-        //TODO: worry about corner case where there is nothing in equations
-        //Create an empty 2D list to store the equations as String[].
         String[][] equationsString = new String[equations.size()][];
-        //Loops through its own equation to generate String[] of them.
         for (int i = 0; i < equations.size(); i++) {
-            equationsString[i] = equations.get(i).getEquation();
+            equationsString[i] = equations.get(i).getEquation().toArray(new String[0]);
         }
         return equationsString;
     }
 
-
-
-    //Only used in test methods.
-    public List<Equation> getEquations() {
+    public List<Equation> getEquations(){
         return equations;
     }
-
 }

@@ -28,7 +28,7 @@ public class WholeBedmasDirectorTest {
         assertTrue(0 <= operand1 && operand1 <= 10);
         assertTrue(0 <= operand2 && operand2 <= 10);
         assertEquals(operand1 + operand2, answer);
-        System.out.println(bed.getBedmasEquation().getEquation()[0] + "=" + bed.getBedmasEquation().getEquation()[1]);
+        System.out.println(bed.getBedmasEquation().getEquation());
     }
 
     @Test
@@ -42,7 +42,7 @@ public class WholeBedmasDirectorTest {
         assertTrue(-10 <= operand1 && operand1 <= 10);
         assertTrue(-10 <= operand2 && operand2 <= 10);
         assertEquals(operand1 + operand2, answer);
-        System.out.println(bed.getBedmasEquation().getEquation()[0] + "=" + bed.getBedmasEquation().getEquation()[1]);
+        System.out.println(bed.getBedmasEquation().getEquation());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class WholeBedmasDirectorTest {
         int answer = ((WholeNum) equation[3]).getValue();
         assertTrue(operand1 >= operand2);
         assertEquals(operand1 - operand2, answer);
-        System.out.println(bed.getBedmasEquation().getEquation()[0] + "=" + bed.getBedmasEquation().getEquation()[1]);
+        System.out.println(bed.getBedmasEquation().getEquation());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class WholeBedmasDirectorTest {
         assertTrue(-10 <= operand1 && operand1 <= 10);
         assertTrue(-10 <= operand2 && operand2 <= 10);
         assertEquals(operand1 - operand2, answer);
-        System.out.println(bed.getBedmasEquation().getEquation()[0] + "=" + bed.getBedmasEquation().getEquation()[1]);
+        System.out.println(bed.getBedmasEquation().getEquation());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class WholeBedmasDirectorTest {
         assertTrue(0 <= operand1 && operand1 <= 10);
         assertTrue(0 <= operand2 && operand2 <= 10);
         assertEquals(operand1 * operand2, answer);
-        System.out.println(bed.getBedmasEquation().getEquation()[0] + "=" + bed.getBedmasEquation().getEquation()[1]);
+        System.out.println(bed.getBedmasEquation().getEquation());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class WholeBedmasDirectorTest {
         assertTrue(-10 <= operand1 && operand1 <= 10);
         assertTrue(-10 <= operand2 && operand2 <= 10);
         assertEquals(operand1 * operand2, answer);
-        System.out.println(bed.getBedmasEquation().getEquation()[0] + "=" + bed.getBedmasEquation().getEquation()[1]);
+        System.out.println(bed.getBedmasEquation().getEquation());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class WholeBedmasDirectorTest {
         int answer = ((WholeNum) equation[3]).getValue();
         assertEquals(operand1 / operand2, answer);
         assertEquals(0, operand1 % operand2);
-        System.out.println(bed.getBedmasEquation().getEquation()[0] + "=" + bed.getBedmasEquation().getEquation()[1]);
+        System.out.println(bed.getBedmasEquation().getEquation());
     }
 
     @Test
@@ -123,7 +123,7 @@ public class WholeBedmasDirectorTest {
         int answer = ((WholeNum) equation[3]).getValue();
         assertEquals(0, operand1 % operand2);
         assertEquals(operand1 / operand2, answer);
-        System.out.println(bed.getBedmasEquation().getEquation()[0] + "=" + bed.getBedmasEquation().getEquation()[1]);
+        System.out.println(bed.getBedmasEquation().getEquation());
     }
 
     @Test(expected = IllegalArgumentException.class)

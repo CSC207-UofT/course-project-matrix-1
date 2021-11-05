@@ -1,5 +1,8 @@
 package equation_entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Refers to an equation with any number of operands that use BEDMAS operators. An example is 5 + 3 = 8. The question
  * will be stored as a binary expression tree, while the answer will be a string.
@@ -40,14 +43,17 @@ public class BedmasEquation implements Equation {
     }
 
     /**
-     * @return the equation, as an array with the equation and answer.
+     * Returns the array representation of the equation.
+     *
+     * @return a List representation of the equation, where every symbol is a separate item in the array.
      */
     @Override
-    public String[] getEquation() {
-        String q = "" + question.getRoot().getLeftNode().getSymbol() + question.getRoot().getSymbol() +
-                question.getRoot().getRightNode().getSymbol();
-        String a = answer.toString();
-        return new String[]{q, a};
+    public List<String> getEquation() {
+        List<String> equationList = new ArrayList<>();
+        question.addToArrayList(equationList);
+        equationList.add("=");
+        equationList.add(answer.toString());
+        return equationList;
     }
 
     /**

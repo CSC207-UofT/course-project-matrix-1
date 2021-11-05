@@ -1,5 +1,7 @@
 package equation_entities;
 
+import java.util.List;
+
 /**
  * Stores a single root Node. This root node can be manipulated to access a binary tree recursively.
  *
@@ -28,4 +30,12 @@ public class BinaryExpressionTree {
         return root.solve();
     }
 
+
+    /**
+     * Recursively adds all elements in the tree to the array list in the correct order.
+     * @param equationList the string list of equations
+     */
+    public void addToArrayList(List<String> equationList) {
+        //TODO: Add the recursive part
+    }
 }
