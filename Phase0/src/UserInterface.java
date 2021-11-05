@@ -116,7 +116,7 @@ public class UserInterface {
             username = sc.nextLine();
 
             if (!userController.verifyUsername(username)) {
-                System.out.println("This username does not exist. Type \n 1 to register a account for this username " +
+                System.out.println("This username does not exist. Type \n 1 to register an account for this username " +
                         "\n anything other int to re-enter your username");
                 int registerChoice = sc.nextInt();
                 if (registerChoice == 1) {
