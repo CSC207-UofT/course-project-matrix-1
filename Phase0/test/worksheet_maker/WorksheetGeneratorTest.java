@@ -35,7 +35,7 @@ public class WorksheetGeneratorTest {
         wg.createWorksheet(myEquationDetails);
         for (int i = 0; i < ws.getEquations().size(); i++) {
             //Test if each equation has a question and an answer (length of 2 list)
-            assertEquals(ws.getEquations().get(i).getEquation().length, 2);
+            assertEquals(ws.getEquations().get(i).getEquation().size(), 2);
         }
     }
 
@@ -44,7 +44,7 @@ public class WorksheetGeneratorTest {
         myEquationDetails.replace("operator", '+');
         wg.createWorksheet(myEquationDetails);
         for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation()[0].indexOf('+'), -1);
+            assertNotEquals(ws.getEquations().get(i).getEquation().get(0).indexOf('+'), -1);
         }
     }
 
@@ -53,7 +53,7 @@ public class WorksheetGeneratorTest {
         myEquationDetails.replace("operator", '-');
         wg.createWorksheet(myEquationDetails);
         for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation()[0].indexOf('-'), -1);
+            assertNotEquals(ws.getEquations().get(i).getEquation().get(0).indexOf('-'), -1);
         }
     }
 
@@ -62,7 +62,7 @@ public class WorksheetGeneratorTest {
         myEquationDetails.replace("operator", '*');
         wg.createWorksheet(myEquationDetails);
         for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation()[0].indexOf('*'), -1);
+            assertNotEquals(ws.getEquations().get(i).getEquation().get(0).indexOf('*'), -1);
         }
     }
 
@@ -71,7 +71,7 @@ public class WorksheetGeneratorTest {
         myEquationDetails.replace("operator", '/');
         wg.createWorksheet(myEquationDetails);
         for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation()[0].indexOf('/'), -1);
+            assertNotEquals(ws.getEquations().get(i).getEquation().get(0).indexOf('/'), -1);
         }
     }
 }

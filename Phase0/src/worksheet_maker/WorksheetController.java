@@ -1,5 +1,7 @@
 package worksheet_maker;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+
 import java.util.Map;
 
 /**
@@ -19,7 +21,7 @@ public class WorksheetController {
      *                        and number of columns of questions in a worksheet
      * @return String representation of the Worksheet
      */
-    public String[][] generateWorksheetAndPDF(Map<String, Object> equationDetails, Map<String, Object> formatDetails) {
+    public PDDocument[] generateWorksheetAndPDF(Map<String, Object> equationDetails, Map<String, Object> formatDetails) {
         Worksheet ws = new Worksheet();
         WorksheetGenerator worksheetGenerator = new WorksheetGenerator(ws);
         PDFPresenter pdfPresenter = new PDFPresenter(ws);
