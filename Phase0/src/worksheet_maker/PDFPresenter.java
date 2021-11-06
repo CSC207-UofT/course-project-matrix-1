@@ -71,7 +71,7 @@ public class PDFPresenter {
 
     /**
      * Arranges a list of images on a PDF given the rowNum and columnNum. Enough space will be made at the top for a
-     * title.
+     * title. Every PDF has a width of 612 pixels by 792 pixels.
      *
      * @param qAndAImages          The first list of images is for the question sheet and the second list of images is
      *                             for the answer sheet.
@@ -87,12 +87,9 @@ public class PDFPresenter {
             PDPageContentStream contentStream = new PDPageContentStream(qAndAPDF[i], page);
             for (int j = 0; j < qAndAPDImage[0].length; j++) {
                 //TODO: Actually make it add to the pages properly
-                contentStream.drawImage(qAndAPDImage[i][j], 396, j * 30);
+                contentStream.drawImage(qAndAPDImage[i][j], 20, (j+1) * 30);
             }
-            System.out.println(page.getCropBox().getHeight() + " " + page.getCropBox().getWidth());
             contentStream.close();
-            qAndAPDF[i].save("C:/Users/willj/Downloads/test" + i + ".pdf");
-            qAndAPDF[i].close();
         }
     }
 

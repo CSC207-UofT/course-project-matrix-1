@@ -1,5 +1,6 @@
 package worksheet_maker;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -23,8 +24,11 @@ public class WorksheetControllerTest {
         myFormatDetails.put("numRows", 10);
         myFormatDetails.put("numColumns", 3);
         WorksheetController wc = new WorksheetController();
-        wc.generateWorksheetAndPDF(myEquationDetails, myFormatDetails);
-//        System.out.println(Arrays.deepToString(wc.generateWorksheetAndPDF(myEquationDetails, myFormatDetails)));
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(myEquationDetails, myFormatDetails);
+        pdf[0].save("C:/Users/willj/Downloads/questions.pdf");
+        pdf[0].close();
+        pdf[1].save("C:/Users/willj/Downloads/answers.pdf");
+        pdf[1].close();
     }
 
 
