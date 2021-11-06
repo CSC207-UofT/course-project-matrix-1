@@ -12,7 +12,7 @@ import org.scilab.forge.jlatexmath.TeXFormula;
 public class EquationStringToLatex {
     public TeXFormula convertEquationStringToLatex(String[] worksheetStringList, String equationType, boolean withAnswer){
         StringBuilder latexString = new StringBuilder();
-        latexString.append("\\[");
+//        latexString.append("\\[");
         switch (equationType) {
             case "Horizontal":
                 for (int i = 0; !worksheetStringList[i].equals("="); i++) {
@@ -30,6 +30,8 @@ public class EquationStringToLatex {
                 //TODO: raise notImplementedError;
                 break;
         }
+//        latexString.append("\\]");
+        System.out.println(latexString.toString());
         return new TeXFormula(String.valueOf(latexString));
     }
 }

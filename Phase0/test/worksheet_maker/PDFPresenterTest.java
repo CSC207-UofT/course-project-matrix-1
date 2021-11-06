@@ -7,6 +7,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
@@ -28,7 +29,7 @@ public class PDFPresenterTest {
     }
 
     @Test
-    public void testCreatePDF() {
+    public void testCreatePDF() throws IOException {
         HashMap<String, Object> formatDetails = new HashMap<>();
         formatDetails.put("equationFormat", "Horizontal");
         formatDetails.put("title", "Test");

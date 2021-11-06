@@ -13,7 +13,7 @@ import java.util.Map;
  * @since 2021-11-5.
  */
 public class ImageFacade {
-    EquationToLatex equationToLatex = new EquationToLatex();
+    EquationStringToLatex equationStringToLatex = new EquationStringToLatex();
     LatexToImage latexToImage = new LatexToImage();
     ImageResizer imageResizer = new ImageResizer();
 
@@ -31,7 +31,7 @@ public class ImageFacade {
         BufferedImage[][] qAndAImages = new BufferedImage[2][equations.length];
         for (int i = 0; i < equations.length; i++) {
             for (int ans = 0; ans < 2; ans++) { //If ans = 1, add it to the answer. Otherwise, add it to question.
-                TeXFormula questionFormula = equationToLatex.convertEquationStringToLatex(equations[i],
+                TeXFormula questionFormula = equationStringToLatex.convertEquationStringToLatex(equations[i],
                         (String) formatEquationDetails.get("equationFormat"), ans == 1);
                 qAndAImages[ans][i] = latexToImage.convertLatexToImage(questionFormula);
             }

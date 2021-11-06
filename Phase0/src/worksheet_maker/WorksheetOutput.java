@@ -7,4 +7,5 @@ import java.util.List;
 public interface WorksheetOutput {
 
     String[][] equationsToStringArray();
+    int getQuestionNumber();
 }

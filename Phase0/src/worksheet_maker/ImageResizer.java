@@ -1,5 +1,7 @@
 package worksheet_maker;
 
+import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
+
 import java.awt.image.BufferedImage;
 
 public class ImageResizer {
@@ -12,6 +14,6 @@ public class ImageResizer {
      * @param numColumns  the number of columns in the PDF.
      */
     public void resize(BufferedImage[][] qAndAImages, int numRows, int numColumns) {
-
+        System.out.println("resized");
     }
 }
