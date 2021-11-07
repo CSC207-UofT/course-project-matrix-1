@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.Map;
 
 /**
- * Uses a Facade design pattern to transform
+ * Uses the Facade design pattern to hold instances of classes that manipulate latex and image data.
  *
  * @author Will Jeong
  * @version 1.0
