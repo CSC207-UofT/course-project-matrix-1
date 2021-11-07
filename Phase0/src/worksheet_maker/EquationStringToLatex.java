@@ -1,7 +1,5 @@
 package worksheet_maker;
 
-//TODO: move excepetions somewhere else?
-
 import org.scilab.forge.jlatexmath.TeXFormula;
 
 import java.util.Arrays;

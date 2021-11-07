@@ -84,7 +84,6 @@ public class PDFPresenter {
             PDPage page = worksheetPDFs[i].getPage(0);
             PDPageContentStream contentStream = new PDPageContentStream(worksheetPDFs[i], page);
             for (int j = 0; j < qAndAPDImage[0].length; j++) {
-                //TODO: Actually make it add to the pages properly
                 contentStream.drawImage(qAndAPDImage[i][j], 20, (j+1) * 30);
             }
             contentStream.close();
