@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Generate and present the worksheet based on inputs from the Userinterface.
+ * Generate and present the worksheet based on inputs from the UserInterface.
  *
  * @author Sean Jeong
  * @version 1.0
@@ -23,12 +23,14 @@ public class WorksheetController {
      * @return An array of PDDocuments. The first PDDocument is the questions document, the second is the questions +
      * answers document. To save these documents to a file, use .save("some path.pdf"). Afterwards, close the PDFs
      * using .close().
+     * @throws IOException if images cannot be added to the PDF.
      */
-    public PDDocument[] generateWorksheetAndPDF(Map<String, Object> equationDetails, Map<String, Object> formatDetails) throws IOException {
+    public PDDocument[] generateWorksheetAndPDF(Map<String, Object> equationDetails, Map<String, Object> formatDetails)
+            throws IOException {
         Worksheet ws = new Worksheet();
         WorksheetGenerator worksheetGenerator = new WorksheetGenerator(ws);
         PDFPresenter pdfPresenter = new PDFPresenter(ws);
-        worksheetGenerator.createWorksheet(equationDetails);
+        worksheetGenerator.populateWorksheet(equationDetails);
         return pdfPresenter.createPDF(formatDetails);
     }
 }

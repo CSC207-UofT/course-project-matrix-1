@@ -16,7 +16,7 @@ public class BedmasEquation implements Equation {
     private Value answer;
 
     /**
-     * Sets the operator for the equation as the root of the binary expression tree
+     * Sets the operator for the equation as the root of the binary expression tree.
      *
      * @param operator A string of either +, -, *, / meaning add, subtract, multiply, and divide respectively.
      */
@@ -25,18 +25,18 @@ public class BedmasEquation implements Equation {
     }
 
     /**
-     * Sets the first operand to the left node as a string
+     * Sets the first operand to the left node as a string.
      *
-     * @param operand1 the second operand in the binary expression
+     * @param operand1 the second operand in the binary expression.
      */
     public void setOperand1(Value operand1) {
         question.getRoot().setLeftNode(new Node(operand1));
     }
 
     /**
-     * Sets the second operand to the right node as a string
+     * Sets the second operand to the right node as a string.
      *
-     * @param operand2 the second operand in the binary expression
+     * @param operand2 the second operand in the binary expression.
      */
     public void setOperand2(Value operand2) {
         question.getRoot().setRightNode(new Node(operand2));

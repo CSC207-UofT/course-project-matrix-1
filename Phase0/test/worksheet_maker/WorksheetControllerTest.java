@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class WorksheetControllerTest {
-    //Temporary test case, just want to visually inspect if the equations look random enough.
     @Test
     public void WorksheetControllerVisualTest() throws IOException {
         HashMap<String, Object> myEquationDetails = new HashMap<>();

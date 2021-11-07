@@ -44,15 +44,19 @@ public class Worksheet implements WorksheetInput, WorksheetOutput {
     }
 
     /**
-     * Returns the number of questions in the worksheet.
+     * Returns the number of questions in the Worksheet.
      *
-     * @return the number of questions in the worksheet.
+     * @return the number of questions in the Worksheet.
      */
     @Override
     public int getQuestionNumber() {
         return equations.size();
     }
 
+    /**
+     * Returns the full List of Equations stored in this worksheet. Should only be used for testing.
+     * @return A List of Equations stored in this worksheet.
+     */
     public List<Equation> getEquations() {
         return equations;
     }
