@@ -90,44 +90,25 @@ public class PDFPresenter {
         double rescaleFactor = findRescaleFactor(qAndAPDImage[1], (int) formatArrangeDetails.get("numRows"),
                 (int) formatArrangeDetails.get("numColumns"));
         for (int i = 0; i < 2; i++) {
-            populatePage(qAndAPDImage[i], worksheetPDFs[i], formatArrangeDetails);
+            populatePage(qAndAPDImage[i], worksheetPDFs[i], formatArrangeDetails, rescaleFactor);
         }
     }
 
     /**
-     * Uses the contentStream of a PDF to populate that PDF with a list of equationImages for a given number of rows
+     * Uses the equationImages of a PDF to populate that PDF with a list of equationImages for a given number of rows
      * and columns.
      *
-     * @param equationImages the list of all the equation images that will enter the PDF.
-     * @param contentStream  the stream associated with a PDF that will be used to populate the PDF.
-     * @param numRows        the number of rows in the PDF.
-     * @param numColumns     the number of columns in the PDF.
+     * @param equationImages       the list of all the equation images that will enter the PDF.
+     * @param worksheetPDF         the pdf that will be modified.
+     * @param formatArrangeDetails the arrangement details.
+     * @param rescaleFactor        the factor by which to rescale the equationImages.
      * @throws IOException if images cannot be added to the PDF.
      */
-    private void populatePage(PDImageXObject[] equationImages, PDPageContentStream contentStream, int numRows, int numColumns, double rescaleFactor) throws IOException {
 
-        int pd_index = 0;
-        for (int x = 0; x < numColumns; x++) {
-            for (int y = numRows - 1; y > -1; y--) {
-                int x_coord = MOD_WIDTH * x / numColumns + (PDF_WIDTH - MOD_WIDTH) / 2;
-                int y_coord = MOD_HEIGHT * y / numRows + (PDF_HEIGHT - MOD_HEIGHT) / 2;
-                if (pd_index < equationImages.length) {
-                    contentStream.drawImage(equationImages[pd_index], x_coord, y_coord, equationImages[pd_index].getWidth() / 10, equationImages[pd_index].getHeight() / 10);
-                    pd_index++;
-                }
-            }
-        }
-    }
-
-    private void populatePage(PDImageXObject[] equationImages, PDDocument worksheetPDF, Map<String, Object> formatArrangeDetails) throws IOException {
-        int PDF_WIDTH = 612;
-        int PDF_HEIGHT = 792;
-        int MOD_WIDTH = 550;
-        int MOD_HEIGHT = 710;
+    private void populatePage(PDImageXObject[] equationImages, PDDocument worksheetPDF, Map<String, Object> formatArrangeDetails, double rescaleFactor) throws IOException {
         int pd_index = 0;
         int numColumns = (int) formatArrangeDetails.get("numColumns");
         int numRows = (int) formatArrangeDetails.get("numRows");
-        String title = (String) formatArrangeDetails.get("title");
         for (int i = 0; i < worksheetPDF.getNumberOfPages(); i++) {
             PDPage page = worksheetPDF.getPage(i);
             PDPageContentStream contentStream = new PDPageContentStream(worksheetPDF, page);
@@ -139,7 +120,9 @@ public class PDFPresenter {
                     int x_coord = MOD_WIDTH * x / numColumns + (PDF_WIDTH - MOD_WIDTH) / 2;
                     int y_coord = MOD_HEIGHT * y / numRows + (PDF_HEIGHT - MOD_HEIGHT) / 2;
                     if (pd_index < equationImages.length) {
-                        contentStream.drawImage(equationImages[pd_index], x_coord, y_coord, equationImages[pd_index].getWidth() / 10, equationImages[pd_index].getHeight() / 10);
+                        contentStream.drawImage(equationImages[pd_index], x_coord, y_coord,
+                                Math.round(equationImages[pd_index].getWidth() * rescaleFactor),
+                                Math.round(equationImages[pd_index].getHeight() * rescaleFactor));
                         pd_index++;
                     }
                 }

@@ -15,7 +15,6 @@ import java.util.Map;
 public class EquationsToResizedImages {
     private final EquationStringToLatex equationStringToLatex = new EquationStringToLatex();
     private final LatexToImage latexToImage = new LatexToImage();
-    private final ImageResizer imageResizer = new ImageResizer();
 
     /**
      * Creates images that are resized using the same proportions so that every image can fit on the page.
@@ -35,8 +34,6 @@ public class EquationsToResizedImages {
                 qAndAImages[ans][i] = latexToImage.convertLatexToImage((new TeXFormula((i+1) + ")\\;\\;\\;")).add(questionFormula));
             }
         }
-        imageResizer.resize(qAndAImages, (int) formatEquationDetails.get("numRows"),
-                (int) formatEquationDetails.get("numColumns"));
         return qAndAImages;
     }
 }
