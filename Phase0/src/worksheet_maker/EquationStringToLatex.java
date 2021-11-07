@@ -1,6 +1,10 @@
 package worksheet_maker;
 
+//TODO: move excepetions somewhere else?
+
 import org.scilab.forge.jlatexmath.TeXFormula;
+
+import java.util.Arrays;
 
 /**
  * Converts an Equation as a String into a TexFormula.
@@ -10,28 +14,80 @@ import org.scilab.forge.jlatexmath.TeXFormula;
  * @since 2021-111-05.
  */
 public class EquationStringToLatex {
-    public TeXFormula convertEquationStringToLatex(String[] worksheetStringList, String equationType, boolean withAnswer){
-        StringBuilder latexString = new StringBuilder();
-//        latexString.append("\\[");
-        switch (equationType) {
+    /**
+     * Converts a list of String representation of an equation into a TexFormula.
+     *
+     * @param equationStringList The String representation of an equation. Each operator and value is a new element.
+     * @param equationFormat     The format an equation should be displayed in. Horizontal, Vertical or Division bracket.
+     * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
+     * @return Latex formula of the equation.
+     */
+    public TeXFormula convertEquationStringToLatex(String[] equationStringList, String equationFormat, boolean withAnswer) {
+        String latexString = "";
+        switch (equationFormat) {
             case "Horizontal":
-                for (int i = 0; !worksheetStringList[i].equals("="); i++) {
-                    latexString.append(worksheetStringList[i]);
-                }
-                latexString.append("=");
-                if (withAnswer) {
-                    latexString.append(worksheetStringList[worksheetStringList.length - 1]);
-                }
+                latexString = createHorizontalLatex(equationStringList, withAnswer);
                 break;
             case "Vertical":
-                //TODO: raise notImplementedError;
+                latexString = createVerticalLatex(equationStringList, withAnswer);
                 break;
-            case "Division Bracket":
-                //TODO: raise notImplementedError;
+            case "Division bracket":
+                latexString = createDivisionBracketLatex(equationStringList, withAnswer);
                 break;
         }
-//        latexString.append("\\]");
-        System.out.println(latexString.toString());
-        return new TeXFormula(String.valueOf(latexString));
+        //Convert string to TeXFormula
+        return new TeXFormula(latexString);
+    }
+
+    /**
+     * Converts a list of String representation of an equation into a latex String in a Horizontal format.
+     * Ex. 4 \div 2 = 2
+     *
+     * @param equationStringList The String representation of an equation. Each operator and value is a new element.
+     * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
+     * @return Horizontal format of a latex equation as a string.
+     */
+    private String createHorizontalLatex(String[] equationStringList, boolean withAnswer) {
+        StringBuilder latexStringBuilder = new StringBuilder();
+        for (int i = 0; !equationStringList[i].equals("="); i++) {
+            latexStringBuilder.append(equationStringList[i]);
+        }
+        latexStringBuilder.append("=");
+        if (withAnswer) {
+            latexStringBuilder.append(equationStringList[equationStringList.length - 1]);
+        }
+        return String.valueOf(latexStringBuilder);
+    }
+
+    /**
+     * Converts a list of String representation of an equation into a latex String in a Vertical format.
+     * Ex.
+     * 4
+     * - 2
+     * _____
+     * 2
+     *
+     * @param equationStringList The String representation of an equation. Each operator and value is a new element.
+     * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
+     * @return Vertical format of a latex equation as a string.
+     */
+    private String createVerticalLatex(String[] equationStringList, boolean withAnswer) {
+        //TODO: Implement this
+        //Temporary return statement to avoid warnings
+        return Arrays.toString(equationStringList) + withAnswer;
+    }
+
+    /**
+     * Converts a list of String representation of an equation into a latex String in a division bracket format.
+     * Ex. 2)4 (with overline above the 4)
+     *
+     * @param equationStringList The String representation of an equation. Each operator and value is a new element.
+     * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
+     * @return Division bracket format of a latex equation as a string.
+     */
+    private String createDivisionBracketLatex(String[] equationStringList, boolean withAnswer) {
+        //TODO: Implement this
+        //Temporary return statement to avoid warnings
+        return Arrays.toString(equationStringList) + withAnswer;
     }
 }

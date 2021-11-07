@@ -1,7 +1,5 @@
 package worksheet_maker;
 
-import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
-
 import java.awt.image.BufferedImage;
 
 public class ImageResizer {

@@ -15,6 +15,6 @@ public class DivideTest {
     }
     @Test
     public void testToString(){
-        assertEquals(operatorSymbol.toString(), "/");
+        assertEquals(operatorSymbol.toString(), "\\div");
     }
 }

@@ -27,7 +27,6 @@ public class Divide extends Operator {
     @Override
     public String toString() {
         return "\\div";
-        //TODO: change test cases
     }
 
 }

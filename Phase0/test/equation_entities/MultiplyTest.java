@@ -15,6 +15,6 @@ public class MultiplyTest {
     }
     @Test
     public void testToString(){
-        assertEquals(operatorSymbol.toString(), "*");
+        assertEquals(operatorSymbol.toString(), "\\times");
     }
 }
