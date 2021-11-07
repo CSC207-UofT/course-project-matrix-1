@@ -4,8 +4,8 @@ import equation_entities.BedmasEquation;
 import equation_entities.InvalidInputException;
 
 /**
- * Directs the construction  of whole number BEDMAS equations, starting from the operator, then the operands, and finally
- * the answer.
+ * Directs the construction  of whole number BEDMAS equations, starting from the operator, then the operands,
+ * and finally the answer.
  *
  * @author Will Jeong
  * @version 1.0
@@ -38,8 +38,7 @@ public class WholeBedmasDirector {
             throw new InvalidInputException();
         }
     }
-
-
+    
     /**
      * Returns the BedmasEquation held within the BedmasEquationBuilder.
      *

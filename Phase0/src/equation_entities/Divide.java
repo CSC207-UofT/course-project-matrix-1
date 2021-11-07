@@ -20,14 +20,13 @@ public class Divide extends Operator {
     }
 
     /**
-     * Returns the divide operator as \div
+     * Returns the divide operator as \div.
      *
-     * @return \div
+     * @return \div.
      */
     @Override
     public String toString() {
         return "\\div";
-        //TODO: change test cases
     }
 
 }

@@ -27,6 +27,5 @@ public class Multiply extends Operator {
     @Override
     public String toString() {
         return "\\times";
-        //TODO: change test cases
     }
 }

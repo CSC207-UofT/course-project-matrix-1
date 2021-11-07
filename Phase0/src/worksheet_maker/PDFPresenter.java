@@ -36,7 +36,7 @@ public class PDFPresenter {
      *                      number of rows, and number of columns.
      * @return A list of PDF's, where the first is a question sheet and the second is the answer sheet. Both pdfs can
      * be saved to a path using .save().
-     * @throws IOException This exception is thrown if images cannot be added.
+     * @throws IOException if images cannot be added to the PDF.
      */
 
     public PDDocument[] createPDF(Map<String, Object> formatDetails) throws IOException {
@@ -78,7 +78,7 @@ public class PDFPresenter {
      * @param qAndAPDF             The first PDF is a question sheet and the second PDF is the answer sheet.
      * @param formatArrangeDetails Hashmap showing details necessary for arranging images on a PDF. Includes title,
      *                             number of rows, and number of columns.
-     * @throws IOException This exception is thrown if images cannot be added.
+     * @throws IOException if images cannot be added to the PDF.
      */
     private void arrangeOnPDFs(BufferedImage[][] qAndAImages, PDDocument[] qAndAPDF, Map<String, Object> formatArrangeDetails) throws IOException {
         PDImageXObject[][] qAndAPDImage = convertImageToPDImage(qAndAImages, qAndAPDF);
