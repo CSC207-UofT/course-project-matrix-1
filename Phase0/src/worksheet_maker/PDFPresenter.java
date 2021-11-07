@@ -23,6 +23,10 @@ public class PDFPresenter {
     //Worksheet output rather than Worksheet
     private final WorksheetOutput worksheet;
     private final EquationsToResizedImages equationsToResizedImages = new EquationsToResizedImages();
+    int PDF_WIDTH = 612;
+    int PDF_HEIGHT = 792;
+    int MOD_WIDTH = 550;
+    int MOD_HEIGHT = 710;
 
     public PDFPresenter(WorksheetOutput worksheet) {
         this.worksheet = worksheet;
@@ -83,11 +87,13 @@ public class PDFPresenter {
     private void arrangeOnPDFs(BufferedImage[][] equationImages, PDDocument[] worksheetPDFs, Map<String, Object>
             formatArrangeDetails) throws IOException {
         PDImageXObject[][] qAndAPDImage = convertImageToPDImage(equationImages, worksheetPDFs);
+        double rescaleFactor = findRescaleFactor(qAndAPDImage[1], (int) formatArrangeDetails.get("numRows"),
+                (int) formatArrangeDetails.get("numColumns"));
         for (int i = 0; i < 2; i++) {
             PDPage page = worksheetPDFs[i].getPage(0);
             PDPageContentStream contentStream = new PDPageContentStream(worksheetPDFs[i], page);
-            populatePage(qAndAPDImage[i], contentStream, (int) (formatArrangeDetails.get("numRows")),
-                    (int) (formatArrangeDetails.get("numColumns")));
+            populatePage(qAndAPDImage[i], contentStream, (int) formatArrangeDetails.get("numRows"),
+                    (int) formatArrangeDetails.get("numColumns"), rescaleFactor);
             contentStream.beginText();
             contentStream.newLineAtOffset(31, 740);
             contentStream.setFont(PDType1Font.TIMES_ROMAN, 28);
@@ -107,22 +113,60 @@ public class PDFPresenter {
      * @param numColumns     the number of columns in the PDF.
      * @throws IOException if images cannot be added to the PDF.
      */
-    private void populatePage(PDImageXObject[] equationImages, PDPageContentStream contentStream, int numRows, int numColumns) throws IOException {
-        int PDF_WIDTH = 612;
-        int PDF_HEIGHT = 792;
-        int MOD_WIDTH = 550;
-        int MOD_HEIGHT = 710;
+    private void populatePage(PDImageXObject[] equationImages, PDPageContentStream contentStream, int numRows, int numColumns, double rescaleFactor) throws IOException {
+
         int pd_index = 0;
         for (int x = 0; x < numColumns; x++) {
             for (int y = numRows - 1; y > -1; y--) {
                 int x_coord = MOD_WIDTH * x / numColumns + (PDF_WIDTH - MOD_WIDTH) / 2;
                 int y_coord = MOD_HEIGHT * y / numRows + (PDF_HEIGHT - MOD_HEIGHT) / 2;
                 if (pd_index < equationImages.length) {
-                    contentStream.drawImage(equationImages[pd_index], x_coord, y_coord, equationImages[pd_index].getWidth()/10, equationImages[pd_index].getHeight()/10);
+                    contentStream.drawImage(equationImages[pd_index], x_coord, y_coord, Math.round(equationImages[pd_index].getWidth() * rescaleFactor), Math.round(equationImages[pd_index].getHeight() * rescaleFactor));
                     pd_index++;
                 }
             }
         }
+    }
+
+    /**
+     * Return rescale factor that all the images need to be multiplied by to fit within a certain number of columns and
+     * rows in a page.
+     *
+     * @param answerImages the list of the equation images that have a question and an answer in them.
+     * @param numRows      the number of rows in the PDF.
+     * @param numColumns   the number of columns in the PDF.
+     * @return rescale factor to which all images should be multiplied by to fill in the page.
+     */
+    private double findRescaleFactor(PDImageXObject[] answerImages, int numRows, int numColumns) {
+        return Math.max(MOD_WIDTH / numColumns / findBiggestWidth(answerImages), MOD_HEIGHT / numRows / findBiggestHeight(answerImages));
+    }
+
+    /**
+     * Return the biggest height of any image within a list.
+     *
+     * @param answerImages the list of the equation images that have a question and an answer in them.
+     * @return the biggest height of any image within a list.
+     */
+    private int findBiggestHeight(PDImageXObject[] answerImages) {
+        int biggestHeight = 0;
+        for (PDImageXObject answerImage : answerImages) {
+            biggestHeight = Math.max(biggestHeight, answerImage.getHeight());
+        }
+        return biggestHeight;
+    }
+
+    /**
+     * Return the biggest width of any image within a list.
+     *
+     * @param answerImages the list of the equation images that have a question and an answer in them.
+     * @return the biggest width of any image within a list.
+     */
+    private int findBiggestWidth(PDImageXObject[] answerImages) {
+        int biggestWidth = 0;
+        for (PDImageXObject answerImage : answerImages) {
+            biggestWidth = Math.max(biggestWidth, answerImage.getWidth());
+        }
+        return biggestWidth;
     }
 
     /**

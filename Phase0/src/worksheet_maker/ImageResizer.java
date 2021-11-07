@@ -13,18 +13,16 @@ public class ImageResizer {
      * @param numColumns     the number of columns in the PDF.
      */
     public void resize(BufferedImage[][] equationImages, int numRows, int numColumns) {
-        System.out.println("resized");
-//
-//        int largestQuestionWidth = 550 / numColumns;
-//        int largestQuestionHeight = 710 / numRows;
-//
-//        float widthRescaleFactor = biggestImageWidthFinder(equationImages) / largestQuestionWidth;
-//        float heightRescaleFactor = biggestImageHeightFinder(equationImages) / largestQuestionHeight;
-//        for (BufferedImage[] worksheetImages : equationImages) {
-//            for (BufferedImage questionImage : worksheetImages) {
-//                questionImage = resize(questionImage, Math.round(questionImage.getWidth() * widthRescaleFactor), Math.round(questionImage.getHeight() * heightRescaleFactor));
-//            }
-//        }
+        double largestQuestionWidth = 550.0 / numColumns;
+        double largestQuestionHeight = 710.0 / numRows;
+
+        double widthRescaleFactor = biggestImageWidthFinder(equationImages) / largestQuestionWidth;
+        double heightRescaleFactor = biggestImageHeightFinder(equationImages) / largestQuestionHeight;
+        for (BufferedImage[] worksheetImages : equationImages) {
+            for (int i = 0; i < worksheetImages.length; i++) {
+                worksheetImages[i] = resize(worksheetImages[i], (int) Math.round(worksheetImages[i].getWidth() * widthRescaleFactor), (int) Math.round(worksheetImages[i].getHeight() * heightRescaleFactor));
+            }
+        }
     }
 
     /**
@@ -34,8 +32,8 @@ public class ImageResizer {
      *                       images for the answers.
      * @return the height in pixels of the biggest height.
      */
-    private int biggestImageHeightFinder(BufferedImage[][] equationImages) {
-        int biggestImageHeight = 0;
+    private double biggestImageHeightFinder(BufferedImage[][] equationImages) {
+        double biggestImageHeight = 0;
         for (BufferedImage[] worksheetImages : equationImages) {
             for (BufferedImage questionImage : worksheetImages) {
                 if (questionImage.getHeight() > biggestImageHeight) {
@@ -53,8 +51,8 @@ public class ImageResizer {
      *                       images for the answers.
      * @return the width in pixels of the biggest width.
      */
-    private int biggestImageWidthFinder(BufferedImage[][] equationImages) {
-        int biggestImageWidth = 0;
+    private double biggestImageWidthFinder(BufferedImage[][] equationImages) {
+        double biggestImageWidth = 0;
         for (BufferedImage[] worksheetImages : equationImages) {
             for (BufferedImage questionImage : worksheetImages) {
                 if (questionImage.getWidth() > biggestImageWidth) {
