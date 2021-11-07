@@ -118,7 +118,7 @@ public class PDFPresenter {
                 int x_coord = MOD_WIDTH * x / numColumns + (PDF_WIDTH - MOD_WIDTH) / 2;
                 int y_coord = MOD_HEIGHT * y / numRows + (PDF_HEIGHT - MOD_HEIGHT) / 2;
                 if (pd_index < equationImages.length) {
-                    contentStream.drawImage(equationImages[pd_index], x_coord, y_coord);
+                    contentStream.drawImage(equationImages[pd_index], x_coord, y_coord, equationImages[pd_index].getWidth()/10, equationImages[pd_index].getHeight()/10);
                     pd_index++;
                 }
             }

@@ -14,17 +14,17 @@ public class ImageResizer {
      */
     public void resize(BufferedImage[][] equationImages, int numRows, int numColumns) {
         System.out.println("resized");
-
-        int largestQuestionWidth = 550 / numColumns;
-        int largestQuestionHeight = 710 / numRows;
-
-        float widthRescaleFactor = biggestImageWidthFinder(equationImages) / largestQuestionWidth;
-        float heightRescaleFactor = biggestImageHeightFinder(equationImages) / largestQuestionHeight;
-        for (BufferedImage[] worksheetImages : equationImages) {
-            for (BufferedImage questionImage : worksheetImages) {
-                questionImage = resize(questionImage, Math.round(questionImage.getWidth() * widthRescaleFactor), Math.round(questionImage.getHeight() * heightRescaleFactor));
-            }
-        }
+//
+//        int largestQuestionWidth = 550 / numColumns;
+//        int largestQuestionHeight = 710 / numRows;
+//
+//        float widthRescaleFactor = biggestImageWidthFinder(equationImages) / largestQuestionWidth;
+//        float heightRescaleFactor = biggestImageHeightFinder(equationImages) / largestQuestionHeight;
+//        for (BufferedImage[] worksheetImages : equationImages) {
+//            for (BufferedImage questionImage : worksheetImages) {
+//                questionImage = resize(questionImage, Math.round(questionImage.getWidth() * widthRescaleFactor), Math.round(questionImage.getHeight() * heightRescaleFactor));
+//            }
+//        }
     }
 
     /**

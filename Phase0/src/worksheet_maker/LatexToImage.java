@@ -2,7 +2,10 @@ package worksheet_maker;
 
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
+import org.scilab.forge.jlatexmath.TeXIcon;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class LatexToImage {
@@ -13,6 +16,6 @@ public class LatexToImage {
      * @return BufferedImage of an equation.
      */
     public BufferedImage convertLatexToImage(TeXFormula formula) {
-        return (BufferedImage) formula.createBufferedImage(TeXConstants.STYLE_DISPLAY, (float) (10), null, null);
+        return (BufferedImage) formula.createBufferedImage(TeXConstants.STYLE_DISPLAY, (float) (200), null, null);
     }
 }
