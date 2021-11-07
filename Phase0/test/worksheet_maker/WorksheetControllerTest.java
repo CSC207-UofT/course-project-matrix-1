@@ -12,7 +12,7 @@ public class WorksheetControllerTest {
     @Test
     public void WorksheetControllerVisualTest() throws IOException {
         HashMap<String, Object> myEquationDetails = new HashMap<>();
-        myEquationDetails.put("numOfEquations", 100);
+        myEquationDetails.put("numOfEquations", 1000);
         myEquationDetails.put("operator", '/');
         myEquationDetails.put("operandRange1", new int[]{1, 100});
         myEquationDetails.put("operandRange2", new int[]{5, 9});
@@ -20,8 +20,8 @@ public class WorksheetControllerTest {
         HashMap<String, Object> myFormatDetails = new HashMap<>();
         myFormatDetails.put("equationFormat", "Horizontal");
         myFormatDetails.put("title", "Test Worksheet");
-        myFormatDetails.put("numRows", 2);
-        myFormatDetails.put("numColumns", 2);
+        myFormatDetails.put("numRows", 20);
+        myFormatDetails.put("numColumns", 5);
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(myEquationDetails, myFormatDetails);
         String path = "C:/Users/willj/Downloads/";

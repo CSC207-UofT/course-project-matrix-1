@@ -23,11 +23,13 @@ public class PDFPresenter {
     //Worksheet output rather than Worksheet
     private final WorksheetOutput worksheet;
     private final EquationsToResizedImages equationsToResizedImages = new EquationsToResizedImages();
-    int PDF_WIDTH = 612;
-    int PDF_HEIGHT = 792;
-    int MOD_WIDTH = 550;
-    int MOD_HEIGHT = 710;
 
+    int PDF_WIDTH = 612; //The full PDF width
+    int PDF_HEIGHT = 792; //The full PDF height
+    int PRINT_WIDTH = 550; //The portion of the PDF width that will be used
+    int PRINT_HEIGHT = 710;//The portion of the PDF height that will be used
+    private final int TITLE_BUFFER = (int)((PDF_HEIGHT-PRINT_HEIGHT)*.3); // The distance the worksheet will be shifted down by to make space for
+    //the title. Cannot exceed PDF_HEIGHT-PRINT_HEIGHT
     public PDFPresenter(WorksheetOutput worksheet) {
         this.worksheet = worksheet;
     }
@@ -116,9 +118,9 @@ public class PDFPresenter {
                 writeTitle(contentStream, (String) formatArrangeDetails.get("title"));
             }
             for (int x = 0; x < numColumns; x++) {
-                for (int y = numRows - 1; y > -1; y--) {
-                    int x_coord = MOD_WIDTH * x / numColumns + (PDF_WIDTH - MOD_WIDTH) / 2;
-                    int y_coord = MOD_HEIGHT * y / numRows + (PDF_HEIGHT - MOD_HEIGHT) / 2;
+                for (int y = numRows; y > 0; y--) {
+                    int x_coord = PRINT_WIDTH * x / numColumns + (PDF_WIDTH - PRINT_WIDTH) / 2;
+                    int y_coord = (int) (PRINT_HEIGHT * y / numRows + (PDF_HEIGHT - PRINT_HEIGHT) / 2 - Math.round(equationImages[pd_index].getHeight()*rescaleFactor)) - TITLE_BUFFER;
                     if (pd_index < equationImages.length) {
                         contentStream.drawImage(equationImages[pd_index], x_coord, y_coord,
                                 Math.round(equationImages[pd_index].getWidth() * rescaleFactor),
@@ -133,7 +135,7 @@ public class PDFPresenter {
 
     private void writeTitle(PDPageContentStream contentStream, String title) throws IOException {
         contentStream.beginText();
-        contentStream.newLineAtOffset(31, 740);
+        contentStream.newLineAtOffset( (PDF_WIDTH - PRINT_WIDTH) / 2, PRINT_HEIGHT + (PDF_HEIGHT- PRINT_HEIGHT) / 2);
         contentStream.setFont(PDType1Font.TIMES_ROMAN, 28);
         contentStream.showText(title);
         contentStream.endText();
@@ -149,7 +151,7 @@ public class PDFPresenter {
      * @return rescale factor to which all images should be multiplied by to fill in the page.
      */
     private double findRescaleFactor(PDImageXObject[] answerImages, int numRows, int numColumns) {
-        return Math.min(1.0*MOD_WIDTH / numColumns / findBiggestWidth(answerImages), 1.0*MOD_HEIGHT / numRows / findBiggestHeight(answerImages));
+        return Math.min(1.0 * PRINT_WIDTH / numColumns / findBiggestWidth(answerImages), 1.0 * PRINT_HEIGHT / numRows / findBiggestHeight(answerImages));
     }
 
     /**
