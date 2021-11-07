@@ -16,6 +16,6 @@ public class LatexToImage {
      * @return BufferedImage of an equation.
      */
     public BufferedImage convertLatexToImage(TeXFormula formula) {
-        return (BufferedImage) formula.createBufferedImage(TeXConstants.STYLE_DISPLAY, (float) (200), null, null);
+        return (BufferedImage) formula.createBufferedImage(TeXConstants.STYLE_DISPLAY, (float) (100), null, null);
     }
 }

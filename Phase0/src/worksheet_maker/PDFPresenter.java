@@ -90,16 +90,7 @@ public class PDFPresenter {
         double rescaleFactor = findRescaleFactor(qAndAPDImage[1], (int) formatArrangeDetails.get("numRows"),
                 (int) formatArrangeDetails.get("numColumns"));
         for (int i = 0; i < 2; i++) {
-            PDPage page = worksheetPDFs[i].getPage(0);
-            PDPageContentStream contentStream = new PDPageContentStream(worksheetPDFs[i], page);
-            populatePage(qAndAPDImage[i], contentStream, (int) formatArrangeDetails.get("numRows"),
-                    (int) formatArrangeDetails.get("numColumns"), rescaleFactor);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(31, 740);
-            contentStream.setFont(PDType1Font.TIMES_ROMAN, 28);
-            contentStream.showText((String) formatArrangeDetails.get("title"));
-            contentStream.endText();
-            contentStream.close();
+            populatePage(qAndAPDImage[i], worksheetPDFs[i], formatArrangeDetails);
         }
     }
 
@@ -121,11 +112,48 @@ public class PDFPresenter {
                 int x_coord = MOD_WIDTH * x / numColumns + (PDF_WIDTH - MOD_WIDTH) / 2;
                 int y_coord = MOD_HEIGHT * y / numRows + (PDF_HEIGHT - MOD_HEIGHT) / 2;
                 if (pd_index < equationImages.length) {
-                    contentStream.drawImage(equationImages[pd_index], x_coord, y_coord, Math.round(equationImages[pd_index].getWidth() * rescaleFactor), Math.round(equationImages[pd_index].getHeight() * rescaleFactor));
+                    contentStream.drawImage(equationImages[pd_index], x_coord, y_coord, equationImages[pd_index].getWidth() / 10, equationImages[pd_index].getHeight() / 10);
                     pd_index++;
                 }
             }
         }
+    }
+
+    private void populatePage(PDImageXObject[] equationImages, PDDocument worksheetPDF, Map<String, Object> formatArrangeDetails) throws IOException {
+        int PDF_WIDTH = 612;
+        int PDF_HEIGHT = 792;
+        int MOD_WIDTH = 550;
+        int MOD_HEIGHT = 710;
+        int pd_index = 0;
+        int numColumns = (int) formatArrangeDetails.get("numColumns");
+        int numRows = (int) formatArrangeDetails.get("numRows");
+        String title = (String) formatArrangeDetails.get("title");
+        for (int i = 0; i < worksheetPDF.getNumberOfPages(); i++) {
+            PDPage page = worksheetPDF.getPage(i);
+            PDPageContentStream contentStream = new PDPageContentStream(worksheetPDF, page);
+            if (i == 0) {
+                writeTitle(contentStream, (String) formatArrangeDetails.get("title"));
+            }
+            for (int x = 0; x < numColumns; x++) {
+                for (int y = numRows - 1; y > -1; y--) {
+                    int x_coord = MOD_WIDTH * x / numColumns + (PDF_WIDTH - MOD_WIDTH) / 2;
+                    int y_coord = MOD_HEIGHT * y / numRows + (PDF_HEIGHT - MOD_HEIGHT) / 2;
+                    if (pd_index < equationImages.length) {
+                        contentStream.drawImage(equationImages[pd_index], x_coord, y_coord, equationImages[pd_index].getWidth() / 10, equationImages[pd_index].getHeight() / 10);
+                        pd_index++;
+                    }
+                }
+            }
+            contentStream.close();
+        }
+    }
+
+    private void writeTitle(PDPageContentStream contentStream, String title) throws IOException {
+        contentStream.beginText();
+        contentStream.newLineAtOffset(31, 740);
+        contentStream.setFont(PDType1Font.TIMES_ROMAN, 28);
+        contentStream.showText(title);
+        contentStream.endText();
     }
 
     /**

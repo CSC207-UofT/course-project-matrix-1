@@ -32,7 +32,7 @@ public class EquationsToResizedImages {
             for (int ans = 0; ans < 2; ans++) { //If ans = 1, add it to the answer. Otherwise, add it to question.
                 TeXFormula questionFormula = equationStringToLatex.convertEquationStringToLatex(equations[i],
                         (String) formatEquationDetails.get("equationFormat"), ans == 1);
-                qAndAImages[ans][i] = latexToImage.convertLatexToImage(questionFormula);
+                qAndAImages[ans][i] = latexToImage.convertLatexToImage((new TeXFormula((i+1) + ")\\;\\;\\;")).add(questionFormula));
             }
         }
         imageResizer.resize(qAndAImages, (int) formatEquationDetails.get("numRows"),
