@@ -12,7 +12,7 @@ public class WorksheetControllerTest {
     @Test
     public void WorksheetControllerVisualTest() throws IOException {
         HashMap<String, Object> myEquationDetails = new HashMap<>();
-        myEquationDetails.put("numOfEquations", 1000);
+        myEquationDetails.put("numOfEquations", 10);
         myEquationDetails.put("operator", '/');
         myEquationDetails.put("operandRange1", new int[]{1, 100});
         myEquationDetails.put("operandRange2", new int[]{5, 9});

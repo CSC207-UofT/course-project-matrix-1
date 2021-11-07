@@ -1,5 +1,8 @@
 package worksheet_maker;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
@@ -7,6 +10,7 @@ import org.scilab.forge.jlatexmath.TeXIcon;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class LatexToImage {
     /**
@@ -15,7 +19,8 @@ public class LatexToImage {
      * @param formula the TeXFormula for an equation.
      * @return BufferedImage of an equation.
      */
-    public BufferedImage convertLatexToImage(TeXFormula formula) {
-        return (BufferedImage) formula.createBufferedImage(TeXConstants.STYLE_DISPLAY, (float) (100), null, null);
+    public PDImageXObject convertLatexToImage(TeXFormula formula, PDDocument worksheet) throws IOException {
+        BufferedImage equationImage = (BufferedImage) formula.createBufferedImage(TeXConstants.STYLE_DISPLAY, (float) (100), null, null);
+        return JPEGFactory.createFromImage(worksheet, equationImage);
     }
 }
