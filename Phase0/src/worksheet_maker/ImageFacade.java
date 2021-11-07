@@ -28,16 +28,16 @@ public class ImageFacade {
      */
     public BufferedImage[][] createResizedImages(Map<String, Object> formatEquationDetails, WorksheetOutput worksheet) {
         String[][] equations = worksheet.equationsToStringArray();
-        BufferedImage[][] qAndAImages = new BufferedImage[2][equations.length];
+        BufferedImage[][] equationImages = new BufferedImage[2][equations.length];
         for (int i = 0; i < equations.length; i++) {
             for (int ans = 0; ans < 2; ans++) { //If ans = 1, add it to the answer. Otherwise, add it to question.
                 TeXFormula questionFormula = equationStringToLatex.convertEquationStringToLatex(equations[i],
                         (String) formatEquationDetails.get("equationFormat"), ans == 1);
-                qAndAImages[ans][i] = latexToImage.convertLatexToImage(questionFormula);
+                equationImages[ans][i] = latexToImage.convertLatexToImage(questionFormula);
             }
         }
-        imageResizer.resize(qAndAImages, (int) formatEquationDetails.get("numRows"),
+        imageResizer.resize(equationImages, (int) formatEquationDetails.get("numRows"),
                 (int) formatEquationDetails.get("numColumns"));
-        return qAndAImages;
+        return equationImages;
     }
 }

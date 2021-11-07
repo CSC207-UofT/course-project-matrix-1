@@ -21,11 +21,11 @@ public class Worksheet implements WorksheetInput, WorksheetOutput {
     /**
      * Adds a new equation to Worksheet.
      *
-     * @param e the Equation to be added to Worksheet.
+     * @param equation the Equation to be added to Worksheet.
      */
     @Override
-    public void addEquation(Equation e) {
-        equations.add(e);
+    public void addEquation(Equation equation) {
+        equations.add(equation);
     }
 
     /**
