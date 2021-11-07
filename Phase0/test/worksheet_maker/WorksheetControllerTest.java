@@ -20,8 +20,8 @@ public class WorksheetControllerTest {
         HashMap<String, Object> myFormatDetails = new HashMap<>();
         myFormatDetails.put("equationFormat", "Horizontal");
         myFormatDetails.put("title", "Test Worksheet");
-        myFormatDetails.put("numRows", 10);
-        myFormatDetails.put("numColumns", 3);
+        myFormatDetails.put("numRows", 2);
+        myFormatDetails.put("numColumns", 2);
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(myEquationDetails, myFormatDetails);
         String path = "C:/Users/willj/Downloads/";

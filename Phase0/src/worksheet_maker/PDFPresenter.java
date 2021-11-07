@@ -90,7 +90,7 @@ public class PDFPresenter {
         double rescaleFactor = findRescaleFactor(qAndAPDImage[1], (int) formatArrangeDetails.get("numRows"),
                 (int) formatArrangeDetails.get("numColumns"));
         for (int i = 0; i < 2; i++) {
-            populatePage(qAndAPDImage[i], worksheetPDFs[i], formatArrangeDetails, rescaleFactor);
+            populatePages(qAndAPDImage[i], worksheetPDFs[i], formatArrangeDetails, rescaleFactor);
         }
     }
 
@@ -105,7 +105,7 @@ public class PDFPresenter {
      * @throws IOException if images cannot be added to the PDF.
      */
 
-    private void populatePage(PDImageXObject[] equationImages, PDDocument worksheetPDF, Map<String, Object> formatArrangeDetails, double rescaleFactor) throws IOException {
+    private void populatePages(PDImageXObject[] equationImages, PDDocument worksheetPDF, Map<String, Object> formatArrangeDetails, double rescaleFactor) throws IOException {
         int pd_index = 0;
         int numColumns = (int) formatArrangeDetails.get("numColumns");
         int numRows = (int) formatArrangeDetails.get("numRows");
@@ -149,7 +149,7 @@ public class PDFPresenter {
      * @return rescale factor to which all images should be multiplied by to fill in the page.
      */
     private double findRescaleFactor(PDImageXObject[] answerImages, int numRows, int numColumns) {
-        return Math.max(MOD_WIDTH / numColumns / findBiggestWidth(answerImages), MOD_HEIGHT / numRows / findBiggestHeight(answerImages));
+        return Math.min(1.0*MOD_WIDTH / numColumns / findBiggestWidth(answerImages), 1.0*MOD_HEIGHT / numRows / findBiggestHeight(answerImages));
     }
 
     /**
