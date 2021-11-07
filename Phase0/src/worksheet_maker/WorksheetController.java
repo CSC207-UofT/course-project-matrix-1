@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class WorksheetController {
     /**
-     * Create the worksheet and PDF.
+     * Creates a PDF representation of the worksheet.
      *
      * @param equationDetails Number and types of equations in this Worksheet as follows: numEquations, operator,
      *                        operandRange1, operandRange2, negAllowed.

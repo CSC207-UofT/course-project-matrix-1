@@ -11,15 +11,14 @@ public class WorksheetControllerTest {
     @Test
     public void WorksheetControllerVisualTest() throws IOException {
         HashMap<String, Object> myEquationDetails = new HashMap<>();
-        myEquationDetails.put("numOfEquations", 100);
+        myEquationDetails.put("numOfEquations", 50);
         myEquationDetails.put("operator", '*');
         myEquationDetails.put("operandRange1", new int[]{1, 9});
         myEquationDetails.put("operandRange2", new int[]{1, 9});
         myEquationDetails.put("negAllowed", true);
-
         HashMap<String, Object> myFormatDetails = new HashMap<>();
         myFormatDetails.put("equationFormat", "Horizontal");
-        myFormatDetails.put("title", "pls work");
+        myFormatDetails.put("title", "Test Worksheet");
         myFormatDetails.put("numRows", 10);
         myFormatDetails.put("numColumns", 3);
         WorksheetController wc = new WorksheetController();

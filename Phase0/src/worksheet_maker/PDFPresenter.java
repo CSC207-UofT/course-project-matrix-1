@@ -3,6 +3,7 @@ package worksheet_maker;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
@@ -21,7 +22,7 @@ import java.util.Map;
 public class PDFPresenter {
     //Worksheet output rather than Worksheet
     private final WorksheetOutput worksheet;
-    private final ImageFacade imageFacade = new ImageFacade();
+    private final EquationsToResizedImages equationsToResizedImages = new EquationsToResizedImages();
 
     public PDFPresenter(WorksheetOutput worksheet) {
         this.worksheet = worksheet;
@@ -42,7 +43,8 @@ public class PDFPresenter {
                 (int) formatDetails.get("numColumns"), worksheet.getQuestionNumber());
         Map<String, Object> formatEquationDetails = restrictToEquationDetails(formatDetails);
         Map<String, Object> formatArrangeDetails = restrictToArrangeDetails(formatDetails);
-        BufferedImage[][] equationImages = imageFacade.createResizedImages(formatEquationDetails, worksheet);
+        BufferedImage[][] equationImages = equationsToResizedImages.createResizedImages(formatEquationDetails,
+                worksheet.equationsToStringArray());
         arrangeOnPDFs(equationImages, worksheetPDFs, formatArrangeDetails);
         return worksheetPDFs;
     }
@@ -71,26 +73,68 @@ public class PDFPresenter {
      * Arranges a list of images on a PDF given the rowNum and columnNum. Enough space will be made at the top for a
      * title. Every PDF has a width of 612 pixels by 792 pixels.
      *
-     * @param equationImages          The first list of images is for the question sheet and the second list of images is
+     * @param equationImages       The first list of images is for the question sheet and the second list of images is
      *                             for the answer sheet.
-     * @param worksheetPDFs             The first PDF is a question sheet and the second PDF is the answer sheet.
+     * @param worksheetPDFs        The first PDF is a question sheet and the second PDF is the answer sheet.
      * @param formatArrangeDetails Hashmap showing details necessary for arranging images on a PDF. Includes title,
      *                             number of rows, and number of columns.
      * @throws IOException if images cannot be added to the PDF.
      */
-    private void arrangeOnPDFs(BufferedImage[][] equationImages, PDDocument[] worksheetPDFs, Map<String, Object> formatArrangeDetails) throws IOException {
+    private void arrangeOnPDFs(BufferedImage[][] equationImages, PDDocument[] worksheetPDFs, Map<String, Object>
+            formatArrangeDetails) throws IOException {
         PDImageXObject[][] qAndAPDImage = convertImageToPDImage(equationImages, worksheetPDFs);
         for (int i = 0; i < 2; i++) {
             PDPage page = worksheetPDFs[i].getPage(0);
             PDPageContentStream contentStream = new PDPageContentStream(worksheetPDFs[i], page);
-            for (int j = 0; j < qAndAPDImage[0].length; j++) {
-                contentStream.drawImage(qAndAPDImage[i][j], 20, (j+1) * 30);
-            }
+            populatePage(qAndAPDImage[i], contentStream, (int) (formatArrangeDetails.get("numRows")),
+                    (int) (formatArrangeDetails.get("numColumns")));
+            contentStream.beginText();
+            contentStream.newLineAtOffset(31, 740);
+            contentStream.setFont(PDType1Font.TIMES_ROMAN, 28);
+            contentStream.showText((String) formatArrangeDetails.get("title"));
+            contentStream.endText();
             contentStream.close();
         }
     }
 
-    private PDImageXObject[][] convertImageToPDImage(BufferedImage[][] equationImages, PDDocument[] worksheetPDFs) throws IOException {
+    /**
+     * Uses the contentStream of a PDF to populate that PDF with a list of equationImages for a given number of rows
+     * and columns.
+     *
+     * @param equationImages the list of all the equation images that will enter the PDF.
+     * @param contentStream  the stream associated with a PDF that will be used to populate the PDF.
+     * @param numRows        the number of rows in the PDF.
+     * @param numColumns     the number of columns in the PDF.
+     * @throws IOException if images cannot be added to the PDF.
+     */
+    private void populatePage(PDImageXObject[] equationImages, PDPageContentStream contentStream, int numRows, int numColumns) throws IOException {
+        int PDF_WIDTH = 612;
+        int PDF_HEIGHT = 792;
+        int MOD_WIDTH = 550;
+        int MOD_HEIGHT = 710;
+        int pd_index = 0;
+        for (int x = 0; x < numColumns; x++) {
+            for (int y = numRows - 1; y > -1; y--) {
+                int x_coord = MOD_WIDTH * x / numColumns + (PDF_WIDTH - MOD_WIDTH) / 2;
+                int y_coord = MOD_HEIGHT * y / numRows + (PDF_HEIGHT - MOD_HEIGHT) / 2;
+                if (pd_index < equationImages.length) {
+                    contentStream.drawImage(equationImages[pd_index], x_coord, y_coord);
+                    pd_index++;
+                }
+            }
+        }
+    }
+
+    /**
+     * Converts images inside equationsImages into a PDImageXObjects that are assigned to the appropriate worksheet.
+     *
+     * @param equationImages the equation images that need to be converted.
+     * @param worksheetPDFs  the worksheet PDFs that the images belong to.
+     * @return an array of PDImageXObject arrays representing the PDImageXObjects that belong to that specific PDF.
+     * @throws IOException if images cannot be added to the PDF.
+     */
+    private PDImageXObject[][] convertImageToPDImage(BufferedImage[][] equationImages, PDDocument[] worksheetPDFs)
+            throws IOException {
         PDImageXObject[][] pdImageXObjects = new PDImageXObject[equationImages.length][equationImages[0].length];
         for (int i = 0; i < equationImages.length; i++) {
             for (int j = 0; j < equationImages[0].length; j++) {

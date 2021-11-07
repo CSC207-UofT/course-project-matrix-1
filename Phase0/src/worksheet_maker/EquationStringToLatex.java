@@ -16,7 +16,8 @@ public class EquationStringToLatex {
      * Converts a list of String representation of an equation into a TexFormula.
      *
      * @param equationStringList The String representation of an equation. Each operator and value is a new element.
-     * @param equationFormat     The format an equation should be displayed in. Horizontal, Vertical or Division bracket.
+     * @param equationFormat     The format an equation should be displayed in. Horizontal, Vertical or Division
+     *                           bracket.
      * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
      * @return Latex formula of the equation.
      */
