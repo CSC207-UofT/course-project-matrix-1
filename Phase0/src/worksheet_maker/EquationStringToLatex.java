@@ -9,7 +9,7 @@ import java.util.Arrays;
  *
  * @author Sean Jeong
  * @version 1.0
- * @since 2021-111-05.
+ * @since 2021-11-05.
  */
 public class EquationStringToLatex {
     /**

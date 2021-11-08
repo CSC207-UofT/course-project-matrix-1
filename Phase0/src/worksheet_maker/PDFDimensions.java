@@ -1,5 +1,12 @@
 package worksheet_maker;
 
+/**
+ * Constants for PDF dimensions.
+ *
+ * @author Will Jeong
+ * @version 1.0
+ * @since 2021-11-07.
+ */
 public final class PDFDimensions {
     public final static int PDF_WIDTH = 612; //The full PDF width
     public final static int PDF_HEIGHT = 792; //The full PDF height

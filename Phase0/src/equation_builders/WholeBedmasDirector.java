@@ -17,7 +17,7 @@ public class WholeBedmasDirector {
     /**
      * Set the BedmasEquationBuilder.
      *
-     * @param operator the char that determines whihc builder this director will use.
+     * @param operator the char that determines which builder this director will use.
      */
     //TODO: Use Class.forName, have them assign the class directly instead.
     public void setBedmasEquationBuilder(char operator) {

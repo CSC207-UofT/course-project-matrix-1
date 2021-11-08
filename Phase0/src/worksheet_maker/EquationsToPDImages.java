@@ -4,7 +4,6 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.scilab.forge.jlatexmath.TeXFormula;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Map;
 

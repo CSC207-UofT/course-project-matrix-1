@@ -9,11 +9,15 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * Arranges a list of images onto a PDF.
+ *
+ * @author Will Jeong
+ * @version 1.0
+ * @since 2021-11-07.
+ */
 public class PDFArranger {
-
-
     private final ImageRescaler imageRescaler = new ImageRescaler();
-
     /**
      * Arranges a list of images on a PDF given the rowNum and columnNum. Enough space will be made at the top for a
      * title. Every PDF has a width of 612 pixels by 792 pixels.
@@ -27,7 +31,6 @@ public class PDFArranger {
      */
     public void arrangeOnPDFs(PDImageXObject[][] qAndAPDImage, PDDocument[] worksheetPDFs, Map<String, Object>
             formatArrangeDetails) throws IOException {
-
         double rescaleFactor = imageRescaler.findRescaleFactor(qAndAPDImage[1], (int) formatArrangeDetails.get("numRows"),
                 (int) formatArrangeDetails.get("numColumns"));
         for (int i = 0; i < 2; i++) {
@@ -45,7 +48,6 @@ public class PDFArranger {
      * @param rescaleFactor        the factor by which to rescale the equationImages.
      * @throws IOException if images cannot be added to the PDF.
      */
-
     private void populatePages(PDImageXObject[] equationImages, PDDocument worksheetPDF, Map<String, Object> formatArrangeDetails, double rescaleFactor) throws IOException {
         int pd_index = 0;
         int numColumns = (int) formatArrangeDetails.get("numColumns");
@@ -70,8 +72,14 @@ public class PDFArranger {
             }
             contentStream.close();
         }
+        //TODO: split this into helper methods
     }
 
+    /**
+     * @param contentStream
+     * @param title         the title of a given worksheet.
+     * @throws IOException if images cannot be added to the PDF.
+     */
     private void writeTitle(PDPageContentStream contentStream, String title) throws IOException {
         contentStream.beginText();
         contentStream.newLineAtOffset((float) ((PDFDimensions.PDF_WIDTH - PDFDimensions.PRINT_WIDTH) / 2), (float) (PDFDimensions.PRINT_HEIGHT + (PDFDimensions.PDF_HEIGHT - PDFDimensions.PRINT_HEIGHT) / 2));

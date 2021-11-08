@@ -3,7 +3,6 @@ package worksheet_maker;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 public class ImageRescaler {
-
     /**
      * Return rescale factor that all the images need to be multiplied by to fit within a certain number of columns and
      * rows in a page.
