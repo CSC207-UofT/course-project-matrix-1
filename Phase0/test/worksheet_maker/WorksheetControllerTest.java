@@ -26,11 +26,11 @@ public class WorksheetControllerTest {
         myFormatDetails.put("numColumns", 5);
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(myEquationDetails, myFormatDetails);
-//        String path = "C:/Users/willj/Downloads/";
-//        pdf[0].save(path + "/questions.pdf");
-//        pdf[0].close();
-//        pdf[1].save(path + "/answers.pdf");
-//        pdf[1].close();
+        String path = "C:/Users/willj/Downloads/";
+        pdf[0].save(path + "/questions.pdf");
+        pdf[0].close();
+        pdf[1].save(path + "/answers.pdf");
+        pdf[1].close();
 
         assertEquals(2, pdf.length);
     }
