@@ -19,7 +19,7 @@ public class TopicScreen extends StartScreen implements MouseListener {
     JLabel numTypes = new JLabel("Number Types");
 
     // Stores the topic clicked
-    String buttonCLicked = new String("None");
+    char chosen_topic = ' ';
 
     public TopicScreen() {
 
@@ -27,10 +27,10 @@ public class TopicScreen extends StartScreen implements MouseListener {
         cardLayout.show(cardPanel, "TopicScreen");
 
         topicPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
-                convert(0.1, 'h'), Color.BLACK));
+                convert(0.1, 'w'), Color.BLACK));
         topicPanel.setLayout(null);
 
-        // Update the settings of the each JLabel
+        // Update the settings of each JLabel
         updateLabel(topicTitle, 0.2, 0.02, 0.6, 0.1, 0.03075, 'n');
         updateLabel(topicTitleShadow, 0.2, 0.0225, 0.6, 0.1, 0.03075, 'd');
         updateLabel(numTypes, 0.33, 0.6, 0.6, 0.1, 0.02, 'd');
@@ -77,28 +77,28 @@ public class TopicScreen extends StartScreen implements MouseListener {
             defaultButton(subButton);
             defaultButton(multiButton);
             defaultButton(divButton);
-            buttonCLicked = "add";
+            chosen_topic = '-';
             highlightButton(addButton);
         }
         if (e.getSource() == subButton) {
             defaultButton(addButton);
             defaultButton(divButton);
             defaultButton(multiButton);
-            buttonCLicked = "sub";
+            chosen_topic = '-';
             highlightButton(subButton);
         }
         if (e.getSource() == multiButton) {
             defaultButton(divButton);
             defaultButton(addButton);
             defaultButton(subButton);
-            buttonCLicked = "multi";
+            chosen_topic = '*';
             highlightButton(multiButton);
         }
         if (e.getSource() == divButton) {
             defaultButton(addButton);
             defaultButton(subButton);
             defaultButton(multiButton);
-            buttonCLicked = "div";
+            chosen_topic = '/';
             highlightButton(divButton);
         }
         if (e.getSource() == topicNextButton) {

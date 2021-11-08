@@ -3,6 +3,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 
 public class StartScreen extends JFrame implements MouseListener {
 
@@ -15,6 +16,7 @@ public class StartScreen extends JFrame implements MouseListener {
     JFrame frame = new JFrame();
     JPanel cardPanel = new JPanel();
     JPanel startPanel = new JPanel();
+    JPanel optionPanel = new JPanel();
     JPanel topicPanel = new JPanel();
     JPanel customizeWSPanel = new JPanel();
     JPanel viewerPanel = new JPanel();
@@ -23,15 +25,19 @@ public class StartScreen extends JFrame implements MouseListener {
     CardLayout cardLayout = new CardLayout();
 
     // Create Buttons
-    JButton createWorksheetButton = new JButton("Create Worksheet");
-    JButton userButton = new JButton("User Profile");
-
-    // Create the default settings for each button
-    JButton [] buttons = {createWorksheetButton, userButton};
+    JButton loginButton = new JButton("Login");
+    JButton createUserButton = new JButton("Create User");
 
     // Create Title JLabel and its shadow
     JLabel title = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
     JLabel titleShadow = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
+    JLabel username = new JLabel("Username", SwingConstants.CENTER);
+
+    // Create text fields
+    JTextField username_tf = new JTextField(1);
+
+    HashMap <String, Object> equationDetails = new HashMap<>();
+    HashMap <String, Object> formatDetails = new HashMap<>();
 
     public StartScreen() {
 
@@ -42,13 +48,14 @@ public class StartScreen extends JFrame implements MouseListener {
 
         // Set Panel and Border
         startPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
-                convert(0.1, 'h'), Color.BLACK));
+                convert(0.1, 'w'), Color.BLACK));
         startPanel.setLayout(null);
 
         // Adding the card layout to the frame
         frame.add(cardPanel);
         cardPanel.setLayout(cardLayout);
         cardPanel.add(startPanel, "StartScreen");
+        cardPanel.add(optionPanel, "OptionScreen");
         cardPanel.add(topicPanel, "TopicScreen");
         cardPanel.add(customizeWSPanel, "CustomizeScreen");
         cardPanel.add(viewerPanel, "ViewerScreen");
@@ -56,24 +63,32 @@ public class StartScreen extends JFrame implements MouseListener {
         cardLayout.show(cardPanel, "StartScreen");
 
         // "Create Worksheet" and "User Profile" Button
-        updateButtonLocation(createWorksheetButton, 0.35, 0.5, 0.3, 0.1);
-        updateButtonLocation(userButton, 0.35, 0.625, 0.3, 0.1);
-
-        defaultButton(buttons);
+        updateButtonLocation(loginButton, 0.4125, 0.645, 0.175, 0.08);
+        updateButtonLocation(createUserButton, 0.425, 0.77, 0.15, 0.075);
+        defaultButton(loginButton);
+        defaultButton(createUserButton);
+        loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
+        createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.015)));
 
         // Add Mouse Listener for hover features
-        createWorksheetButton.addMouseListener(this);
-        userButton.addMouseListener(this);
+        loginButton.addMouseListener(this);
+        createUserButton.addMouseListener(this);
 
         // Update the settings of each Label
         updateLabel(title, 0.2, 0.2, 0.6, 0.1, 0.03075, 'n');
         updateLabel(titleShadow, 0.2025, 0.2025, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(username, 0.25, 0.525, 0.3, 0.1,0.025, 'd');
+
+        username_tf.setBounds(convert(0.5, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
+                convert(0.05, 'h'));
 
         // Add Buttons and Label to the panel
-        startPanel.add(createWorksheetButton);
-        startPanel.add(userButton);
         startPanel.add(title);
         startPanel.add(titleShadow);
+        startPanel.add(loginButton);
+        startPanel.add(createUserButton);
+        startPanel.add(username);
+        startPanel.add(username_tf);
     }
 
     // Location and dimensions helper
@@ -84,7 +99,6 @@ public class StartScreen extends JFrame implements MouseListener {
         int b_height = convert(h, 'h');
         b.setBounds(start_x, start_y, b_width, b_height);
     }
-
 
     // JLabel Updater
     public void updateLabel(JLabel l, double x, double y, double w, double h, double t, char n) {
@@ -130,32 +144,36 @@ public class StartScreen extends JFrame implements MouseListener {
     }
 
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource() == createWorksheetButton) {
+        if (e.getSource() == loginButton) {
             startPanel.setVisible(false);
             frame.setVisible(false);
-            new TopicScreen();
+            new OptionScreen();
         }
-        if (e.getSource() == userButton) {
-            System.out.println("User Profile Page");
+        if (e.getSource() == createUserButton) {
+            System.out.println("Create new user Page");
         }
 
     }
 
     public void mouseEntered(MouseEvent e) {
-        if (e.getSource() == createWorksheetButton) {
-            highlightButton(createWorksheetButton);
+        if (e.getSource() == loginButton) {
+            highlightButton(loginButton);
+            loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.025)));
         }
-        if (e.getSource() == userButton) {
-            highlightButton(userButton);
+        if (e.getSource() == createUserButton) {
+            highlightButton(createUserButton);
+            createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0175)));
         }
     }
 
     public void mouseExited(MouseEvent e) {
-        if (e.getSource() == createWorksheetButton) {
-            defaultButton(createWorksheetButton);
+        if (e.getSource() == loginButton) {
+            defaultButton(loginButton);
+            loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
         }
-        if (e.getSource() == userButton) {
-            defaultButton(userButton);
+        if (e.getSource() == createUserButton) {
+            defaultButton(createUserButton);
+            createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.015)));
         }
     }
 

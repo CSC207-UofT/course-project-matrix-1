@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
 
 public class WorksheetViewerScreen extends StartScreen implements MouseListener {
 
@@ -34,7 +33,7 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
         if (e.getSource() == mainMenuButton) {
             System.out.println("Main Menu");
         }
-        if (e.getSource() == prevButton) {
+        if (e.getSource() == viewerBackButton) {
             frame.setVisible(false);
             viewerPanel.setVisible(false);
             new CustomizeScreen();
@@ -43,20 +42,38 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
     }
 
     public void mouseEntered(MouseEvent e) {
-        if (e.getSource() == createWorksheetButton) {
-            highlightButton(createWorksheetButton);
+        if (e.getSource() == downloadButton) {
+            highlightButton(downloadButton);
         }
-        if (e.getSource() == userButton) {
-            highlightButton(userButton);
+        if (e.getSource() == printPageButton) {
+            highlightButton(printPageButton);
+        }
+        if (e.getSource() == historyButton) {
+            highlightButton(historyButton);
+        }
+        if (e.getSource() == mainMenuButton) {
+            highlightButton(mainMenuButton);
+        }
+        if (e.getSource() == viewerBackButton) {
+            highlightButton(viewerBackButton);
         }
     }
 
     public void mouseExited(MouseEvent e) {
-        if (e.getSource() == createWorksheetButton) {
-            defaultButton(Arrays.copyOfRange(buttons, 0, 0));
+        if (e.getSource() == downloadButton) {
+            defaultButton(downloadButton);
         }
-        if (e.getSource() == userButton) {
-            defaultButton(Arrays.copyOfRange(buttons, 1, 1));
+        if (e.getSource() == printPageButton) {
+            defaultButton(printPageButton);
+        }
+        if (e.getSource() == historyButton) {
+            defaultButton(historyButton);
+        }
+        if (e.getSource() == mainMenuButton) {
+            defaultButton(mainMenuButton);
+        }
+        if (e.getSource() == viewerBackButton) {
+            defaultButton(viewerBackButton);
         }
     }
 }
