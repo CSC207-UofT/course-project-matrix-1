@@ -23,9 +23,9 @@ public class OptionScreen extends StartScreen implements MouseListener {
 
         updateButtonLocation(createWSButton, 0.35, 0.375, 0.3, 0.1);
 
-        updateButtonLocation(userProfileButton, 0.75, 0.05, 0.1, 0.1);
-        userProfileButton.setBorder(new RoundedBorder(convert(0.06, 'w') + convert(0.06, 'h')));
-        updateButtonLocation(userHistoryButton, 0.75, 0.3, 0.1, 0.1);
+        updateButtonLocation(userProfileButton, 0.75, 0.05, 0.15, 0.15);
+        userProfileButton.setBorder(new RoundedBorder(convert(0.055, 'w') + convert(0.055, 'h')));
+        updateButtonLocation(userHistoryButton, 0.75, 0.3, 0.15, 0.15);
 
         defaultButton(createWSButton);
 
