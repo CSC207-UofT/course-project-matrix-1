@@ -26,8 +26,6 @@ public class History implements Serializable {
     }
 
     // GETTER METHODS
-    // TODO: Later on, do something to aggregate scores for topics.
-
     /**
      * @return copy ArrayList of all worksheets generated in history
      */

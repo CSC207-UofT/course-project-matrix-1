@@ -7,13 +7,13 @@ import java.util.Map;
 
 /**
  * HistoryManager class. Holds user-specific history of worksheets generated.
- * TODO: Allow finding of scores for User records of the same topics.
  *
  * @author Stanley Hua
  * @since 2021-10-26
  */
 public class HistoryManager {
     private final Map<String, History> userHistoryMapping;        // stores username to history mapping
+    private final DataAccessInterface dataSource;
     /**
      * Instantiates new HistoryManager with histories.
      * @param dataSource: The source of the user data.
@@ -21,6 +21,7 @@ public class HistoryManager {
      */
     public HistoryManager(DataAccessInterface dataSource) {
         userHistoryMapping = dataSource.getHistories();
+        this.dataSource = dataSource;
     }
 
     /**
@@ -52,27 +53,32 @@ public class HistoryManager {
 
     /**
      * For some User specified by username, stores a record of the latest worksheet generation details.
+     * Afterwards, save changes to data storage.
      *
      * @param username         of User
      * @param worksheetDetails for latest worksheet generated
      */
     public void storeUserRecord(String username, Map<String, Object> worksheetDetails) {
         userHistoryMapping.get(username).addWorksheetRecord(worksheetDetails);
+        this.dataSource.storeHistories(this.userHistoryMapping);
     }
 
     /**
      * For some User specified by username, removes a specified record (identified by its unique worksheetKey) from
      * User's history.
+     * Afterwards, save changes to data storage.
      *
      * @param username     of User
      * @param worksheetKey unique string identifier for worksheet record
      */
     public void removeUserRecord(String username, String worksheetKey) throws RecordDoesNotExistException {
         userHistoryMapping.get(username).removeWorksheetRecord(worksheetKey);
+        this.dataSource.storeHistories(this.userHistoryMapping);
     }
 
     /**
      * Stores the score the user received on a specific worksheet record.
+     * Afterwards, save changes to data storage.
      *
      * @param username     of User
      * @param worksheetKey unique string identifier for worksheet record
@@ -80,5 +86,6 @@ public class HistoryManager {
      */
     public void setUserScoreForRecord(String username, String worksheetKey, int score) throws RecordDoesNotExistException {
         userHistoryMapping.get(username).setScore(worksheetKey, score);
+        this.dataSource.storeHistories(this.userHistoryMapping);
     }
 }
