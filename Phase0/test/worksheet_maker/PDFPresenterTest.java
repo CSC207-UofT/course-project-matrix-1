@@ -36,9 +36,6 @@ public class PDFPresenterTest {
         formatDetails.put("numRows", 10);
         formatDetails.put("numColumns", 10);
         PDDocument[] pdf = pdfPresenter.createPDF(formatDetails);
-        pdf[0].save("C:/Users/willj/Downloads/questions.pdf");
-        pdf[0].close();
-        pdf[1].save("C:/Users/willj/Downloads/answers.pdf");
-        pdf[1].close();
+        assertEquals(2, pdf.length);
     }
 }
