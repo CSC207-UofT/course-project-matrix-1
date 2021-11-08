@@ -34,44 +34,9 @@ public class WorksheetGeneratorTest {
     public void testWorksheetHasQuestionAndAnswer() {
         wg.populateWorksheet(myEquationDetails);
         for (int i = 0; i < ws.getEquations().size(); i++) {
-            //Test if each equation has a question and an answer (length of 2 list)
-            assertEquals(ws.getEquations().get(i).getEquation().size(), 2);
+            //Test if each equation has a question and an answer (greater than length of 2 list)
+            assertTrue(ws.getEquations().get(i).getEquation().size()>2);
         }
     }
 
-    @Test
-    public void testWorksheetEquationsAddOperator() {
-        myEquationDetails.replace("operator", '+');
-        wg.populateWorksheet(myEquationDetails);
-        for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation().get(0).indexOf('+'), -1);
-        }
-    }
-
-    @Test
-    public void testWorksheetEquationsSubOperator() {
-        myEquationDetails.replace("operator", '-');
-        wg.populateWorksheet(myEquationDetails);
-        for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation().get(0).indexOf('-'), -1);
-        }
-    }
-
-    @Test
-    public void testWorksheetEquationsMultiplyOperator() {
-        myEquationDetails.replace("operator", '*');
-        wg.populateWorksheet(myEquationDetails);
-        for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation().get(0).indexOf('*'), -1);
-        }
-    }
-
-    @Test
-    public void testWorksheetEquationsDivOperator() {
-        myEquationDetails.replace("operator", '/');
-        wg.populateWorksheet(myEquationDetails);
-        for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation().get(0).indexOf('/'), -1);
-        }
-    }
 }
