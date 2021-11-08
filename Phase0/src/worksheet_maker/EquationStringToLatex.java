@@ -22,18 +22,12 @@ public class EquationStringToLatex {
      * @return Latex formula of the equation.
      */
     public TeXFormula convertEquationStringToLatex(String[] equationStringList, String equationFormat, boolean withAnswer) {
-        String latexString = "";
-        switch (equationFormat) {
-            case "Horizontal":
-                latexString = createHorizontalLatex(equationStringList, withAnswer);
-                break;
-            case "Vertical":
-                latexString = createVerticalLatex(equationStringList, withAnswer);
-                break;
-            case "Division bracket":
-                latexString = createDivisionBracketLatex(equationStringList, withAnswer);
-                break;
-        }
+        String latexString = switch (equationFormat) {
+            case "Horizontal" -> createHorizontalLatex(equationStringList, withAnswer);
+            case "Vertical" -> createVerticalLatex(equationStringList, withAnswer);
+            case "Division bracket" -> createDivisionBracketLatex(equationStringList, withAnswer);
+            default -> "";
+        };
         //Convert string to TeXFormula
         return new TeXFormula(latexString);
     }
@@ -78,7 +72,7 @@ public class EquationStringToLatex {
 
     /**
      * Converts a list of String representation of an equation into a latex String in a division bracket format.
-     * Ex. 2)4 (with overline above the 4)
+     * Ex. 2)4 (with an overline above the 4)
      *
      * @param equationStringList The String representation of an equation. Each operator and value is a new element.
      * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.

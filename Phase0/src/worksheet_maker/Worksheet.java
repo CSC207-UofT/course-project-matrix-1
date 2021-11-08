@@ -55,6 +55,7 @@ public class Worksheet implements WorksheetInput, WorksheetOutput {
 
     /**
      * Returns the full List of Equations stored in this worksheet. Should only be used for testing.
+     *
      * @return A List of Equations stored in this worksheet.
      */
     public List<Equation> getEquations() {
