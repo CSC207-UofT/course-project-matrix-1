@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -7,7 +8,7 @@ public class OptionScreen extends StartScreen implements MouseListener {
 
     JButton createWSButton = new JButton("Generate Worksheet");
     JButton userHistoryButton = new JButton("User History");
-    JButton userProfileButton = new JButton("User Profile");
+    JButton userProfileButton = new JButton();
     JButton[] optionButtons = {createWSButton, userHistoryButton, userProfileButton};
 
     public OptionScreen() {
@@ -22,12 +23,10 @@ public class OptionScreen extends StartScreen implements MouseListener {
 
         updateButtonLocation(createWSButton, 0.35, 0.375, 0.3, 0.1);
 
-        updateButtonLocation(userProfileButton, 0.8, 0.05, 0.1, 0.1);
-        userProfileButton.setContentAreaFilled(false);
-        userProfileButton.setFocusPainted(false);
-        userProfileButton.setOpaque(false);
+        updateButtonLocation(userProfileButton, 0.75, 0.05, 0.15, 0.15);
+        userProfileButton.setBorder(new RoundedBorder(convert(0.05, 'w') + convert(0.05, 'h')));
+        updateButtonLocation(userHistoryButton, 0.75, 0.25, 0.15, 0.15);
 
-        defaultButton(userProfileButton);
         defaultButton(createWSButton);
 
         // Add mouse listeners to each button
@@ -47,6 +46,9 @@ public class OptionScreen extends StartScreen implements MouseListener {
             optionPanel.setVisible(false);
             new TopicScreen();
         }
+        if (e.getSource() == userProfileButton) {
+            System.out.println("test");
+        }
     }
 
     public void mouseEntered(MouseEvent e) {
@@ -58,6 +60,27 @@ public class OptionScreen extends StartScreen implements MouseListener {
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == createWSButton) {
             defaultButton(createWSButton);
+        }
+    }
+
+    private static class RoundedBorder implements Border {
+
+        private final int radius;
+
+        RoundedBorder(int radius) {
+            this.radius = radius;
+        }
+
+        public Insets getBorderInsets(Component c) {
+            return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
+        }
+
+        public boolean isBorderOpaque() {
+            return true;
+        }
+
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.drawOval(x, y, radius, radius);
         }
     }
 }
