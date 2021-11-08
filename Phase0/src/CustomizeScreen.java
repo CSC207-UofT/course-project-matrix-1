@@ -154,7 +154,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         if (e.getSource() == generateWorksheetButton) {
             frame.setVisible(false);
             customizeWSPanel.setVisible(false);
-            new WorksheetViewerScreen();
+            new WSViewerScreen();
         }
         if (e.getSource() == customizeBackButton) {
             frame.setVisible(false);

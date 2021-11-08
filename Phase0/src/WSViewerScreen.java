@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class WorksheetViewerScreen extends StartScreen implements MouseListener {
+public class WSViewerScreen extends StartScreen implements MouseListener {
 
     // Create Buttons for the Worksheet Viewer Screen
     JButton downloadButton = new JButton("Download");
@@ -14,7 +14,7 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
 
     JButton[] viewerButtons = {downloadButton, printPageButton, historyButton, mainMenuButton, viewerBackButton};
 
-    public WorksheetViewerScreen() {
+    public WSViewerScreen() {
 
         // Set Panel
         cardLayout.show(cardPanel, "ViewerScreen");
@@ -103,3 +103,4 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
         }
     }
 }
+
