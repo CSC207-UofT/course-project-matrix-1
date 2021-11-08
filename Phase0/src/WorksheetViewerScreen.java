@@ -31,7 +31,7 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
             System.out.println("user History");
         }
         if (e.getSource() == mainMenuButton) {
-            System.out.println("Main Menu");
+            System.out.println("Main Menu screen");
         }
         if (e.getSource() == viewerBackButton) {
             frame.setVisible(false);
