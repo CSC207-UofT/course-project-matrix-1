@@ -20,7 +20,6 @@ public class PDFPresenter {
     private final EquationsToPDImages equationsToPD = new EquationsToPDImages();
     private final PDFArranger pdfArranger = new PDFArranger();
 
-
     public PDFPresenter(WorksheetOutput worksheet) {
         this.worksheet = worksheet;
     }
@@ -34,7 +33,6 @@ public class PDFPresenter {
      * be saved to a path using .save().
      * @throws IOException if images cannot be added to the PDF.
      */
-
     public PDDocument[] createPDF(Map<String, Object> formatDetails) throws IOException {
         PDDocument[] worksheetPDFs = instantiatePDFs((int) formatDetails.get("numRows"),
                 (int) formatDetails.get("numColumns"), worksheet.getQuestionNumber());
@@ -63,6 +61,4 @@ public class PDFPresenter {
         }
         return worksheetPDFs;
     }
-
-
 }
