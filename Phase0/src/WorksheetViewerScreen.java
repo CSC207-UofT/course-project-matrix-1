@@ -5,20 +5,46 @@ import java.awt.event.MouseListener;
 
 public class WorksheetViewerScreen extends StartScreen implements MouseListener {
 
-    JPanel panel4 = new JPanel();
+    // Create Buttons for the Worksheet Viewer Screen
+    JButton downloadButton = new JButton("Download");
+    JButton printPageButton = new JButton("Print");
+    JButton historyButton = new JButton("History");
+    JButton mainMenuButton = new JButton("Main Menu");
+    JButton viewerBackButton = new JButton("Previous");
 
-    public WorksheetViewerScreen(){
-        // Set Frame
+    JButton[] viewerButtons = {downloadButton, printPageButton, historyButton, mainMenuButton, viewerBackButton};
+
+    public WorksheetViewerScreen() {
+
+        // Set Panel
+        cardLayout.show(cardPanel, "ViewerScreen");
+        viewerPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
+                convert(0.1, 'w'), Color.BLACK));
+        viewerPanel.setLayout(null);
 
 
-        // Set Panel and Border
-        JPanel panel3 = new JPanel();
-        panel3.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
-                convert(0.1, 'h'), Color.BLACK));
-        panel3.setLayout(null);
-        frame.add(panel3);
-        frame.setVisible(true);
-        frame.setVisible(false);
+        // Update each buttons location
+        updateButtonLocation(downloadButton, 0.15, 0.1, 0.2, 0.1);
+        updateButtonLocation(printPageButton, 0.4, 0.1, 0.2, 0.1);
+        updateButtonLocation(historyButton, 0.65, 0.1, 0.2, 0.1);
+        updateButtonLocation(mainMenuButton, 0.275, 0.75, 0.2, 0.1);
+        updateButtonLocation(viewerBackButton, 0.525, 0.75, 0.2, 0.1);
+
+        defaultButton(viewerButtons);
+
+        // Add Mouse Listener for hover features
+        downloadButton.addMouseListener(this);
+        printPageButton.addMouseListener(this);
+        historyButton.addMouseListener(this);
+        mainMenuButton.addMouseListener(this);
+        viewerBackButton.addMouseListener(this);
+
+        // Add Buttons to the panel
+        viewerPanel.add(downloadButton);
+        viewerPanel.add(printPageButton);
+        viewerPanel.add(historyButton);
+        viewerPanel.add(mainMenuButton);
+        viewerPanel.add(viewerBackButton);
     }
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == downloadButton) {
