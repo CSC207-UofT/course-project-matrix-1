@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import static org.junit.Assert.assertEquals;
+
 public class WorksheetControllerTest {
     @Test
     public void WorksheetControllerVisualTest() throws IOException {
@@ -24,21 +26,12 @@ public class WorksheetControllerTest {
         myFormatDetails.put("numColumns", 5);
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(myEquationDetails, myFormatDetails);
-        String path = "C:/Users/willj/Downloads/";
-        pdf[0].save(path + "/questions.pdf");
-        pdf[0].close();
-        pdf[1].save(path + "/answers.pdf");
-        pdf[1].close();
-//        Scanner sc = new Scanner(System.in);
-//        System.out.print("Enter a path to save the questions and answers: ");
-//        String path = sc.nextLine();
-//        if (path.equals("")) {
-//            path = "C:/Users/willj/Downloads/";
-//        }
+//        String path = "C:/Users/willj/Downloads/";
 //        pdf[0].save(path + "/questions.pdf");
 //        pdf[0].close();
-//        pdf[1].save(path + "answers.pdf");
+//        pdf[1].save(path + "/answers.pdf");
 //        pdf[1].close();
+        assertEquals(2, pdf.length);
     }
 
 
