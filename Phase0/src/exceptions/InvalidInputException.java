@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Phase0/src/exceptions/InvalidInputException.java
 package exceptions;
-=======
-package equation_entities;
->>>>>>> main:Phase0/src/equation_entities/InvalidInputException.java
 
 /**
  * Signifies that the user gave an invalid input.

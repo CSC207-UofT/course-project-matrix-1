@@ -1,7 +1,7 @@
 package worksheet_maker;
 
 import equation_builders.*;
-import equation_entities.InvalidInputException;
+import exceptions.InvalidInputException;
 
 import java.util.Map;
 
