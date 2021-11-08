@@ -44,7 +44,6 @@ public class UserController {
      * @return true iff the username corresponds to existing user
      */
     public Boolean login(String username) {
-        // TODO: Should we send a login unsuccessful message?
         return userManager.verifyUsername(username);
     }
 
