@@ -22,7 +22,7 @@
 //
 //    @Test
 //    public void testCreateInvalidEquation() {
-//        assertThrows(InvalidInputException.class,
+//        assertThrows(exceptions.InvalidInputException.class,
 //                () -> eg.createEquation("standard add", 10)
 //        );
 //    }

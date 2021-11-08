@@ -1,4 +1,4 @@
-package equation_entities;
+package exceptions;
 
 /**
  * Signifies that the user gave an invalid input.
