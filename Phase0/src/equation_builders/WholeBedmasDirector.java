@@ -1,7 +1,7 @@
 package equation_builders;
 
 import equation_entities.BedmasEquation;
-import equation_entities.InvalidInputException;
+import exceptions.InvalidInputException;
 
 /**
  * Directs the construction  of whole number BEDMAS equations, starting from the operator, then the operands, and finally
