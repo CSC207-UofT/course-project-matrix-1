@@ -38,8 +38,6 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
 
     public CustomizeScreen() {
 
-        System.out.println(chosen_topic);
-
         // Change cardPanel to the custom worksheet screen
         cardLayout.show(cardPanel, "CustomizeScreen");
         customizeWSPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
@@ -161,17 +159,28 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
 
             boolean passed = true;
 
-            int op1Min_temp = Integer.parseInt(op1MIN.getText());
-            int op1Max_temp = Integer.parseInt(op1MAX.getText());
-            int op2Min_temp = Integer.parseInt(op2MIN.getText());
-            int op2Max_temp = Integer.parseInt(op2MAX.getText());
+            int op1Min_temp, op1Max_temp, op2Min_temp, op2Max_temp;
+            op1Min_temp = op1Max_temp = op2Min_temp = op2Max_temp = -1;
+            int numOfEquations_temp, numOfRows_temp, numOfColumns_temp;
+            numOfEquations_temp = numOfRows_temp = numOfColumns_temp = -1;
+
+            if (tryToParse(op1MIN.getText()) == null || tryToParse(op1MAX.getText()) == null ||
+                    tryToParse(op2MIN.getText()) == null || tryToParse(op1MAX.getText()) == null) {
+                customizeWSPanel.add(invalidInput);
+                passed = false;
+            }
+            else {
+                op1Min_temp = Integer.parseInt(op1MIN.getText());
+                op1Max_temp = Integer.parseInt(op1MAX.getText());
+                op2Min_temp = Integer.parseInt(op2MIN.getText());
+                op2Max_temp = Integer.parseInt(op2MAX.getText());
+            }
 
             if (op1Min_temp >= 0 && op1Max_temp >= 0 && op2Min_temp >= 0 && op2Max_temp >= 0) {
                 operandRange1 = new int[]{op1Min_temp, op1Max_temp};
                 operandRange2 = new int[]{op2Min_temp, op2Max_temp};
             }
             else {
-                JLabel invalidInput = new JLabel("Invalid input. Operand range must be positive");
                 customizeWSPanel.add(invalidInput);
                 passed = false;
             }
@@ -182,33 +191,23 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
 
             titleInput = title_tf.getText();
 
-            int numOfEquations_temp = Integer.parseInt(numQuestions_tf.getText());
-            int numOfRows_temp = Integer.parseInt(numRows_tf.getText());
-            int numOfColumns_temp = Integer.parseInt(numColumn_tf.getText());
+            if (tryToParse(numQuestions_tf.getText()) == null || tryToParse(numRows_tf.getText()) == null ||
+                    tryToParse(numColumn_tf.getText()) == null ) {
+                customizeWSPanel.add(invalidInput);
+                passed = false;
+            }
+            else {
+                numOfEquations_temp = Integer.parseInt(numQuestions_tf.getText());
+                numOfRows_temp = Integer.parseInt(numRows_tf.getText());
+                numOfColumns_temp = Integer.parseInt(numColumn_tf.getText());
+            }
 
-            if (numOfEquations_temp >= 0) {
+            if (numOfEquations_temp >= 0 && numOfRows_temp >= 0 && numOfColumns_temp >= 0) {
                 numOfEquations = numOfEquations_temp;
-            }
-            else {
-                JLabel invalidInput = new JLabel("Invalid input for Number of Equations");
-                customizeWSPanel.add(invalidInput);
-                passed = false;
-            }
-
-            if (numOfRows_temp >= 0) {
                 numOfRows = numOfRows_temp;
-            }
-            else {
-                JLabel invalidInput = new JLabel("Invalid input for Number of Rows");
-                customizeWSPanel.add(invalidInput);
-                passed = false;
-            }
-
-            if (numOfColumns_temp >= 0) {
                 numOfColumns = numOfColumns_temp;
             }
             else {
-                JLabel invalidInput = new JLabel("Invalid input for Number of Columns");
                 customizeWSPanel.add(invalidInput);
                 passed = false;
             }
@@ -222,6 +221,18 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         if (e.getSource() == customizeBackButton) {
             frame.setVisible(false);
             customizeWSPanel.setVisible(false);
+
+            equationDetails.put("numOfEquations", numOfEquations);
+            equationDetails.put("operator", chosen_topic);
+            equationDetails.put("operandRange1", operandRange1);
+            equationDetails.put("operandRange2", operandRange2);
+            equationDetails.put("negAllowed", negAllowed);
+
+            formatDetails.put("equationFormat", equationFormat);
+            formatDetails.put("title", titleInput);
+            formatDetails.put("numRows", numOfRows);
+            formatDetails.put("numColumns", numOfColumns);
+
             new TopicScreen();
         }
     }
