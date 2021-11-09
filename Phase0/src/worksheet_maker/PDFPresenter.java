@@ -15,6 +15,7 @@ import java.util.Map;
  * @since 2021-10-24.
  */
 public class PDFPresenter {
+
     //Worksheet output rather than Worksheet
     private final WorksheetOutput worksheet;
     private final EquationsToPDImages equationsToPD = new EquationsToPDImages();

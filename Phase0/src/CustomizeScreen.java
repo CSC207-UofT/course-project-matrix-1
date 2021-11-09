@@ -220,6 +220,18 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
             if (passed) {
                 frame.setVisible(false);
                 customizeWSPanel.setVisible(false);
+
+                equationDetails.put("numOfEquations", numOfEquations);
+                equationDetails.put("operator", chosen_topic);
+                equationDetails.put("operandRange1", operandRange1);
+                equationDetails.put("operandRange2", operandRange2);
+                equationDetails.put("negAllowed", negAllowed);
+
+                formatDetails.put("equationFormat", equationFormat);
+                formatDetails.put("title", titleInput);
+                formatDetails.put("numRows", numOfRows);
+                formatDetails.put("numColumns", numOfColumns);
+
                 new WSViewerScreen();
             }
         }

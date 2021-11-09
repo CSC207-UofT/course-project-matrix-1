@@ -1,9 +1,16 @@
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import worksheet_maker.WorksheetController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class WSViewerScreen extends StartScreen implements MouseListener {
 
@@ -18,28 +25,29 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
 
     public WSViewerScreen() {
 
-        equationDetails.put("numOfEquations", numOfEquations);
-        equationDetails.put("operator", chosen_topic);
-        equationDetails.put("operandRange1", operandRange1);
-        equationDetails.put("operandRange2", operandRange2);
-        equationDetails.put("negAllowed", negAllowed);
-
-        formatDetails.put("equationFormat", equationFormat);
-        formatDetails.put("title", titleInput);
-        formatDetails.put("numRows", numOfRows);
-        formatDetails.put("numColumns", numOfColumns);
-
-        System.out.println(numOfColumns);
-
-        System.out.println(equationDetails);
-        System.out.println(formatDetails);
-
         // Set Panel
         cardLayout.show(cardPanel, "ViewerScreen");
         viewerPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
                 convert(0.1, 'w'), Color.BLACK));
         viewerPanel.setLayout(null);
 
+
+        // Generate an image of the worksheet
+        WorksheetController ws = new WorksheetController();
+        try {
+            PDDocument[] documents = ws.generateWorksheetAndPDF(equationDetails, formatDetails);
+
+            PDFRenderer pdfRenderer = new PDFRenderer(documents[0]);
+            for (int page = 0; page < documents[0].getNumberOfPages(); ++page)
+            {
+                BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 300, ImageType.RGB);
+
+                ImageIOUtil.writeImage(bim, titleInput + "-" + (page+1) + ".png", 300);
+            }
+            documents[0].close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
         // Update each buttons location
         updateButtonLocation(downloadButton, 0.15, 0.1, 0.2, 0.1);
@@ -70,8 +78,6 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
         }
         if (e.getSource() == printPageButton) {
             System.out.println("Print Page");
-            WorksheetController ws = new WorksheetController();
-            ws.generateWorksheetAndPDF(equationDetails, formatDetails);
         }
         if (e.getSource() == historyButton) {
             frame.setVisible(false);
@@ -79,7 +85,9 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
             new WorksheetHistoryScreen();
         }
         if (e.getSource() == mainMenuButton) {
-            System.out.println("Main Menu screen");
+            frame.setVisible(false);
+            viewerPanel.setVisible(false);
+            new StartScreen();
         }
         if (e.getSource() == viewerBackButton) {
             frame.setVisible(false);
