@@ -16,6 +16,9 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
 
     public WSViewerScreen() {
 
+        System.out.println(equationDetails);
+        System.out.println(formatDetails);
+
         // Set Panel
         cardLayout.show(cardPanel, "ViewerScreen");
         viewerPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
