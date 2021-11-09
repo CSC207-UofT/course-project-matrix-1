@@ -21,35 +21,44 @@ public class Worksheet implements WorksheetInput, WorksheetOutput {
     /**
      * Adds a new equation to Worksheet.
      *
-     * @param e the Equation to be added to Worksheet.
+     * @param equation the Equation to be added to Worksheet.
      */
     @Override
-    public void addEquation(Equation e) {
-        equations.add(e);
+    public void addEquation(Equation equation) {
+        equations.add(equation);
     }
 
     /**
      * Returns a String representation of a Worksheet.
      *
-     * @return equations formatted as [question, answer] in an array
+     * @return an array of equations arrays, where each symbol in the equation array is a separate term.
+     * Ex. [5, +, 4, =, 9]
      */
     @Override
     public String[][] equationsToStringArray() {
-        //TODO: worry about corner case where there is nothing in equations
-        //Create an empty 2D list to store the equations as String[].
         String[][] equationsString = new String[equations.size()][];
-        //Loops through its own equation to generate String[] of them.
         for (int i = 0; i < equations.size(); i++) {
-            equationsString[i] = equations.get(i).getEquation();
+            equationsString[i] = equations.get(i).getEquation().toArray(new String[0]);
         }
         return equationsString;
     }
 
+    /**
+     * Returns the number of questions in the Worksheet.
+     *
+     * @return the number of questions in the Worksheet.
+     */
+    @Override
+    public int getQuestionNumber() {
+        return equations.size();
+    }
 
-
-    //Only used in test methods.
+    /**
+     * Returns the full List of Equations stored in this worksheet. Should only be used for testing.
+     *
+     * @return A List of Equations stored in this worksheet.
+     */
     public List<Equation> getEquations() {
         return equations;
     }
-
 }

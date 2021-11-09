@@ -26,52 +26,17 @@ public class WorksheetGeneratorTest {
 
     @Test
     public void testWorksheetSize() {
-        wg.createWorksheet(myEquationDetails);
+        wg.populateWorksheet(myEquationDetails);
         assertEquals(ws.getEquations().size(), 5);
     }
 
     @Test
     public void testWorksheetHasQuestionAndAnswer() {
-        wg.createWorksheet(myEquationDetails);
+        wg.populateWorksheet(myEquationDetails);
         for (int i = 0; i < ws.getEquations().size(); i++) {
-            //Test if each equation has a question and an answer (length of 2 list)
-            assertEquals(ws.getEquations().get(i).getEquation().length, 2);
+            //Test if each equation has a question and an answer (greater than length of 2 list)
+            assertTrue(ws.getEquations().get(i).getEquation().size()>2);
         }
     }
 
-    @Test
-    public void testWorksheetEquationsAddOperator() {
-        myEquationDetails.replace("operator", '+');
-        wg.createWorksheet(myEquationDetails);
-        for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation()[0].indexOf('+'), -1);
-        }
-    }
-
-    @Test
-    public void testWorksheetEquationsSubOperator() {
-        myEquationDetails.replace("operator", '-');
-        wg.createWorksheet(myEquationDetails);
-        for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation()[0].indexOf('-'), -1);
-        }
-    }
-
-    @Test
-    public void testWorksheetEquationsMultiplyOperator() {
-        myEquationDetails.replace("operator", '*');
-        wg.createWorksheet(myEquationDetails);
-        for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation()[0].indexOf('*'), -1);
-        }
-    }
-
-    @Test
-    public void testWorksheetEquationsDivOperator() {
-        myEquationDetails.replace("operator", '/');
-        wg.createWorksheet(myEquationDetails);
-        for (int i = 0; i < ws.getEquations().size(); i++) {
-            assertNotEquals(ws.getEquations().get(i).getEquation()[0].indexOf('/'), -1);
-        }
-    }
 }

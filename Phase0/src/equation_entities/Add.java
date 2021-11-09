@@ -21,9 +21,9 @@ public class Add extends Operator {
     }
 
     /**
-     * Returns the plus operator as +
+     * Returns the plus operator as +.
      *
-     * @return the symbol +
+     * @return the symbol +.
      */
     @Override
     public String toString() {

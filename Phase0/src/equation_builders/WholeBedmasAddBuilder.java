@@ -3,6 +3,7 @@ package equation_builders;
 import equation_entities.Add;
 import equation_entities.WholeNum;
 
+
 /**
  * Builds whole number addition equations. Both operands are uniformly distributed across their specified range.
  *
