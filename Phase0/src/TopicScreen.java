@@ -70,6 +70,9 @@ public class TopicScreen extends StartScreen implements MouseListener {
         topicPanel.add(topicTitleShadow);
         topicPanel.add(numTypes);
         topicPanel.add(numOptions);
+
+        // Start with Addition Button highlighted
+        highlightButton(addButton);
     }
 
     public void mouseClicked(MouseEvent e) {

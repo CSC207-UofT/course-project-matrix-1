@@ -20,6 +20,7 @@ public class StartScreen extends JFrame implements MouseListener {
     JPanel topicPanel = new JPanel();
     JPanel customizeWSPanel = new JPanel();
     JPanel viewerPanel = new JPanel();
+    JPanel historyPanel = new JPanel();
 
     // Card Layout for the Panels
     CardLayout cardLayout = new CardLayout();
@@ -59,6 +60,7 @@ public class StartScreen extends JFrame implements MouseListener {
         cardPanel.add(topicPanel, "TopicScreen");
         cardPanel.add(customizeWSPanel, "CustomizeScreen");
         cardPanel.add(viewerPanel, "ViewerScreen");
+        cardPanel.add(historyPanel, "WorksheetHistoryScreen");
 
         cardLayout.show(cardPanel, "StartScreen");
 
@@ -111,6 +113,12 @@ public class StartScreen extends JFrame implements MouseListener {
         else {
             l.setForeground(Color.DARK_GRAY);
         }
+    }
+
+    // JList Updater
+    public void updateList(JScrollPane l, double x, double y, double w, double h) {
+        l.setBounds(convert(x, 'w'), convert(y, 'h'), convert(w, 'w'),
+                convert(h, 'h'));
     }
 
     // Default Button Font, Font size

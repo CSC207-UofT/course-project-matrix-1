@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 public class OptionScreen extends StartScreen implements MouseListener {
 
     JButton createWSButton = new JButton("Generate Worksheet");
-    JButton userHistoryButton = new JButton("User History");
+    JButton userHistoryButton = new JButton();
     JButton userProfileButton = new JButton();
     JButton[] optionButtons = {createWSButton, userHistoryButton, userProfileButton};
 
@@ -23,9 +23,10 @@ public class OptionScreen extends StartScreen implements MouseListener {
 
         updateButtonLocation(createWSButton, 0.35, 0.375, 0.3, 0.1);
 
-        updateButtonLocation(userProfileButton, 0.75, 0.05, 0.15, 0.15);
+        updateButtonLocation(userProfileButton, 0.775, 0.05, 0.15, 0.15);
         userProfileButton.setBorder(new RoundedBorder(convert(0.055, 'w') + convert(0.055, 'h')));
-        updateButtonLocation(userHistoryButton, 0.75, 0.3, 0.15, 0.15);
+        updateButtonLocation(userHistoryButton, 0.7825, 0.25, 0.15, 0.15);
+        userHistoryButton.setBorder(new RoundedBorder(convert(0.045, 'w') + convert(0.045, 'h')));
 
         defaultButton(createWSButton);
 
