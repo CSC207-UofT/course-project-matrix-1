@@ -1,40 +1,41 @@
-//package worksheet_maker;
-//
-//import old_worksheet_maker.PDFPresenter;
-//import old_worksheet_maker.Worksheet;
-//import old_worksheet_maker.WorksheetGenerator;
-//
-//import static org.junit.Assert.*;
-//
-///**
-// * @author Will Jeong
-// * @version 1.0
-// * @since 2021-10-12
-// */
-//public class PDFPresenterTest {
-//
-//    private PDFPresenter p;
-//
-//    @org.junit.Before
-//    public void init() {
-//        Worksheet ws = new Worksheet();
-//        WorksheetGenerator wg = new WorksheetGenerator(ws);
-//        p = new PDFPresenter(ws);
-//        wg.generateWorksheet("standard add", 10, "Hard");
-//        //String[][] equations = {{"q1", "a1"}, {"q2", "a2"}};
-//        p.createWorksheetPDF("Sample old_worksheet_maker.Worksheet", 12, "Horizontal");
-//    }
-//
-//    @org.junit.Test
-//    public void testCreateWorksheetPDF() {
-//        String pdfNoAnswers = p.ws.getPDFs()[0];
-//        assertEquals("Title: Sample old_worksheet_maker.Worksheet. Font size: 12. EquationBuilder.Equation format: Horizontal.", pdfNoAnswers.substring(0, 68));
-//    }
-//
-//    @org.junit.Test
-//    public void testDownloadPDF() {
-//        p.downloadPDF("path/path/path");
-//    }
-//
-//
-//}
+package worksheet_maker;
+
+import equation_entities.Add;
+import equation_entities.BedmasEquation;
+import equation_entities.WholeNum;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import static org.junit.Assert.*;
+
+public class PDFPresenterTest {
+    Worksheet worksheet;
+    PDFPresenter pdfPresenter;
+
+    @Before
+    public void init() {
+        worksheet = new Worksheet();
+        BedmasEquation bedmasEquation = new BedmasEquation();
+        bedmasEquation.setOperator(new Add());
+        bedmasEquation.setOperand1(new WholeNum(1));
+        bedmasEquation.setOperand2(new WholeNum(2));
+        bedmasEquation.solve();
+        worksheet.addEquation(bedmasEquation);
+        pdfPresenter = new PDFPresenter(worksheet);
+    }
+
+    @Test
+    public void testCreatePDF() throws IOException {
+        HashMap<String, Object> formatDetails = new HashMap<>();
+        formatDetails.put("equationFormat", "Horizontal");
+        formatDetails.put("title", "Test");
+        formatDetails.put("numRows", 10);
+        formatDetails.put("numColumns", 10);
+        PDDocument[] pdf = pdfPresenter.createPDF(formatDetails);
+        assertEquals(2, pdf.length);
+    }
+}

@@ -1,9 +1,12 @@
 package worksheet_maker;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+
+import java.io.IOException;
 import java.util.Map;
 
 /**
- * Generate and present the worksheet based on inputs from the Userinterface.
+ * Generate and present the worksheet based on inputs from the UserInterface.
  *
  * @author Sean Jeong
  * @version 1.0
@@ -11,20 +14,23 @@ import java.util.Map;
  */
 public class WorksheetController {
     /**
-     * Create the worksheet and PDF.
+     * Creates a PDF representation of the worksheet.
      *
-     * @param formatDetails   How the Worksheet will be formatted. Includes equation format, title, number of rows
-     *                        and number of columns of questions in a worksheet
      * @param equationDetails Number and types of equations in this Worksheet as follows: numEquations, operator,
      *                        operandRange1, operandRange2, negAllowed.
-     * @return String representation of the Worksheet
+     * @param formatDetails   How the Worksheet will be formatted. Includes equation format, title, number of rows
+     *                        and number of columns of questions in a worksheet
+     * @return An array of PDDocuments. The first PDDocument is the questions document, the second is the questions +
+     * answers document. To save these documents to a file, use .save("some path.pdf"). Afterwards, close the PDFs
+     * using .close().
+     * @throws IOException if images cannot be added to the PDF.
      */
-    public String[][] generateWorksheetAndPDF(Map<String, Object> equationDetails, Map<String, Object> formatDetails) {
+    public PDDocument[] generateWorksheetAndPDF(Map<String, Object> equationDetails, Map<String, Object> formatDetails)
+            throws IOException {
         Worksheet ws = new Worksheet();
         WorksheetGenerator worksheetGenerator = new WorksheetGenerator(ws);
         PDFPresenter pdfPresenter = new PDFPresenter(ws);
-        //TODO: learn facade design, is this really how we do it? No helper code?
-        worksheetGenerator.createWorksheet(equationDetails);
+        worksheetGenerator.populateWorksheet(equationDetails);
         return pdfPresenter.createPDF(formatDetails);
     }
 }

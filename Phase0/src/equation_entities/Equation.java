@@ -1,5 +1,7 @@
 package equation_entities;
 
+import java.util.List;
+
 /**
  * An equation that can be solved and returns its stored equation.
  *
@@ -10,11 +12,11 @@ package equation_entities;
 public interface Equation {
 
     /**
-     * Returns the equation, as a [question, answer] string representation
+     * Returns the array representation of the equation.
      *
-     * @return the list representation of the equation
+     * @return the array representation of the equation, where every symbol is a separate item in the array.
      */
-    String[] getEquation();
+    List<String> getEquation();
 
     /**
      * Uses the question assigned to the equation to determine the answer, and assigns this answer to this equation's

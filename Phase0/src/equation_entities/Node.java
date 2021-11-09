@@ -1,5 +1,8 @@
 package equation_entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Stores a node which holds a left and right leaf. Any leaves are values (such as integers, fractions, or decimals)
  * Any nodes that are not leaves are operators (+, -, *, /, ^). All nodes with operators must contain a left leaf and
@@ -35,26 +38,57 @@ public class Node {
         return leftNode == null && rightNode == null;
     }
 
+    /**
+     * Sets the left Node.
+     *
+     * @param leftNode the left node, representing the left operand.
+     */
     public void setLeftNode(Node leftNode) {
         this.leftNode = leftNode;
     }
 
+    /**
+     * Sets the right Node.
+     *
+     * @param rightNode the right node, representing the right operand.
+     */
     public void setRightNode(Node rightNode) {
         this.rightNode = rightNode;
     }
 
+    /**
+     * Returns the left Node.
+     *
+     * @return the left node, representing the left operand.
+     */
     public Node getLeftNode() {
         return leftNode;
     }
 
+    /**
+     * Returns the right Node.
+     *
+     * @return the right node, representing the left operand.
+     */
     public Node getRightNode() {
         return rightNode;
     }
 
+    /**
+     * Returns the symbol that is stored at this equation. If it is an Operator, this node has a left and right child.
+     * If it is a Value, this node is a leaf.
+     *
+     * @return the symbol stored in this Node.
+     */
     public Symbol getSymbol() {
         return symbol;
     }
 
+    /**
+     * Returns the string representation of the symbol, ignoring the children.
+     *
+     * @return the string representation of the symbol.
+     */
     @Override
     public String toString() {
         return symbol.toString();
@@ -75,5 +109,22 @@ public class Node {
         } else {
             return ((Operator) symbol).solveBinaryExpression(leftNode.solve(), rightNode.solve());
         }
+    }
+
+    /**
+     * Recursively adds all elements in the tree to the array list in the correct order.
+     *
+     * @return the string list of equations.
+     */
+    public List<String> toArrayList() {
+        List<String> equationList = new ArrayList<>();
+        if (this.isLeaf()) {
+            equationList.add(this.getSymbol().toString());
+        } else {
+            equationList.addAll(this.getLeftNode().toArrayList());
+            equationList.add(this.getSymbol().toString());
+            equationList.addAll(this.getRightNode().toArrayList());
+        }
+        return equationList;
     }
 }

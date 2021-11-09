@@ -18,7 +18,6 @@ abstract class WholeBedmasBuilder {
     private final Random rand = new Random();
 
 
-
     public BedmasEquation getBedmasEquation() {
         return bedmasEquation;
     }
@@ -54,8 +53,8 @@ abstract class WholeBedmasBuilder {
     /**
      * Randomly returns either a positive or negative version of the number given (50:50 chance).
      *
-     * @param num the original number
-     * @return a negative or positive version of num
+     * @param num the original number.
+     * @return a negative or positive version of num.
      */
     protected int makeNegativeRandom(int num) {
         int x = rand.nextInt(2);

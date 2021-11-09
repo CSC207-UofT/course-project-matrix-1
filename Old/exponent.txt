@@ -1,0 +1,22 @@
+Value
+    /**
+     * Returns the exponentiation of this value and the otherValue.
+     *
+     * @param otherValue the other value to be exponentiated.
+     * @return the exponentiation of the values, as this ^ other.
+     */
+    public abstract Value exponentiate(Value otherValue);
+
+
+
+WholeNum
+    /**
+     * Returns the exponentiation of this WholeNum and the otherValue. The otherValue must be a WholeNum.
+     *
+     * @param otherValue the other value to be exponentiated.
+     * @return the exponentiation as a whole number.
+     */
+    @Override
+    public Value exponentiate(Value otherValue) {
+        return new WholeNum((int) Math.pow(this.wholeNumber, ((WholeNum) otherValue).getValue()));
+    }

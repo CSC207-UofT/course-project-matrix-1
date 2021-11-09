@@ -20,9 +20,9 @@ public class Subtract extends Operator {
     }
 
     /**
-     * Returns the minus operator as -
+     * Returns the minus operator as -.
      *
-     * @return the symbol -
+     * @return the symbol -.
      */
     @Override
     public String toString() {

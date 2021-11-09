@@ -20,12 +20,12 @@ public class Multiply extends Operator {
     }
 
     /**
-     * Returns the multiply operator as *
+     * Returns the multiply operator as \times
      *
-     * @return the symbol *
+     * @return \times
      */
     @Override
     public String toString() {
-        return "*";
+        return "\\times";
     }
 }
