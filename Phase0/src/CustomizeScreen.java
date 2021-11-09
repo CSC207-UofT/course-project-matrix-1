@@ -152,6 +152,8 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         customizeWSPanel.add(numRows_tf);
         customizeWSPanel.add(numColumns);
         customizeWSPanel.add(numColumn_tf);
+        customizeWSPanel.add(invalidInput);
+        invalidInput.setVisible(false);
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -165,8 +167,8 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
             numOfEquations_temp = numOfRows_temp = numOfColumns_temp = -1;
 
             if (tryToParse(op1MIN.getText()) == null || tryToParse(op1MAX.getText()) == null ||
-                    tryToParse(op2MIN.getText()) == null || tryToParse(op1MAX.getText()) == null) {
-                customizeWSPanel.add(invalidInput);
+                    tryToParse(op2MIN.getText()) == null || tryToParse(op2MAX.getText()) == null) {
+                invalidInput.setVisible(true);
                 passed = false;
             }
             else {
@@ -179,6 +181,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
             if (op1Min_temp >= 0 && op1Max_temp >= 0 && op2Min_temp >= 0 && op2Max_temp >= 0) {
                 operandRange1 = new int[]{op1Min_temp, op1Max_temp};
                 operandRange2 = new int[]{op2Min_temp, op2Max_temp};
+                invalidInput.setVisible(true);
             }
             else {
                 customizeWSPanel.add(invalidInput);
@@ -195,6 +198,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                     tryToParse(numColumn_tf.getText()) == null ) {
                 customizeWSPanel.add(invalidInput);
                 passed = false;
+                invalidInput.setVisible(true);
             }
             else {
                 numOfEquations_temp = Integer.parseInt(numQuestions_tf.getText());
@@ -206,6 +210,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 numOfEquations = numOfEquations_temp;
                 numOfRows = numOfRows_temp;
                 numOfColumns = numOfColumns_temp;
+                invalidInput.setVisible(true);
             }
             else {
                 customizeWSPanel.add(invalidInput);
@@ -221,17 +226,6 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         if (e.getSource() == customizeBackButton) {
             frame.setVisible(false);
             customizeWSPanel.setVisible(false);
-
-            equationDetails.put("numOfEquations", numOfEquations);
-            equationDetails.put("operator", chosen_topic);
-            equationDetails.put("operandRange1", operandRange1);
-            equationDetails.put("operandRange2", operandRange2);
-            equationDetails.put("negAllowed", negAllowed);
-
-            formatDetails.put("equationFormat", equationFormat);
-            formatDetails.put("title", titleInput);
-            formatDetails.put("numRows", numOfRows);
-            formatDetails.put("numColumns", numOfColumns);
 
             new TopicScreen();
         }

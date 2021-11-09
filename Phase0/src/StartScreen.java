@@ -38,7 +38,7 @@ public class StartScreen extends JFrame implements MouseListener {
     JTextField username_tf = new JTextField(1);
 
     // Stores the equation details for the worksheet
-    static char chosen_topic = 'c';
+    static char chosen_topic = ' ';
     static int numOfEquations = -1;
     static int [] operandRange1 = {-1, -1};
     static int [] operandRange2 = {-1, -1};
@@ -50,9 +50,8 @@ public class StartScreen extends JFrame implements MouseListener {
     static int numOfRows = -1;
     static int numOfColumns = -1;
 
-    HashMap<String, Object> equationDetails = new HashMap<>();
-    HashMap <String, Object> formatDetails = new HashMap<>();
-
+    static HashMap<String, Object> equationDetails = new HashMap<>();
+    static HashMap <String, Object> formatDetails = new HashMap<>();
 
     public StartScreen() {
 

@@ -1,3 +1,5 @@
+import worksheet_maker.WorksheetController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -15,6 +17,19 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
     JButton[] viewerButtons = {downloadButton, printPageButton, historyButton, mainMenuButton, viewerBackButton};
 
     public WSViewerScreen() {
+
+        equationDetails.put("numOfEquations", numOfEquations);
+        equationDetails.put("operator", chosen_topic);
+        equationDetails.put("operandRange1", operandRange1);
+        equationDetails.put("operandRange2", operandRange2);
+        equationDetails.put("negAllowed", negAllowed);
+
+        formatDetails.put("equationFormat", equationFormat);
+        formatDetails.put("title", titleInput);
+        formatDetails.put("numRows", numOfRows);
+        formatDetails.put("numColumns", numOfColumns);
+
+        System.out.println(numOfColumns);
 
         System.out.println(equationDetails);
         System.out.println(formatDetails);
@@ -55,6 +70,8 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
         }
         if (e.getSource() == printPageButton) {
             System.out.println("Print Page");
+            WorksheetController ws = new WorksheetController();
+            ws.generateWorksheetAndPDF(equationDetails, formatDetails);
         }
         if (e.getSource() == historyButton) {
             frame.setVisible(false);
