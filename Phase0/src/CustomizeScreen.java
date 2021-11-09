@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Objects;
 
 public class CustomizeScreen extends StartScreen implements MouseListener {
 
@@ -15,6 +16,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
     JLabel title1Shadow = new JLabel("Equation Details", SwingConstants.CENTER);
     JLabel title2 = new JLabel("Formatting", SwingConstants.CENTER);
     JLabel title2Shadow = new JLabel("Formatting", SwingConstants.CENTER);
+    JLabel invalidInput = new JLabel("Invalid Input", SwingConstants.CENTER);
 
     // Create text fields
     JTextField title_tf = new JTextField(1);
@@ -22,7 +24,21 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
     JTextField numRows_tf = new JTextField(1);
     JTextField numColumn_tf = new JTextField(1);
 
+    JTextField op1MIN = new JTextField(1);
+    JTextField op1MAX = new JTextField(1);
+    JTextField op2MIN = new JTextField(1);
+    JTextField op2MAX = new JTextField(1);
+
+    // Create checkBox for negatives allowed
+    JCheckBox negAllowedBox = new JCheckBox("");
+
+    // Create combo box for question format
+    String[] options2 = {"Vertical", "Horizontal", "Division Bracket"};
+    JComboBox<String> questionFormat = new JComboBox<>(options2);
+
     public CustomizeScreen() {
+
+        System.out.println(chosen_topic);
 
         // Change cardPanel to the custom worksheet screen
         cardLayout.show(cardPanel, "CustomizeScreen");
@@ -45,28 +61,22 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         updateLabel(op2Range, 0.25, 0.175, 0.6, 0.1, 0.02, 'd');
         updateLabel(dash2, 0.645, 0.175, 0.1, 0.1, 0.025, 'd');
         updateLabel(negAllowed, 0.25, 0.25, 0.6, 0.1, 0.02, 'd');
+        updateLabel(invalidInput, 0.4, 0.8, 0.2, 0.05, 0.015, 'n');
 
         // Minimum and Maximum text fields
-        JTextField op1MIN = new JTextField(1);
         op1MIN.setBounds(convert(0.525, 'w'), convert(0.125, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
-        JTextField op1MAX = new JTextField(1);
         op1MAX.setBounds(convert(0.675, 'w'), convert(0.125, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
-
-        JTextField op2MIN = new JTextField(1);
         op2MIN.setBounds(convert(0.525, 'w'), convert(0.2, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
-        JTextField op2MAX = new JTextField(1);
         op2MAX.setBounds(convert(0.675, 'w'), convert(0.2, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
 
         // CheckBox for negatives
-        JCheckBox negAllowedBox = new JCheckBox("");
         negAllowedBox.setBounds(convert(0.565, 'w'), convert(0.275, 'h'), convert(0.5, 'w'),
                 convert(0.5, 'h'));
         negAllowedBox.setSize(new Dimension(40, 40));
-
 
         // Create Formatting Questions JLabel
         JLabel qFormat = new JLabel("Question Format");
@@ -75,14 +85,10 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         JLabel numRows = new JLabel("Number of Rows");
         JLabel numColumns = new JLabel("Number of Columns");
 
-
         // Combo Box for the question format
-        String[] options2 = {"Vertical", "Horizontal", "Division Bracket"};
-        JComboBox<String> questionFormat = new JComboBox<>(options2);
         questionFormat.setBounds(convert(0.535, 'w'), convert(0.405, 'h'), convert(0.15, 'w'),
                 convert(0.1, 'h'));
         questionFormat.setSelectedIndex(0);
-
 
         // Set the location of each text field
         title_tf.setBounds(convert(0.525, 'w'), convert(0.5, 'h'), convert(0.175, 'w'),
@@ -105,8 +111,8 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         updateLabel(numColumns, 0.25, 0.7, 0.6, 0.1, 0.02, 'd');
 
         // Update the location of each button
-        updateButtonLocation(generateWorksheetButton, 0.37, 0.8, 0.3, 0.1);
-        updateButtonLocation(customizeBackButton, 0.145, 0.825, 0.125, 0.05);
+        updateButtonLocation(generateWorksheetButton, 0.37, 0.85, 0.3, 0.1);
+        updateButtonLocation(customizeBackButton, 0.145, 0.875, 0.125, 0.05);
 
         // Update the settings of each button
         defaultButton(generateWSButtons);
@@ -152,9 +158,66 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
-            frame.setVisible(false);
-            customizeWSPanel.setVisible(false);
-            new WSViewerScreen();
+
+            boolean passed = true;
+
+            int op1Min_temp = Integer.parseInt(op1MIN.getText());
+            int op1Max_temp = Integer.parseInt(op1MAX.getText());
+            int op2Min_temp = Integer.parseInt(op2MIN.getText());
+            int op2Max_temp = Integer.parseInt(op2MAX.getText());
+
+            if (op1Min_temp >= 0 && op1Max_temp >= 0 && op2Min_temp >= 0 && op2Max_temp >= 0) {
+                operandRange1 = new int[]{op1Min_temp, op1Max_temp};
+                operandRange2 = new int[]{op2Min_temp, op2Max_temp};
+            }
+            else {
+                JLabel invalidInput = new JLabel("Invalid input. Operand range must be positive");
+                customizeWSPanel.add(invalidInput);
+                passed = false;
+            }
+
+            negAllowed = negAllowedBox.isSelected();
+
+            equationFormat = Objects.requireNonNull(questionFormat.getSelectedItem()).toString();
+
+            titleInput = title_tf.getText();
+
+            int numOfEquations_temp = Integer.parseInt(numQuestions_tf.getText());
+            int numOfRows_temp = Integer.parseInt(numRows_tf.getText());
+            int numOfColumns_temp = Integer.parseInt(numColumn_tf.getText());
+
+            if (numOfEquations_temp >= 0) {
+                numOfEquations = numOfEquations_temp;
+            }
+            else {
+                JLabel invalidInput = new JLabel("Invalid input for Number of Equations");
+                customizeWSPanel.add(invalidInput);
+                passed = false;
+            }
+
+            if (numOfRows_temp >= 0) {
+                numOfRows = numOfRows_temp;
+            }
+            else {
+                JLabel invalidInput = new JLabel("Invalid input for Number of Rows");
+                customizeWSPanel.add(invalidInput);
+                passed = false;
+            }
+
+            if (numOfColumns_temp >= 0) {
+                numOfColumns = numOfColumns_temp;
+            }
+            else {
+                JLabel invalidInput = new JLabel("Invalid input for Number of Columns");
+                customizeWSPanel.add(invalidInput);
+                passed = false;
+            }
+
+            if (passed) {
+                frame.setVisible(false);
+                customizeWSPanel.setVisible(false);
+                new WSViewerScreen();
+            }
         }
         if (e.getSource() == customizeBackButton) {
             frame.setVisible(false);
@@ -178,6 +241,14 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         }
         if (e.getSource() == customizeBackButton) {
             defaultButton(customizeBackButton);
+        }
+    }
+
+    public static Integer tryToParse(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return null;
         }
     }
 }

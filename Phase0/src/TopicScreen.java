@@ -18,9 +18,6 @@ public class TopicScreen extends StartScreen implements MouseListener {
     JLabel topicTitleShadow = new JLabel("Choose Topic", SwingConstants.CENTER);
     JLabel numTypes = new JLabel("Number Types");
 
-    // Stores the topic clicked
-    char chosen_topic = ' ';
-
     public TopicScreen() {
 
         // Set the Panel to the Topic Screen
@@ -80,29 +77,33 @@ public class TopicScreen extends StartScreen implements MouseListener {
             defaultButton(subButton);
             defaultButton(multiButton);
             defaultButton(divButton);
-            chosen_topic = '-';
             highlightButton(addButton);
+
+            chosen_topic = '+';
         }
         if (e.getSource() == subButton) {
             defaultButton(addButton);
             defaultButton(divButton);
             defaultButton(multiButton);
-            chosen_topic = '-';
             highlightButton(subButton);
+
+            chosen_topic = '-';
         }
         if (e.getSource() == multiButton) {
             defaultButton(divButton);
             defaultButton(addButton);
             defaultButton(subButton);
-            chosen_topic = '*';
             highlightButton(multiButton);
+
+            chosen_topic = '*';
         }
         if (e.getSource() == divButton) {
             defaultButton(addButton);
             defaultButton(subButton);
             defaultButton(multiButton);
-            chosen_topic = '/';
             highlightButton(divButton);
+
+            chosen_topic = '/';
         }
         if (e.getSource() == topicNextButton) {
             topicPanel.setVisible(false);

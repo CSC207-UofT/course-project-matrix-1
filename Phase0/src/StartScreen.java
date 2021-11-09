@@ -37,8 +37,22 @@ public class StartScreen extends JFrame implements MouseListener {
     // Create text fields
     JTextField username_tf = new JTextField(1);
 
-    HashMap <String, Object> equationDetails = new HashMap<>();
+    // Stores the equation details for the worksheet
+    static char chosen_topic = 'c';
+    static int numOfEquations = -1;
+    static int [] operandRange1 = {-1, -1};
+    static int [] operandRange2 = {-1, -1};
+    static boolean negAllowed = false;
+
+    // Stores the format details for the worksheet
+    static String equationFormat = " ";
+    static String titleInput = " ";
+    static int numOfRows = -1;
+    static int numOfColumns = -1;
+
+    HashMap<String, Object> equationDetails = new HashMap<>();
     HashMap <String, Object> formatDetails = new HashMap<>();
+
 
     public StartScreen() {
 

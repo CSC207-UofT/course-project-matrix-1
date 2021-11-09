@@ -3,12 +3,18 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Objects;
+
+
+
 
 public class OptionScreen extends StartScreen implements MouseListener {
 
+    ImageIcon userProfileIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("userProfileIcon.png")));
     JButton createWSButton = new JButton("Generate Worksheet");
     JButton userHistoryButton = new JButton();
     JButton userProfileButton = new JButton();
+
     JButton[] optionButtons = {createWSButton, userHistoryButton, userProfileButton};
 
     public OptionScreen() {
@@ -19,7 +25,6 @@ public class OptionScreen extends StartScreen implements MouseListener {
         optionPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
                 convert(0.1, 'w'), Color.BLACK));
         optionPanel.setLayout(null);
-
 
         updateButtonLocation(createWSButton, 0.35, 0.375, 0.3, 0.1);
 
@@ -35,10 +40,19 @@ public class OptionScreen extends StartScreen implements MouseListener {
         userProfileButton.addMouseListener(this);
         userHistoryButton.addMouseListener(this);
 
+        JLabel userProfileLbl = new JLabel("User Profile");
+        JLabel userHistoryLbl = new JLabel("User History");
+
+        updateLabel(userProfileLbl, 0.76, 0.115, 0.2, 0.2, 0.015, 'd');
+        updateLabel(userHistoryLbl, 0.76, 0.2875, 0.2, 0.2, 0.015, 'd');
+
         // Add components to the Panel
         optionPanel.add(createWSButton);
         optionPanel.add(userProfileButton);
         optionPanel.add(userHistoryButton);
+        optionPanel.add(userProfileLbl);
+        optionPanel.add(userHistoryLbl);
+        optionPanel.add(new Drawing());
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -64,7 +78,8 @@ public class OptionScreen extends StartScreen implements MouseListener {
         }
     }
 
-    private static class RoundedBorder implements Border {
+
+        private static class RoundedBorder implements Border {
 
         private final int radius;
 
@@ -84,4 +99,12 @@ public class OptionScreen extends StartScreen implements MouseListener {
             g.drawOval(x, y, radius, radius);
         }
     }
+    private class Drawing extends JPanel {
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.fillRect(10,10,100,100);
+            g.drawImage(userProfileIcon.getImage(), convert(0.7, 'w'), convert(0.1, 'h'), convert(0.05, 'w'), convert(0.05, 'h'), this);
+        }
+    }
+
 }
