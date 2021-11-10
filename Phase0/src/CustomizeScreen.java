@@ -196,7 +196,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
             titleInput = title_tf.getText();
 
             if (tryToParse(numQuestions_tf.getText()) == null || tryToParse(numRows_tf.getText()) == null ||
-                    tryToParse(numColumn_tf.getText()) == null ) {
+                    tryToParse(numColumn_tf.getText()) == null || titleInput.length() == 0) {
                 customizeWSPanel.add(invalidInput);
                 passed = false;
                 invalidInput.setVisible(true);

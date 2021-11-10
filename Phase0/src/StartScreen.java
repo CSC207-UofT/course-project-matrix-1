@@ -23,6 +23,8 @@ public class StartScreen extends JFrame implements MouseListener {
     JPanel customizeWSPanel = new JPanel();
     JPanel viewerPanel = new JPanel();
     JPanel historyPanel = new JPanel();
+    JPanel newUserPanel = new JPanel();
+    JPanel userProfilePanel = new JPanel();
 
     // Card Layout for the Panels
     CardLayout cardLayout = new CardLayout();
@@ -56,6 +58,8 @@ public class StartScreen extends JFrame implements MouseListener {
     static HashMap <String, Object> formatDetails = new HashMap<>();
 
     static UserController uc = new UserController();
+
+    String usernameInput;
 
     public StartScreen() {
 
@@ -173,12 +177,21 @@ public class StartScreen extends JFrame implements MouseListener {
     public void mouseClicked(MouseEvent e) {
 
         if (e.getSource() == loginButton) {
+            usernameInput = username_tf.getText();
+            if (uc.login(usernameInput)) {
+                startPanel.setVisible(false);
+                frame.setVisible(false);
+                new OptionScreen();
+            }
+            else {
+                System.out.println("invalid username");
+            }
+        }
+
+        if (e.getSource() == createUserButton) {
             startPanel.setVisible(false);
             frame.setVisible(false);
-            new OptionScreen();
-        }
-        if (e.getSource() == createUserButton) {
-            System.out.println("Create new user Page");
+            new NewUserScreen();
         }
 
     }

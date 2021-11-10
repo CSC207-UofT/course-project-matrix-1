@@ -11,6 +11,9 @@ public class NewUserScreen extends StartScreen implements MouseListener {
     JLabel newUserTitle = new JLabel("Create New User", SwingConstants.CENTER);
     JLabel newUserTitleShadow = new JLabel("Create New user", SwingConstants.CENTER);
 
+    // Create Invalid Input JLabel
+    JLabel invalidInput = new JLabel("Invalid Input", SwingConstants.CENTER);
+
     // Create text fields
     JTextField username_tf = new JTextField(1);
     JTextField name_tf = new JTextField(1);
@@ -45,6 +48,7 @@ public class NewUserScreen extends StartScreen implements MouseListener {
         updateLabel(nameLbl, 0.325, 0.275, 0.6, 0.1, 0.025, 'd');
         updateLabel(ageLbl, 0.325, 0.4, 0.6, 0.1, 0.025, 'd');
         updateLabel(roleLBL, 0.325, 0.525, 0.6, 0.1, 0.025, 'd');
+        updateLabel(invalidInput, 0.4, 0.74, 0.2, 0.05, 0.015, 'n');
 
         // Update the location of each button
         updateButtonLocation(createUserButton, 0.4, 0.8, 0.2, 0.1);
@@ -80,12 +84,13 @@ public class NewUserScreen extends StartScreen implements MouseListener {
         newUserPanel.add(roleLBL);
         newUserPanel.add(createUserButton);
         newUserPanel.add(newUserBackButton);
+        newUserPanel.add(invalidInput);
+        invalidInput.setVisible(false);
     }
 
     public void mouseClicked(MouseEvent e) {
 
         if (e.getSource() == createUserButton) {
-
             String currUsername = username_tf.getText();
             String currName = name_tf.getText();
 
@@ -97,8 +102,17 @@ public class NewUserScreen extends StartScreen implements MouseListener {
                 int currAge = Integer.parseInt(age_tf.getText());
                 String currRole = (String) role.getSelectedItem();
 
-            new StartScreen();
-            uc.registerUser(currUsername, currName, currAge, currRole);
+                try {
+                    uc.registerUser(currUsername, currName, currAge, currRole);
+                    frame.setVisible(false);
+                    newUserPanel.setVisible(false);
+                    new StartScreen();
+                } catch (UsernameTakenException u) {
+                    invalidInput.setText("Invalid username");
+                    invalidInput.setVisible(true);
+                    System.out.println("username already exists");
+                }
+            }
         }
         if (e.getSource() == newUserBackButton){
             frame.setVisible(false);
