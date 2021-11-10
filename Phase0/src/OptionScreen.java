@@ -5,9 +5,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Objects;
 
-
-
-
 public class OptionScreen extends StartScreen implements MouseListener {
 
     ImageIcon userProfileIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("userProfileIcon.png")));
@@ -62,7 +59,9 @@ public class OptionScreen extends StartScreen implements MouseListener {
             new TopicScreen();
         }
         if (e.getSource() == userProfileButton) {
-            System.out.println("test");
+            frame.setVisible(false);
+            optionPanel.setVisible(false);
+            new UserProfileScreen();
         }
     }
 

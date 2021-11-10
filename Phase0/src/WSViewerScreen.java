@@ -1,7 +1,6 @@
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
-import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import worksheet_maker.WorksheetController;
 
 import javax.swing.*;
@@ -9,7 +8,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class WSViewerScreen extends StartScreen implements MouseListener {
@@ -31,22 +29,25 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
                 convert(0.1, 'w'), Color.BLACK));
         viewerPanel.setLayout(null);
 
-
         // Generate an image of the worksheet
-        BufferedImage bim;
+        BufferedImage bim = null;
         WorksheetController ws = new WorksheetController();
         try {
             PDDocument[] documents = ws.generateWorksheetAndPDF(equationDetails, formatDetails);
 
             PDFRenderer pdfRenderer = new PDFRenderer(documents[0]);
+
             for (int page = 0; page < documents[0].getNumberOfPages(); ++page)
             {
                 bim = pdfRenderer.renderImageWithDPI(page, 300, ImageType.RGB);
             }
-            documents[0].close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+        // Create JLabel for the image
+        JLabel imageLbl = new JLabel((new ImageIcon(bim)));
+        updateLabel(imageLbl, 0.3, 0.3, 0.4, 0.4, 0, 'n');
 
         // Update each buttons location
         updateButtonLocation(downloadButton, 0.15, 0.1, 0.2, 0.1);
@@ -70,7 +71,9 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
         viewerPanel.add(historyButton);
         viewerPanel.add(mainMenuButton);
         viewerPanel.add(viewerBackButton);
+        viewerPanel.add(imageLbl);
     }
+
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == downloadButton) {
             System.out.println("Download");
@@ -131,5 +134,6 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
             defaultButton(viewerBackButton);
         }
     }
+
 }
 

@@ -79,6 +79,7 @@ public class StartScreen extends JFrame implements MouseListener {
         cardPanel.add(viewerPanel, "ViewerScreen");
         cardPanel.add(historyPanel, "WorksheetHistoryScreen");
         cardPanel.add(newUserPanel, "NewUserScreen");
+        cardPanel.add(userProfilePanel, "UserProfileScreen");
 
         cardLayout.show(cardPanel, "StartScreen");
 

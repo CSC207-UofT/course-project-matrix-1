@@ -1,4 +1,4 @@
-import user_package.UserController;
+import exceptions.UsernameTakenException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -90,6 +90,7 @@ public class NewUserScreen extends StartScreen implements MouseListener {
             String currName = name_tf.getText();
 
             if (tryToParse(age_tf.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
+                invalidInput.setText("Invalid Input");
                 invalidInput.setVisible(true);
             }
             else {

@@ -178,13 +178,14 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 op2Max_temp = Integer.parseInt(op2MAX.getText());
             }
 
-            if (op1Min_temp >= 0 && op1Max_temp >= 0 && op2Min_temp >= 0 && op2Max_temp >= 0) {
+            if (op1Min_temp >= 0 && op1Max_temp >= 0 && op2Min_temp >= 0 && op2Max_temp >= 0
+                    && op1Max_temp >= op1Min_temp && op2Max_temp >= op2Min_temp) {
                 operandRange1 = new int[]{op1Min_temp, op1Max_temp};
                 operandRange2 = new int[]{op2Min_temp, op2Max_temp};
-                invalidInput.setVisible(true);
+                invalidInput.setVisible(false);
             }
             else {
-                customizeWSPanel.add(invalidInput);
+                invalidInput.setVisible(true);
                 passed = false;
             }
 
@@ -213,7 +214,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 invalidInput.setVisible(true);
             }
             else {
-                customizeWSPanel.add(invalidInput);
+                invalidInput.setVisible(true);
                 passed = false;
             }
 
