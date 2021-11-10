@@ -39,6 +39,7 @@ public class StartScreen extends JFrame implements MouseListener {
     JLabel title = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
     JLabel titleShadow = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
     JLabel username = new JLabel("Username", SwingConstants.CENTER);
+    JLabel invalidUsername = new JLabel("Invalid Username", SwingConstants.CENTER);
 
     // Create text fields
     JTextField username_tf = new JTextField(1);
@@ -90,7 +91,7 @@ public class StartScreen extends JFrame implements MouseListener {
         cardLayout.show(cardPanel, "StartScreen");
 
         // "Create Worksheet" and "User Profile" Button
-        updateButtonLocation(loginButton, 0.4125, 0.645, 0.175, 0.08);
+        updateButtonLocation(loginButton, 0.4125, 0.66, 0.175, 0.08);
         updateButtonLocation(createUserButton, 0.425, 0.77, 0.15, 0.075);
         defaultButton(loginButton);
         defaultButton(createUserButton);
@@ -105,6 +106,7 @@ public class StartScreen extends JFrame implements MouseListener {
         updateLabel(title, 0.2, 0.2, 0.6, 0.1, 0.03075, 'n');
         updateLabel(titleShadow, 0.2025, 0.2025, 0.6, 0.1, 0.03075, 'd');
         updateLabel(username, 0.25, 0.525, 0.3, 0.1,0.025, 'd');
+        updateLabel(invalidUsername, 0.4,0.525,0.2,0.2,0.015, 'n');
 
         username_tf.setBounds(convert(0.5, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
@@ -116,6 +118,8 @@ public class StartScreen extends JFrame implements MouseListener {
         startPanel.add(createUserButton);
         startPanel.add(username);
         startPanel.add(username_tf);
+        startPanel.add(invalidUsername);
+        invalidUsername.setVisible(false);
     }
 
     // Location and dimensions helper
@@ -186,7 +190,7 @@ public class StartScreen extends JFrame implements MouseListener {
                 new OptionScreen();
             }
             else {
-                System.out.println("invalid username");
+                invalidUsername.setVisible(true);
             }
         }
 
