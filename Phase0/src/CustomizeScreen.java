@@ -260,12 +260,4 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
             defaultButton(customizeBackButton);
         }
     }
-
-    public static Integer tryToParse(String input) {
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
 }

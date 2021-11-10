@@ -55,6 +55,8 @@ public class StartScreen extends JFrame implements MouseListener {
     static HashMap<String, Object> equationDetails = new HashMap<>();
     static HashMap <String, Object> formatDetails = new HashMap<>();
 
+    static UserController uc = new UserController();
+
     public StartScreen() {
 
         // Set Frame size
@@ -76,6 +78,7 @@ public class StartScreen extends JFrame implements MouseListener {
         cardPanel.add(customizeWSPanel, "CustomizeScreen");
         cardPanel.add(viewerPanel, "ViewerScreen");
         cardPanel.add(historyPanel, "WorksheetHistoryScreen");
+        cardPanel.add(newUserPanel, "NewUserScreen");
 
         cardLayout.show(cardPanel, "StartScreen");
 
@@ -167,6 +170,7 @@ public class StartScreen extends JFrame implements MouseListener {
     }
 
     public void mouseClicked(MouseEvent e) {
+
         if (e.getSource() == loginButton) {
             startPanel.setVisible(false);
             frame.setVisible(false);
@@ -206,6 +210,14 @@ public class StartScreen extends JFrame implements MouseListener {
 
     public void mouseReleased(MouseEvent e) {
 
+    }
+
+    public static Integer tryToParse(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
     public static void main(String[] args) {
