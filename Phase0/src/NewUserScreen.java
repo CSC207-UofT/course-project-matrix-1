@@ -89,9 +89,12 @@ public class NewUserScreen extends StartScreen implements MouseListener {
             String currUsername = username_tf.getText();
             String currName = name_tf.getText();
 
-            int currAge = Integer.parseInt(age_tf.getText());
-
-            String currRole = (String) role.getSelectedItem();
+            if (tryToParse(age_tf.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
+                invalidInput.setVisible(true);
+            }
+            else {
+                int currAge = Integer.parseInt(age_tf.getText());
+                String currRole = (String) role.getSelectedItem();
 
             new StartScreen();
             uc.registerUser(currUsername, currName, currAge, currRole);

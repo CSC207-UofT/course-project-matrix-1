@@ -33,6 +33,7 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
 
 
         // Generate an image of the worksheet
+        BufferedImage bim;
         WorksheetController ws = new WorksheetController();
         try {
             PDDocument[] documents = ws.generateWorksheetAndPDF(equationDetails, formatDetails);
@@ -40,9 +41,7 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
             PDFRenderer pdfRenderer = new PDFRenderer(documents[0]);
             for (int page = 0; page < documents[0].getNumberOfPages(); ++page)
             {
-                BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 300, ImageType.RGB);
-
-                ImageIOUtil.writeImage(bim, titleInput + "-" + (page+1) + ".png", 300);
+                bim = pdfRenderer.renderImageWithDPI(page, 300, ImageType.RGB);
             }
             documents[0].close();
         } catch (IOException ex) {

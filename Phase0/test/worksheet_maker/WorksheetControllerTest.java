@@ -26,7 +26,7 @@ public class WorksheetControllerTest {
         myFormatDetails.put("numColumns", 5);
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(myEquationDetails, myFormatDetails);
-        String path = "C:/Users/willj/Downloads/";
+        String path = "/Users/Ethan/desktop";
         pdf[0].save(path + "/questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/answers.pdf");
