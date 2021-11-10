@@ -1,3 +1,5 @@
+package user_interface;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;

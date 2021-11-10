@@ -1,8 +1,9 @@
+package user_interface;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Map;
 
 public class UserProfileScreen extends StartScreen implements MouseListener {
 

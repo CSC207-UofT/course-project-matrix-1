@@ -1,3 +1,5 @@
+package user_interface;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -207,7 +209,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 numOfColumns_temp = Integer.parseInt(numColumn_tf.getText());
             }
 
-            if (numOfEquations_temp >= 0 && numOfRows_temp >= 0 && numOfColumns_temp >= 0) {
+            if (numOfEquations_temp > 0 && numOfRows_temp > 0 && numOfColumns_temp > 0) {
                 numOfEquations = numOfEquations_temp;
                 numOfRows = numOfRows_temp;
                 numOfColumns = numOfColumns_temp;

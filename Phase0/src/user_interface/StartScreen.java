@@ -1,3 +1,5 @@
+package user_interface;
+
 import user_package.UserController;
 
 import javax.swing.*;

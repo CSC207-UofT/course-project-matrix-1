@@ -1,3 +1,5 @@
+package user_interface;
+
 import exceptions.UsernameTakenException;
 
 import javax.swing.*;

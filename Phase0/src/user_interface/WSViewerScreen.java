@@ -1,3 +1,5 @@
+package user_interface;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -9,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class WSViewerScreen extends StartScreen implements MouseListener {
 
@@ -25,6 +28,8 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
 
         // Set Panel
         cardLayout.show(cardPanel, "ViewerScreen");
+
+        viewerPanel.setSize(width, height);
         viewerPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
                 convert(0.1, 'w'), Color.BLACK));
         viewerPanel.setLayout(null);
@@ -46,8 +51,12 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
         }
 
         // Create JLabel for the image
-        JLabel imageLbl = new JLabel((new ImageIcon(bim)));
-        updateLabel(imageLbl, 0.3, 0.3, 0.4, 0.4, 0, 'n');
+        ImageIcon wsImage = new ImageIcon(bim);
+        Image newWsImage = wsImage.getImage();
+        Image wsScaledImage = newWsImage.getScaledInstance(200,200, Image.SCALE_SMOOTH);
+        wsImage = new ImageIcon(wsScaledImage);
+        JLabel wsImageLbl = new JLabel(wsImage, JLabel.CENTER);
+        updateLabel(wsImageLbl, 0.725, 0.21, 0.2, 0.2, 0, 'n');
 
         // Update each buttons location
         updateButtonLocation(downloadButton, 0.15, 0.1, 0.2, 0.1);
@@ -71,7 +80,7 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
         viewerPanel.add(historyButton);
         viewerPanel.add(mainMenuButton);
         viewerPanel.add(viewerBackButton);
-        viewerPanel.add(imageLbl);
+        viewerPanel.add(wsImageLbl);
     }
 
     public void mouseClicked(MouseEvent e) {
