@@ -1,7 +1,13 @@
+import user_package.UserController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 
 public class WorksheetHistoryScreen extends StartScreen implements MouseListener {
 
@@ -13,13 +19,30 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
     JButton updateScoreButton = new JButton("Update Score");
     JButton regenerateButton = new JButton("Regenerate");
 
-    // Create JList that holds Strings Stored in an Array
-    String[] data = {"11/07/21:Add:50:__:__", "11/07/21:Add:50:__:__", "11/07/21:Add:50:__:__"};
-    JList <String> history = new JList<>(data);
+    ArrayList<String> tempData = new ArrayList<>();
 
+    UserController uc = new UserController();
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+    JList <String> history;
+    List<Map<String, Object>> userHistoryMap;
+    
     JScrollPane scrollPane = new JScrollPane();
 
-    public WorksheetHistoryScreen(){
+    public WorksheetHistoryScreen() {
+
+        // Temp for Testing
+        tempData.add("Worksheet One");
+        tempData.add("Worksheet Two");
+        tempData.add("Worksheet Three");
+        tempData.add("Worksheet Four");
+
+        userHistoryMap = uc.getUserHistory(usernameInput);
+        for (Map<String, Object> map : userHistoryMap) {
+            for (String worksheetName : map.keySet()) {
+                listModel.addElement(worksheetName);
+            }
+        }
+        history = new JList<>(listModel);
 
         // Set the Panel to the Option Screen
         cardLayout.show(cardPanel, "WorksheetHistoryScreen");
@@ -62,8 +85,6 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
         historyPanel.add(updateScoreButton);
         historyPanel.add(regenerateButton);
         historyPanel.add(scrollPane);
-
-
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -72,7 +93,10 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
             historyPanel.setVisible(false);
             new WSViewerScreen();
         }
-        if (e.getSource() == removeButton) {System.out.println("remove");}
+        if (e.getSource() == removeButton) {
+            int index = history.getSelectedIndex();
+            if (index != -1){listModel.removeElementAt(index);}
+        }
         if (e.getSource() == updateScoreButton) {System.out.println("update score");}
         if (e.getSource() == regenerateButton) {System.out.println("regenerate");}
     }
