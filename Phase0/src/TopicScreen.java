@@ -11,6 +11,7 @@ public class TopicScreen extends StartScreen implements MouseListener {
     JButton multiButton = new JButton("Multiplication");
     JButton divButton = new JButton("Division");
     JButton topicNextButton = new JButton("Next");
+    JButton topicScreenBackButton = new JButton("Back");
     JButton[] topicButtons = {addButton, subButton, multiButton, divButton, topicNextButton};
 
     // Create Choose Topic JLabel and its shadow
@@ -40,9 +41,11 @@ public class TopicScreen extends StartScreen implements MouseListener {
 
         // "Next" Button
         updateButtonLocation(topicNextButton, 0.4, 0.75, 0.2, 0.09);
+        updateButtonLocation(topicScreenBackButton, 0.145, 0.775, 0.125, 0.05);
 
         // Update the settings of each button
         defaultButton(topicButtons);
+        defaultButton(topicScreenBackButton);
 
         // Create comboBox of
         String[] numTypeOptions = {"Integers", "Fractions", "Decimals"};
@@ -56,6 +59,7 @@ public class TopicScreen extends StartScreen implements MouseListener {
         multiButton.addMouseListener(this);
         divButton.addMouseListener(this);
         topicNextButton.addMouseListener(this);
+        topicScreenBackButton.addMouseListener(this);
 
         // Add each component to the panel
         topicPanel.add(addButton);
@@ -63,13 +67,16 @@ public class TopicScreen extends StartScreen implements MouseListener {
         topicPanel.add(multiButton);
         topicPanel.add(divButton);
         topicPanel.add(topicNextButton);
+        topicPanel.add(topicScreenBackButton);
         topicPanel.add(topicTitle);
         topicPanel.add(topicTitleShadow);
         topicPanel.add(numTypes);
         topicPanel.add(numOptions);
 
+
         // Start with Addition Button highlighted
         highlightButton(addButton);
+        chosen_topic = '+';
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -110,16 +117,25 @@ public class TopicScreen extends StartScreen implements MouseListener {
             frame.setVisible(false);
             new CustomizeScreen();
         }
+        if (e.getSource() == topicScreenBackButton) {
+            topicPanel.setVisible(false);
+            frame.setVisible(false);
+            new OptionScreen();
+        }
     }
 
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == topicNextButton)
             highlightButton(topicNextButton);
+        if (e.getSource() == topicScreenBackButton)
+            highlightButton(topicScreenBackButton);
 
     }
 
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == topicNextButton)
             defaultButton(topicNextButton);
+        if (e.getSource() == topicScreenBackButton)
+            defaultButton(topicScreenBackButton);
     }
 }

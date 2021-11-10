@@ -49,7 +49,7 @@ public class OptionScreen extends StartScreen implements MouseListener {
         optionPanel.add(userHistoryButton);
         optionPanel.add(userProfileLbl);
         optionPanel.add(userHistoryLbl);
-        optionPanel.add(new Drawing());
+//        optionPanel.add(new Drawing());
     }
 
     public void mouseClicked(MouseEvent e) {
