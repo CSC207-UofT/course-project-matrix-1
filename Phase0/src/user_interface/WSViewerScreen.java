@@ -57,7 +57,7 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
         // Create JLabel for the image
         ImageIcon wsImage = new ImageIcon(bim);
         Image newWsImage = wsImage.getImage();
-        Image wsScaledImage = newWsImage.getScaledInstance(convert(0.35, 'w'), convert(0.525, 'h'), Image.SCALE_SMOOTH);
+        Image wsScaledImage = newWsImage.getScaledInstance((int) (convert(0.525, 'h')*bim.getWidth()*1.0/bim.getHeight()), convert(0.525, 'h'), Image.SCALE_SMOOTH);
         wsImage = new ImageIcon(wsScaledImage);
         JLabel wsImageLbl = new JLabel(wsImage, JLabel.CENTER);
         updateLabel(wsImageLbl, 0.25, 0.05, 0.5, 0.65, 0, 'n');
