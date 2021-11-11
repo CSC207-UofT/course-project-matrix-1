@@ -10,26 +10,25 @@ import java.util.Map;
  */
 public interface DataAccessInterface {
     /**
-     * Retrieves list of Users.
-     *
+     * Retrieves a map of username to User objects.
      * @return list of Users
      */
     Map<String, User> getUsers();
 
     /**
-     * Stores list of Users.
+     * Stores a map of username to User objects.
      */
     void storeUsers(Map<String, User> existingUsers);
 
     /**
-     * Retrieves all existing users' worksheet history.
+     * Retrieves map of username to user's worksheet history.
      *
      * @return mapping of username to History
      */
     Map<String, History> getHistories();
 
     /**
-     * Stores all existing users' worksheet history.
+     * Stores map of username to user's worksheet history.
      */
     void storeHistories(Map<String, History> existingHistories);
 }
