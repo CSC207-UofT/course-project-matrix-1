@@ -39,7 +39,7 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
         tempData.add("Worksheet Three");
         tempData.add("Worksheet Four");
 
-        userHistoryMap = uc.getUserHistory(usernameInput);
+//        userHistoryMap = uc.getUserHistory(usernameInput);
         for (Map<String, Object> map : userHistoryMap) {
             for (String worksheetName : map.keySet()) {
                 listModel.addElement(worksheetName);

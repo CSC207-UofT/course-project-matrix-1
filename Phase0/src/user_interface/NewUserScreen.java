@@ -112,7 +112,6 @@ public class NewUserScreen extends StartScreen implements MouseListener {
                 } catch (UsernameTakenException u) {
                     invalidInput.setText("Invalid username");
                     invalidInput.setVisible(true);
-                    System.out.println("username already exists");
                 }
             }
         }

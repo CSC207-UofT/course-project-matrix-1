@@ -1,5 +1,6 @@
 package user_interface;
 
+import exceptions.UserDoesNotExistException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import user_package.UserController;
 import worksheet_maker.WorksheetController;
@@ -122,6 +123,7 @@ public class StartScreen extends JFrame implements MouseListener {
         startPanel.add(username_tf);
         startPanel.add(invalidUsername);
         invalidUsername.setVisible(false);
+
     }
 
     // Location and dimensions helper
@@ -185,17 +187,15 @@ public class StartScreen extends JFrame implements MouseListener {
     public void mouseClicked(MouseEvent e) {
 
         if (e.getSource() == loginButton) {
-            usernameInput = username_tf.getText();
-            if (uc.login(usernameInput)) {
+            try {
+                uc.login(username_tf.getText());
                 startPanel.setVisible(false);
                 frame.setVisible(false);
                 new OptionScreen();
-            }
-            else {
+            } catch (UserDoesNotExistException u) {
                 invalidUsername.setVisible(true);
             }
         }
-
         if (e.getSource() == createUserButton) {
             startPanel.setVisible(false);
             frame.setVisible(false);

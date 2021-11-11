@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Map;
 
 public class UserProfileScreen extends StartScreen implements MouseListener {
 
@@ -22,10 +23,12 @@ public class UserProfileScreen extends StartScreen implements MouseListener {
                 convert(0.1, 'w'), Color.BLACK));
         userProfilePanel.setLayout(null);
 
-        JLabel usernameProfileLbl = new JLabel("Username:");
-        JLabel nameProfileLbl = new JLabel("Name:");
-        JLabel ageProfileLbl = new JLabel("Age:");
-        JLabel roleProfileLBL = new JLabel("Role:");
+        Map<String, Object> userDetails = uc.getUserDetails();
+
+        JLabel usernameProfileLbl = new JLabel("Username:\t\t");
+        JLabel nameProfileLbl = new JLabel("Name:\t\t" + userDetails.get("name"));
+        JLabel ageProfileLbl = new JLabel("Age:\t\t" + userDetails.get("age"));
+        JLabel roleProfileLBL = new JLabel("Role:\t\t" + userDetails.get("role"));
 
         updateLabel(userProfileTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'n');
         updateLabel(userProfileTitleShadow, 0.2, 0.0125, 0.6, 0.1, 0.03075, 'd');
