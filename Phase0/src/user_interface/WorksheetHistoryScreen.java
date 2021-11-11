@@ -42,7 +42,7 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
             for (Map<String, Object> map : userHistoryList) {
                 totalString.setLength(0);
                 totalString.append(map.get("worksheetKey"));
-                // totalString.append(map.get("equationDetails").get("numOfEquations"));
+//                totalString.append(map.get("equationDetails").get("numOfEquations"));
             }
             listModel.addElement(totalString.toString());
             // Make noWorksheets JLabel message visible if there are no worksheets
@@ -101,11 +101,8 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
         if (e.getSource() == customizeBackButton) {
             frame.setVisible(false);
             historyPanel.setVisible(false);
-            try {
-                new WSViewerScreen();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            new OptionScreen();
+
         }
         if (e.getSource() == removeButton) {
             int index = history.getSelectedIndex();

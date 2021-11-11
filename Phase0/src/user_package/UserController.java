@@ -111,7 +111,9 @@ public class UserController {
         if (isLoggedIn()) {
             historyManager.storeUserRecord(currentUsername, worksheetDetails);
         }
-        throw new NotLoggedInException();
+        else {
+            throw new NotLoggedInException();
+        }
     }
 
     /**

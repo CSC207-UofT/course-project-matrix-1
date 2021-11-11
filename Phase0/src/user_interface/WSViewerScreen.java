@@ -42,6 +42,9 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
         // Set Panel
         cardLayout.show(cardPanel, "ViewerScreen");
 
+        // Store worksheet to user
+        uc.storeUserRecord(equationDetails);
+
         viewerPanel.setSize(width, height);
         viewerPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
                 convert(0.1, 'w'), Color.BLACK));
