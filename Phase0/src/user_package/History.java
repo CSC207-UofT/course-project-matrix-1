@@ -21,7 +21,7 @@ public class History implements Serializable {
     /**
      * Instantiate userPackage.History object.
      */
-    public History() {
+    protected History() {
         this.history = new ArrayList<>();
     }
 

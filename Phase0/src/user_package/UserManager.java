@@ -14,9 +14,7 @@ public class UserManager {
     private final Map<String, User> users;
     private final DataAccessInterface dataSource;
 
-    public UserManager(DataAccessInterface dataSource) {
-        // Map<String, User> existingUsers,
-        // users = existingUsers;
+    protected UserManager(DataAccessInterface dataSource) {
         this.dataSource = dataSource;
         users = this.dataSource.getUsers();
     }
