@@ -49,9 +49,7 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
 
         try {
             PDFRenderer pdfRenderer = new PDFRenderer(documents[0]);
-
             bim = pdfRenderer.renderImageWithDPI(0, 300, ImageType.RGB);
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -102,17 +100,11 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
         if (e.getSource() == downloadButton) {
             try {
                 documents[0].save(downloadPath_tf.getText() + "/questions.pdf");
-                documents[0].close();
-            } catch (IOException ex) {
-                invalidPathLbl.setVisible(true);
-            }
-            try {
                 documents[1].save(downloadPath_tf.getText() + "/answers.pdf");
-                documents[1].close();
                 invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPath_tf.getText());
-            } catch (IOException ex) {
-                invalidPathLbl.setVisible(true);
+            } catch (IOException ignored) {
             }
+            invalidPathLbl.setVisible(true);
         }
         if (e.getSource() == mainMenuButton) {
             frame.setVisible(false);
