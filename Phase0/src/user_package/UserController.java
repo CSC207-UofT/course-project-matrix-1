@@ -96,9 +96,11 @@ public class UserController {
     public void storeUserScore(String worksheetKey, Integer score) throws RecordDoesNotExistException, NotLoggedInException {
         if (isLoggedIn()) {
             historyManager.setUserScoreForRecord(currentUsername, worksheetKey, score);
+        } else {
+            throw new NotLoggedInException();
         }
-        throw new NotLoggedInException();
-    }
+}
+
 
 
     /**
@@ -110,8 +112,9 @@ public class UserController {
     public void storeUserRecord(Map<String, Object> worksheetDetails) throws NotLoggedInException {
         if (isLoggedIn()) {
             historyManager.storeUserRecord(currentUsername, worksheetDetails);
+        } else {
+            throw new NotLoggedInException();
         }
-        throw new NotLoggedInException();
     }
 
     /**
@@ -121,11 +124,11 @@ public class UserController {
      * @param worksheetKey:    Index of the action to be removed from the list of actions of the user.
      */
     public void removeUserRecord(String worksheetKey) throws RecordDoesNotExistException, NotLoggedInException {
-
         if (isLoggedIn()) {
             historyManager.removeUserRecord(currentUsername, worksheetKey);
+        } else {
+            throw new NotLoggedInException();
         }
-        throw new NotLoggedInException();
     }
 
 }
