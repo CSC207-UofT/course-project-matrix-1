@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
 
 public class NewUserScreen extends StartScreen implements MouseListener {
 
-    // Create Equation Details and Formatting JLabels and its shadow
+    // Create the title
     JLabel newUserTitle = new JLabel("Create New User", SwingConstants.CENTER);
     JLabel newUserTitleShadow = new JLabel("Create New user", SwingConstants.CENTER);
 
@@ -54,7 +54,7 @@ public class NewUserScreen extends StartScreen implements MouseListener {
 
         // Update the location of each button
         updateButtonLocation(createUserButton, 0.4, 0.8, 0.2, 0.1);
-        updateButtonLocation(newUserBackButton, 0.145, 0.825, 0.125, 0.05);
+        updateButtonLocation(newUserBackButton, 0.145, 0.8, 0.125, 0.05);
         defaultButton(createUserButton);
         defaultButton(newUserBackButton);
 

@@ -42,8 +42,8 @@ public class TopicScreen extends StartScreen implements MouseListener {
         updateButtonLocation(divButton, 0.35, 0.5, 0.3, 0.1);
 
         // "Next" Button
-        updateButtonLocation(topicNextButton, 0.4, 0.75, 0.2, 0.09);
-        updateButtonLocation(topicScreenBackButton, 0.145, 0.775, 0.15, 0.05);
+        updateButtonLocation(topicNextButton, 0.4, 0.775, 0.2, 0.09);
+        updateButtonLocation(topicScreenBackButton, 0.145, 0.8, 0.15, 0.05);
 
         // Update the settings of each button
         defaultButton(topicButtons);
@@ -52,8 +52,8 @@ public class TopicScreen extends StartScreen implements MouseListener {
         // Create comboBox of
         String[] numTypeOptions = {"Integers", "Fractions", "Decimals"};
         JComboBox<String> numOptions = new JComboBox<>(numTypeOptions);
-        numOptions.setBounds(convert(0.525, 'w'), convert(0.6025, 'h'), convert(0.15, 'w'),
-                convert(0.1, 'h'));
+        numOptions.setBounds(convert(0.525, 'w'), convert(0.625, 'h'), convert(0.15, 'w'),
+                convert(0.05, 'h'));
         numOptions.setSelectedIndex(0);
 
         addButton.addMouseListener(this);

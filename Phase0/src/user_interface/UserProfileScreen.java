@@ -25,7 +25,6 @@ public class UserProfileScreen extends StartScreen implements MouseListener {
 
         Map<String, Object> userDetails = uc.getUserDetails();
 
-        JLabel usernameProfileLbl = new JLabel("Username:\t\t");
         JLabel nameProfileLbl = new JLabel("Name:\t\t" + userDetails.get("name"));
         JLabel ageProfileLbl = new JLabel("Age:\t\t" + userDetails.get("age"));
         JLabel roleProfileLBL = new JLabel("Role:\t\t" + userDetails.get("role"));
@@ -33,20 +32,18 @@ public class UserProfileScreen extends StartScreen implements MouseListener {
         updateLabel(userProfileTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'n');
         updateLabel(userProfileTitleShadow, 0.2, 0.0125, 0.6, 0.1, 0.03075, 'd');
 
-        updateLabel(usernameProfileLbl, 0.325, 0.15, 0.6, 0.1, 0.025, 'd');
-        updateLabel(nameProfileLbl, 0.325, 0.275, 0.6, 0.1, 0.025, 'd');
-        updateLabel(ageProfileLbl, 0.325, 0.4, 0.6, 0.1, 0.025, 'd');
-        updateLabel(roleProfileLBL, 0.325, 0.525, 0.6, 0.1, 0.025, 'd');
+        updateLabel(nameProfileLbl, 0.325, 0.15, 0.6, 0.1, 0.025, 'd');
+        updateLabel(ageProfileLbl, 0.325, 0.275, 0.6, 0.1, 0.025, 'd');
+        updateLabel(roleProfileLBL, 0.325, 0.4, 0.6, 0.1, 0.025, 'd');
 
         // Update the location of each button
-        updateButtonLocation(userProfileBackButton, 0.145, 0.825, 0.125, 0.05);
+        updateButtonLocation(userProfileBackButton, 0.145, 0.8, 0.125, 0.05);
         defaultButton(userProfileBackButton);
 
         userProfileBackButton.addMouseListener(this);
 
         userProfilePanel.add(userProfileTitle);
         userProfilePanel.add(userProfileTitleShadow);
-        userProfilePanel.add(usernameProfileLbl);
         userProfilePanel.add(nameProfileLbl);
         userProfilePanel.add(ageProfileLbl);
         userProfilePanel.add(roleProfileLBL);

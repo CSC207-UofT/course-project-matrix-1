@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,35 +17,40 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
     // Create JLabel and JButton for the Worksheet History Screen
     JLabel title = new JLabel("Worksheet History", SwingConstants.CENTER);
     JLabel titleShadow = new JLabel("Worksheet History", SwingConstants.CENTER);
+    JLabel noWorksheets = new JLabel("No Worksheets Available", SwingConstants.CENTER);
     JButton customizeBackButton = new JButton("Back");
     JButton removeButton = new JButton("Remove");
     JButton updateScoreButton = new JButton("Update Score");
     JButton regenerateButton = new JButton("Regenerate");
 
-    ArrayList<String> tempData = new ArrayList<>();
-
     UserController uc = new UserController();
     DefaultListModel<String> listModel = new DefaultListModel<>();
+    StringBuilder totalString = new StringBuilder();
     JList <String> history;
-    List<Map<String, Object>> userHistoryMap;
-    
+    List<Map<String, Object>> userHistoryList;
+
     JScrollPane scrollPane = new JScrollPane();
 
     public WorksheetHistoryScreen() {
 
-        // Temp for Testing
-        tempData.add("Worksheet One");
-        tempData.add("Worksheet Two");
-        tempData.add("Worksheet Three");
-        tempData.add("Worksheet Four");
+        // Set noWorksheets JLabel message to not visible
+        noWorksheets.setVisible(false);
 
-//        userHistoryMap = uc.getUserHistory(usernameInput);
-        for (Map<String, Object> map : userHistoryMap) {
-            for (String worksheetName : map.keySet()) {
-                listModel.addElement(worksheetName);
+        // Store neccessary info for each element in JList String Builder
+        try {
+            userHistoryList = uc.getUserHistory();
+            for (Map<String, Object> map : userHistoryList) {
+                totalString.setLength(0);
+                totalString.append(map.get("worksheetKey"));
+                // totalString.append(map.get("equationDetails").get("numOfEquations"));
             }
-        }
+            listModel.addElement(totalString.toString());
+            // Make noWorksheets JLabel message visible if there are no worksheets
+        } catch (NullPointerException u) {noWorksheets.setVisible(true);}
+
+        // Create JList which holds info from the listModel (DefaultListModel<String>)
         history = new JList<>(listModel);
+
 
         // Set the Panel to the Option Screen
         cardLayout.show(cardPanel, "WorksheetHistoryScreen");
@@ -57,6 +62,7 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
         // Update the Settings of the JLabels
         updateLabel(title, 0.2, 0.02, 0.6, 0.1, 0.03075, 'n');
         updateLabel(titleShadow, 0.2025, 0.025, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(noWorksheets, 0.35, 0.15, 0.3, 0.05, 0.015, 'n');
 
         // Update the Location and Settings of each Button
         updateButtonLocation(customizeBackButton, 0.145, 0.825, 0.175, 0.05);
@@ -83,6 +89,7 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
         // Add Components to the Panel
         historyPanel.add(title);
         historyPanel.add(titleShadow);
+        historyPanel.add(noWorksheets);
         historyPanel.add(customizeBackButton);
         historyPanel.add(removeButton);
         historyPanel.add(updateScoreButton);
@@ -102,7 +109,12 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
         }
         if (e.getSource() == removeButton) {
             int index = history.getSelectedIndex();
-            if (index != -1){listModel.removeElementAt(index);}
+            if (index != -1) {
+                // ADD REMOVE FROM userHistoryList IF NEEDED
+                userHistoryList.remove(index);
+                // IF NOT NEEDED THIS REMOVES FROM SCREEN
+                listModel.removeElementAt(index);
+            }
         }
         if (e.getSource() == updateScoreButton) {System.out.println("update score");}
         if (e.getSource() == regenerateButton) {System.out.println("regenerate");}

@@ -74,8 +74,8 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
 
         // Update each buttons location
         updateButtonLocation(downloadButton, 0.4, 0.75, 0.2, 0.1);
-        updateButtonLocation(mainMenuButton, 0.7, 0.825, 0.15, 0.05);
-        updateButtonLocation(viewerBackButton, 0.15, 0.825, 0.15, 0.05);
+        updateButtonLocation(mainMenuButton, 0.705, 0.8, 0.125, 0.05);
+        updateButtonLocation(viewerBackButton, 0.145, 0.8, 0.125, 0.05);
         defaultButton(viewerButtons);
 
         // Add Mouse Listener for hover features

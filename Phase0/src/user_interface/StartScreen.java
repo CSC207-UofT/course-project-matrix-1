@@ -201,7 +201,6 @@ public class StartScreen extends JFrame implements MouseListener {
             frame.setVisible(false);
             new NewUserScreen();
         }
-
     }
 
     public void mouseEntered(MouseEvent e) {
