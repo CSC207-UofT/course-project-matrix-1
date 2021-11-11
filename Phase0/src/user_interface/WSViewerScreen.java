@@ -49,7 +49,7 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
 
         try {
             PDFRenderer pdfRenderer = new PDFRenderer(documents[0]);
-            bim = pdfRenderer.renderImageWithDPI(0, 300, ImageType.RGB);
+            bim = pdfRenderer.renderImageWithDPI(0, 400, ImageType.RGB);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -57,22 +57,22 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
         // Create JLabel for the image
         ImageIcon wsImage = new ImageIcon(bim);
         Image newWsImage = wsImage.getImage();
-        Image wsScaledImage = newWsImage.getScaledInstance((int) (convert(0.525, 'h')*bim.getWidth()*1.0/bim.getHeight()), convert(0.525, 'h'), Image.SCALE_SMOOTH);
+        Image wsScaledImage = newWsImage.getScaledInstance((int) (convert(0.45, 'w')*bim.getWidth()*1.0/bim.getHeight()), convert(0.55, 'h'), Image.SCALE_SMOOTH);
         wsImage = new ImageIcon(wsScaledImage);
-        JLabel wsImageLbl = new JLabel(wsImage, JLabel.CENTER);
-        updateLabel(wsImageLbl, 0.25, 0.05, 0.5, 0.65, 0, 'n');
+        JLabel wsImageLbl = new JLabel(wsImage, SwingConstants.CENTER);
+        updateLabel(wsImageLbl, 0.275, 0.05, 0.45, 0.65, 0, 'n');
 
         // Update location of JLabels and texfield
         updateLabel(previewTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'n');
         updateLabel(previewTitleShadow, 0.2, 0.0125, 0.6, 0.1, 0.03075, 'd');
         updateLabel(downloadLbl, 0.1, 0.63, 0.6, 0.1, 0.02, 'd');
-        updateLabel(invalidPathLbl, 0.2, 0.7, 0.6, 0.05, 0.015, 'n');
+        updateLabel(invalidPathLbl, 0.15, 0.7, 0.7, 0.05, 0.0125, 'n');
         downloadPath_tf.setBounds(convert(0.55, 'w'), convert(0.655, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
 
         // Update each buttons location
         updateButtonLocation(downloadButton, 0.4, 0.75, 0.2, 0.1);
-        updateButtonLocation(mainMenuButton, 0.705, 0.8, 0.125, 0.05);
+        updateButtonLocation(mainMenuButton, 0.705, 0.8, 0.15, 0.05);
         updateButtonLocation(viewerBackButton, 0.145, 0.8, 0.125, 0.05);
         defaultButton(viewerButtons);
 
@@ -99,10 +99,12 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == downloadButton) {
             try {
-                documents[0].save(downloadPath_tf.getText() + "/questions.pdf");
-                documents[1].save(downloadPath_tf.getText() + "/answers.pdf");
+                documents[0].save(downloadPath_tf.getText() + "/" + titleInput + "_questions.pdf");
+                documents[1].save(downloadPath_tf.getText() + "/" + titleInput + "_answers.pdf");
                 invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPath_tf.getText());
-            } catch (IOException ignored) {
+                invalidPathLbl.setVisible(true);
+            } catch (IOException ex) {
+                invalidPathLbl.setText("Invalid Path");
             }
             invalidPathLbl.setVisible(true);
         }

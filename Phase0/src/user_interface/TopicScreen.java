@@ -50,7 +50,7 @@ public class TopicScreen extends StartScreen implements MouseListener {
         defaultButton(topicScreenBackButton);
 
         // Create comboBox of
-        String[] numTypeOptions = {"Integers", "Fractions", "Decimals"};
+        String[] numTypeOptions = {"Integers"};
         JComboBox<String> numOptions = new JComboBox<>(numTypeOptions);
         numOptions.setBounds(convert(0.525, 'w'), convert(0.625, 'h'), convert(0.15, 'w'),
                 convert(0.05, 'h'));

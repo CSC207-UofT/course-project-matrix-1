@@ -14,7 +14,7 @@ public class NewUserScreen extends StartScreen implements MouseListener {
     JLabel newUserTitleShadow = new JLabel("Create New user", SwingConstants.CENTER);
 
     // Create Invalid Input JLabel
-    JLabel invalidInput = new JLabel("Invalid Input", SwingConstants.CENTER);
+    JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
 
     // Create text fields
     JTextField username_tf = new JTextField(1);
@@ -97,7 +97,7 @@ public class NewUserScreen extends StartScreen implements MouseListener {
             String currName = name_tf.getText();
 
             if (tryToParse(age_tf.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
-                invalidInput.setText("Invalid Input");
+                invalidInput.setText("Invalid Input(s)");
                 invalidInput.setVisible(true);
             }
             else {

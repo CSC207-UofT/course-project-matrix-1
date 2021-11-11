@@ -19,7 +19,7 @@ public class StartScreen extends JFrame implements MouseListener {
     int width = screenSize.width;
     int height = screenSize.height;
 
-    // JPanels and JFrames
+    // Create all JPanels and JFrames
     JFrame frame = new JFrame();
     JPanel cardPanel = new JPanel();
     JPanel startPanel = new JPanel();

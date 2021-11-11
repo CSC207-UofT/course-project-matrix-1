@@ -20,7 +20,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
     JLabel title1Shadow = new JLabel("Equation Details", SwingConstants.CENTER);
     JLabel title2 = new JLabel("Formatting", SwingConstants.CENTER);
     JLabel title2Shadow = new JLabel("Formatting", SwingConstants.CENTER);
-    JLabel invalidInput = new JLabel("Invalid Input", SwingConstants.CENTER);
+    JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
 
     // Create text fields
     JTextField title_tf = new JTextField(1);
@@ -37,7 +37,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
     JCheckBox negAllowedBox = new JCheckBox("");
 
     // Create combo box for question format
-    String[] options2 = {"Vertical", "Horizontal", "Division Bracket"};
+    String[] options2 = {"Horizontal"};
     JComboBox<String> questionFormat = new JComboBox<>(options2);
 
     public CustomizeScreen() {
@@ -104,8 +104,8 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
 
 
         // Update the labels for formatting
-        updateLabel(title2, 0.2, 0.3, 0.6, 0.1, 0.03075, 'n');
-        updateLabel(title2Shadow, 0.2025, 0.3025, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(title2, 0.2, 0.3025, 0.6, 0.1, 0.03075, 'n');
+        updateLabel(title2Shadow, 0.2025, 0.305, 0.6, 0.1, 0.03075, 'd');
         updateLabel(qFormat, 0.25, 0.375, 0.6, 0.1, 0.02, 'd');
         updateLabel(titleLabel, 0.25, 0.45, 0.6, 0.1, 0.02, 'd');
         updateLabel(numQuestions, 0.25, 0.525, 0.6, 0.1, 0.02, 'd');
