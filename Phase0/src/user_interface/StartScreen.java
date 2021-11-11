@@ -1,6 +1,8 @@
 package user_interface;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
 import user_package.UserController;
+import worksheet_maker.WorksheetController;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

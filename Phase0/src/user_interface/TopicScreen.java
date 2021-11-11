@@ -43,7 +43,7 @@ public class TopicScreen extends StartScreen implements MouseListener {
 
         // "Next" Button
         updateButtonLocation(topicNextButton, 0.4, 0.75, 0.2, 0.09);
-        updateButtonLocation(topicScreenBackButton, 0.145, 0.775, 0.125, 0.05);
+        updateButtonLocation(topicScreenBackButton, 0.145, 0.775, 0.15, 0.05);
 
         // Update the settings of each button
         defaultButton(topicButtons);

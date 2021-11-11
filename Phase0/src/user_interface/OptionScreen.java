@@ -38,11 +38,11 @@ public class OptionScreen extends StartScreen implements MouseListener {
         userProfileButton.addMouseListener(this);
         userHistoryButton.addMouseListener(this);
 
-        JLabel userProfileLbl = new JLabel("User Profile");
-        JLabel userHistoryLbl = new JLabel("User History");
+        JLabel userProfileLbl = new JLabel("Profile", JLabel.CENTER);
+        JLabel userHistoryLbl = new JLabel("History", JLabel.CENTER);
 
-        updateLabel(userProfileLbl, 0.76, 0.115, 0.2, 0.2, 0.015, 'd');
-        updateLabel(userHistoryLbl, 0.76, 0.2875, 0.2, 0.2, 0.015, 'd');
+        updateLabel(userProfileLbl, 0.72, 0.115, 0.2, 0.2, 0.015, 'd');
+        updateLabel(userHistoryLbl, 0.72, 0.2875, 0.2, 0.2, 0.015, 'd');
 
         // Resize and create JLabel's for the images
         ImageIcon profileIconImage = new ImageIcon(getClass().getResource("userProfileIcon.png"));
@@ -59,7 +59,7 @@ public class OptionScreen extends StartScreen implements MouseListener {
         JLabel historyImageLbl = new JLabel(historyIconImage, JLabel.CENTER);
         updateLabel(historyImageLbl, 0.725, 0.21, 0.2, 0.2, 0, 'n');
 
-        // Add components to the Panel
+        // Add all components to the Panel
         optionPanel.add(createWSButton);
         optionPanel.add(userProfileButton);
         optionPanel.add(userHistoryButton);
@@ -81,7 +81,9 @@ public class OptionScreen extends StartScreen implements MouseListener {
             new UserProfileScreen();
         }
         if (e.getSource() == userHistoryButton) {
-            System.out.println("user history");
+            frame.setVisible(false);
+            optionPanel.setVisible(false);
+            new WorksheetHistoryScreen();
         }
     }
 

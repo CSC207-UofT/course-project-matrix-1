@@ -11,7 +11,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
 
 public class WSViewerScreen extends StartScreen implements MouseListener {
 
@@ -20,11 +19,25 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
     JButton printPageButton = new JButton("Print");
     JButton historyButton = new JButton("History");
     JButton mainMenuButton = new JButton("Main Menu");
-    JButton viewerBackButton = new JButton("Previous");
+    JButton viewerBackButton = new JButton("Back");
 
     JButton[] viewerButtons = {downloadButton, printPageButton, historyButton, mainMenuButton, viewerBackButton};
 
-    public WSViewerScreen() {
+    // Create Labels
+    JLabel downloadLbl = new JLabel("Download to file path:", SwingConstants.CENTER);
+    JLabel invalidPathLbl = new JLabel("Invalid file path", SwingConstants.CENTER);
+    JLabel previewTitle = new JLabel("Preview", SwingConstants.CENTER);
+    JLabel previewTitleShadow = new JLabel("Preview", SwingConstants.CENTER);
+
+    // Create text fields
+    JTextField downloadPath_tf = new JTextField(1);
+
+    // Generate an image of the worksheet
+    BufferedImage bim = null;
+    static WorksheetController wc = new WorksheetController();
+    PDDocument[] documents = wc.generateWorksheetAndPDF(equationDetails, formatDetails);
+
+    public WSViewerScreen() throws IOException {
 
         // Set Panel
         cardLayout.show(cardPanel, "ViewerScreen");
@@ -34,18 +47,11 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
                 convert(0.1, 'w'), Color.BLACK));
         viewerPanel.setLayout(null);
 
-        // Generate an image of the worksheet
-        BufferedImage bim = null;
-        WorksheetController ws = new WorksheetController();
         try {
-            PDDocument[] documents = ws.generateWorksheetAndPDF(equationDetails, formatDetails);
-
             PDFRenderer pdfRenderer = new PDFRenderer(documents[0]);
 
-            for (int page = 0; page < documents[0].getNumberOfPages(); ++page)
-            {
-                bim = pdfRenderer.renderImageWithDPI(page, 300, ImageType.RGB);
-            }
+            bim = pdfRenderer.renderImageWithDPI(0, 300, ImageType.RGB);
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -53,18 +59,23 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
         // Create JLabel for the image
         ImageIcon wsImage = new ImageIcon(bim);
         Image newWsImage = wsImage.getImage();
-        Image wsScaledImage = newWsImage.getScaledInstance(200,200, Image.SCALE_SMOOTH);
+        Image wsScaledImage = newWsImage.getScaledInstance(convert(0.35, 'w'), convert(0.525, 'h'), Image.SCALE_SMOOTH);
         wsImage = new ImageIcon(wsScaledImage);
         JLabel wsImageLbl = new JLabel(wsImage, JLabel.CENTER);
-        updateLabel(wsImageLbl, 0.725, 0.21, 0.2, 0.2, 0, 'n');
+        updateLabel(wsImageLbl, 0.25, 0.05, 0.5, 0.65, 0, 'n');
+
+        // Update location of JLabels and texfield
+        updateLabel(previewTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'n');
+        updateLabel(previewTitleShadow, 0.2, 0.0125, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(downloadLbl, 0.1, 0.63, 0.6, 0.1, 0.02, 'd');
+        updateLabel(invalidPathLbl, 0.2, 0.7, 0.6, 0.05, 0.015, 'n');
+        downloadPath_tf.setBounds(convert(0.55, 'w'), convert(0.655, 'h'), convert(0.175, 'w'),
+                convert(0.05, 'h'));
 
         // Update each buttons location
-        updateButtonLocation(downloadButton, 0.15, 0.1, 0.2, 0.1);
-        updateButtonLocation(printPageButton, 0.4, 0.1, 0.2, 0.1);
-        updateButtonLocation(historyButton, 0.65, 0.1, 0.2, 0.1);
-        updateButtonLocation(mainMenuButton, 0.275, 0.75, 0.2, 0.1);
-        updateButtonLocation(viewerBackButton, 0.525, 0.75, 0.2, 0.1);
-
+        updateButtonLocation(downloadButton, 0.4, 0.75, 0.2, 0.1);
+        updateButtonLocation(mainMenuButton, 0.7, 0.825, 0.15, 0.05);
+        updateButtonLocation(viewerBackButton, 0.15, 0.825, 0.15, 0.05);
         defaultButton(viewerButtons);
 
         // Add Mouse Listener for hover features
@@ -76,24 +87,32 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
 
         // Add Buttons to the panel
         viewerPanel.add(downloadButton);
-        viewerPanel.add(printPageButton);
-        viewerPanel.add(historyButton);
         viewerPanel.add(mainMenuButton);
         viewerPanel.add(viewerBackButton);
+        viewerPanel.add(downloadLbl);
+        viewerPanel.add(downloadPath_tf);
+        viewerPanel.add(invalidPathLbl);
+        viewerPanel.add(previewTitle);
+        viewerPanel.add(previewTitleShadow);
+        invalidPathLbl.setVisible(false);
         viewerPanel.add(wsImageLbl);
     }
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == downloadButton) {
-            System.out.println("Download");
-        }
-        if (e.getSource() == printPageButton) {
-            System.out.println("Print Page");
-        }
-        if (e.getSource() == historyButton) {
-            frame.setVisible(false);
-            viewerPanel.setVisible(false);
-            new WorksheetHistoryScreen();
+            try {
+                documents[0].save(downloadPath_tf.getText() + "/questions.pdf");
+                documents[0].close();
+            } catch (IOException ex) {
+                invalidPathLbl.setVisible(true);
+            }
+            try {
+                documents[1].save(downloadPath_tf.getText() + "/answers.pdf");
+                documents[1].close();
+                invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPath_tf.getText());
+            } catch (IOException ex) {
+                invalidPathLbl.setVisible(true);
+            }
         }
         if (e.getSource() == mainMenuButton) {
             frame.setVisible(false);
@@ -143,6 +162,5 @@ public class WSViewerScreen extends StartScreen implements MouseListener {
             defaultButton(viewerBackButton);
         }
     }
-
 }
 

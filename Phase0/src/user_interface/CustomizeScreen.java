@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class CustomizeScreen extends StartScreen implements MouseListener {
 
@@ -235,7 +237,11 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 formatDetails.put("numRows", numOfRows);
                 formatDetails.put("numColumns", numOfColumns);
 
-                new WSViewerScreen();
+                try {
+                    new WSViewerScreen();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
         if (e.getSource() == customizeBackButton) {

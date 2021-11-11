@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -93,7 +94,11 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
         if (e.getSource() == customizeBackButton) {
             frame.setVisible(false);
             historyPanel.setVisible(false);
-            new WSViewerScreen();
+            try {
+                new WSViewerScreen();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
         if (e.getSource() == removeButton) {
             int index = history.getSelectedIndex();
