@@ -1,9 +1,7 @@
 package user_interface;
 
 import exceptions.UserDoesNotExistException;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import user_package.UserController;
-import worksheet_maker.WorksheetController;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -12,14 +10,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 
+/**
+ * Start Screen class for the User Interface. The login screen that prompts the user for their unique username
+ * - Superclass that stores every screen's panels, equation details, and format details
+ *
+ * @author Ethan Ing, Piotr pralat
+ * @since 2021-11-05
+ */
 public class StartScreen extends JFrame implements MouseListener {
 
-    // Screen size Dimensions
+    // Screen size Dimensions are set to full screen
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int width = screenSize.width;
     int height = screenSize.height;
 
-    // Create all JPanels and JFrames
+    // Create all Panels and Frames
     JFrame frame = new JFrame();
     JPanel cardPanel = new JPanel();
     JPanel startPanel = new JPanel();
@@ -31,41 +36,39 @@ public class StartScreen extends JFrame implements MouseListener {
     JPanel newUserPanel = new JPanel();
     JPanel userProfilePanel = new JPanel();
 
-    // Card Layout for the Panels
+    // Card Layout for the Panels to switch between them
     CardLayout cardLayout = new CardLayout();
 
     // Create Buttons
     JButton loginButton = new JButton("Login");
     JButton createUserButton = new JButton("Create User");
 
-    // Create Title JLabel and its shadow
-    JLabel title = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
-    JLabel titleShadow = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
+    // Create Title labels and its shadow
+    JLabel matrixTitle = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
+    JLabel matrixTitleShadow = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
     JLabel username = new JLabel("Username", SwingConstants.CENTER);
-    JLabel invalidUsername = new JLabel("Invalid Username", SwingConstants.CENTER);
+    JLabel invalidUsernameError = new JLabel("Invalid Username", SwingConstants.CENTER);
 
     // Create text fields
     JTextField username_tf = new JTextField(1);
 
-    // Stores the equation details for the worksheet
+    // Stores the equation details and format details for the worksheet with default values that are invalid
+    static HashMap<String, Object> equationDetails = new HashMap<>();
+    static HashMap <String, Object> formatDetails = new HashMap<>();
+
     static char chosen_topic = ' ';
     static int numOfEquations = -1;
     static int [] operandRange1 = {-1, -1};
     static int [] operandRange2 = {-1, -1};
     static boolean negAllowed = false;
 
-    // Stores the format details for the worksheet
     static String equationFormat = " ";
     static String titleInput = " ";
     static int numOfRows = -1;
     static int numOfColumns = -1;
 
-    static HashMap<String, Object> equationDetails = new HashMap<>();
-    static HashMap <String, Object> formatDetails = new HashMap<>();
-
+    // Create a user controller class to keep track of the user's information
     static UserController uc = new UserController();
-
-    String usernameInput;
 
     public StartScreen() {
 
@@ -106,24 +109,23 @@ public class StartScreen extends JFrame implements MouseListener {
         createUserButton.addMouseListener(this);
 
         // Update the settings of each Label
-        updateLabel(title, 0.2, 0.2, 0.6, 0.1, 0.03075, 'n');
-        updateLabel(titleShadow, 0.2025, 0.2025, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(matrixTitle, 0.2, 0.2, 0.6, 0.1, 0.03075, 'n');
+        updateLabel(matrixTitleShadow, 0.2025, 0.2025, 0.6, 0.1, 0.03075, 'd');
         updateLabel(username, 0.25, 0.525, 0.3, 0.1,0.025, 'd');
-        updateLabel(invalidUsername, 0.4,0.525,0.2,0.2,0.015, 'n');
+        updateLabel(invalidUsernameError, 0.4,0.525,0.2,0.2,0.015, 'n');
 
         username_tf.setBounds(convert(0.5, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
 
         // Add Buttons and Label to the panel
-        startPanel.add(title);
-        startPanel.add(titleShadow);
+        startPanel.add(matrixTitle);
+        startPanel.add(matrixTitleShadow);
         startPanel.add(loginButton);
         startPanel.add(createUserButton);
         startPanel.add(username);
         startPanel.add(username_tf);
-        startPanel.add(invalidUsername);
-        invalidUsername.setVisible(false);
-
+        startPanel.add(invalidUsernameError);
+        invalidUsernameError.setVisible(false);
     }
 
     // Location and dimensions helper
@@ -193,7 +195,7 @@ public class StartScreen extends JFrame implements MouseListener {
                 frame.setVisible(false);
                 new OptionScreen();
             } catch (UserDoesNotExistException u) {
-                invalidUsername.setVisible(true);
+                invalidUsernameError.setVisible(true);
             }
         }
         if (e.getSource() == createUserButton) {
