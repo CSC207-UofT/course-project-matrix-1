@@ -76,7 +76,7 @@ public class LocalDataAccess implements DataAccessInterface {
      * @return mapping of username to History
      */
     @SuppressWarnings("unchecked")
-    public Map<String, History> getHistories() throws ClassNotFoundException {
+    public Map<String, History> getHistories() throws Exception {
         try {
             FileInputStream historiesIn = new FileInputStream("Phase0/src/user_package/users_data/history.ser");
             ObjectInputStream in = new ObjectInputStream(historiesIn);

@@ -54,7 +54,7 @@ public class LocalDataAccessTest {
     }
 
     @Test
-    public void storeAndGetHistories() throws ClassNotFoundException {
+    public void storeAndGetHistories() throws Exception {
         dataSource.storeHistories(historyMap);
         Map<String, History> historiesRetrieved = dataSource.getHistories();
         assertNotNull(historiesRetrieved.get("guest").findWorksheetRecord("0"));

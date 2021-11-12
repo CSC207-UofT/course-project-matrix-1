@@ -25,7 +25,7 @@ public interface DataAccessInterface {
      *
      * @return mapping of username to History
      */
-    Map<String, History> getHistories() throws ClassNotFoundException;
+    Map<String, History> getHistories() throws Exception;
 
     /**
      * Stores map of username to user's worksheet history.
