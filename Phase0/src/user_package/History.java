@@ -46,7 +46,7 @@ public class History implements Serializable {
      */
     public Map<String, Object> findWorksheetRecord(String worksheetKey) throws RecordDoesNotExistException {
         for (Map<String, Object> worksheet : this.history) {
-            if (worksheet.get("worksheetKey") == worksheetKey) return worksheet;
+            if (worksheet.get("worksheetKey").equals(worksheetKey)) {return worksheet;}
         }
         throw new RecordDoesNotExistException();
     }
