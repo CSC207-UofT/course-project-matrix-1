@@ -18,21 +18,21 @@ abstract class WholeBedmasBuilder {
     private final Random rand = new Random();
 
 
-    public BedmasEquation getBedmasEquation() {
+    protected BedmasEquation getBedmasEquation() {
         return bedmasEquation;
     }
 
     /**
      * Creates a new instance of the bedmas equation.
      */
-    public void createNewBedmasEquationProduct() {
+    protected void createNewBedmasEquationProduct() {
         bedmasEquation = new BedmasEquation();
     }
 
     /**
      * Builds the bedmasEquation's operator.
      */
-    public abstract void buildOperator();
+    protected abstract void buildOperator();
 
     /**
      * Builds the operands (first and second) for the bedmasEquation.
@@ -41,12 +41,12 @@ abstract class WholeBedmasBuilder {
      * @param operandRange2 the absolute range of values that the second operand can be.
      * @param negAllowed    specifies if the operands or answer are allowed to be negative.
      */
-    public abstract void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed);
+    protected abstract void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed);
 
     /**
      * Builds the bedmasEquation's answer.
      */
-    public void buildAnswer() {
+    protected void buildAnswer() {
         bedmasEquation.solve();
     }
 

@@ -16,7 +16,7 @@ class WholeBedmasAddBuilder extends WholeBedmasBuilder {
      * Assigns the addition operator to the equation.
      */
     @Override
-    public void buildOperator() {
+    protected void buildOperator() {
         bedmasEquation.setOperator(new Add());
     }
 
@@ -28,7 +28,7 @@ class WholeBedmasAddBuilder extends WholeBedmasBuilder {
      * @param negAllowed    if true, each operand has a 50% of becoming negative after being randomly determined.
      */
     @Override
-    public void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
+    protected void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
         int operand1 = randomize(operandRange1);
         int operand2 = randomize(operandRange2);
         if (negAllowed) {
