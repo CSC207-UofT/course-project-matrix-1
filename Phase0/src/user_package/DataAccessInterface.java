@@ -13,7 +13,7 @@ public interface DataAccessInterface {
      * Retrieves a map of username to User objects.
      * @return list of Users
      */
-    Map<String, User> getUsers();
+    Map<String, User> getUsers() throws Exception;
 
     /**
      * Stores a map of username to User objects.
@@ -25,7 +25,7 @@ public interface DataAccessInterface {
      *
      * @return mapping of username to History
      */
-    Map<String, History> getHistories();
+    Map<String, History> getHistories() throws ClassNotFoundException;
 
     /**
      * Stores map of username to user's worksheet history.
