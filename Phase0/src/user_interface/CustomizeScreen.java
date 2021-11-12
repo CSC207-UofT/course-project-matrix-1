@@ -6,8 +6,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * Customize Screen class for the User Interface. The customize worksheet screen prompts the user for their desired
+ * equation details and format details for the worksheet and handles invalid inputs.
+ *
+ * @author Ethan Ing, Piotr pralat
+ * @since 2021-11-01
+ */
 public class CustomizeScreen extends StartScreen implements MouseListener {
 
     // Create buttons
@@ -16,10 +22,10 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
     JButton [] generateWSButtons = {generateWorksheetButton, customizeBackButton};
 
     // Create Equation Details and Formatting JLabels and its shadow
-    JLabel title1 = new JLabel("Equation Details", SwingConstants.CENTER);
-    JLabel title1Shadow = new JLabel("Equation Details", SwingConstants.CENTER);
-    JLabel title2 = new JLabel("Formatting", SwingConstants.CENTER);
-    JLabel title2Shadow = new JLabel("Formatting", SwingConstants.CENTER);
+    JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
+    JLabel equationDetailsShadow = new JLabel("Equation Details", SwingConstants.CENTER);
+    JLabel formatTitle = new JLabel("Formatting", SwingConstants.CENTER);
+    JLabel formatShadow = new JLabel("Formatting", SwingConstants.CENTER);
     JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
 
     // Create text fields
@@ -33,7 +39,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
     JTextField op2MIN = new JTextField(1);
     JTextField op2MAX = new JTextField(1);
 
-    // Create checkBox for negatives allowed
+    // Create checkbox
     JCheckBox negAllowedBox = new JCheckBox("");
 
     // Create combo box for question format
@@ -44,28 +50,25 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
 
         // Change cardPanel to the custom worksheet screen
         cardLayout.show(cardPanel, "CustomizeScreen");
-        customizeWSPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
-                convert(0.1, 'w'), Color.BLACK));
-        customizeWSPanel.setLayout(null);
 
-        // Create Equation Questions JLabel
+        // Create equation questions labels
         JLabel op1Range = new JLabel("Operand 1 Range");
         JLabel dash = new JLabel("-");
         JLabel op2Range = new JLabel("Operand 2 Range");
         JLabel dash2 = new JLabel("-");
         JLabel negAllowed = new JLabel("Negative are Allowed?");
 
-        // Update the labels for the Equation Customization
-        updateLabel(title1, 0.2, 0.01, 0.6, 0.1, 0.03075, 'n');
-        updateLabel(title1Shadow, 0.2025, 0.0125, 0.6, 0.1, 0.03075, 'd');
+        // Update the labels for the equation customization
+        updateLabel(equationDetailsTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'r');
+        updateLabel(equationDetailsShadow, 0.2025, 0.0125, 0.6, 0.1, 0.03075, 'd');
         updateLabel(op1Range, 0.25, 0.1, 0.6, 0.1, 0.02, 'd');
         updateLabel(dash, 0.645, 0.1, 0.05, 0.1, 0.025, 'd');
         updateLabel(op2Range, 0.25, 0.175, 0.6, 0.1, 0.02, 'd');
         updateLabel(dash2, 0.645, 0.175, 0.1, 0.1, 0.025, 'd');
         updateLabel(negAllowed, 0.25, 0.25, 0.6, 0.1, 0.02, 'd');
-        updateLabel(invalidInput, 0.4, 0.75, 0.2, 0.05, 0.015, 'n');
+        updateLabel(invalidInput, 0.4, 0.75, 0.2, 0.05, 0.015, 'r');
 
-        // Minimum and Maximum text fields
+        // Minimum and maximum text fields
         op1MIN.setBounds(convert(0.525, 'w'), convert(0.125, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
         op1MAX.setBounds(convert(0.675, 'w'), convert(0.125, 'h'), convert(0.1, 'w'),
@@ -75,24 +78,24 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         op2MAX.setBounds(convert(0.675, 'w'), convert(0.2, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
 
-        // CheckBox for negatives
+        // Update checkbox location
         negAllowedBox.setBounds(convert(0.565, 'w'), convert(0.275, 'h'), convert(0.5, 'w'),
                 convert(0.5, 'h'));
         negAllowedBox.setSize(new Dimension(40, 40));
 
-        // Create Formatting Questions JLabel
+        // Create formatting questions labels
         JLabel qFormat = new JLabel("Question Format");
         JLabel titleLabel = new JLabel("Title");
         JLabel numQuestions = new JLabel("Number of Questions");
         JLabel numRows = new JLabel("Number of Rows");
         JLabel numColumns = new JLabel("Number of Columns");
 
-        // Combo Box for the question format
+        // Update location of the combobox for the question format
         questionFormat.setBounds(convert(0.535, 'w'), convert(0.405, 'h'), convert(0.15, 'w'),
                 convert(0.05, 'h'));
         questionFormat.setSelectedIndex(0);
 
-        // Set the location of each text field
+        // Update the location of each text field
         title_tf.setBounds(convert(0.525, 'w'), convert(0.475, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
         numQuestions_tf.setBounds(convert(0.525, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
@@ -102,10 +105,9 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         numColumn_tf.setBounds(convert(0.525, 'w'), convert(0.7, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
 
-
         // Update the labels for formatting
-        updateLabel(title2, 0.2, 0.3025, 0.6, 0.1, 0.03075, 'n');
-        updateLabel(title2Shadow, 0.2025, 0.305, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(formatTitle, 0.2, 0.3025, 0.6, 0.1, 0.03075, 'r');
+        updateLabel(formatShadow, 0.2025, 0.305, 0.6, 0.1, 0.03075, 'd');
         updateLabel(qFormat, 0.25, 0.375, 0.6, 0.1, 0.02, 'd');
         updateLabel(titleLabel, 0.25, 0.45, 0.6, 0.1, 0.02, 'd');
         updateLabel(numQuestions, 0.25, 0.525, 0.6, 0.1, 0.02, 'd');
@@ -119,21 +121,18 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         // Update the settings of each button
         defaultButton(generateWSButtons);
 
-        // Add Mouse Listener to each buttons
+        // Add Mouse Listener for hover and clicking features
         generateWorksheetButton.addMouseListener(this);
         customizeBackButton.addMouseListener(this);
 
+        // Add all components to the panel
+        customizeWSPanel.add(equationDetailsTitle);
+        customizeWSPanel.add(equationDetailsShadow);
+        customizeWSPanel.add(formatTitle);
+        customizeWSPanel.add(formatShadow);
 
-        // Add all components to the Panel
         customizeWSPanel.add(generateWorksheetButton);
         customizeWSPanel.add(customizeBackButton);
-
-        // Add tall components to the panel
-        customizeWSPanel.add(title1);
-        customizeWSPanel.add(title1Shadow);
-
-        customizeWSPanel.add(title2);
-        customizeWSPanel.add(title2Shadow);
 
         customizeWSPanel.add(op1Range);
         customizeWSPanel.add(op1MIN);
@@ -162,14 +161,16 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
-
             boolean passed = true;
 
+            // Create temporary equation details and format details variables
             int op1Min_temp, op1Max_temp, op2Min_temp, op2Max_temp;
             op1Min_temp = op1Max_temp = op2Min_temp = op2Max_temp = -1;
+
             int numOfEquations_temp, numOfRows_temp, numOfColumns_temp;
             numOfEquations_temp = numOfRows_temp = numOfColumns_temp = -1;
 
+            // Check if any operand range cannot be parsed (invalid input)
             if (tryToParse(op1MIN.getText()) == null || tryToParse(op1MAX.getText()) == null ||
                     tryToParse(op2MIN.getText()) == null || tryToParse(op2MAX.getText()) == null) {
                 invalidInput.setVisible(true);
@@ -182,6 +183,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 op2Max_temp = Integer.parseInt(op2MAX.getText());
             }
 
+            // Check to see if all operand range are greater than zero and max > min
             if (op1Min_temp >= 0 && op1Max_temp >= 0 && op2Min_temp >= 0 && op2Max_temp >= 0
                     && op1Max_temp >= op1Min_temp && op2Max_temp >= op2Min_temp) {
                 operandRange1 = new int[]{op1Min_temp, op1Max_temp};
@@ -193,17 +195,16 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 passed = false;
             }
 
+            // Get selection for checkbox, question format, and title
             negAllowed = negAllowedBox.isSelected();
-
             equationFormat = Objects.requireNonNull(questionFormat.getSelectedItem()).toString();
-
             titleInput = title_tf.getText();
 
+            // Check if any formatting text fields are empty
             if (tryToParse(numQuestions_tf.getText()) == null || tryToParse(numRows_tf.getText()) == null ||
                     tryToParse(numColumn_tf.getText()) == null || titleInput.length() == 0) {
-                customizeWSPanel.add(invalidInput);
-                passed = false;
                 invalidInput.setVisible(true);
+                passed = false;
             }
             else {
                 numOfEquations_temp = Integer.parseInt(numQuestions_tf.getText());
@@ -211,17 +212,18 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 numOfColumns_temp = Integer.parseInt(numColumn_tf.getText());
             }
 
+            // Check that number of equations, rows, and columns are greater than zero
             if (numOfEquations_temp > 0 && numOfRows_temp > 0 && numOfColumns_temp > 0) {
                 numOfEquations = numOfEquations_temp;
                 numOfRows = numOfRows_temp;
                 numOfColumns = numOfColumns_temp;
-                invalidInput.setVisible(true);
             }
             else {
                 invalidInput.setVisible(true);
                 passed = false;
             }
 
+            // If all inputs check out, add to the equation details and formatting details hashmaps
             if (passed) {
                 frame.setVisible(false);
                 customizeWSPanel.setVisible(false);
@@ -238,7 +240,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 formatDetails.put("numColumns", numOfColumns);
 
                 try {
-                    new WSViewerScreen();
+                    new WorksheetViewerScreen();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -247,7 +249,6 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         if (e.getSource() == customizeBackButton) {
             frame.setVisible(false);
             customizeWSPanel.setVisible(false);
-
             new TopicScreen();
         }
     }

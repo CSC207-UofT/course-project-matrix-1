@@ -23,7 +23,6 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
     JButton updateScoreButton = new JButton("Update Score");
     JButton regenerateButton = new JButton("Regenerate");
 
-    UserController uc = new UserController();
     DefaultListModel<String> listModel = new DefaultListModel<>();
     StringBuilder totalString = new StringBuilder();
     JList <String> history;
