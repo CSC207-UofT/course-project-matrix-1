@@ -48,7 +48,7 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
         cardLayout.show(cardPanel, "ViewerScreen");
 
         // Store worksheet to user
-//        uc.storeUserRecord(worksheetHistoryDetails);
+        uc.storeUserRecord(worksheetHistoryDetails);
 
         // Create the image of the first sheet of the generated worksheet
         try {
@@ -64,10 +64,10 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
         Image wsScaledImage = newWsImage.getScaledInstance((int) (convert(0.45, 'w')*bim.getWidth()*1.0/bim.getHeight()), convert(0.55, 'h'), Image.SCALE_SMOOTH);
         wsImage = new ImageIcon(wsScaledImage);
         JLabel wsImageLbl = new JLabel(wsImage, SwingConstants.CENTER);
-        updateLabel(wsImageLbl, 0.275, 0.05, 0.45, 0.65, 0, 'n');
+        updateLabel(wsImageLbl, 0.275, 0.05, 0.45, 0.65, 0, 'r');
 
         // Update the location of the labels
-        updateLabel(previewTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'n');
+        updateLabel(previewTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'r');
         updateLabel(previewTitleShadow, 0.2, 0.0125, 0.6, 0.1, 0.03075, 'd');
         updateLabel(downloadLbl, 0.1, 0.63, 0.6, 0.1, 0.02, 'd');
         updateLabel(invalidPathLbl, 0.15, 0.7, 0.7, 0.05, 0.0125, 'r');

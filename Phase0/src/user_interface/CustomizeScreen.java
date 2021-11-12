@@ -241,9 +241,9 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 formatDetails.put("numRows", numOfRows);
                 formatDetails.put("numColumns", numOfColumns);
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm");
-                dateAndTime = LocalDateTime.now();
+                dateAndTime = LocalDateTime.now().toString();
 
-                worksheetHistoryDetails.put("worksheetKey", "0101010");
+                worksheetHistoryDetails.put("worksheetKey", dateAndTime);
                 worksheetHistoryDetails.put("equationDetails", equationDetails);
                 worksheetHistoryDetails.put("formatDetails", formatDetails);
 

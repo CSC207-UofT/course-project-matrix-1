@@ -71,7 +71,7 @@ public class StartScreen extends JFrame implements MouseListener {
     static String titleInput = " ";
     static int numOfRows = -1;
     static int numOfColumns = -1;
-    static LocalDateTime dateAndTime;
+    static String dateAndTime;
 
     // Create a user controller class to keep track of the user's information
     static UserController uc;
