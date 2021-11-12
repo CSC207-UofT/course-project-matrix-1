@@ -47,6 +47,7 @@ public class UserController {
     public void login(String username) throws UserDoesNotExistException{
         if (userManager.verifyUsername(username)) {
             this.currentUsername = username;
+            historyManager.beginUserHistory(username);
         } else {
             throw new UserDoesNotExistException();
         }
@@ -82,6 +83,7 @@ public class UserController {
      */
     public void registerUser(String username, String name, Integer age, String role) throws UsernameTakenException {
         userManager.createUser(username, name, age, role);
+        historyManager.beginUserHistory(username);
         this.currentUsername = username;
     }
 
@@ -100,8 +102,6 @@ public class UserController {
             throw new NotLoggedInException();
         }
 }
-
-
 
     /**
      * Stores the action of the user (such as creating a worksheet) in the user's history.
