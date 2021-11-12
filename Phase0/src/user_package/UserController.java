@@ -25,7 +25,7 @@ public class UserController {
     private final HistoryManager historyManager;
     private String currentUsername;
 
-    public UserController() {
+    public UserController() throws Exception {
         DataAccessInterface dataSource = new LocalDataAccess();
         userManager = new UserManager(dataSource);
         historyManager = new HistoryManager(dataSource);

@@ -52,20 +52,21 @@ public class LocalDataAccess implements DataAccessInterface {
      * @return list of Users
      */
     @SuppressWarnings("unchecked")
-    public Map<String, User> getUsers() {
+    public Map<String, User> getUsers() throws Exception {
         try {
             // Attempt to read from file
-            FileInputStream usersIn = new FileInputStream("Phase0/src/userPackage/usersData/users.ser");
+            FileInputStream usersIn = new FileInputStream("Phase0/src/user_package/users_data/users.ser");
             ObjectInputStream in = new ObjectInputStream(usersIn);
             Map<String, User> existingUsers = (HashMap<String, User>) in.readObject();
             in.close();
             usersIn.close();
             return existingUsers;
         } catch (FileNotFoundException i) {
+            i.printStackTrace();
             return new HashMap<>();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            return new HashMap<>();
+            throw new ClassNotFoundException();
         }
     }
 
@@ -75,7 +76,7 @@ public class LocalDataAccess implements DataAccessInterface {
      * @return mapping of username to History
      */
     @SuppressWarnings("unchecked")
-    public Map<String, History> getHistories() {
+    public Map<String, History> getHistories() throws ClassNotFoundException {
         try {
             FileInputStream historiesIn = new FileInputStream("Phase0/src/user_package/users_data/history.ser");
             ObjectInputStream in = new ObjectInputStream(historiesIn);
@@ -88,8 +89,7 @@ public class LocalDataAccess implements DataAccessInterface {
             };
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            return new HashMap<>() {
-            };
+            throw new ClassNotFoundException();
         }
     }
 
