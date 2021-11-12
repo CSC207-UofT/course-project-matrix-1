@@ -19,7 +19,7 @@ public class HistoryManager {
      * @param dataSource: The source of the user data.
      *
      */
-    public HistoryManager(DataAccessInterface dataSource) {
+    protected HistoryManager(DataAccessInterface dataSource) {
         userHistoryMapping = dataSource.getHistories();
         this.dataSource = dataSource;
     }
