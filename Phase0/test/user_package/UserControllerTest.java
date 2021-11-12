@@ -17,7 +17,7 @@ public class UserControllerTest {
     UserController userController;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         userController = new UserController();
         userController.login("main");
     }
@@ -47,7 +47,7 @@ public class UserControllerTest {
      * Test getUserDetails when no user is logged in.
      */
     @Test(expected = NotLoggedInException.class)
-    public void testGetUserDetailsEmpty() {
+    public void testGetUserDetailsEmpty() throws Exception {
         UserController userController_2 = new UserController();
         userController_2.getUserDetails();
     }

@@ -12,7 +12,7 @@ public class UserManagerTest {
     UserManager userManager;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         Map<String, User> users = new HashMap<>();
         LocalDataAccess dataAccess = new LocalDataAccess();
         users.put("main", new User("main", "MainUser", 21, "Student"));

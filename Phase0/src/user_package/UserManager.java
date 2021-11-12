@@ -14,7 +14,7 @@ public class UserManager {
     private final Map<String, User> users;
     private final DataAccessInterface dataSource;
 
-    protected UserManager(DataAccessInterface dataSource) {
+    protected UserManager(DataAccessInterface dataSource) throws Exception {
         this.dataSource = dataSource;
         users = this.dataSource.getUsers();
     }

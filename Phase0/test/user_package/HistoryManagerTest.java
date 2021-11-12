@@ -13,7 +13,7 @@ public class HistoryManagerTest {
     HistoryManager exampleHistoryManager;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         LocalDataAccess dataAccess = new LocalDataAccess();
         exampleHistoryManager = new HistoryManager(dataAccess);
     }
