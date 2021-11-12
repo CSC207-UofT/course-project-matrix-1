@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.Objects;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 /**
  * Customize Screen class for the User Interface. The customize worksheet screen prompts the user for their desired
@@ -238,6 +240,12 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 formatDetails.put("title", titleInput);
                 formatDetails.put("numRows", numOfRows);
                 formatDetails.put("numColumns", numOfColumns);
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm");
+                dateAndTime = LocalDateTime.now();
+
+                worksheetHistoryDetails.put("worksheetKey", "0101010");
+                worksheetHistoryDetails.put("equationDetails", equationDetails);
+                worksheetHistoryDetails.put("formatDetails", formatDetails);
 
                 try {
                     new WorksheetViewerScreen();

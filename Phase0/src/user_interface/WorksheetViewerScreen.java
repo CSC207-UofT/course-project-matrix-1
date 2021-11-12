@@ -48,7 +48,7 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
         cardLayout.show(cardPanel, "ViewerScreen");
 
         // Store worksheet to user
-        uc.storeUserRecord(equationDetails);
+//        uc.storeUserRecord(worksheetHistoryDetails);
 
         // Create the image of the first sheet of the generated worksheet
         try {
@@ -70,7 +70,7 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
         updateLabel(previewTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'n');
         updateLabel(previewTitleShadow, 0.2, 0.0125, 0.6, 0.1, 0.03075, 'd');
         updateLabel(downloadLbl, 0.1, 0.63, 0.6, 0.1, 0.02, 'd');
-        updateLabel(invalidPathLbl, 0.15, 0.7, 0.7, 0.05, 0.0125, 'n');
+        updateLabel(invalidPathLbl, 0.15, 0.7, 0.7, 0.05, 0.0125, 'r');
 
         // Initially set the invalid file path label to not visible
         invalidPathLbl.setVisible(false);

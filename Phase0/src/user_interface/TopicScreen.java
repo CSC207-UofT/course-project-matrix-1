@@ -36,7 +36,7 @@ public class TopicScreen extends StartScreen implements MouseListener {
         // Update the settings of each JLabel
         updateLabel(topicTitle, 0.2, 0.02, 0.6, 0.1, 0.03075, 'r');
         updateLabel(topicTitleShadow, 0.2, 0.0225, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(numTypes, 0.33, 0.6, 0.6, 0.1, 0.02, 'd');
+        updateLabel(numTypes, 0.3, 0.59, 0.25, 0.1, 0.02, 'd');
 
         // "Update the location of each Button
         updateButtonLocation(addButton, 0.35, 0.125, 0.3, 0.1);

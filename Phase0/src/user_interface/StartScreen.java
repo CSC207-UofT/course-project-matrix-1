@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 /**
@@ -58,6 +59,7 @@ public class StartScreen extends JFrame implements MouseListener {
     // Stores the equation details and format details for the worksheet with default values that are invalid
     static HashMap<String, Object> equationDetails = new HashMap<>();
     static HashMap <String, Object> formatDetails = new HashMap<>();
+    static HashMap <String, Object> worksheetHistoryDetails = new HashMap<>();
 
     static char chosen_topic = ' ';
     static int numOfEquations = -1;
@@ -69,6 +71,7 @@ public class StartScreen extends JFrame implements MouseListener {
     static String titleInput = " ";
     static int numOfRows = -1;
     static int numOfColumns = -1;
+    static LocalDateTime dateAndTime;
 
     // Create a user controller class to keep track of the user's information
     static UserController uc;
@@ -121,7 +124,7 @@ public class StartScreen extends JFrame implements MouseListener {
         updateLabel(matrixTitle, 0.2, 0.2, 0.6, 0.1, 0.03075, 'r');
         updateLabel(matrixTitleShadow, 0.2025, 0.2025, 0.6, 0.1, 0.03075, 'd');
         updateLabel(username, 0.25, 0.525, 0.3, 0.1,0.025, 'd');
-        updateLabel(invalidUsernameError, 0.4,0.525,0.2,0.2,0.015, 'n');
+        updateLabel(invalidUsernameError, 0.4,0.525,0.2,0.2,0.015, 'r');
 
         // Initially set the invalid username error to not visible
         invalidUsernameError.setVisible(false);
