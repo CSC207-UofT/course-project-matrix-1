@@ -23,7 +23,7 @@ import java.util.Map;
 public class UserController {
     private final UserManager userManager;
     private final HistoryManager historyManager;
-    private String currentUsername;
+    private String currentUsername = null;
 
     public UserController() throws Exception {
         DataAccessInterface dataSource = new LocalDataAccess();
@@ -35,7 +35,7 @@ public class UserController {
      * @return true if a user is logged in.
      */
     public Boolean isLoggedIn() {
-        return currentUsername.length() > 0;
+        return currentUsername != null;
     }
 
     /**
@@ -48,6 +48,7 @@ public class UserController {
      */
     public void registerUser(String username, String name, Integer age, String role) throws UsernameTakenException {
         userManager.createUser(username, name, age, role);
+        historyManager.beginUserHistory(username);
         this.currentUsername = username;
     }
 
