@@ -5,9 +5,11 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
-import java.util.Objects;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Customize Screen class for the User Interface. The customize worksheet screen prompts the user for their desired
@@ -16,7 +18,7 @@ import java.time.LocalDateTime;
  * @author Ethan Ing, Piotr pralat
  * @since 2021-11-01
  */
-public class CustomizeScreen extends StartScreen implements MouseListener {
+public class CustomizeScreen extends Screen implements MouseListener {
 
     // Create buttons
     JButton generateWorksheetButton = new JButton("Generate Worksheet");
@@ -48,10 +50,31 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
     String[] options2 = {"Horizontal"};
     JComboBox<String> questionFormat = new JComboBox<>(options2);
 
-    public CustomizeScreen() {
+    // Create the equation details variables with initial invalid values
+    int numOfEquations = -1;
+    int [] operandRange1 = {-1, -1};
+    int [] operandRange2 = {-1, -1};
+    boolean negAllowed = false;
+
+    // Create the formatting details variables with initial invalid values
+    String equationFormat = " ";
+    String titleInput = " ";
+    int numOfRows = -1;
+    int numOfColumns = -1;
+    String dateAndTime;
+
+    // Create the temporary map's to be passed into worksheet viewer screen
+    Map <String, Object> equations_details_customizeScreen = new HashMap<>();
+    Map <String, Object> format_details_customizeScreen = new HashMap<>();
+    Map <String, Object> worksheet_history_details = new HashMap<>();
+
+    public CustomizeScreen(Map<String, Object> equation_details, Map<String, Object> format_details) {
 
         // Change cardPanel to the custom worksheet screen
         cardLayout.show(cardPanel, "CustomizeScreen");
+
+        // Gets the chosen topic from the previous screen
+        equations_details_customizeScreen = equation_details;
 
         // Create equation questions labels
         JLabel op1Range = new JLabel("Operand 1 Range");
@@ -69,6 +92,9 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         updateLabel(dash2, 0.645, 0.175, 0.1, 0.1, 0.025, 'd');
         updateLabel(negAllowed, 0.25, 0.25, 0.6, 0.1, 0.02, 'd');
         updateLabel(invalidInput, 0.4, 0.75, 0.2, 0.05, 0.015, 'r');
+
+        // Initially set the invalid input to not visible
+        invalidInput.setVisible(false);
 
         // Minimum and maximum text fields
         op1MIN.setBounds(convert(0.525, 'w'), convert(0.125, 'h'), convert(0.1, 'w'),
@@ -158,11 +184,11 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         customizeWSPanel.add(numColumns);
         customizeWSPanel.add(numColumn_tf);
         customizeWSPanel.add(invalidInput);
-        invalidInput.setVisible(false);
     }
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
+
             boolean passed = true;
 
             // Create temporary equation details and format details variables
@@ -179,6 +205,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 passed = false;
             }
             else {
+                // Each operand value can be parsed (is an integer)
                 op1Min_temp = Integer.parseInt(op1MIN.getText());
                 op1Max_temp = Integer.parseInt(op1MAX.getText());
                 op2Min_temp = Integer.parseInt(op2MIN.getText());
@@ -188,9 +215,8 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
             // Check to see if all operand range are greater than zero and max > min
             if (op1Min_temp >= 0 && op1Max_temp >= 0 && op2Min_temp >= 0 && op2Max_temp >= 0
                     && op1Max_temp >= op1Min_temp && op2Max_temp >= op2Min_temp) {
-                operandRange1 = new int[]{op1Min_temp, op1Max_temp};
-                operandRange2 = new int[]{op2Min_temp, op2Max_temp};
-                invalidInput.setVisible(false);
+                operandRange1 = new int[]{op1Min_temp, op1Max_temp};      // Set the operand 1 range to inputted values
+                operandRange2 = new int[]{op2Min_temp, op2Max_temp};      // Set the operand 2 range to inputted values
             }
             else {
                 invalidInput.setVisible(true);
@@ -209,6 +235,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 passed = false;
             }
             else {
+                // Each value can be parsed
                 numOfEquations_temp = Integer.parseInt(numQuestions_tf.getText());
                 numOfRows_temp = Integer.parseInt(numRows_tf.getText());
                 numOfColumns_temp = Integer.parseInt(numColumn_tf.getText());
@@ -225,36 +252,41 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
                 passed = false;
             }
 
-            // If all inputs check out, add to the equation details and formatting details hashmaps
+            // If all inputs check out, add to the equation details and formatting details maps
             if (passed) {
                 frame.setVisible(false);
                 customizeWSPanel.setVisible(false);
 
-                equationDetails.put("numOfEquations", numOfEquations);
-                equationDetails.put("operator", chosen_topic);
-                equationDetails.put("operandRange1", operandRange1);
-                equationDetails.put("operandRange2", operandRange2);
-                equationDetails.put("negAllowed", negAllowed);
+                // Add all equation details to the map
+                equations_details_customizeScreen.put("numOfEquations", numOfEquations);
+                equations_details_customizeScreen.put("operandRange1", operandRange1);
+                equations_details_customizeScreen.put("operandRange2", operandRange2);
+                equations_details_customizeScreen.put("negAllowed", negAllowed);
 
-                formatDetails.put("equationFormat", equationFormat);
-                formatDetails.put("title", titleInput);
-                formatDetails.put("numRows", numOfRows);
-                formatDetails.put("numColumns", numOfColumns);
+                // Add all formatting details to the map
+                format_details_customizeScreen.put("equationFormat", equationFormat);
+                format_details_customizeScreen.put("title", titleInput);
+                format_details_customizeScreen.put("numRows", numOfRows);
+                format_details_customizeScreen.put("numColumns", numOfColumns);
+
+                // Find the exact date/time the user created the worksheet
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm");
                 dateAndTime = LocalDateTime.now().toString();
 
-                worksheetHistoryDetails.put("worksheetKey", dateAndTime);
-                worksheetHistoryDetails.put("equationDetails", equationDetails);
-                worksheetHistoryDetails.put("formatDetails", formatDetails);
+                // Create the unique worksheet history details
+                worksheet_history_details.put("worksheetKey", dateAndTime);
+                worksheet_history_details.put("equationDetails", equations_details_customizeScreen);
+                worksheet_history_details.put("formatDetails", format_details_customizeScreen);
 
                 try {
-                    new WorksheetViewerScreen();
+                    new WorksheetViewerScreen(equations_details_customizeScreen, format_details_customizeScreen,
+                            worksheet_history_details);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
         }
-        if (e.getSource() == customizeBackButton) {
+        else if (e.getSource() == customizeBackButton) {
             frame.setVisible(false);
             customizeWSPanel.setVisible(false);
             new TopicScreen();
@@ -265,7 +297,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         if (e.getSource() == generateWorksheetButton) {
             highlightButton(generateWorksheetButton);
         }
-        if (e.getSource() == customizeBackButton) {
+        else if (e.getSource() == customizeBackButton) {
             highlightButton(customizeBackButton);
         }
     }
@@ -274,7 +306,7 @@ public class CustomizeScreen extends StartScreen implements MouseListener {
         if (e.getSource() == generateWorksheetButton) {
             defaultButton(generateWorksheetButton);
         }
-        if (e.getSource() == customizeBackButton) {
+        else if (e.getSource() == customizeBackButton) {
             defaultButton(customizeBackButton);
         }
     }

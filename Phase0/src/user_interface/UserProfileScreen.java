@@ -1,7 +1,6 @@
 package user_interface;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Map;
@@ -12,9 +11,9 @@ import java.util.Map;
  * @author Ethan Ing, Piotr pralat
  * @since 2021-11-01
  */
-public class UserProfileScreen extends StartScreen implements MouseListener {
+public class UserProfileScreen extends Screen implements MouseListener {
 
-    // Create button
+    // Create back button
     JButton userProfileBackButton = new JButton("Back");
 
     // Create the user profile and its shadow
@@ -22,7 +21,7 @@ public class UserProfileScreen extends StartScreen implements MouseListener {
     JLabel userProfileTitleShadow = new JLabel("User Profile", SwingConstants.CENTER);
 
     // Create a map of the user's details
-    Map<String, Object> userDetails = uc.getUserDetails();
+    Map<String, Object> userDetails = userController.getUserDetails();
 
     public UserProfileScreen() {
 

@@ -3,13 +3,15 @@ package user_interface;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
-import worksheet_maker.WorksheetController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Worksheet viewer screen class for the User Interface. The user can preview the first page of the generated
@@ -18,7 +20,7 @@ import java.io.IOException;
  * @author Ethan Ing, Piotr pralat
  * @since 2021-11-01
  */
-public class WorksheetViewerScreen extends StartScreen implements MouseListener {
+public class WorksheetViewerScreen extends Screen implements MouseListener {
 
     // Create buttons
     JButton downloadButton = new JButton("Download");
@@ -37,22 +39,39 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
     // Create text fields
     JTextField downloadPath_tf = new JTextField(1);
 
-    // Generate a pdf and image of the worksheet
+    // Initialize a buffered image and pd document
     BufferedImage bim = null;
-    static WorksheetController wc = new WorksheetController();
-    PDDocument[] documents = wc.generateWorksheetAndPDF(equationDetails, formatDetails);
+    PDDocument[] documents;
 
-    public WorksheetViewerScreen() throws IOException {
+    // Create a variable to hold he title of the document
+    String documentTitle;
 
-        // Set Panel
+    // Create the map's to store the temporary equation and format details
+    Map<String, Object> equation_details_viewer = new HashMap<>();
+    Map<String, Object> format_details_viewer = new HashMap<>();
+
+    public WorksheetViewerScreen(Map<String, Object> equation_Details, Map<String, Object> format_Details,
+                                 Map<String, Object> worksheet_details) throws IOException {
+
+        // Set Panel to the viewer screen
         cardLayout.show(cardPanel, "ViewerScreen");
 
-        // Store worksheet to user
-        uc.storeUserRecord(worksheetHistoryDetails);
+        // Set the updated equation details and format details chosen by the user
+        equation_details_viewer = equation_Details;
+        format_details_viewer = format_Details;
 
-        // Create the image of the first sheet of the generated worksheet
+        // Set the document title
+        documentTitle = format_details_viewer.get("title").toString();
+
+        // Store the worksheet information to the user's history
+        userController.storeUserRecord(worksheet_details);
+
+        // Generate the documents worksheets
+        documents = worksheetController.generateWorksheetAndPDF(equation_Details, format_Details);
+
+        // Create an image of the documents first page to preview
         try {
-            PDFRenderer pdfRenderer = new PDFRenderer(documents[0]);
+            PDFRenderer pdfRenderer = new PDFRenderer(documents[0]);                    // Get the questions sheet
             bim = pdfRenderer.renderImageWithDPI(0, 400, ImageType.RGB);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -61,7 +80,8 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
         // Create label where the image is displayed
         ImageIcon wsImage = new ImageIcon(bim);
         Image newWsImage = wsImage.getImage();
-        Image wsScaledImage = newWsImage.getScaledInstance((int) (convert(0.45, 'w')*bim.getWidth()*1.0/bim.getHeight()), convert(0.55, 'h'), Image.SCALE_SMOOTH);
+        Image wsScaledImage = newWsImage.getScaledInstance((int) (convert(0.45, 'w') *
+                bim.getWidth()*1.0/bim.getHeight()), convert(0.55, 'h'), Image.SCALE_SMOOTH);
         wsImage = new ImageIcon(wsScaledImage);
         JLabel wsImageLbl = new JLabel(wsImage, SwingConstants.CENTER);
         updateLabel(wsImageLbl, 0.275, 0.05, 0.45, 0.65, 0, 'r');
@@ -109,10 +129,10 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == downloadButton) {
 
-            // Attempt to save the generated worksheet's questions and answers
+            // Attempt to save the generated worksheet's questions and answers to user's download path
             try {
-                documents[0].save(downloadPath_tf.getText() + "/" + titleInput + "_questions.pdf");
-                documents[1].save(downloadPath_tf.getText() + "/" + titleInput + "_answers.pdf");
+                documents[0].save(downloadPath_tf.getText() + "/" + documentTitle + "_questions.pdf");
+                documents[1].save(downloadPath_tf.getText() + "/" + documentTitle + "_answers.pdf");
                 invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPath_tf.getText());
                 invalidPathLbl.setVisible(true);
             } catch (IOException ex) {
@@ -120,15 +140,15 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
             }
             invalidPathLbl.setVisible(true);
         }
-        if (e.getSource() == mainMenuButton) {
+        else if (e.getSource() == mainMenuButton) {
             frame.setVisible(false);
             viewerPanel.setVisible(false);
             new OptionScreen();
         }
-        if (e.getSource() == viewerBackButton) {
+        else if (e.getSource() == viewerBackButton) {
             frame.setVisible(false);
             viewerPanel.setVisible(false);
-            new CustomizeScreen();
+            new CustomizeScreen(equation_details_viewer, format_details_viewer);
         }
 
     }
@@ -137,16 +157,16 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
         if (e.getSource() == downloadButton) {
             highlightButton(downloadButton);
         }
-        if (e.getSource() == printPageButton) {
+        else if (e.getSource() == printPageButton) {
             highlightButton(printPageButton);
         }
-        if (e.getSource() == historyButton) {
+        else if (e.getSource() == historyButton) {
             highlightButton(historyButton);
         }
-        if (e.getSource() == mainMenuButton) {
+        else if (e.getSource() == mainMenuButton) {
             highlightButton(mainMenuButton);
         }
-        if (e.getSource() == viewerBackButton) {
+        else if (e.getSource() == viewerBackButton) {
             highlightButton(viewerBackButton);
         }
     }
@@ -155,16 +175,16 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
         if (e.getSource() == downloadButton) {
             defaultButton(downloadButton);
         }
-        if (e.getSource() == printPageButton) {
+        else if (e.getSource() == printPageButton) {
             defaultButton(printPageButton);
         }
-        if (e.getSource() == historyButton) {
+        else if (e.getSource() == historyButton) {
             defaultButton(historyButton);
         }
-        if (e.getSource() == mainMenuButton) {
+        else if (e.getSource() == mainMenuButton) {
             defaultButton(mainMenuButton);
         }
-        if (e.getSource() == viewerBackButton) {
+        else if (e.getSource() == viewerBackButton) {
             defaultButton(viewerBackButton);
         }
     }

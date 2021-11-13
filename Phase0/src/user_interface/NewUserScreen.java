@@ -2,7 +2,6 @@ package user_interface;
 
 import exceptions.UsernameTakenException;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -13,7 +12,7 @@ import java.awt.event.MouseListener;
  * @author Ethan Ing, Piotr pralat
  * @since 2021-11-01
  */
-public class NewUserScreen extends StartScreen implements MouseListener {
+public class NewUserScreen extends Screen implements MouseListener {
 
     // Create buttons
     JButton createUserButton = new JButton("Create User");
@@ -107,35 +106,35 @@ public class NewUserScreen extends StartScreen implements MouseListener {
             // Check if any input is empty or cannot be parsed
             if (tryToParse(age_tf.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
                 invalidInput.setText("Invalid Input(s)");
-                invalidInput.setVisible(true);
+                invalidInput.setVisible(true);              // Set invalid input to visible
             }
             else {
-                int currAge = Integer.parseInt(age_tf.getText());
-                String currRole = (String) role.getSelectedItem();
+                int currAge = Integer.parseInt(age_tf.getText());   // Parse the age, which is a valid integer
+                String currRole = (String) role.getSelectedItem();  // Get the selected role of the user
 
                 // Attempt to register the user
                 try {
-                    uc.registerUser(currUsername, currName, currAge, currRole);
+                    userController.registerUser(currUsername, currName, currAge, currRole);
                     frame.setVisible(false);
                     newUserPanel.setVisible(false);
-                    new OptionScreen();
+                    new OptionScreen();                         // Successful registration
                 } catch (UsernameTakenException u) {
-                    invalidInput.setText("Invalid username");   // Show invalid username label if the username is taken
-                    invalidInput.setVisible(true);
+                    invalidInput.setText("Invalid username");
+                    invalidInput.setVisible(true);              // Show invalid username label if the username is taken
                 }
             }
         }
-        if (e.getSource() == newUserBackButton){
+        else if (e.getSource() == newUserBackButton){
             frame.setVisible(false);
             newUserPanel.setVisible(false);
-            new StartScreen();
+            new LoginScreen();
         }
     }
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == createUserButton) {
             highlightButton(createUserButton);
         }
-        if (e.getSource() == newUserBackButton) {
+        else if (e.getSource() == newUserBackButton) {
             highlightButton(newUserBackButton);
         }
     }
@@ -143,7 +142,7 @@ public class NewUserScreen extends StartScreen implements MouseListener {
         if (e.getSource() == createUserButton) {
             defaultButton(createUserButton);
         }
-        if (e.getSource() == newUserBackButton) {
+        else if (e.getSource() == newUserBackButton) {
             defaultButton(newUserBackButton);
         }
     }

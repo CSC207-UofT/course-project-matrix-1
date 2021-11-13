@@ -1,18 +1,14 @@
 package user_interface;
 
-import user_package.UserController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class WorksheetHistoryScreen extends StartScreen implements MouseListener {
+public class WorksheetHistoryScreen extends Screen implements MouseListener {
 
     // Create JLabel and JButton for the Worksheet History Screen
     JLabel title = new JLabel("Worksheet History", SwingConstants.CENTER);
@@ -34,12 +30,12 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
 
         // Set noWorksheets JLabel message to not visible
         noWorksheets.setVisible(false);
-        userHistoryList = uc.getUserHistory();
+        userHistoryList = userController.getUserHistory();
         System.out.println(userHistoryList);
 
         // Store neccessary info for each element in JList String Builder
         try {
-            userHistoryList = uc.getUserHistory();
+            userHistoryList = userController.getUserHistory();
             for (Map<String, Object> map : userHistoryList) {
                 totalString.setLength(0);
                 totalString.append(map.get("worksheetKey"));
@@ -122,13 +118,13 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
         if (e.getSource() == customizeBackButton) {
             highlightButton(customizeBackButton);
         }
-        if (e.getSource() == removeButton) {
+        else if (e.getSource() == removeButton) {
             highlightButton(removeButton);
         }
-        if (e.getSource() == updateScoreButton) {
+        else if (e.getSource() == updateScoreButton) {
             highlightButton(updateScoreButton);
         }
-        if (e.getSource() == regenerateButton) {
+        else if (e.getSource() == regenerateButton) {
             highlightButton(regenerateButton);
         }
     }
@@ -137,13 +133,13 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
         if (e.getSource() == customizeBackButton) {
             defaultButton(customizeBackButton);
         }
-        if (e.getSource() == removeButton) {
+        else if (e.getSource() == removeButton) {
             defaultButton(removeButton);
         }
-        if (e.getSource() == updateScoreButton) {
+        else if (e.getSource() == updateScoreButton) {
             defaultButton(updateScoreButton);
         }
-        if (e.getSource() == regenerateButton) {
+        else if (e.getSource() == regenerateButton) {
             defaultButton(regenerateButton);
         }
     }

@@ -1,24 +1,23 @@
 package user_interface;
 
-import exceptions.UserDoesNotExistException;
 import user_package.UserController;
+import worksheet_maker.WorksheetController;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Start Screen class for the User Interface. The login screen that prompts the user for their unique username
- * - Superclass that stores every screen's panels, equation details, and format details
+ * Screen class for the User Interface. Superclass that stores panels and each method to update buttons and labels.
  *
  * @author Ethan Ing, Piotr pralat
  * @since 2021-11-01
  */
-public class StartScreen extends JFrame implements MouseListener {
+public class Screen extends JFrame implements MouseListener {
 
     // Screen size Dimensions are set to full screen
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -43,54 +42,23 @@ public class StartScreen extends JFrame implements MouseListener {
     // Card Layout for the Panels to switch between them
     CardLayout cardLayout = new CardLayout();
 
-    // Create Buttons
-    JButton loginButton = new JButton("Login");
-    JButton createUserButton = new JButton("Create User");
-
-    // Create Title labels and its shadow
-    JLabel matrixTitle = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
-    JLabel matrixTitleShadow = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
-    JLabel username = new JLabel("Username", SwingConstants.CENTER);
-    JLabel invalidUsernameError = new JLabel("Invalid Username", SwingConstants.CENTER);
-
-    // Create text fields
-    JTextField username_tf = new JTextField(1);
-
     // Stores the equation details and format details for the worksheet with default values that are invalid
-    static HashMap<String, Object> equationDetails = new HashMap<>();
-    static HashMap <String, Object> formatDetails = new HashMap<>();
-    static HashMap <String, Object> worksheetHistoryDetails = new HashMap<>();
+    Map<String, Object> equationDetails = new HashMap<>();
+    Map<String, Object> formatDetails = new HashMap<>();
+    Map<String, Object> worksheetHistoryDetails = new HashMap<>();
 
-    static char chosen_topic = ' ';
-    static int numOfEquations = -1;
-    static int [] operandRange1 = {-1, -1};
-    static int [] operandRange2 = {-1, -1};
-    static boolean negAllowed = false;
+    // Create a user controller and worksheet controller instance
+    public static UserController userController;
+    public static WorksheetController worksheetController;
 
-    static String equationFormat = " ";
-    static String titleInput = " ";
-    static int numOfRows = -1;
-    static int numOfColumns = -1;
-    static String dateAndTime;
+    public Screen() {
 
-    // Create a user controller class to keep track of the user's information
-    static UserController uc;
-
-    static {
-        try {
-            uc = new UserController();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public StartScreen() {
-
-        // Set Frame size to ful screen
+        // Set Frame size to full screen
         frame.setSize(width, height);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Update each panel to the default panel settings
         updatePanels(panels);
 
         // Adding each panel to the card layout
@@ -105,42 +73,6 @@ public class StartScreen extends JFrame implements MouseListener {
         cardPanel.add(newUserPanel, "NewUserScreen");
         cardPanel.add(userProfilePanel, "UserProfileScreen");
 
-        // Start showing the start screen (login) panel
-        cardLayout.show(cardPanel, "StartScreen");
-
-        // Update the location and settings of each Button
-        updateButtonLocation(loginButton, 0.4125, 0.66, 0.175, 0.08);
-        updateButtonLocation(createUserButton, 0.425, 0.77, 0.15, 0.075);
-        defaultButton(loginButton);
-        defaultButton(createUserButton);
-        loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
-        createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.015)));
-
-        // Add Mouse Listener for hover and clicking features
-        loginButton.addMouseListener(this);
-        createUserButton.addMouseListener(this);
-
-        // Update the settings of each Label
-        updateLabel(matrixTitle, 0.2, 0.2, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(matrixTitleShadow, 0.2025, 0.2025, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(username, 0.25, 0.525, 0.3, 0.1,0.025, 'd');
-        updateLabel(invalidUsernameError, 0.4,0.525,0.2,0.2,0.015, 'r');
-
-        // Initially set the invalid username error to not visible
-        invalidUsernameError.setVisible(false);
-
-        // Set the location of the text field
-        username_tf.setBounds(convert(0.5, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-
-        // Add each component to the panel
-        startPanel.add(matrixTitle);
-        startPanel.add(matrixTitleShadow);
-        startPanel.add(loginButton);
-        startPanel.add(createUserButton);
-        startPanel.add(username);
-        startPanel.add(username_tf);
-        startPanel.add(invalidUsernameError);
     }
 
     /**
@@ -264,69 +196,6 @@ public class StartScreen extends JFrame implements MouseListener {
     }
 
     /**
-     * Mouse clicked features when each button is clicked
-     *
-     * @param e keeps track of which button was clicked
-     */
-    public void mouseClicked(MouseEvent e) {
-        if (e.getSource() == loginButton) {
-            // Attempt to login the user with the username entered
-            try {
-                uc.login(username_tf.getText());
-                startPanel.setVisible(false);
-                frame.setVisible(false);
-                new OptionScreen();
-            } catch (UserDoesNotExistException u) {
-                invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist
-            }
-        }
-        // Move to create new user screen
-        if (e.getSource() == createUserButton) {
-            startPanel.setVisible(false);
-            frame.setVisible(false);
-            new NewUserScreen();
-        }
-    }
-
-    /**
-     * Mouse entered feature when each button is being hovered over
-     *
-     * @param e keeps track of which button was being hovered over
-     */
-    public void mouseEntered(MouseEvent e) {
-        if (e.getSource() == loginButton) {
-            highlightButton(loginButton);
-            loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.025)));
-        }
-        if (e.getSource() == createUserButton) {
-            highlightButton(createUserButton);
-            createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0175)));
-        }
-    }
-
-    /**
-     * Mouse exited feature when each button is not being hovered over
-     *
-     * @param e keeps track of which button stopped being overed over
-     */
-    public void mouseExited(MouseEvent e) {
-        if (e.getSource() == loginButton) {
-            defaultButton(loginButton);
-            loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
-        }
-        if (e.getSource() == createUserButton) {
-            defaultButton(createUserButton);
-            createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.015)));
-        }
-    }
-    public void mousePressed(MouseEvent e) {
-    }
-
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    /**
      * Attempt to parse a String to an integer
      *
      * @param input the String input that will be parsed
@@ -339,8 +208,23 @@ public class StartScreen extends JFrame implements MouseListener {
         }
     }
 
-    public static void main(String[] args) {
-        new StartScreen();
+    public void mouseClicked(MouseEvent e) {
     }
 
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    public void mouseExited(MouseEvent e) {
+    }
+
+    public void mousePressed(MouseEvent e) {
+    }
+
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    public static void main(String[] args) {
+        new LoginScreen();
+    }
 }
+

@@ -5,7 +5,6 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Objects;
 
 /**
  * Option Screen class for the User Interface. The screen that contains options to generate worksheet,
@@ -14,13 +13,12 @@ import java.util.Objects;
  * @author Ethan Ing, Piotr pralat
  * @since 2021-11-01
  */
-public class OptionScreen extends StartScreen implements MouseListener {
+public class OptionScreen extends Screen implements MouseListener {
 
     // Create Buttons for the Option screen
     JButton createWSButton = new JButton("Generate Worksheet");
     JButton userHistoryButton = new JButton();
     JButton userProfileButton = new JButton();
-
     JButton[] optionButtons = {createWSButton, userHistoryButton, userProfileButton};
 
     public OptionScreen() {
@@ -39,19 +37,20 @@ public class OptionScreen extends StartScreen implements MouseListener {
         Image profileImage = profileIconImage.getImage();
         Image profileScaledImage = profileImage.getScaledInstance(150,150, Image.SCALE_SMOOTH);
         profileIconImage = new ImageIcon(profileScaledImage);
-        JLabel profileImageLbl = new JLabel(profileIconImage, JLabel.CENTER);
+        JLabel profileImageLbl = new JLabel(profileIconImage, SwingConstants.CENTER);
         updateLabel(profileImageLbl, 0.72, 0.015, 0.2, 0.2, 0, 'd');
 
         ImageIcon historyIconImage = new ImageIcon(getClass().getResource("userHistoryIcon.png"));
         Image historyImage = historyIconImage.getImage();
         Image historyScaledImage = historyImage.getScaledInstance(67,67, Image.SCALE_SMOOTH);
         historyIconImage = new ImageIcon(historyScaledImage);
-        JLabel historyImageLbl = new JLabel(historyIconImage, JLabel.CENTER);
+        JLabel historyImageLbl = new JLabel(historyIconImage, SwingConstants.CENTER);
         updateLabel(historyImageLbl, 0.725, 0.21, 0.2, 0.2, 0, 'd');
 
         // Update the location of each button and make the user profile and user history button's circles
         updateButtonLocation(createWSButton, 0.35, 0.375, 0.3, 0.1);
         defaultButton(createWSButton);
+
         updateButtonLocation(userProfileButton, 0.775, 0.05, 0.15, 0.15);
         userProfileButton.setBorder(new RoundedBorder(convert(0.055, 'w') + convert(0.055, 'h')));
         updateButtonLocation(userHistoryButton, 0.7825, 0.25, 0.15, 0.15);
@@ -78,12 +77,12 @@ public class OptionScreen extends StartScreen implements MouseListener {
             optionPanel.setVisible(false);
             new TopicScreen();
         }
-        if (e.getSource() == userProfileButton) {
+        else if (e.getSource() == userProfileButton) {
             frame.setVisible(false);
             optionPanel.setVisible(false);
             new UserProfileScreen();
         }
-        if (e.getSource() == userHistoryButton) {
+        else if (e.getSource() == userHistoryButton) {
             frame.setVisible(false);
             optionPanel.setVisible(false);
             new WorksheetHistoryScreen();
@@ -102,7 +101,7 @@ public class OptionScreen extends StartScreen implements MouseListener {
         }
     }
     /**
-     * RoundedBorder private class that create a circle border for the JButtons
+     * RoundedBorder private class that creates a circle border for the JButtons
      *
      */
     private static class RoundedBorder implements Border {

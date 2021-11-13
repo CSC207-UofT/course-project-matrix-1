@@ -1,9 +1,10 @@
 package user_interface;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Topic Screen class for the User Interface. The topic screen prompts the user for their desired
@@ -12,7 +13,7 @@ import java.awt.event.MouseListener;
  * @author Ethan Ing, Piotr pralat
  * @since 2021-11-01
  */
-public class TopicScreen extends StartScreen implements MouseListener {
+public class TopicScreen extends Screen implements MouseListener {
 
     // Create buttons
     JButton addButton = new JButton("Addition");
@@ -27,6 +28,10 @@ public class TopicScreen extends StartScreen implements MouseListener {
     JLabel topicTitle = new JLabel("Choose Topic", SwingConstants.CENTER);
     JLabel topicTitleShadow = new JLabel("Choose Topic", SwingConstants.CENTER);
     JLabel numTypes = new JLabel("Number Types", SwingConstants.CENTER);
+
+    // Create the equation and format details maps
+    Map<String, Object> equation_details_topic = new HashMap<>();
+    Map <String, Object> format_details = new HashMap<>();
 
     public TopicScreen() {
 
@@ -49,7 +54,7 @@ public class TopicScreen extends StartScreen implements MouseListener {
         // Update the settings of each button and start with the addition button as the default choice
         defaultButton(topicButtons);
         highlightButton(addButton);
-        chosen_topic = '+';
+        equation_details_topic.put("operator", '+');
 
         // Create comboBox for number types (for now, just integers is available)
         String[] numTypeOptions = {"Integers"};
@@ -85,33 +90,33 @@ public class TopicScreen extends StartScreen implements MouseListener {
             defaultButton(multiButton);
             defaultButton(divButton);
             highlightButton(addButton);
-            chosen_topic = '+';
+            equation_details_topic.put("operator", '+');
         }
         if (e.getSource() == subButton) {
             defaultButton(addButton);
             defaultButton(divButton);
             defaultButton(multiButton);
             highlightButton(subButton);
-            chosen_topic = '-';
+            equation_details_topic.put("operator", '-');
         }
         if (e.getSource() == multiButton) {
             defaultButton(divButton);
             defaultButton(addButton);
             defaultButton(subButton);
             highlightButton(multiButton);
-            chosen_topic = '*';
+            equation_details_topic.put("operator", '*');
         }
         if (e.getSource() == divButton) {
             defaultButton(addButton);
             defaultButton(subButton);
             defaultButton(multiButton);
             highlightButton(divButton);
-            chosen_topic = '/';
+            equation_details_topic.put("operator", '/');
         }
         if (e.getSource() == topicNextButton) {
             topicPanel.setVisible(false);
             frame.setVisible(false);
-            new CustomizeScreen();
+            new CustomizeScreen(equation_details_topic, format_details);
         }
         if (e.getSource() == topicScreenBackButton) {
             topicPanel.setVisible(false);
