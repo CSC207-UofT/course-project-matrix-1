@@ -27,8 +27,7 @@ public class WholeNum extends Value {
      */
     @Override
     public Value add(Value otherValue) {
-        return new WholeNum(this.wholeNumber +
-                ((WholeNum) otherValue).getValue());
+        return new WholeNum(this.wholeNumber + ((WholeNum) otherValue).getValue());
     }
 
     /**
@@ -65,7 +64,6 @@ public class WholeNum extends Value {
     public Value multiply(Value otherValue) {
         return new WholeNum(this.wholeNumber * ((WholeNum) otherValue).getValue());
     }
-
 
 
     /**
