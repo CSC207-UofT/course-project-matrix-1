@@ -14,7 +14,7 @@ class WholeBedmasMultiplyBuilder extends WholeBedmasBuilder {
      * Assigns the multiplication operator to the equation.
      */
     @Override
-    public void buildOperator() {
+    protected void buildOperator() {
         bedmasEquation.setOperator(new Multiply());
     }
 }

@@ -18,7 +18,7 @@ class WholeBedmasDivideBuilder extends WholeBedmasBuilder {
      * Assigns the division operator to the equation.
      */
     @Override
-    public void buildOperator() {
+    protected void buildOperator() {
         bedmasEquation.setOperator(new Divide());
     }
 
@@ -37,7 +37,7 @@ class WholeBedmasDivideBuilder extends WholeBedmasBuilder {
      * @param seed          random seed to fix random generation of operands.
      */
     @Override
-    public void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed) {
+    protected void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed) {
         //TODO: Zeros are not allowed for operator 2. At UI level, restrict this.
         // TODO: Why restrict at UI level? 0 can be removed upon random number generation
         List<Integer> possibleOperand2 = restrictRanges(operandRange1, operandRange2);

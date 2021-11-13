@@ -15,7 +15,7 @@ class WholeBedmasAddBuilder extends WholeBedmasBuilder {
      * Assigns the addition operator to the equation.
      */
     @Override
-    public void buildOperator() {
+    protected void buildOperator() {
         bedmasEquation.setOperator(new Add());
     }
 }
