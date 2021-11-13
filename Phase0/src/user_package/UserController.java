@@ -39,12 +39,25 @@ public class UserController {
     }
 
     /**
+     * Registers a new userPackage.User. Throws Exception if another userPackage.User exists with the same username.
+     *
+     * @param username potential username
+     * @param name     name of userPackage.User
+     * @param age      age of userPackage.User
+     * @param role     role of userPackage.User (Student/Parent/Teacher)
+     */
+    public void registerUser(String username, String name, Integer age, String role) throws UsernameTakenException {
+        userManager.createUser(username, name, age, role);
+        this.currentUsername = username;
+    }
+
+    /**
      * Verifies whether the user is in the system or not.
      * Throws an UserDoesNotExistException if the username does not match a user in the system.
      *
      * @param username username for the user
      */
-    public void login(String username) throws UserDoesNotExistException{
+    public void login(String username) throws UserDoesNotExistException {
         if (userManager.verifyUsername(username)) {
             this.currentUsername = username;
         } else {
@@ -52,7 +65,12 @@ public class UserController {
         }
     }
 
-    public Map<String, Object> getUserDetails() throws NotLoggedInException{
+    public void deleteAccount(String username) throws UserDoesNotExistException {
+        userManager.deleteUser(username);
+        historyManager.deleteUserHistory(username);
+    }
+
+    public Map<String, Object> getUserDetails() throws NotLoggedInException {
         if (isLoggedIn()) {
             return userManager.getUserDetails(currentUsername);
         }
@@ -65,24 +83,11 @@ public class UserController {
      *
      * @return list containing worksheet generation records (details)
      */
-    public List<Map<String, Object>> getUserHistory() throws NotLoggedInException{
+    public List<Map<String, Object>> getUserHistory() throws NotLoggedInException {
         if (isLoggedIn()) {
             return historyManager.getUserHistoryRaw(currentUsername);
         }
         throw new NotLoggedInException();
-    }
-
-    /**
-     * Registers a new userPackage.User. Throws Exception if another userPackage.User exists with the same username.
-     *
-     * @param username potential username
-     * @param name     name of userPackage.User
-     * @param age      age of userPackage.User
-     * @param role     role of userPackage.User (Student/Parent/Teacher)
-     */
-    public void registerUser(String username, String name, Integer age, String role) throws UsernameTakenException {
-        userManager.createUser(username, name, age, role);
-        this.currentUsername = username;
     }
 
     /**
@@ -99,9 +104,7 @@ public class UserController {
         } else {
             throw new NotLoggedInException();
         }
-}
-
-
+    }
 
     /**
      * Stores the action of the user (such as creating a worksheet) in the user's history.
@@ -121,7 +124,7 @@ public class UserController {
      * Removes the specified worksheet generation record from the user's history.
      * Throws a NotLoggedInException if called when no user is logged in.
      *
-     * @param worksheetKey:    Index of the action to be removed from the list of actions of the user.
+     * @param worksheetKey: Index of the action to be removed from the list of actions of the user.
      */
     public void removeUserRecord(String worksheetKey) throws RecordDoesNotExistException, NotLoggedInException {
         if (isLoggedIn()) {
