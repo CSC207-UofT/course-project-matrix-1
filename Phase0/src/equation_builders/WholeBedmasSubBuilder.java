@@ -16,7 +16,7 @@ class WholeBedmasSubBuilder extends WholeBedmasBuilder {
      * Assigns the subtraction operator to the equation.
      */
     @Override
-    public void buildOperator() {
+    protected void buildOperator() {
         bedmasEquation.setOperator(new Subtract());
     }
 
@@ -33,7 +33,7 @@ class WholeBedmasSubBuilder extends WholeBedmasBuilder {
      * @param seed          random seed to fix random generation of operands.
      */
     @Override
-    public void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed) {
+    protected void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
         //TODO: Fix bad inputs (ex. operand2 range is greater than operand1)
         int operand1 = randomize(operandRange1, seed);
         int operand2;

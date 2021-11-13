@@ -18,14 +18,14 @@ abstract class WholeBedmasBuilder {
     private Random rand;
 
 
-    public BedmasEquation getBedmasEquation() {
+    protected BedmasEquation getBedmasEquation() {
         return bedmasEquation;
     }
 
     /**
      * Creates a new instance of the bedmas equation.
      */
-    public void createNewBedmasEquationProduct() {
+    protected void createNewBedmasEquationProduct() {
         bedmasEquation = new BedmasEquation();
         rand = new Random();
     }
@@ -33,7 +33,7 @@ abstract class WholeBedmasBuilder {
     /**
      * Builds the bedmasEquation's operator.
      */
-    public abstract void buildOperator();
+    protected void buildOperator();
 
     /**
      * Builds the operands (first and second) for the bedmasEquation.
@@ -62,7 +62,7 @@ abstract class WholeBedmasBuilder {
     /**
      * Builds the bedmasEquation's answer.
      */
-    public void buildAnswer() {
+    protected void buildAnswer() {
         bedmasEquation.solve();
     }
 
