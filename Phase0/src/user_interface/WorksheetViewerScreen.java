@@ -123,7 +123,7 @@ public class WorksheetViewerScreen extends StartScreen implements MouseListener 
         if (e.getSource() == mainMenuButton) {
             frame.setVisible(false);
             viewerPanel.setVisible(false);
-            new StartScreen();
+            new OptionScreen();
         }
         if (e.getSource() == viewerBackButton) {
             frame.setVisible(false);

@@ -118,7 +118,7 @@ public class NewUserScreen extends StartScreen implements MouseListener {
                     uc.registerUser(currUsername, currName, currAge, currRole);
                     frame.setVisible(false);
                     newUserPanel.setVisible(false);
-                    new StartScreen();
+                    new OptionScreen();
                 } catch (UsernameTakenException u) {
                     invalidInput.setText("Invalid username");   // Show invalid username label if the username is taken
                     invalidInput.setVisible(true);
