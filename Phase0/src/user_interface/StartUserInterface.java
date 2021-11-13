@@ -243,6 +243,7 @@ class StartUserInterface {
 
     static UserController user_controller;
     static WorksheetController worksheet_controller;
+    static Screen screen;
 
     public static void main(String[] args) {
 
@@ -256,7 +257,6 @@ class StartUserInterface {
         // Create an instance of worksheet controller to generate the worksheet
         worksheet_controller = new WorksheetController();
 
-        Screen screen = new Screen();
         screen.userController = user_controller;
         screen.worksheetController = worksheet_controller;
         screen.main(null);

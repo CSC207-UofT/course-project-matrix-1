@@ -57,9 +57,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
         historyPanel.setLayout(null);
 
         // Update the Settings of the JLabels
-        updateLabel(title, 0.2, 0.02, 0.6, 0.1, 0.03075, 'n');
+        updateLabel(title, 0.2, 0.02, 0.6, 0.1, 0.03075, 'r');
         updateLabel(titleShadow, 0.2025, 0.025, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(noWorksheets, 0.35, 0.15, 0.3, 0.05, 0.015, 'n');
+        updateLabel(noWorksheets, 0.35, 0.15, 0.3, 0.05, 0.015, 'r');
 
         // Update the Location and Settings of each Button
         updateButtonLocation(customizeBackButton, 0.145, 0.825, 0.175, 0.05);
