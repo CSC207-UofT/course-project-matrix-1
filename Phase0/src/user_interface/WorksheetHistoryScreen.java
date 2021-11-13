@@ -34,6 +34,8 @@ public class WorksheetHistoryScreen extends StartScreen implements MouseListener
 
         // Set noWorksheets JLabel message to not visible
         noWorksheets.setVisible(false);
+        userHistoryList = uc.getUserHistory();
+        System.out.println(userHistoryList);
 
         // Store neccessary info for each element in JList String Builder
         try {

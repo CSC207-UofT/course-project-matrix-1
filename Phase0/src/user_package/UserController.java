@@ -47,7 +47,6 @@ public class UserController {
     public void login(String username) throws UserDoesNotExistException{
         if (userManager.verifyUsername(username)) {
             this.currentUsername = username;
-            historyManager.beginUserHistory(username);
         } else {
             throw new UserDoesNotExistException();
         }
