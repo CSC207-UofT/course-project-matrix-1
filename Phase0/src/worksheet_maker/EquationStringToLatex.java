@@ -22,12 +22,22 @@ public class EquationStringToLatex {
      * @return Latex formula of the equation.
      */
     public TeXFormula convertEquationStringToLatex(String[] equationStringList, String equationFormat, boolean withAnswer) {
-        String latexString = switch (equationFormat) {
-            case "Horizontal" -> createHorizontalLatex(equationStringList, withAnswer);
-            case "Vertical" -> createVerticalLatex(equationStringList, withAnswer);
-            case "Division bracket" -> createDivisionBracketLatex(equationStringList, withAnswer);
-            default -> "";
-        };
+        String latexString;
+        // Do not update with the enhanced switch, since it only works with future versions of Java
+        switch (equationFormat) {
+            case "Horizontal":
+                latexString = createHorizontalLatex(equationStringList, withAnswer);
+                break;
+            case "Vertical":
+                latexString = createVerticalLatex(equationStringList, withAnswer);
+                break;
+            case "Division bracket":
+                latexString = createDivisionBracketLatex(equationStringList, withAnswer);
+                break;
+            default:
+                latexString = "";
+                break;
+        }
         //DO NOT UPDATE THIS FOR HIGHER VERSIONS OF JAVA
         //Convert string to TeXFormula
         return new TeXFormula(latexString);
