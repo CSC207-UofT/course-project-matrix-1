@@ -8,17 +8,13 @@ import java.util.Map;
 /**
  * User Profile class for the User Interface. This screen displays the user's profile (name, age, and role)
  *
- * @author Ethan Ing, Piotr pralat
+ * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
 public class UserProfileScreen extends Screen implements MouseListener {
 
     // Create back button
     JButton userProfileBackButton = new JButton("Back");
-
-    // Create the user profile and its shadow
-    JLabel userProfileTitle = new JLabel("User Profile", SwingConstants.CENTER);
-    JLabel userProfileTitleShadow = new JLabel("User Profile", SwingConstants.CENTER);
 
     // Create a map of the user's details
     Map<String, Object> userDetails = userController.getUserDetails();
@@ -28,12 +24,16 @@ public class UserProfileScreen extends Screen implements MouseListener {
         // Set the Panel to the new user screen
         cardLayout.show(cardPanel, "UserProfileScreen");
 
+        // Create the user profile and its shadow
+        JLabel userProfileTitle = new JLabel("User Profile", SwingConstants.CENTER);
+        JLabel userProfileTitleShadow = new JLabel("User Profile", SwingConstants.CENTER);
+
         // Create the label's displaying the user's profile information
         JLabel nameProfileLbl = new JLabel("Name:\t\t" + userDetails.get("name"));
         JLabel ageProfileLbl = new JLabel("Age:\t\t" + userDetails.get("age"));
         JLabel roleProfileLBL = new JLabel("Role:\t\t" + userDetails.get("role"));
 
-        // Updat the location of the labels
+        // Update the location of the labels
         updateLabel(userProfileTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'r');
         updateLabel(userProfileTitleShadow, 0.2, 0.0125, 0.6, 0.1, 0.03075, 'd');
         updateLabel(nameProfileLbl, 0.325, 0.15, 0.6, 0.1, 0.025, 'd');

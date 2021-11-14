@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
  * New User class for the User Interface. User can create a new unique user with username, name, age, and role
  * (Invalid inputs and taken username exceptions are handled)
  *
- * @author Ethan Ing, Piotr pralat
+ * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
 public class NewUserScreen extends Screen implements MouseListener {
@@ -17,10 +17,6 @@ public class NewUserScreen extends Screen implements MouseListener {
     // Create buttons
     JButton createUserButton = new JButton("Create User");
     JButton newUserBackButton = new JButton("Back");
-
-    // Create the title
-    JLabel newUserTitle = new JLabel("Create New User", SwingConstants.CENTER);
-    JLabel newUserTitleShadow = new JLabel("Create New user", SwingConstants.CENTER);
 
     // Create Invalid Input JLabel
     JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
@@ -38,6 +34,10 @@ public class NewUserScreen extends Screen implements MouseListener {
 
         // Set the Panel to the new user screen
         cardLayout.show(cardPanel, "NewUserScreen");
+
+        // Create the title
+        JLabel newUserTitle = new JLabel("Create New User", SwingConstants.CENTER);
+        JLabel newUserTitleShadow = new JLabel("Create New user", SwingConstants.CENTER);
 
         // Create labels
         JLabel usernameLbl = new JLabel("Username");

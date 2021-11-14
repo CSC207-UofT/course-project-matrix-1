@@ -8,14 +8,12 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Screen class for the User Interface. Superclass that stores panels and each method to update buttons and labels.
  *
- * @author Ethan Ing, Piotr pralat
- * @since 2021-11-01
+ * @author Ethan Ing, Piotr Pralat
+ * @since 2021-11-09
  */
 public class Screen extends JFrame implements MouseListener {
 
@@ -41,11 +39,6 @@ public class Screen extends JFrame implements MouseListener {
 
     // Card Layout for the Panels to switch between them
     CardLayout cardLayout = new CardLayout();
-
-    // Stores the equation details and format details for the worksheet with default values that are invalid
-    Map<String, Object> equationDetails = new HashMap<>();
-    Map<String, Object> formatDetails = new HashMap<>();
-    Map<String, Object> worksheetHistoryDetails = new HashMap<>();
 
     // Create a user controller and worksheet controller instance
     public static UserController userController;

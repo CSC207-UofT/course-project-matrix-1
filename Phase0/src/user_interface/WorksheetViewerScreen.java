@@ -10,14 +10,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Worksheet viewer screen class for the User Interface. The user can preview the first page of the generated
- * worksheet and they can download the questions and answers to any file path (invalid file paths are handled)
+ * worksheet, and they can download the questions and answers to any file path (invalid file paths are handled)
  *
- * @author Ethan Ing, Piotr pralat
+ * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
 public class WorksheetViewerScreen extends Screen implements MouseListener {
@@ -30,11 +29,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
     JButton viewerBackButton = new JButton("Back");
     JButton[] viewerButtons = {downloadButton, printPageButton, historyButton, mainMenuButton, viewerBackButton};
 
-    // Create Labels
-    JLabel downloadLbl = new JLabel("Download to file path:", SwingConstants.CENTER);
+    // Create invalid path JLabel
     JLabel invalidPathLbl = new JLabel("Invalid file path", SwingConstants.CENTER);
-    JLabel previewTitle = new JLabel("Preview", SwingConstants.CENTER);
-    JLabel previewTitleShadow = new JLabel("Preview", SwingConstants.CENTER);
 
     // Create text fields
     JTextField downloadPath_tf = new JTextField(1);
@@ -47,8 +43,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
     String documentTitle;
 
     // Create the map's to store the temporary equation and format details
-    Map<String, Object> equation_details_viewer = new HashMap<>();
-    Map<String, Object> format_details_viewer = new HashMap<>();
+    Map<String, Object> equation_details_viewer;
+    Map<String, Object> format_details_viewer;
 
     public WorksheetViewerScreen(Map<String, Object> equation_Details, Map<String, Object> format_Details,
                                  Map<String, Object> worksheet_details) throws IOException {
@@ -77,6 +73,11 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
             ex.printStackTrace();
         }
 
+        // Create JLabels
+        JLabel previewTitle = new JLabel("Preview", SwingConstants.CENTER);
+        JLabel previewTitleShadow = new JLabel("Preview", SwingConstants.CENTER);
+        JLabel downloadLbl = new JLabel("Download to file path:", SwingConstants.CENTER);
+
         // Create label where the image is displayed
         ImageIcon wsImage = new ImageIcon(bim);
         Image newWsImage = wsImage.getImage();
@@ -95,7 +96,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         // Initially set the invalid file path label to not visible
         invalidPathLbl.setVisible(false);
 
-        // Update the locationf of the text fields
+        // Update the location of the text fields
         downloadPath_tf.setBounds(convert(0.55, 'w'), convert(0.655, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
 
@@ -114,7 +115,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         mainMenuButton.addMouseListener(this);
         viewerBackButton.addMouseListener(this);
 
-        // Add all compoonents to the panel
+        // Add all components to the panel
         viewerPanel.add(downloadButton);
         viewerPanel.add(mainMenuButton);
         viewerPanel.add(viewerBackButton);
@@ -148,7 +149,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         else if (e.getSource() == viewerBackButton) {
             frame.setVisible(false);
             viewerPanel.setVisible(false);
-            new CustomizeScreen(equation_details_viewer, format_details_viewer);
+            new CustomizeScreen(equation_details_viewer);
         }
 
     }

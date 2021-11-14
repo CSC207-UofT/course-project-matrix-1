@@ -6,16 +6,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * Customize Screen class for the User Interface. The customize worksheet screen prompts the user for their desired
+ * Customize Screen class for the User Interface. The "customize worksheet screen" prompts the user for their desired
  * equation details and format details for the worksheet and handles invalid inputs.
  *
- * @author Ethan Ing, Piotr pralat
+ * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
 public class CustomizeScreen extends Screen implements MouseListener {
@@ -25,11 +24,7 @@ public class CustomizeScreen extends Screen implements MouseListener {
     JButton customizeBackButton = new JButton("Back");
     JButton [] generateWSButtons = {generateWorksheetButton, customizeBackButton};
 
-    // Create Equation Details and Formatting JLabels and its shadow
-    JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
-    JLabel equationDetailsShadow = new JLabel("Equation Details", SwingConstants.CENTER);
-    JLabel formatTitle = new JLabel("Formatting", SwingConstants.CENTER);
-    JLabel formatShadow = new JLabel("Formatting", SwingConstants.CENTER);
+    // Invalid input JLabel
     JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
 
     // Create text fields
@@ -64,17 +59,24 @@ public class CustomizeScreen extends Screen implements MouseListener {
     String dateAndTime;
 
     // Create the temporary map's to be passed into worksheet viewer screen
-    Map <String, Object> equations_details_customizeScreen = new HashMap<>();
+    Map <String, Object> equations_details_customizeScreen;
     Map <String, Object> format_details_customizeScreen = new HashMap<>();
     Map <String, Object> worksheet_history_details = new HashMap<>();
 
-    public CustomizeScreen(Map<String, Object> equation_details, Map<String, Object> format_details) {
+    public CustomizeScreen(Map<String, Object> equation_details) {
 
         // Change cardPanel to the custom worksheet screen
         cardLayout.show(cardPanel, "CustomizeScreen");
 
+
         // Gets the chosen topic from the previous screen
         equations_details_customizeScreen = equation_details;
+
+        // Create Equation Details and Formatting JLabels and its shadow
+        JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
+        JLabel equationDetailsShadow = new JLabel("Equation Details", SwingConstants.CENTER);
+        JLabel formatTitle = new JLabel("Formatting", SwingConstants.CENTER);
+        JLabel formatShadow = new JLabel("Formatting", SwingConstants.CENTER);
 
         // Create equation questions labels
         JLabel op1Range = new JLabel("Operand 1 Range");
@@ -270,7 +272,6 @@ public class CustomizeScreen extends Screen implements MouseListener {
                 format_details_customizeScreen.put("numColumns", numOfColumns);
 
                 // Find the exact date/time the user created the worksheet
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm");
                 dateAndTime = LocalDateTime.now().toString();
 
                 // Create the unique worksheet history details

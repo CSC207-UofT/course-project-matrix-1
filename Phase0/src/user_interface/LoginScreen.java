@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 /**
  * Login Screen class for the User Interface. The login screen that prompts the user for their unique username.
  *
- * @author Ethan Ing, Piotr pralat
+ * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
 public class LoginScreen extends Screen implements MouseListener {
@@ -19,19 +19,21 @@ public class LoginScreen extends Screen implements MouseListener {
     JButton loginButton = new JButton("Login");
     JButton createUserButton = new JButton("Create User");
 
-    // Create Title labels and its shadow
-    JLabel matrixTitle = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
-    JLabel matrixTitleShadow = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
-    JLabel username = new JLabel("Username", SwingConstants.CENTER);
+    // Invalid username JLabel
     JLabel invalidUsernameError = new JLabel("Invalid Username", SwingConstants.CENTER);
 
     // Create text fields
     JTextField username_tf = new JTextField(1);
 
     public LoginScreen() {
-        frame.setVisible(true);
+
         // Start showing the start screen (login) panel
         cardLayout.show(cardPanel, "StartScreen");
+
+        // Create Title labels and its shadow
+        JLabel matrixTitle = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
+        JLabel matrixTitleShadow = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
+        JLabel username = new JLabel("Username", SwingConstants.CENTER);
 
         // Update the location and settings of each Button
         updateButtonLocation(loginButton, 0.4125, 0.66, 0.175, 0.08);
@@ -76,7 +78,7 @@ public class LoginScreen extends Screen implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == loginButton) {
 
-            // Attempt to login the user with the username entered
+            // Attempt to log in the user with the username entered
             try {
                 userController.login(username_tf.getText());
                 startPanel.setVisible(false);

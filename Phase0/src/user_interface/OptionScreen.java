@@ -5,12 +5,13 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Objects;
 
 /**
  * Option Screen class for the User Interface. The screen that contains options to generate worksheet,
- * acess user profile, and user history.
+ * access user profile, and user history.
  *
- * @author Ethan Ing, Piotr pralat
+ * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
 public class OptionScreen extends Screen implements MouseListener {
@@ -32,15 +33,15 @@ public class OptionScreen extends Screen implements MouseListener {
         updateLabel(userProfileLbl, 0.72, 0.115, 0.2, 0.2, 0.015, 'd');
         updateLabel(userHistoryLbl, 0.72, 0.2875, 0.2, 0.2, 0.015, 'd');
 
-        // Resize and create JLabel's for the images
-        ImageIcon profileIconImage = new ImageIcon(getClass().getResource("userProfileIcon.png"));
+        // Resize and create JLabels for the images
+        ImageIcon profileIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userProfileIcon.png")));
         Image profileImage = profileIconImage.getImage();
         Image profileScaledImage = profileImage.getScaledInstance(150,150, Image.SCALE_SMOOTH);
         profileIconImage = new ImageIcon(profileScaledImage);
         JLabel profileImageLbl = new JLabel(profileIconImage, SwingConstants.CENTER);
         updateLabel(profileImageLbl, 0.72, 0.015, 0.2, 0.2, 0, 'd');
 
-        ImageIcon historyIconImage = new ImageIcon(getClass().getResource("userHistoryIcon.png"));
+        ImageIcon historyIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userHistoryIcon.png")));
         Image historyImage = historyIconImage.getImage();
         Image historyScaledImage = historyImage.getScaledInstance(67,67, Image.SCALE_SMOOTH);
         historyIconImage = new ImageIcon(historyScaledImage);

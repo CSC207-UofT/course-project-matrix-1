@@ -10,7 +10,7 @@ import java.util.Map;
  * Topic Screen class for the User Interface. The topic screen prompts the user for their desired
  * worksheet topic (e.g. addition)
  *
- * @author Ethan Ing, Piotr pralat
+ * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
 public class TopicScreen extends Screen implements MouseListener {
@@ -24,19 +24,18 @@ public class TopicScreen extends Screen implements MouseListener {
     JButton topicScreenBackButton = new JButton("Back");
     JButton[] topicButtons = {addButton, subButton, multiButton, divButton, topicNextButton, topicScreenBackButton};
 
-    // Create Choose Topic JLabel and its shadow
-    JLabel topicTitle = new JLabel("Choose Topic", SwingConstants.CENTER);
-    JLabel topicTitleShadow = new JLabel("Choose Topic", SwingConstants.CENTER);
-    JLabel numTypes = new JLabel("Number Types", SwingConstants.CENTER);
-
     // Create the equation and format details maps
     Map<String, Object> equation_details_topic = new HashMap<>();
-    Map <String, Object> format_details = new HashMap<>();
 
     public TopicScreen() {
 
         // Set the Panel to the Topic Screen
         cardLayout.show(cardPanel, "TopicScreen");
+
+        // Create JLabels
+        JLabel topicTitle = new JLabel("Choose Topic", SwingConstants.CENTER);
+        JLabel topicTitleShadow = new JLabel("Choose Topic", SwingConstants.CENTER);
+        JLabel numTypes = new JLabel("Number Types", SwingConstants.CENTER);
 
         // Update the settings of each JLabel
         updateLabel(topicTitle, 0.2, 0.02, 0.6, 0.1, 0.03075, 'r');
@@ -116,7 +115,7 @@ public class TopicScreen extends Screen implements MouseListener {
         if (e.getSource() == topicNextButton) {
             topicPanel.setVisible(false);
             frame.setVisible(false);
-            new CustomizeScreen(equation_details_topic, format_details);
+            new CustomizeScreen(equation_details_topic);
         }
         if (e.getSource() == topicScreenBackButton) {
             topicPanel.setVisible(false);
