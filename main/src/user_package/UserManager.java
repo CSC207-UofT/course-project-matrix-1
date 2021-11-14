@@ -9,7 +9,7 @@ import java.util.Map;
  * UserManager class. Handles User entities.
  *
  * @version 2.0
- * @authors Kerim, Stanley
+ * @author Kerim, Stanley
  */
 public class UserManager {
     private final Map<String, User> users;
