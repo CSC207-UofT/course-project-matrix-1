@@ -20,7 +20,7 @@ public class LocalDataAccess implements DataAccessInterface {
     public void storeUsers(Map<String, User> existingUsers) {
         try {
             // TODO: Remove Phase0
-            FileOutputStream usersOut = new FileOutputStream("Phase0/src/user_package/users_data/users.ser");
+            FileOutputStream usersOut = new FileOutputStream("main/src/user_package/users_data/users.ser");
             ObjectOutputStream out = new ObjectOutputStream(usersOut);
             out.writeObject(existingUsers);
             out.close();
@@ -36,7 +36,7 @@ public class LocalDataAccess implements DataAccessInterface {
     public void storeHistories(Map<String, History> existingHistories) {
         try {
             // TODO: Remove Phase0
-            FileOutputStream historiesOut = new FileOutputStream("Phase0/src/user_package/users_data/history.ser");
+            FileOutputStream historiesOut = new FileOutputStream("main/src/user_package/users_data/history.ser");
             ObjectOutputStream out = new ObjectOutputStream(historiesOut);
             out.writeObject(existingHistories);
             out.close();
@@ -55,7 +55,7 @@ public class LocalDataAccess implements DataAccessInterface {
     public Map<String, User> getUsers() throws Exception {
         try {
             // Attempt to read from file
-            FileInputStream usersIn = new FileInputStream("Phase0/src/user_package/users_data/users.ser");
+            FileInputStream usersIn = new FileInputStream("main/src/user_package/users_data/users.ser");
             ObjectInputStream in = new ObjectInputStream(usersIn);
             Map<String, User> existingUsers = (HashMap<String, User>) in.readObject();
             in.close();
@@ -78,7 +78,7 @@ public class LocalDataAccess implements DataAccessInterface {
     @SuppressWarnings("unchecked")
     public Map<String, History> getHistories() throws Exception {
         try {
-            FileInputStream historiesIn = new FileInputStream("Phase0/src/user_package/users_data/history.ser");
+            FileInputStream historiesIn = new FileInputStream("main/src/user_package/users_data/history.ser");
             ObjectInputStream in = new ObjectInputStream(historiesIn);
             Map<String, History> existingHistories = (Map<String, History>) in.readObject();
             in.close();
