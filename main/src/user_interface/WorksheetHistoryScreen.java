@@ -1,7 +1,5 @@
 package user_interface;
 
-import user_package.HistoryManager;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;

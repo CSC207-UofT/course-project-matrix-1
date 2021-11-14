@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Random;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotEquals;
 
 public class WorksheetGeneratorTest {
     WorksheetGenerator wg;
