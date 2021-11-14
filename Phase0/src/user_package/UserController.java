@@ -23,7 +23,7 @@ import java.util.Map;
 public class UserController {
     private final UserManager userManager;
     private final HistoryManager historyManager;
-    private String currentUsername;
+    private String currentUsername = null;
 
     public UserController() throws Exception {
         DataAccessInterface dataSource = new LocalDataAccess();
@@ -35,41 +35,7 @@ public class UserController {
      * @return true if a user is logged in.
      */
     public Boolean isLoggedIn() {
-        return currentUsername.length() > 0;
-    }
-
-    /**
-     * Verifies whether the user is in the system or not.
-     * Throws an UserDoesNotExistException if the username does not match a user in the system.
-     *
-     * @param username username for the user
-     */
-    public void login(String username) throws UserDoesNotExistException{
-        if (userManager.verifyUsername(username)) {
-            this.currentUsername = username;
-        } else {
-            throw new UserDoesNotExistException();
-        }
-    }
-
-    public Map<String, Object> getUserDetails() throws NotLoggedInException{
-        if (isLoggedIn()) {
-            return userManager.getUserDetails(currentUsername);
-        }
-        throw new NotLoggedInException();
-    }
-
-    /**
-     * Returns the history of worksheet generation records of a user.
-     * Throws a NotLoggedInException if called when no user is logged in.
-     *
-     * @return list containing worksheet generation records (details)
-     */
-    public List<Map<String, Object>> getUserHistory() throws NotLoggedInException{
-        if (isLoggedIn()) {
-            return historyManager.getUserHistoryRaw(currentUsername);
-        }
-        throw new NotLoggedInException();
+        return currentUsername != null;
     }
 
     /**
@@ -87,6 +53,45 @@ public class UserController {
     }
 
     /**
+     * Verifies whether the user is in the system or not.
+     * Throws an UserDoesNotExistException if the username does not match a user in the system.
+     *
+     * @param username username for the user
+     */
+    public void login(String username) throws UserDoesNotExistException {
+        if (userManager.verifyUsername(username)) {
+            this.currentUsername = username;
+        } else {
+            throw new UserDoesNotExistException();
+        }
+    }
+
+    public void deleteAccount(String username) throws UserDoesNotExistException {
+        userManager.deleteUser(username);
+        historyManager.deleteUserHistory(username);
+    }
+
+    public Map<String, Object> getUserDetails() throws NotLoggedInException {
+        if (isLoggedIn()) {
+            return userManager.getUserDetails(currentUsername);
+        }
+        throw new NotLoggedInException();
+    }
+
+    /**
+     * Returns the history of worksheet generation records of a user.
+     * Throws a NotLoggedInException if called when no user is logged in.
+     *
+     * @return list containing worksheet generation records (details)
+     */
+    public List<Map<String, Object>> getUserHistory() throws NotLoggedInException {
+        if (isLoggedIn()) {
+            return historyManager.getUserHistoryRaw(currentUsername);
+        }
+        throw new NotLoggedInException();
+    }
+
+    /**
      * Stores the user's score for the respective worksheet.
      * Throws a RecordDoesNotExistException if worksheet specified does not exist
      * Throws a NotLoggedInException if called when no user is logged in.
@@ -100,7 +105,7 @@ public class UserController {
         } else {
             throw new NotLoggedInException();
         }
-}
+    }
 
     /**
      * Stores the action of the user (such as creating a worksheet) in the user's history.
@@ -120,7 +125,7 @@ public class UserController {
      * Removes the specified worksheet generation record from the user's history.
      * Throws a NotLoggedInException if called when no user is logged in.
      *
-     * @param worksheetKey:    Index of the action to be removed from the list of actions of the user.
+     * @param worksheetKey: Index of the action to be removed from the list of actions of the user.
      */
     public void removeUserRecord(String worksheetKey) throws RecordDoesNotExistException, NotLoggedInException {
         if (isLoggedIn()) {

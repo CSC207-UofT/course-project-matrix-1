@@ -18,7 +18,7 @@ class WholeBedmasDivideBuilder extends WholeBedmasBuilder {
      * Assigns the division operator to the equation.
      */
     @Override
-    public void buildOperator() {
+    protected void buildOperator() {
         bedmasEquation.setOperator(new Divide());
     }
 
@@ -26,24 +26,29 @@ class WholeBedmasDivideBuilder extends WholeBedmasBuilder {
      * Creates operands (first and second) in the division bedmas equation's question. Operand 1 must be divisible by
      * operand 2 to yield a negative answer.
      *
+     * RANDOM SEED (for fixing random number generation):
+     *      First random operation uses the random seed. Succeeding operations increment the random seed by 5.
+     *
      * @param operandRange1 the inclusive absolute range of values (min, max) that the first operand can be. The max of
      *                      operandRange1 must be greater than or equal to the min of operandRange2. At least one number
      *                      in this range must be divisible by a number in operandRange2.
      * @param operandRange2 the inclusive absolute range of values that the second operand can be.
      * @param negAllowed    if true, each operand has a 50% of becoming negative after being randomly determined.
+     * @param seed          random seed to fix random generation of operands.
      */
     @Override
-    public void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
+    protected void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed) {
         //TODO: Zeros are not allowed for operator 2. At UI level, restrict this.
+        // TODO: Why restrict at UI level? 0 can be removed upon random number generation
         List<Integer> possibleOperand2 = restrictRanges(operandRange1, operandRange2);
-        int operand2 = randomize(possibleOperand2);
+        int operand2 = randomize(possibleOperand2, seed);
         int[] answerRange = new int[]{(int) Math.ceil((float) operandRange1[0] / operand2),
                 (int) Math.floor((float) operandRange1[1] / operand2)};
-        int answer = randomize(answerRange);
+        int answer = randomize(answerRange, seed + 5);
         int operand1 = answer * operand2;
         if (negAllowed) {
-            operand1 = makeNegativeRandom(operand1);
-            operand2 = makeNegativeRandom(operand2);
+            operand1 = makeNegativeRandom(operand1, seed + 10);
+            operand2 = makeNegativeRandom(operand2, seed + 15);
         }
         bedmasEquation.setOperand1(new WholeNum(operand1));
         bedmasEquation.setOperand2(new WholeNum(operand2));

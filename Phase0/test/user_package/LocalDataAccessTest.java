@@ -49,7 +49,6 @@ public class LocalDataAccessTest {
     public void storeAndGetUsers() throws Exception {
         dataSource.storeUsers(userMap);
         Map<String, User> usersRetrieved = dataSource.getUsers();
-
         assertEquals("Student", usersRetrieved.get("guest").getDetails().get("role"));
     }
 

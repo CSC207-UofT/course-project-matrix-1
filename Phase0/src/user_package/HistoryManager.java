@@ -1,6 +1,7 @@
 package user_package;
 
 import exceptions.RecordDoesNotExistException;
+import exceptions.UserDoesNotExistException;
 
 import java.util.List;
 import java.util.Map;
@@ -14,10 +15,11 @@ import java.util.Map;
 public class HistoryManager {
     private final Map<String, History> userHistoryMapping;        // stores username to history mapping
     private final DataAccessInterface dataSource;
+
     /**
      * Instantiates new HistoryManager with histories.
-     * @param dataSource: The source of the user data.
      *
+     * @param dataSource: The source of the user data.
      */
     protected HistoryManager(DataAccessInterface dataSource) throws Exception {
         userHistoryMapping = dataSource.getHistories();
@@ -35,7 +37,21 @@ public class HistoryManager {
     }
 
     /**
+     * Deletes worksheet generation history for a specified user. Exception is thrown if user does not exist.
+     *
+     * @param username username of User
+     */
+    public void deleteUserHistory(String username) throws UserDoesNotExistException {
+        if (!this.userHistoryMapping.containsKey(username)) {
+            throw new UserDoesNotExistException();
+        }
+        this.userHistoryMapping.remove(username);
+        this.dataSource.storeHistories(this.userHistoryMapping);
+    }
+
+    /**
      * Get user history in Java language classes.
+     *
      * @param username of User
      * @return List of worksheet generation records for specified User.
      */
@@ -45,6 +61,7 @@ public class HistoryManager {
 
     /**
      * Get user history in History class.
+     *
      * @param username of User
      * @return History containing worksheet generation records for specified User.
      */

@@ -5,12 +5,13 @@ import java.util.Map;
 /**
  * UserDataAccessInterface interface. Expects getUsers, storeUsers, getHistories, and storeHistories to be implemented.
  *
- * @version 1.0
  * @author Stanley
+ * @version 1.0
  */
 public interface DataAccessInterface {
     /**
      * Retrieves a map of username to User objects.
+     *
      * @return list of Users
      */
     Map<String, User> getUsers() throws Exception;
