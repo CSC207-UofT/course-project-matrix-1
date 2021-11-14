@@ -127,17 +127,4 @@ public class LoginScreen extends Screen implements MouseListener {
             createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.015)));
         }
     }
-
-    /**
-     * Attempt to parse a String to an integer
-     *
-     * @param input the String input that will be parsed
-     */
-    public static Integer tryToParse(String input) {
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
 }

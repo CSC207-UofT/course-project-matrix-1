@@ -3,8 +3,8 @@ import user_package.UserController;
 import worksheet_maker.WorksheetController;
 
 /**
- * User Interface class. Creates instances of user controller and worksheet controller
- * to be passed to Screen.
+ * User Interface class. Create instances of user controller and worksheet controller
+ * for screen (start screen).
  *
  * @author Ethan Ing
  * @since 2021-11-01

@@ -20,7 +20,6 @@ public class OptionScreen extends Screen implements MouseListener {
     JButton createWSButton = new JButton("Generate Worksheet");
     JButton userHistoryButton = new JButton();
     JButton userProfileButton = new JButton();
-    JButton[] optionButtons = {createWSButton, userHistoryButton, userProfileButton};
 
     public OptionScreen() {
 
