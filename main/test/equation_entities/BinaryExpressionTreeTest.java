@@ -1,7 +1,5 @@
 package equation_entities;
 
-import equation_entities.*;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,8 +1,5 @@
 package worksheet_maker;
 
-import equation_entities.Add;
-import equation_entities.BedmasEquation;
-import equation_entities.WholeNum;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.junit.Before;

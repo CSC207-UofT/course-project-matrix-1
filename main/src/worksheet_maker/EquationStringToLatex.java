@@ -22,7 +22,6 @@ public class EquationStringToLatex {
      * @return Latex formula of the equation.
      */
     public TeXFormula convertEquationStringToLatex(String[] equationStringList, String equationFormat, boolean withAnswer) {
-
         String latexString;
         //DO NOT UPDATE THIS FOR HIGHER VERSIONS OF JAVA
         switch (equationFormat) {

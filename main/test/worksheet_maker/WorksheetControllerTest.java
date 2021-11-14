@@ -21,8 +21,8 @@ public class WorksheetControllerTest {
         HashMap<String, Object> myFormatDetails = new HashMap<>();
         myFormatDetails.put("equationFormat", "Horizontal");
         myFormatDetails.put("title", "Test Worksheet");
-        myFormatDetails.put("numRows", 5);
-        myFormatDetails.put("numColumns", 5);
+        myFormatDetails.put("numRows", 2);
+        myFormatDetails.put("numColumns", 2);
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(myEquationDetails, myFormatDetails, new Random().nextInt(100000));
         String path = "out/production/course-project-matrix-1/user_package/users_data/";
