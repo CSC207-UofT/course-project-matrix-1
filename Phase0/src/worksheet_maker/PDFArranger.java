@@ -81,8 +81,7 @@ public class PDFArranger {
             for (int y = numRows; y > 0; y--) {
                 if (qNumber < equationImages.length) {
                     int xCoord = PDFDimensions.PRINT_WIDTH * x / numColumns + PDFDimensions.W_MARGIN;
-                    int yCoord = PDFDimensions.PRINT_HEIGHT * y / numRows + PDFDimensions.H_MARGIN -
-                            PDFDimensions.TITLE_BUFFER;
+                    int yCoord = (int) (PDFDimensions.PRINT_HEIGHT * y / numRows + PDFDimensions.H_MARGIN - Math.round(equationImages[qNumber].getHeight() * rescaleFactor));
                     contentStream.drawImage(equationImages[qNumber], xCoord, yCoord,
                             Math.round(equationImages[qNumber].getWidth() * rescaleFactor),
                             Math.round(equationImages[qNumber].getHeight() * rescaleFactor));
@@ -104,7 +103,7 @@ public class PDFArranger {
     private void addTitle(PDPageContentStream contentStream, String title) throws IOException {
         contentStream.beginText();
         contentStream.newLineAtOffset((float) (PDFDimensions.W_MARGIN),
-                (float) (PDFDimensions.PRINT_HEIGHT + PDFDimensions.H_MARGIN));
+                (float) (PDFDimensions.PRINT_HEIGHT + PDFDimensions.H_MARGIN + PDFDimensions.TITLE_BUFFER));
         contentStream.setFont(PDType1Font.TIMES_ROMAN, 28);
         contentStream.showText(title);
         contentStream.endText();
