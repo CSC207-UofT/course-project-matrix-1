@@ -1,5 +1,6 @@
 package user_package;
 
+import exceptions.UserDoesNotExistException;
 import exceptions.UsernameTakenException;
 
 import java.util.Map;
@@ -45,6 +46,20 @@ public class UserManager {
         }
         User newUser = new User(username, name, age, role);
         this.users.put(username, newUser);
+        this.dataSource.storeUsers(this.users);
+    }
+
+    /**
+     * Deletes user from existing users.
+     *
+     * @param username username of User
+     * @throws UserDoesNotExistException thrown if specified user does not exist
+     */
+    public void deleteUser(String username) throws UserDoesNotExistException {
+        if (!this.users.containsKey(username)) {
+            throw new UserDoesNotExistException();
+        }
+        this.users.remove(username);
         this.dataSource.storeUsers(this.users);
     }
 

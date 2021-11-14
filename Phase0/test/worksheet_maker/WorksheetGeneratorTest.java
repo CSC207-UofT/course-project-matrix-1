@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotEquals;
@@ -15,8 +16,10 @@ public class WorksheetGeneratorTest {
 
     @Before
     public void init() {
+        int randomSeed = new Random().nextInt(100000);
+
         ws = new Worksheet();
-        wg = new WorksheetGenerator(ws);
+        wg = new WorksheetGenerator(ws, randomSeed);
         myEquationDetails.put("numOfEquations", 5);
         myEquationDetails.put("operator", '+');
         myEquationDetails.put("operandRange1", new int[]{1, 10});

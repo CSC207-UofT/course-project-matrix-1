@@ -54,11 +54,12 @@ public class WholeBedmasDirector {
      * @param operandRange1 the absolute range of values that the first operand can be.
      * @param operandRange2 the absolute range of values that the second operand can be.
      * @param negAllowed    specifies if the operands or answer are allowed to be negative.
+     * @param seed          random seed to fix random generation of operands
      */
-    public void constructBedmasEquation(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
+    public void constructBedmasEquation(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed) {
         wholeBedmasBuilder.createNewBedmasEquationProduct();
         wholeBedmasBuilder.buildOperator();
-        wholeBedmasBuilder.buildOperands(operandRange1, operandRange2, negAllowed);
+        wholeBedmasBuilder.buildOperands(operandRange1, operandRange2, negAllowed, seed);
         wholeBedmasBuilder.buildAnswer();
     }
 }

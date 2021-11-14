@@ -4,9 +4,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Scanner;
+import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,8 +24,8 @@ public class WorksheetControllerTest {
         myFormatDetails.put("numRows", 5);
         myFormatDetails.put("numColumns", 5);
         WorksheetController wc = new WorksheetController();
-        PDDocument[] pdf = wc.generateWorksheetAndPDF(myEquationDetails, myFormatDetails);
-        String path = "C:/Users/willj/Downloads/";
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(myEquationDetails, myFormatDetails, new Random().nextInt(100000));
+        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/answers.pdf");

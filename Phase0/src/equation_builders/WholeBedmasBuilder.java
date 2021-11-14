@@ -1,10 +1,10 @@
 package equation_builders;
 
 import equation_entities.BedmasEquation;
+import equation_entities.WholeNum;
 
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * An abstract builder for all whole number BEDMAS equation builders.
@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 abstract class WholeBedmasBuilder {
     protected BedmasEquation bedmasEquation;
-    private final Random rand = new Random();
+    private Random rand;
 
 
     protected BedmasEquation getBedmasEquation() {
@@ -27,6 +27,7 @@ abstract class WholeBedmasBuilder {
      */
     protected void createNewBedmasEquationProduct() {
         bedmasEquation = new BedmasEquation();
+        rand = new Random();
     }
 
     /**
@@ -37,11 +38,26 @@ abstract class WholeBedmasBuilder {
     /**
      * Builds the operands (first and second) for the bedmasEquation.
      *
+     * Overridden in some child classes.
+     *
+     * RANDOM SEED (for fixing random number generation):
+     *      First random operation uses the random seed. Succeeding operations increment the random seed by 5.
+     *
      * @param operandRange1 the absolute range of values that the first operand can be.
      * @param operandRange2 the absolute range of values that the second operand can be.
      * @param negAllowed    specifies if the operands or answer are allowed to be negative.
+     * @param seed          random seed to fix random generation of operands
      */
-    protected abstract void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed);
+    protected void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed){
+        int operand1 = randomize(operandRange1, seed);
+        int operand2 = randomize(operandRange2, seed + 5);
+        if (negAllowed) {
+            operand1 = makeNegativeRandom(operand1, seed + 10);
+            operand2 = makeNegativeRandom(operand2, seed + 15);
+        }
+        bedmasEquation.setOperand1(new WholeNum(operand1));
+        bedmasEquation.setOperand2(new WholeNum(operand2));
+    }
 
     /**
      * Builds the bedmasEquation's answer.
@@ -54,9 +70,11 @@ abstract class WholeBedmasBuilder {
      * Randomly returns either a positive or negative version of the number given (50:50 chance).
      *
      * @param num the original number.
+     * @param seed the random seed for reproducibility
      * @return a negative or positive version of num.
      */
-    protected int makeNegativeRandom(int num) {
+    protected int makeNegativeRandom(int num, int seed) {
+        rand.setSeed(seed);
         int x = rand.nextInt(2);
         if (x == 0) {
             num = -1 * num;
@@ -69,30 +87,34 @@ abstract class WholeBedmasBuilder {
      *
      * @param min the minimum possible int.
      * @param max the maximum possible int.
+     * @param seed the random seed for reproducibility
      * @return a randomized int between [min, max] (inclusive).
      */
-    protected int randomize(int min, int max) {
-        return ThreadLocalRandom.current().nextInt(min, max + 1);
+    protected int randomize(int min, int max, int seed) {
+        rand.setSeed(seed);
+        return rand.nextInt((max - min) + 1) + min;
     }
 
     /**
      * Returns a random int from a specified range.
      *
      * @param range the range of possible ints, as [min, max].
+     * @param seed the random seed for reproducibility
      * @return a randomized int between [min, max] (inclusive).
      */
-    protected int randomize(int[] range) {
-        return ThreadLocalRandom.current().nextInt(range[0], range[1] + 1);
+    protected int randomize(int[] range, int seed) {
+        return randomize(range[0], range[1], seed);
     }
 
     /**
      * Returns a random int from a specified list of numbers.
      *
      * @param possibleInts the possible ints in no particular order.
+     * @param seed the random seed for reproducibility
      * @return a randomized int from the possibleInts.
      */
-    protected int randomize(List<Integer> possibleInts) {
-        return possibleInts.get(randomize(0, possibleInts.size() - 1));
+    protected int randomize(List<Integer> possibleInts, int seed) {
+        return possibleInts.get(randomize(0, possibleInts.size() - 1, seed));
     }
 
 }
