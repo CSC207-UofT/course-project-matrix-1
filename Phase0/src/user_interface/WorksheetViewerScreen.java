@@ -66,8 +66,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         // Store the worksheet information to the user's history
         userController.storeUserRecord(worksheet_details);
 
-        // Generate the documents worksheets
-        documents = worksheetController.generateWorksheetAndPDF(equation_Details, format_Details);
+        // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
+        documents = worksheetController.generateWorksheetAndPDF(equation_Details, format_Details, 0);
 
         // Create an image of the documents first page to preview
         try {
@@ -88,7 +88,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
 
         // Update the location of the labels
         updateLabel(previewTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(previewTitleShadow, 0.2, 0.0125, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(previewTitleShadow, 0.2025, 0.0125, 0.6, 0.1, 0.03075, 'd');
         updateLabel(downloadLbl, 0.1, 0.63, 0.6, 0.1, 0.02, 'd');
         updateLabel(invalidPathLbl, 0.15, 0.7, 0.7, 0.05, 0.0125, 'r');
 
