@@ -29,7 +29,6 @@ public class LoginScreen extends Screen implements MouseListener {
     JTextField username_tf = new JTextField(1);
 
     public LoginScreen() {
-        frame.setVisible(true);
         // Start showing the start screen (login) panel
         cardLayout.show(cardPanel, "StartScreen");
 
@@ -66,6 +65,7 @@ public class LoginScreen extends Screen implements MouseListener {
         startPanel.add(username);
         startPanel.add(username_tf);
         startPanel.add(invalidUsernameError);
+        frame.setVisible(true);
     }
 
     /**

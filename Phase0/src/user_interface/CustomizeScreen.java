@@ -64,7 +64,7 @@ public class CustomizeScreen extends Screen implements MouseListener {
     String dateAndTime;
 
     // Create the temporary map's to be passed into worksheet viewer screen
-    Map <String, Object> equations_details_customizeScreen = new HashMap<>();
+    Map <String, Object> equations_details_customizeScreen;
     Map <String, Object> format_details_customizeScreen = new HashMap<>();
     Map <String, Object> worksheet_history_details = new HashMap<>();
 

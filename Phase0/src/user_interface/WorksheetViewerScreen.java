@@ -80,8 +80,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         // Create label where the image is displayed
         ImageIcon wsImage = new ImageIcon(bim);
         Image newWsImage = wsImage.getImage();
-        Image wsScaledImage = newWsImage.getScaledInstance((int) (convert(0.45, 'w') *
-                bim.getWidth()*1.0/bim.getHeight()), convert(0.55, 'h'), Image.SCALE_SMOOTH);
+        Image wsScaledImage = newWsImage.getScaledInstance((int) (convert(0.55, 'h') * bim.getWidth() * 1.0 / bim.getHeight()), convert(0.55, 'h'), Image.SCALE_SMOOTH);
         wsImage = new ImageIcon(wsScaledImage);
         JLabel wsImageLbl = new JLabel(wsImage, SwingConstants.CENTER);
         updateLabel(wsImageLbl, 0.275, 0.05, 0.45, 0.65, 0, 'r');
@@ -139,13 +138,11 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
                 invalidPathLbl.setText("Invalid Path");     // Show invalid input label if files cannot be downloaded
             }
             invalidPathLbl.setVisible(true);
-        }
-        else if (e.getSource() == mainMenuButton) {
+        } else if (e.getSource() == mainMenuButton) {
             frame.setVisible(false);
             viewerPanel.setVisible(false);
             new OptionScreen();
-        }
-        else if (e.getSource() == viewerBackButton) {
+        } else if (e.getSource() == viewerBackButton) {
             frame.setVisible(false);
             viewerPanel.setVisible(false);
             new CustomizeScreen(equation_details_viewer, format_details_viewer);
@@ -156,17 +153,13 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == downloadButton) {
             highlightButton(downloadButton);
-        }
-        else if (e.getSource() == printPageButton) {
+        } else if (e.getSource() == printPageButton) {
             highlightButton(printPageButton);
-        }
-        else if (e.getSource() == historyButton) {
+        } else if (e.getSource() == historyButton) {
             highlightButton(historyButton);
-        }
-        else if (e.getSource() == mainMenuButton) {
+        } else if (e.getSource() == mainMenuButton) {
             highlightButton(mainMenuButton);
-        }
-        else if (e.getSource() == viewerBackButton) {
+        } else if (e.getSource() == viewerBackButton) {
             highlightButton(viewerBackButton);
         }
     }
@@ -174,17 +167,13 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == downloadButton) {
             defaultButton(downloadButton);
-        }
-        else if (e.getSource() == printPageButton) {
+        } else if (e.getSource() == printPageButton) {
             defaultButton(printPageButton);
-        }
-        else if (e.getSource() == historyButton) {
+        } else if (e.getSource() == historyButton) {
             defaultButton(historyButton);
-        }
-        else if (e.getSource() == mainMenuButton) {
+        } else if (e.getSource() == mainMenuButton) {
             defaultButton(mainMenuButton);
-        }
-        else if (e.getSource() == viewerBackButton) {
+        } else if (e.getSource() == viewerBackButton) {
             defaultButton(viewerBackButton);
         }
     }
