@@ -19,7 +19,6 @@ public class LocalDataAccess implements DataAccessInterface {
      */
     public void storeUsers(Map<String, User> existingUsers) {
         try {
-            // TODO: Remove Phase0
             FileOutputStream usersOut = new FileOutputStream("main/src/user_package/users_data/users.ser");
             ObjectOutputStream out = new ObjectOutputStream(usersOut);
             out.writeObject(existingUsers);
@@ -35,7 +34,6 @@ public class LocalDataAccess implements DataAccessInterface {
      */
     public void storeHistories(Map<String, History> existingHistories) {
         try {
-            // TODO: Remove Phase0
             FileOutputStream historiesOut = new FileOutputStream("main/src/user_package/users_data/history.ser");
             ObjectOutputStream out = new ObjectOutputStream(historiesOut);
             out.writeObject(existingHistories);
