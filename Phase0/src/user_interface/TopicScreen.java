@@ -1,64 +1,75 @@
+package user_interface;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
+import java.util.Map;
 
-public class TopicScreen extends StartScreen implements MouseListener {
+/**
+ * Topic Screen class for the User Interface. The topic screen prompts the user for their desired
+ * worksheet topic (e.g. addition)
+ *
+ * @author Ethan Ing, Piotr pralat
+ * @since 2021-11-01
+ */
+public class TopicScreen extends Screen implements MouseListener {
 
-    // Create Buttons
+    // Create buttons
     JButton addButton = new JButton("Addition");
     JButton subButton = new JButton("Subtraction");
     JButton multiButton = new JButton("Multiplication");
     JButton divButton = new JButton("Division");
     JButton topicNextButton = new JButton("Next");
-    JButton[] topicButtons = {addButton, subButton, multiButton, divButton, topicNextButton};
+    JButton topicScreenBackButton = new JButton("Back");
+    JButton[] topicButtons = {addButton, subButton, multiButton, divButton, topicNextButton, topicScreenBackButton};
 
     // Create Choose Topic JLabel and its shadow
     JLabel topicTitle = new JLabel("Choose Topic", SwingConstants.CENTER);
     JLabel topicTitleShadow = new JLabel("Choose Topic", SwingConstants.CENTER);
-    JLabel numTypes = new JLabel("Number Types");
+    JLabel numTypes = new JLabel("Number Types", SwingConstants.CENTER);
 
-    // Stores the topic clicked
-    char chosen_topic = ' ';
+    // Create the equation and format details maps
+    Map<String, Object> equation_details_topic = new HashMap<>();
+    Map <String, Object> format_details = new HashMap<>();
 
     public TopicScreen() {
 
         // Set the Panel to the Topic Screen
         cardLayout.show(cardPanel, "TopicScreen");
 
-        topicPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
-                convert(0.1, 'w'), Color.BLACK));
-        topicPanel.setLayout(null);
-
         // Update the settings of each JLabel
-        updateLabel(topicTitle, 0.2, 0.02, 0.6, 0.1, 0.03075, 'n');
+        updateLabel(topicTitle, 0.2, 0.02, 0.6, 0.1, 0.03075, 'r');
         updateLabel(topicTitleShadow, 0.2, 0.0225, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(numTypes, 0.33, 0.6, 0.6, 0.1, 0.02, 'd');
+        updateLabel(numTypes, 0.3, 0.59, 0.25, 0.1, 0.02, 'd');
 
-        // "Create Worksheet" and "User Profile" Button
+        // "Update the location of each Button
         updateButtonLocation(addButton, 0.35, 0.125, 0.3, 0.1);
         updateButtonLocation(subButton, 0.35, 0.25, 0.3, 0.1);
         updateButtonLocation(multiButton, 0.35, 0.375, 0.3, 0.1);
         updateButtonLocation(divButton, 0.35, 0.5, 0.3, 0.1);
+        updateButtonLocation(topicNextButton, 0.4, 0.775, 0.2, 0.09);
+        updateButtonLocation(topicScreenBackButton, 0.145, 0.8, 0.15, 0.05);
 
-        // "Next" Button
-        updateButtonLocation(topicNextButton, 0.4, 0.75, 0.2, 0.09);
-
-        // Update the settings of each button
+        // Update the settings of each button and start with the addition button as the default choice
         defaultButton(topicButtons);
+        highlightButton(addButton);
+        equation_details_topic.put("operator", '+');
 
-        // Create comboBox of
-        String[] numTypeOptions = {"Integers", "Fractions", "Decimals"};
+        // Create comboBox for number types (for now, just integers is available)
+        String[] numTypeOptions = {"Integers"};
         JComboBox<String> numOptions = new JComboBox<>(numTypeOptions);
-        numOptions.setBounds(convert(0.525, 'w'), convert(0.6025, 'h'), convert(0.15, 'w'),
-                convert(0.1, 'h'));
+        numOptions.setBounds(convert(0.525, 'w'), convert(0.625, 'h'), convert(0.15, 'w'),
+                convert(0.05, 'h'));
         numOptions.setSelectedIndex(0);
 
+        // Add Mouse Listener for hover and clicking features
         addButton.addMouseListener(this);
         subButton.addMouseListener(this);
         multiButton.addMouseListener(this);
         divButton.addMouseListener(this);
         topicNextButton.addMouseListener(this);
+        topicScreenBackButton.addMouseListener(this);
 
         // Add each component to the panel
         topicPanel.add(addButton);
@@ -66,6 +77,7 @@ public class TopicScreen extends StartScreen implements MouseListener {
         topicPanel.add(multiButton);
         topicPanel.add(divButton);
         topicPanel.add(topicNextButton);
+        topicPanel.add(topicScreenBackButton);
         topicPanel.add(topicTitle);
         topicPanel.add(topicTitleShadow);
         topicPanel.add(numTypes);
@@ -77,45 +89,57 @@ public class TopicScreen extends StartScreen implements MouseListener {
             defaultButton(subButton);
             defaultButton(multiButton);
             defaultButton(divButton);
-            chosen_topic = '-';
             highlightButton(addButton);
+            equation_details_topic.put("operator", '+');
         }
         if (e.getSource() == subButton) {
             defaultButton(addButton);
             defaultButton(divButton);
             defaultButton(multiButton);
-            chosen_topic = '-';
             highlightButton(subButton);
+            equation_details_topic.put("operator", '-');
         }
         if (e.getSource() == multiButton) {
             defaultButton(divButton);
             defaultButton(addButton);
             defaultButton(subButton);
-            chosen_topic = '*';
             highlightButton(multiButton);
+            equation_details_topic.put("operator", '*');
         }
         if (e.getSource() == divButton) {
             defaultButton(addButton);
             defaultButton(subButton);
             defaultButton(multiButton);
-            chosen_topic = '/';
             highlightButton(divButton);
+            equation_details_topic.put("operator", '/');
         }
         if (e.getSource() == topicNextButton) {
             topicPanel.setVisible(false);
             frame.setVisible(false);
-            new CustomizeScreen();
+            new CustomizeScreen(equation_details_topic, format_details);
+        }
+        if (e.getSource() == topicScreenBackButton) {
+            topicPanel.setVisible(false);
+            frame.setVisible(false);
+            new OptionScreen();
         }
     }
 
     public void mouseEntered(MouseEvent e) {
-        if (e.getSource() == topicNextButton)
+        if (e.getSource() == topicNextButton) {
             highlightButton(topicNextButton);
-
+        }
+        if (e.getSource() == topicScreenBackButton) {
+            highlightButton(topicScreenBackButton);
+        }
     }
 
     public void mouseExited(MouseEvent e) {
-        if (e.getSource() == topicNextButton)
+        if (e.getSource() == topicNextButton) {
             defaultButton(topicNextButton);
+        }
+        if (e.getSource() == topicScreenBackButton) {
+            defaultButton(topicScreenBackButton);
+        }
     }
 }

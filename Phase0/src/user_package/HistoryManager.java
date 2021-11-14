@@ -33,6 +33,7 @@ public class HistoryManager {
      */
     public void beginUserHistory(String username) {
         userHistoryMapping.put(username, new History());
+        this.dataSource.storeHistories(this.userHistoryMapping);
     }
 
     /**

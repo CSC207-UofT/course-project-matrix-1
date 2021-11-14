@@ -23,7 +23,7 @@ public class EquationStringToLatex {
      */
     public TeXFormula convertEquationStringToLatex(String[] equationStringList, String equationFormat, boolean withAnswer) {
         String latexString;
-        // Do not update with the enhanced switch, since it only works with future versions of Java
+        //DO NOT UPDATE THIS FOR HIGHER VERSIONS OF JAVA
         switch (equationFormat) {
             case "Horizontal":
                 latexString = createHorizontalLatex(equationStringList, withAnswer);
@@ -38,7 +38,6 @@ public class EquationStringToLatex {
                 latexString = "";
                 break;
         }
-        //DO NOT UPDATE THIS FOR HIGHER VERSIONS OF JAVA
         //Convert string to TeXFormula
         return new TeXFormula(latexString);
     }
