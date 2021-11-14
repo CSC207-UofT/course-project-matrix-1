@@ -33,7 +33,7 @@ abstract class WholeBedmasBuilder {
     /**
      * Builds the bedmasEquation's operator.
      */
-    protected void buildOperator();
+    protected abstract void buildOperator();
 
     /**
      * Builds the operands (first and second) for the bedmasEquation.
@@ -48,7 +48,7 @@ abstract class WholeBedmasBuilder {
      * @param negAllowed    specifies if the operands or answer are allowed to be negative.
      * @param seed          random seed to fix random generation of operands
      */
-    public void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed){
+    protected void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed){
         int operand1 = randomize(operandRange1, seed);
         int operand2 = randomize(operandRange2, seed + 5);
         if (negAllowed) {

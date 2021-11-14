@@ -33,7 +33,7 @@ class WholeBedmasSubBuilder extends WholeBedmasBuilder {
      * @param seed          random seed to fix random generation of operands.
      */
     @Override
-    protected void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed) {
+    protected void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed) {
         //TODO: Fix bad inputs (ex. operand2 range is greater than operand1)
         int operand1 = randomize(operandRange1, seed);
         int operand2;
