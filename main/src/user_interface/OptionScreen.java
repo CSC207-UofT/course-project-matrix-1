@@ -101,7 +101,11 @@ public class OptionScreen extends Screen implements MouseListener {
         }
     }
     /**
-     * RoundedBorder private class that creates a circle border for the JButtons
+     * RoundedBorder private class that creates a circle border for the JButtons.
+     *
+     * Note that for this particular class, it is similar to
+     * https://github.com/kikonen/glazed-share/blob/master/extensions/issuesbrowser/source/com/publicobject/misc/
+     * swing/RoundedBorder.java which was seen before implementing this private class.
      *
      */
     private static class RoundedBorder implements Border {
