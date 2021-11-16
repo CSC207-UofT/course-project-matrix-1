@@ -1,6 +1,7 @@
 package user_interface;
 
 import equation_parameters.EquationDetails;
+import equation_parameters.FormatDetails;
 import equation_parameters.WholeNumEquationDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
@@ -73,7 +74,14 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         equationDetails.setOperandRange2((int[]) equation_Details.get("operandRange2"));
         equationDetails.setNegAllowed((Boolean) equation_Details.get("negAllowed"));
 
-        documents = worksheetController.generateWorksheetAndPDF(equationDetails, format_Details, 0);
+        //TODO: stop using a hashmap and use FormatDetails class instead.
+        FormatDetails formatDetails = new FormatDetails();
+        formatDetails.setEquationFormat((String) format_Details.get("equationFormat"));
+        formatDetails.setTitle((String) format_Details.get("title"));
+        formatDetails.setNumColumns((int) format_Details.get("numColumns"));
+        formatDetails.setNumRows((int) format_Details.get("numRows"));
+
+        documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, 0);
 
         // Create an image of the documents first page to preview
         try {

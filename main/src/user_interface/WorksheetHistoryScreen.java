@@ -70,7 +70,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
             // Run through each Worksheet
             for (Map <String, Object> map : userHistoryList) {
 
-                // Crete temporary maps for the format, and equation details
+                // Create temporary maps for the format, and equation details
                 Map <String, Object> tempMapFormatDetails = (Map<String, Object>) map.get("formatDetails");
                 Map <String, Object>  tempMapEquationDetails = (Map <String, Object>) map.get("equationDetails");
 

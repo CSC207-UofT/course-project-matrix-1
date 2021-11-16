@@ -1,5 +1,6 @@
 package worksheet_maker;
 
+import equation_parameters.FormatDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
@@ -34,9 +35,9 @@ public class PDFPresenter {
      * be saved to a path using .save().
      * @throws IOException if images cannot be added to the PDF.
      */
-    public PDDocument[] createPDF(Map<String, Object> formatDetails) throws IOException {
-        PDDocument[] worksheetPDFs = instantiatePDFs((int) formatDetails.get("numRows"),
-                (int) formatDetails.get("numColumns"), worksheet.getQuestionNumber());
+    public PDDocument[] createPDF(FormatDetails formatDetails) throws IOException {
+        PDDocument[] worksheetPDFs = instantiatePDFs(formatDetails.getNumRows(),
+                formatDetails.getNumColumns(), worksheet.getQuestionNumber());
         PDImageXObject[][] equationImages = equationsToPD.createResizedImages(formatDetails,
                 worksheet.equationsToStringArray(), worksheetPDFs);
         pdfArranger.arrangeOnPDFs(equationImages, worksheetPDFs, formatDetails);

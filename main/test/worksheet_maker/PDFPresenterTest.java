@@ -3,6 +3,7 @@ package worksheet_maker;
 import equation_entities.Add;
 import equation_entities.BedmasEquation;
 import equation_entities.WholeNum;
+import equation_parameters.FormatDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,11 +31,11 @@ public class PDFPresenterTest {
 
     @Test
     public void testCreatePDF() throws IOException {
-        HashMap<String, Object> formatDetails = new HashMap<>();
-        formatDetails.put("equationFormat", "Horizontal");
-        formatDetails.put("title", "Test");
-        formatDetails.put("numRows", 10);
-        formatDetails.put("numColumns", 10);
+        FormatDetails formatDetails = new FormatDetails();
+        formatDetails.setEquationFormat("Horizontal");
+        formatDetails.setTitle("Test");
+        formatDetails.setNumRows(10);
+        formatDetails.setNumColumns(10);
         PDDocument[] pdf = pdfPresenter.createPDF(formatDetails);
         assertEquals(2, pdf.length);
     }

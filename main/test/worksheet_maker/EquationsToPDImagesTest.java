@@ -1,5 +1,6 @@
 package worksheet_maker;
 
+import equation_parameters.FormatDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.junit.Before;
@@ -11,17 +12,18 @@ import java.util.HashMap;
 import static org.junit.Assert.*;
 
 public class EquationsToPDImagesTest {
-    HashMap<String, Object> formatDetails = new HashMap<>();
+    FormatDetails formatDetails = new FormatDetails();
     String[][] equations = {{"5", "+", "4", "=", "9"}, {"5", "+", "3", "=", "8"}};
     PDDocument[] worksheetPDFs = new PDDocument[2];
     EquationsToPDImages equationsToPDImages = new EquationsToPDImages();
 
     @Before
     public void init() {
-        formatDetails.put("equationFormat", "Horizontal");
-        formatDetails.put("title", "Test");
-        formatDetails.put("numRows", 10);
-        formatDetails.put("numColumns", 10);
+        formatDetails.setEquationFormat("Horizontal");
+        formatDetails.setTitle("Test");
+        formatDetails.setNumRows(10);
+        formatDetails.setNumColumns(10);
+
         worksheetPDFs[0] = new PDDocument();
         worksheetPDFs[1] = new PDDocument();
     }
