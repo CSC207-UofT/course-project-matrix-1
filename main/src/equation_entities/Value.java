@@ -40,4 +40,5 @@ public abstract class Value implements Symbol {
      * @return the product of the values, as this * other.
      */
     public abstract Value multiply(Value otherValue);
+
 }
