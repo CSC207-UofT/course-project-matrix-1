@@ -1,5 +1,6 @@
 package worksheet_maker;
 
+import equation_parameters.EquationDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class WorksheetController {
      * using .close().
      * @throws IOException if images cannot be added to the PDF.
      */
-    public PDDocument[] generateWorksheetAndPDF(Map<String, Object> equationDetails, Map<String, Object> formatDetails,
+    public PDDocument[] generateWorksheetAndPDF(EquationDetails equationDetails, Map<String, Object> formatDetails,
                                                 int seed)
             throws IOException {
         Worksheet ws = new Worksheet();

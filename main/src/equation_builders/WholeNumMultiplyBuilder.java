@@ -9,7 +9,7 @@ import equation_entities.Multiply;
  * @version 1.0
  * @since 2021-10-30
  */
-class WholeBedmasMultiplyBuilder extends WholeBedmasBuilder {
+class WholeNumMultiplyBuilder extends WholeNumBuilder {
     /**
      * Assigns the multiplication operator to the equation.
      */

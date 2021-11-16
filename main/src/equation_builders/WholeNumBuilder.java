@@ -13,7 +13,7 @@ import java.util.Random;
  * @version 1.0
  * @since 2021-10-30
  */
-abstract class WholeBedmasBuilder {
+abstract class WholeNumBuilder {
     protected BedmasEquation bedmasEquation;
     private Random rand;
 
