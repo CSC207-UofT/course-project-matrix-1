@@ -3,8 +3,7 @@ package equation_builders;
 import equation_entities.BedmasEquation;
 import equation_entities.WholeNum;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * An abstract builder for all fraction equation builders.
@@ -36,18 +35,18 @@ abstract class FractionBuilder {
 
     /**
      * Builds the operands (first and second) for the bedmasEquation.
-     *
+     * <p>
      * Overridden in some child classes.
-     *
+     * <p>
      * RANDOM SEED (for fixing random number generation):
-     *      First random operation uses the random seed. Succeeding operations increment the random seed by 5.
+     * First random operation uses the random seed. Succeeding operations increment the random seed by 5.
      *
      * @param operandRange1 the absolute range of values that the first operand can be.
      * @param operandRange2 the absolute range of values that the second operand can be.
      * @param negAllowed    specifies if the operands or answer are allowed to be negative.
      * @param seed          random seed to fix random generation of operands
      */
-    protected void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed){
+    protected void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed) {
         int operand1 = randomize(operandRange1, seed);
         int operand2 = randomize(operandRange2, seed + 5);
         if (negAllowed) {
@@ -68,7 +67,7 @@ abstract class FractionBuilder {
     /**
      * Randomly returns either a positive or negative version of the number given (50:50 chance).
      *
-     * @param num the original number.
+     * @param num  the original number.
      * @param seed the random seed for reproducibility
      * @return a negative or positive version of num.
      */
@@ -84,8 +83,8 @@ abstract class FractionBuilder {
     /**
      * Returns a random int between two ints.
      *
-     * @param min the minimum possible int.
-     * @param max the maximum possible int.
+     * @param min  the minimum possible int.
+     * @param max  the maximum possible int.
      * @param seed the random seed for reproducibility
      * @return a randomized int between [min, max] (inclusive).
      */
@@ -98,7 +97,7 @@ abstract class FractionBuilder {
      * Returns a random int from a specified range.
      *
      * @param range the range of possible ints, as [min, max].
-     * @param seed the random seed for reproducibility
+     * @param seed  the random seed for reproducibility
      * @return a randomized int between [min, max] (inclusive).
      */
     protected int randomize(int[] range, int seed) {
@@ -109,7 +108,7 @@ abstract class FractionBuilder {
      * Returns a random int from a specified list of numbers.
      *
      * @param possibleInts the possible ints in no particular order.
-     * @param seed the random seed for reproducibility
+     * @param seed         the random seed for reproducibility
      * @return a randomized int from the possibleInts.
      */
     protected int randomize(List<Integer> possibleInts, int seed) {
