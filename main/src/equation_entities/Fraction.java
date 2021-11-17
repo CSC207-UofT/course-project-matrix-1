@@ -134,4 +134,9 @@ public class Fraction extends Value {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return (fractionParts[0]+"/"+fractionParts[1]);
+    }
 }

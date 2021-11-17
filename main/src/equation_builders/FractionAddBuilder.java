@@ -1,7 +1,10 @@
 package equation_builders;
 
 import equation_entities.Add;
+import equation_entities.Fraction;
+import equation_entities.WholeNum;
 import equation_parameters.FractionEquationDetails;
+import exceptions.InvalidInputException;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -37,12 +40,24 @@ public class FractionAddBuilder extends FractionBuilder {
         }
         ArrayList<Integer> possibleOperand2D = new ArrayList<>();
         possibleOperand2D.add(necessaryOperand2DValue);
-        for (int p: operand1DFactors){
-            for (int currentD: possibleOperand2D){
-                possibleOperand2D.add(p*currentD);
+        for (int p : operand1DFactors) {
+            int length = possibleOperand2D.size();
+            for (int dIndex = 0; dIndex < length; dIndex++) {
+                possibleOperand2D.add(p * possibleOperand2D.get(dIndex));
             }
         }
         int operand2D = rand.randomize(possibleOperand2D, seed);
+        if (fracEqnDetails.getMaxValue() <= 0) {
+            throw new InvalidInputException();
+        }
+        int operand1N = randomize(0, operand1D, seed) + operand1D * (fracEqnDetails.getMaxValue() - 1);
+        int operand2N = randomize(0, operand2D, seed) + operand2D * (fracEqnDetails.getMaxValue() - 1);
+        if (fracEqnDetails.isNegAllowed()) {
+            operand1N = makeNegativeRandom(operand1N, seed);
+            operand2N = makeNegativeRandom(operand2N, seed);
+        }
+        bedmasEquation.setOperand1(new Fraction(operand1N, operand1D));
+        bedmasEquation.setOperand2(new Fraction(operand2N, operand2D));
     }
 
 }

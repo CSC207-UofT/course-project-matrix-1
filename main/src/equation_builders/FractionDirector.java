@@ -73,14 +73,5 @@ public class FractionDirector extends EquationDirector {
         fractionBuilder.buildAnswer();
     }
 
-    /**
-     * Returns the BedmasEquation held within the BedmasEquationBuilder.
-     *
-     * @return the bedmas equation from the builder.
-     */
-    public BedmasEquation getBedmasEquation() {
-        return fractionBuilder.getBedmasEquation();
-    }
-
 
 }
