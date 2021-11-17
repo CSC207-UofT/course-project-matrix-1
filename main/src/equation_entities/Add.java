@@ -3,7 +3,7 @@ package equation_entities;
 /**
  * Adds two Values and returns the string representation of this operator.
  *
- * @author Will Jeong
+ * @author Will Jeong --------------------------------------
  * @version 1.0
  * @since 2021-10-30
  */
