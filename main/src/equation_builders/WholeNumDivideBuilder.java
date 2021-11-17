@@ -41,14 +41,14 @@ class WholeNumDivideBuilder extends WholeNumBuilder {
         //TODO: Zeros are not allowed for operator 2. At UI level, restrict this.
         // TODO: Why restrict at UI level? 0 can be removed upon random number generation
         List<Integer> possibleOperand2 = restrictRanges(operandRange1, operandRange2);
-        int operand2 = randomize(possibleOperand2, seed);
+        int operand2 = rand.randomize(possibleOperand2, seed);
         int[] answerRange = new int[]{(int) Math.ceil((float) operandRange1[0] / operand2),
                 (int) Math.floor((float) operandRange1[1] / operand2)};
-        int answer = randomize(answerRange, seed + 5);
+        int answer = rand.randomize(answerRange, seed + 5);
         int operand1 = answer * operand2;
         if (negAllowed) {
-            operand1 = makeNegativeRandom(operand1, seed + 10);
-            operand2 = makeNegativeRandom(operand2, seed + 15);
+            operand1 = rand.makeNegativeRandom(operand1, seed + 10);
+            operand2 = rand.makeNegativeRandom(operand2, seed + 15);
         }
         bedmasEquation.setOperand1(new WholeNum(operand1));
         bedmasEquation.setOperand2(new WholeNum(operand2));

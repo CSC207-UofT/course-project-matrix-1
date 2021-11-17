@@ -35,13 +35,13 @@ class WholeNumSubBuilder extends WholeNumBuilder {
     @Override
     protected void buildOperands(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed) {
         //TODO: Fix bad inputs (ex. operand2 range is greater than operand1)
-        int operand1 = randomize(operandRange1, seed);
+        int operand1 = rand.randomize(operandRange1, seed);
         int operand2;
         if (negAllowed) {
-            operand1 = makeNegativeRandom(operand1, seed + 5);
-            operand2 = makeNegativeRandom(randomize(operandRange2,seed + 10), seed + 15);
+            operand1 = rand.makeNegativeRandom(operand1, seed + 5);
+            operand2 = rand.makeNegativeRandom(rand.randomize(operandRange2,seed + 10), seed + 15);
         } else {
-            operand2 = randomize(operandRange2[0], operand1, seed + 5);
+            operand2 = rand.randomize(operandRange2[0], operand1, seed + 5);
         }
         bedmasEquation.setOperand1(new WholeNum(operand1));
         bedmasEquation.setOperand2(new WholeNum(operand2));

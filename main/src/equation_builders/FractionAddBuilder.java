@@ -24,13 +24,13 @@ public class FractionAddBuilder extends FractionBuilder {
      */
     @Override
     protected void buildOperands(FractionEquationDetails fracEqnDetails, int seed) {
-        int operand1D = randomize(getDenomDistribution(), seed);
+        int operand1D = rand.randomize(getDenomDistribution(), seed);
         int maxMultiple = fracEqnDetails.getMaxDenominator() / operand1D;
         ArrayList<Integer> possibleAnswerD = new ArrayList<>();
         for (int i = 1; i < maxMultiple + 1; i++) {
             possibleAnswerD.add(i * operand1D);
         }
-        int answerD = randomize(possibleAnswerD, seed);
+        int answerD = rand.randomize(possibleAnswerD, seed);
         Set<Integer> operand1DFactors = EquationDirector.findFactors(operand1D);
         Set<Integer> necessaryOperand2DFactors = EquationDirector.findFactors(answerD);
         necessaryOperand2DFactors.removeAll(operand1DFactors);
@@ -46,7 +46,7 @@ public class FractionAddBuilder extends FractionBuilder {
                 possibleOperand2D.add(p * possibleOperand2D.get(dIndex));
             }
         }
-        int operand2D = randomize(possibleOperand2D, seed);
+        int operand2D = rand.randomize(possibleOperand2D, seed);
         if (fracEqnDetails.getMaxValue() <= 0) {
             throw new InvalidInputException();
         }

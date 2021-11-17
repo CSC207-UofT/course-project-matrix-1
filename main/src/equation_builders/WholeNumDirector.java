@@ -28,6 +28,7 @@ public class WholeNumDirector extends EquationDirector {
         char SUBTRACT = '-';
         char MULTIPLY = '*';
         char DIVIDE = '/';
+        char EXPONENTIATE = '^';
 
         if (operator == ADD) {
             this.wholeBedmasBuilder = new WholeNumAddBuilder();
@@ -37,6 +38,8 @@ public class WholeNumDirector extends EquationDirector {
             this.wholeBedmasBuilder = new WholeNumMultiplyBuilder();
         } else if (operator == DIVIDE) {
             this.wholeBedmasBuilder = new WholeNumDivideBuilder();
+        } else if (operator == EXPONENTIATE) {
+            this.wholeBedmasBuilder = new WholeNumExponentiateBuilder();
         } else {
             throw new InvalidInputException();
         }
