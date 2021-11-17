@@ -22,6 +22,7 @@ public class WholeNumDirector extends EquationDirector {
      * @param operator the char that determines which builder this director will use.
      */
     //TODO: Use Class.forName, have them assign the class directly instead.
+    @Override
     public void setEquationBuilder(char operator) {
         char ADD = '+';
         char SUBTRACT = '-';
@@ -46,6 +47,7 @@ public class WholeNumDirector extends EquationDirector {
      *
      * @return the bedmas equation from the builder.
      */
+    @Override
     public BedmasEquation getEquation() {
         return wholeBedmasBuilder.getBedmasEquation();
     }
@@ -56,19 +58,13 @@ public class WholeNumDirector extends EquationDirector {
      * @param equationDetails the parameters for whole number equation generation.
      * @param seed          random seed to fix random generation of operands
      */
+    @Override
     public void constructEquation(EquationDetails equationDetails, int seed) {
         WholeNumEquationDetails wholeNumEquationDetails = (WholeNumEquationDetails) equationDetails;
         wholeBedmasBuilder.createNewBedmasEquationProduct();
         wholeBedmasBuilder.buildOperator();
+        //TODO: Refactor so that the wholeNumEquationDetails is directly sent in
         wholeBedmasBuilder.buildOperands(wholeNumEquationDetails.getOperandRange1(), wholeNumEquationDetails.getOperandRange2(), wholeNumEquationDetails.isNegAllowed(), seed);
         wholeBedmasBuilder.buildAnswer();
     }
-
-
-//    public void constructEquation(int[] operandRange1, int[] operandRange2, boolean negAllowed, int seed) {
-//        wholeBedmasBuilder.createNewBedmasEquationProduct();
-//        wholeBedmasBuilder.buildOperator();
-//        wholeBedmasBuilder.buildOperands(operandRange1, operandRange2, negAllowed, seed);
-//        wholeBedmasBuilder.buildAnswer();
-//    }
 }
