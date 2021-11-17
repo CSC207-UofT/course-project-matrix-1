@@ -1,5 +1,7 @@
 package user_package;
 
+import equation_parameters.EquationDetails;
+import equation_parameters.WholeNumEquationDetails;
 import exceptions.RecordDoesNotExistException;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,8 +75,8 @@ public class HistoryManagerTest {
         Map<String, Object> worksheetDetails = new HashMap<>();
         worksheetDetails.put("worksheetKey", "4");
 
-        Map<String, Object> equationDetails = new HashMap<>();
-        equationDetails.put("numOfEquations", 100);
+        EquationDetails equationDetails = new WholeNumEquationDetails();
+        equationDetails.setNumOfEquations(100);
         worksheetDetails.put("equationDetails", equationDetails);
 
         exampleHistoryManager.storeUserRecord("newUser3", worksheetDetails);
