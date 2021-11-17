@@ -1,8 +1,10 @@
 package worksheet_maker;
 
 import equation_builders.*;
-
-import java.util.Map;
+import equation_parameters.DecimalEquationDetails;
+import equation_parameters.EquationDetails;
+import equation_parameters.FractionEquationDetails;
+import equation_parameters.WholeNumEquationDetails;
 
 /**
  * Generates a worksheet through the WorksheetInput interface.
@@ -34,18 +36,29 @@ public class WorksheetGenerator {
      * @param equationDetails Hashmap showing details necessary for equation generation. Includes numOfEquation,
      *                        operator, operandRange1, operandRange2, negAllowed.
      */
-    public void populateWorksheet(Map<String, Object> equationDetails) {
+    public void populateWorksheet(EquationDetails equationDetails) {
+        EquationDirector equationDirector = null;
+        //TODO: fix this to not be null
         //Create and assign the appropriate builder to a director.
-        WholeBedmasDirector wholeBedmasDirector = getWholeBedmasDirector((char) equationDetails.get("operator"));
+        if (equationDetails instanceof WholeNumEquationDetails) {
+            equationDirector = getWholeBedmasDirector(equationDetails.getOperator());
+        } else if (equationDetails instanceof FractionEquationDetails) {
+            //TODO: make FractionDirector
+        } else if (equationDetails instanceof DecimalEquationDetails) {
+            //TODO: make DecimalDirector
+        }
 
         // Update worksheet random seed per question.
         int currentSeed = this.seed;
 
-        for (int i = 0; i < (int) equationDetails.get("numOfEquations"); i++) {
-            wholeBedmasDirector.constructBedmasEquation((int[]) equationDetails.get("operandRange1"),
-                    (int[]) equationDetails.get("operandRange2"), (boolean) equationDetails.get("negAllowed"),
-                    currentSeed);
-            this.worksheet.addEquation(wholeBedmasDirector.getBedmasEquation());
+        for (int i = 0; i < equationDetails.getNumOfEquations(); i++) {
+//            if (equationDetails instanceof WholeNumEquationDetails){
+//                equationDirector.constructBedmasEquation(((WholeNumEquationDetails) equationDetails).getOperandRange1(),
+//                        ((WholeNumEquationDetails) equationDetails).getOperandRange2(), equationDetails.isNegAllowed(),
+//                        currentSeed);
+//            }
+            equationDirector.constructEquation(equationDetails, currentSeed);
+            this.worksheet.addEquation(equationDirector.getEquation());
             currentSeed += 100;
         }
     }
@@ -56,11 +69,11 @@ public class WorksheetGenerator {
      * returns.
      *
      * @param operator the operator in the equations of the worksheet.
-     * @return WholeBedmasDirector with the correct WholeBedmasBuilder set to it.
+     * @return WholeNumDirector with the correct WholeBedmasBuilder set to it.
      */
-    private WholeBedmasDirector getWholeBedmasDirector(char operator) {
-        WholeBedmasDirector wholeBedmasDirector = new WholeBedmasDirector();
-        wholeBedmasDirector.setBedmasEquationBuilder(operator);
+    private WholeNumDirector getWholeBedmasDirector(char operator) {
+        WholeNumDirector wholeBedmasDirector = new WholeNumDirector();
+        wholeBedmasDirector.setEquationBuilder(operator);
         return wholeBedmasDirector;
     }
 }

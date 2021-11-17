@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  * @since 2021-10-30
  */
-class WholeBedmasDivideBuilder extends WholeBedmasBuilder {
+class WholeNumDivideBuilder extends WholeNumBuilder {
     /**
      * Assigns the division operator to the equation.
      */
