@@ -1,5 +1,8 @@
 package user_interface;
 
+import equation_parameters.EquationDetails;
+import equation_parameters.FormatDetails;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -71,15 +74,18 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
             for (Map <String, Object> map : userHistoryList) {
 
                 // Create temporary maps for the format, and equation details
-                Map <String, Object> tempMapFormatDetails = (Map<String, Object>) map.get("formatDetails");
-                Map <String, Object>  tempMapEquationDetails = (Map <String, Object>) map.get("equationDetails");
+                FormatDetails tempMapFormatDetails = (FormatDetails) map.get("formatDetails");
+                EquationDetails tempMapEquationDetails = (EquationDetails) map.get("equationDetails");
+
+//                Map <String, Object> tempMapFormatDetails = (Map<String, Object>) map.get("formatDetails");
+//                Map <String, Object>  tempMapEquationDetails = (Map <String, Object>) map.get("equationDetails");
 
                 // Clear String Builder
                 totalString.setLength(0);
 
                 // Add title to String Builder
                 totalString.append("Title: ");
-                totalString.append(tempMapFormatDetails.get("title"));
+                totalString.append(tempMapFormatDetails.getTitle());
                 // Add date to String Builder
                 totalString.append(" | Date Created: ");
                 String tempName = (String) map.get("worksheetKey");
@@ -87,11 +93,11 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
                 // Add topic to String Builder
 
                 totalString.append(" | Topic: ");
-                char tempOperator = (char) tempMapEquationDetails.get("operator");
+                char tempOperator = (char) tempMapEquationDetails.getOperator();
                 getOperator(tempOperator);
                 // Add number of equations to String Builder
                 totalString.append(" | Number of Equations: ");
-                totalString.append(tempMapEquationDetails.get("numOfEquations"));
+                totalString.append(tempMapEquationDetails.getNumOfEquations());
                 // Add score to String Builder (currently set to zero - implement next phase)
                 totalString.append(" | Score: ");
                 totalString.append("0");
@@ -244,7 +250,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
                 try {
                     frame.setVisible(false);
                     historyPanel.setVisible(false);
-                    new WorksheetViewerScreen(equation_details_temp, format_details_temp, worksheet_history_details_temp);
+                    new WorksheetViewerScreen(worksheet_history_details_temp);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

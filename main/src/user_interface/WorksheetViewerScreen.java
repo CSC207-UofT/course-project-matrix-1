@@ -46,41 +46,24 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
     String documentTitle;
 
     // Create the map's to store the temporary equation and format details
-    Map<String, Object> equation_details_viewer;
-    Map<String, Object> format_details_viewer;
+    EquationDetails equationDetails;
+    FormatDetails formatDetails;
 
-    public WorksheetViewerScreen(Map<String, Object> equation_Details, Map<String, Object> format_Details,
-                                 Map<String, Object> worksheet_details) throws IOException {
+    public WorksheetViewerScreen(Map<String, Object> worksheetDetails) throws IOException {
+        equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
+        formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
 
         // Set Panel to the viewer screen
         cardLayout.show(cardPanel, "ViewerScreen");
 
-        // Set the updated equation details and format details chosen by the user
-        equation_details_viewer = equation_Details;
-        format_details_viewer = format_Details;
-
         // Set the document title
-        documentTitle = format_details_viewer.get("title").toString();
+        documentTitle = formatDetails.getTitle();
 
         // Store the worksheet information to the user's history
-        userController.storeUserRecord(worksheet_details);
+        userController.storeUserRecord(worksheetDetails);
+        //TODO: this method call sends in a map containing EquationDetails and FormatDetails, currently does not work
 
         // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
-        //TODO: stop using a hashmap and use EquationDetails class instead.
-        WholeNumEquationDetails equationDetails = new WholeNumEquationDetails();
-        equationDetails.setOperator((Character) equation_Details.get("operator"));
-        equationDetails.setNumOfEquations((Integer) equation_Details.get("numOfEquations"));
-        equationDetails.setOperandRange1((int[]) equation_Details.get("operandRange1"));
-        equationDetails.setOperandRange2((int[]) equation_Details.get("operandRange2"));
-        equationDetails.setNegAllowed((Boolean) equation_Details.get("negAllowed"));
-
-        //TODO: stop using a hashmap and use FormatDetails class instead.
-        FormatDetails formatDetails = new FormatDetails();
-        formatDetails.setEquationFormat((String) format_Details.get("equationFormat"));
-        formatDetails.setTitle((String) format_Details.get("title"));
-        formatDetails.setNumColumns((int) format_Details.get("numColumns"));
-        formatDetails.setNumRows((int) format_Details.get("numRows"));
-
         documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, 0);
 
         // Create an image of the documents first page to preview
@@ -164,7 +147,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         } else if (e.getSource() == viewerBackButton) {
             frame.setVisible(false);
             viewerPanel.setVisible(false);
-            new CustomizeScreen(equation_details_viewer);
+            new CustomizeScreen(equationDetails);
         }
 
     }
