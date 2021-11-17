@@ -20,7 +20,7 @@ public final class WholeNumEquationDetails extends EquationDetails {
     private int[] operandRange1;
     private int[] operandRange2;
 
-    //TODO: give this class more functionality. maybe move rnadomize operand here? would need to pass all of equation details down though (is this unnecessary parameters?)
+    //TODO: give this class more functionality. maybe move randomize operand here? would need to pass all of equation details down though (is this unnecessary parameters?)
 
 
 }

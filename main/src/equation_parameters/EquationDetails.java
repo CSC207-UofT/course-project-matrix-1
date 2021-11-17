@@ -1,6 +1,8 @@
 package equation_parameters;
 
-public abstract class EquationDetails {
+import java.io.Serializable;
+
+public abstract class EquationDetails implements Serializable {
     public int getNumOfEquations() {
         return numOfEquations;
     }

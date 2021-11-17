@@ -1,6 +1,8 @@
 package equation_parameters;
 
-public final class FormatDetails {
+import java.io.Serializable;
+
+public final class FormatDetails implements Serializable {
     public String getEquationFormat() {
         return equationFormat;
     }

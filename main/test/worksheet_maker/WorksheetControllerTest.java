@@ -1,5 +1,6 @@
 package worksheet_maker;
 
+import equation_parameters.FormatDetails;
 import equation_parameters.WholeNumEquationDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Test;
@@ -20,11 +21,12 @@ public class WorksheetControllerTest {
         wholeNumEquationDetails.setOperandRange2(new int[]{5, 9});
         wholeNumEquationDetails.setNegAllowed(true);
 
-        HashMap<String, Object> myFormatDetails = new HashMap<>();
-        myFormatDetails.put("equationFormat", "Horizontal");
-        myFormatDetails.put("title", "Test Worksheet");
-        myFormatDetails.put("numRows", 2);
-        myFormatDetails.put("numColumns", 2);
+        FormatDetails myFormatDetails = new FormatDetails();
+        myFormatDetails.setEquationFormat("Horizontal");
+        myFormatDetails.setTitle("Test Worksheet");
+        myFormatDetails.setNumRows(2);
+        myFormatDetails.setNumColumns(2);
+
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
         String path = "out/production/course-project-matrix-1/user_package/users_data/";

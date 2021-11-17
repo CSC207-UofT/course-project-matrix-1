@@ -1,5 +1,6 @@
 package worksheet_maker;
 
+import equation_parameters.FormatDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
@@ -29,10 +30,10 @@ public class PDFArranger {
      *                             number of rows, and number of columns.
      * @throws IOException if images cannot be added to the PDF.
      */
-    public void arrangeOnPDFs(PDImageXObject[][] qAndAPDImage, PDDocument[] worksheetPDFs, Map<String, Object>
+    public void arrangeOnPDFs(PDImageXObject[][] qAndAPDImage, PDDocument[] worksheetPDFs, FormatDetails
             formatArrangeDetails) throws IOException {
-        double rescaleFactor = imageRescaler.findRescaleFactor(qAndAPDImage[1], (int) formatArrangeDetails.get("numRows"),
-                (int) formatArrangeDetails.get("numColumns"));
+        double rescaleFactor = imageRescaler.findRescaleFactor(qAndAPDImage[1], (int) formatArrangeDetails.getNumRows(),
+                (int) formatArrangeDetails.getNumColumns());
         for (int i = 0; i < 2; i++) {
             populatePages(qAndAPDImage[i], worksheetPDFs[i], formatArrangeDetails, rescaleFactor);
         }
@@ -49,12 +50,12 @@ public class PDFArranger {
      * @throws IOException if images cannot be added to the PDF.
      */
     private void populatePages(PDImageXObject[] equationImages, PDDocument worksheetPDF,
-                               Map<String, Object> formatArrangeDetails, double rescaleFactor) throws IOException {
+                               FormatDetails formatArrangeDetails, double rescaleFactor) throws IOException {
         int qNumber = 0;
         for (int i = 0; i < worksheetPDF.getNumberOfPages(); i++) {
             PDPageContentStream contentStream = new PDPageContentStream(worksheetPDF, worksheetPDF.getPage(i));
             if (i == 0) {
-                addTitle(contentStream, (String) formatArrangeDetails.get("title"));
+                addTitle(contentStream, formatArrangeDetails.getTitle());
             }
             qNumber = addQuestions(equationImages, rescaleFactor, qNumber, formatArrangeDetails, contentStream);
             contentStream.close();
@@ -73,10 +74,10 @@ public class PDFArranger {
      * @throws IOException if images cannot be added to the PDF.
      */
     private int addQuestions(PDImageXObject[] equationImages, double rescaleFactor, int qNumber,
-                             Map<String, Object> formatArrangeDetails, PDPageContentStream contentStream)
+                             FormatDetails formatArrangeDetails, PDPageContentStream contentStream)
             throws IOException {
-        int numColumns = (int) formatArrangeDetails.get("numColumns");
-        int numRows = (int) formatArrangeDetails.get("numRows");
+        int numColumns = (int) formatArrangeDetails.getNumColumns();
+        int numRows = (int) formatArrangeDetails.getNumRows();
         for (int x = 0; x < numColumns; x++) {
             for (int y = numRows; y > 0; y--) {
                 if (qNumber < equationImages.length) {
