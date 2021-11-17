@@ -33,7 +33,7 @@ public class LocalDataAccessTest {
         equationDetails.setOperator('+');
 
         FormatDetails formatDetails = new FormatDetails();
-        formatDetails.setEquationFormat("horizontal");
+        formatDetails.setEquationFormat("Horizontal");
         formatDetails.setNumColumns(4);
         formatDetails.setNumRows(25);
 
