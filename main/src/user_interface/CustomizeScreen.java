@@ -1,5 +1,9 @@
 package user_interface;
 
+import equation_parameters.EquationDetails;
+import equation_parameters.FormatDetails;
+import equation_parameters.WholeNumEquationDetails;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -59,17 +63,21 @@ public class CustomizeScreen extends Screen implements MouseListener {
     String dateAndTime;
 
     // Create the temporary map's to be passed into worksheet viewer screen
-    Map <String, Object> equations_details_customizeScreen = new HashMap<>();
-    Map <String, Object> format_details_customizeScreen = new HashMap<>();
-    Map <String, Object> worksheet_history_details = new HashMap<>();
+//    Map <String, Object> equations_details_customizeScreen = new HashMap<>();
+//    Map <String, Object> format_details_customizeScreen = new HashMap<>();
 
-    public CustomizeScreen(Map<String, Object> equation_details) {
+    EquationDetails equationDetails;
+    FormatDetails formatDetails = new FormatDetails();
+
+    Map <String, Object> worksheetHistoryDetails = new HashMap<>();
+
+    public CustomizeScreen(EquationDetails equationDetails) {
 
         // Change cardPanel to the custom worksheet screen
         cardLayout.show(cardPanel, "CustomizeScreen");
 
-        // Gets the chosen topic from the previous screen
-        equations_details_customizeScreen.put("operator", equation_details.get("operator"));
+        // Gets the chosen operator/equationDetail type from the previous screen
+        this.equationDetails = equationDetails;
 
         // Create Equation Details and Formatting JLabels and its shadow
         JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
@@ -259,28 +267,28 @@ public class CustomizeScreen extends Screen implements MouseListener {
                 customizeWSPanel.setVisible(false);
 
                 // Add all equation details to the map
-                equations_details_customizeScreen.put("numOfEquations", numOfEquations);
-                equations_details_customizeScreen.put("operandRange1", operandRange1);
-                equations_details_customizeScreen.put("operandRange2", operandRange2);
-                equations_details_customizeScreen.put("negAllowed", negAllowed);
+                this.equationDetails.setNumOfEquations(numOfEquations);
+                this.equationDetails.setNegAllowed(negAllowed);
+                //TODO: need different casting for different equation details, make if statements
+                ((WholeNumEquationDetails) this.equationDetails).setOperandRange1(operandRange1);
+                ((WholeNumEquationDetails) this.equationDetails).setOperandRange2(operandRange2);
 
                 // Add all formatting details to the map
-                format_details_customizeScreen.put("equationFormat", equationFormat);
-                format_details_customizeScreen.put("title", titleInput);
-                format_details_customizeScreen.put("numRows", numOfRows);
-                format_details_customizeScreen.put("numColumns", numOfColumns);
+                this.formatDetails.setTitle(titleInput);
+                this.formatDetails.setEquationFormat(equationFormat);
+                this.formatDetails.setNumColumns(numOfColumns);
+                this.formatDetails.setNumRows(numOfRows);
 
                 // Find the exact date/time the user created the worksheet
                 dateAndTime = LocalDateTime.now().toString();
 
                 // Create the unique worksheet history details
-                worksheet_history_details.put("worksheetKey", dateAndTime);
-                worksheet_history_details.put("equationDetails", equations_details_customizeScreen);
-                worksheet_history_details.put("formatDetails", format_details_customizeScreen);
+                worksheetHistoryDetails.put("worksheetKey", dateAndTime);
+                worksheetHistoryDetails.put("equationDetails", this.equationDetails);
+                worksheetHistoryDetails.put("formatDetails", this.formatDetails);
 
                 try {
-                    new WorksheetViewerScreen(equations_details_customizeScreen, format_details_customizeScreen,
-                            worksheet_history_details);
+                    new WorksheetViewerScreen(worksheetHistoryDetails);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
