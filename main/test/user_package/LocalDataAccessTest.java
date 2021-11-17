@@ -1,8 +1,12 @@
 package user_package;
 
+import equation_parameters.EquationDetails;
+import equation_parameters.FormatDetails;
+import equation_parameters.WholeNumEquationDetails;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.Format;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,14 +27,15 @@ public class LocalDataAccessTest {
         // Example History
         HashMap<String, Object> record = new HashMap<>();
 
-        HashMap<String, Object> equationDetails = new HashMap<>();
-        equationDetails.put("numOfEquations", 100);
-        equationDetails.put("negAllowed", false);
-        equationDetails.put("operator", "+");
+        EquationDetails equationDetails = new WholeNumEquationDetails();
+        equationDetails.setNumOfEquations(100);
+        equationDetails.setNegAllowed(false);
+        equationDetails.setOperator('+');
 
-        HashMap<String, Object> formatDetails = new HashMap<>();
-        formatDetails.put("numColumns", 4);
-        formatDetails.put("numRows", 25);
+        FormatDetails formatDetails = new FormatDetails();
+        formatDetails.setEquationFormat("Horizontal");
+        formatDetails.setNumColumns(4);
+        formatDetails.setNumRows(25);
 
         record.put("worksheetKey", "0");
         record.put("equationDetails", equationDetails);
