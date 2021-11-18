@@ -3,12 +3,7 @@ package equation_builders;
 import equation_entities.BedmasEquation;
 import equation_parameters.EquationDetails;
 import equation_parameters.FractionEquationDetails;
-import equation_parameters.WholeNumEquationDetails;
 import exceptions.InvalidInputException;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
 /**
  * Directs the construction of whole number BEDMAS equations, starting from the operator, then the operands,
@@ -27,7 +22,7 @@ public class FractionDirector extends EquationDirector {
      *
      * @param operator the char that determines which builder this director will use.
      */
-    public void setEquationBuilder(char operator) {
+    public void setEquationBuilder(char operator, String operandType) {
         char ADD = '+';
         char SUBTRACT = '-';
         char MULTIPLY = '*';
@@ -35,18 +30,22 @@ public class FractionDirector extends EquationDirector {
         char EXPONENTIATE = '^';
 
         if (operator == ADD) {
-            this.fractionBuilder = new FractionAddBuilder();
+            this.fractionBuilder = new FractionAddOperandConstructor();
         } else if (operator == SUBTRACT) {
-            this.fractionBuilder = new FractionSubBuilder();
+            this.fractionBuilder = new FractionSubOperandConstructor();
         } else if (operator == MULTIPLY) {
-            this.fractionBuilder = new FractionMultiplyBuilder();
+            this.fractionBuilder = new FractionMultiplyOperandConstructor();
         } else if (operator == DIVIDE) {
-            this.fractionBuilder = new FractionDivideBuilder();
+            this.fractionBuilder = new FractionDivideOperandConstructor();
         } else if (operator == EXPONENTIATE) {
-            this.fractionBuilder = new FractionExponentiateBuilder();
+            this.fractionBuilder = new FractionExponentiateOperandConstructor();
         } else {
             throw new InvalidInputException();
         }
+    }
+
+    public void setEquationBuilder(char operator) {
+        setEquationBuilder(operator, "Fraction");
     }
 
     @Override
@@ -58,7 +57,7 @@ public class FractionDirector extends EquationDirector {
      * Construct a bedmas equation given the following parameters.
      *
      * @param equationDetails the parameters for fraction equation generation.
-     * @param seed            random seed to fix random generation of operands
+     * @param seed random seed to fix randomness in generating of operands
      */
     @Override
     public void constructEquation(EquationDetails equationDetails, int seed) {

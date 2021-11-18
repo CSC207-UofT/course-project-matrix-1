@@ -11,7 +11,7 @@ public abstract class EquationDirector {
     //A list of factors for each number
     private final static Map<Integer, HashSet<Integer>> allFactors = new HashMap<>();
 
-    public abstract void setEquationBuilder(char operator);
+    public abstract void setEquationBuilder(char operator, String operandType);
 
     public abstract BedmasEquation getEquation();
 

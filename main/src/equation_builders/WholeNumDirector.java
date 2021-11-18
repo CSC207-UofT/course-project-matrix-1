@@ -23,7 +23,7 @@ public class WholeNumDirector extends EquationDirector {
      */
     //TODO: Use Class.forName, have them assign the class directly instead.
     @Override
-    public void setEquationBuilder(char operator) {
+    public void setEquationBuilder(char operator, String operandType) {
         char ADD = '+';
         char SUBTRACT = '-';
         char MULTIPLY = '*';
@@ -31,20 +31,24 @@ public class WholeNumDirector extends EquationDirector {
         char EXPONENTIATE = '^';
 
         if (operator == ADD) {
-            this.wholeBedmasBuilder = new WholeNumAddBuilder();
+            this.wholeBedmasBuilder = new WholeNumAddOperandConstructor();
         } else if (operator == SUBTRACT) {
-            this.wholeBedmasBuilder = new WholeNumSubBuilder();
+            this.wholeBedmasBuilder = new WholeNumSubOperandConstructor();
         } else if (operator == MULTIPLY) {
             this.wholeBedmasBuilder = new WholeNumMultiplyBuilder();
         } else if (operator == DIVIDE) {
-            this.wholeBedmasBuilder = new WholeNumDivideBuilder();
+            this.wholeBedmasBuilder = new WholeNumDivideOperandConstructor();
         } else if (operator == EXPONENTIATE) {
             this.wholeBedmasBuilder = new WholeNumExponentiateBuilder();
         } else {
             throw new InvalidInputException();
         }
     }
-    
+
+    public void setEquationBuilder(char operator) {
+        setEquationBuilder(operator, "WholeNum");
+    }
+
     /**
      * Returns the BedmasEquation held within the BedmasEquationBuilder.
      *
@@ -59,7 +63,7 @@ public class WholeNumDirector extends EquationDirector {
      * Construct a bedmas equation given the following parameters.
      *
      * @param equationDetails the parameters for whole number equation generation.
-     * @param seed          random seed to fix random generation of operands
+     * @param seed random seed to fix randomness in generating of operands
      */
     @Override
     public void constructEquation(EquationDetails equationDetails, int seed) {
