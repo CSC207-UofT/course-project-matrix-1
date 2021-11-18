@@ -50,11 +50,11 @@ public class FractionAddBuilder extends FractionBuilder {
         if (fracEqnDetails.getMaxValue() <= 0) {
             throw new InvalidInputException();
         }
-        int operand1N = randomize(0, operand1D, seed) + operand1D * (fracEqnDetails.getMaxValue() - 1);
-        int operand2N = randomize(0, operand2D, seed) + operand2D * (fracEqnDetails.getMaxValue() - 1);
+        int operand1N = rand.randomize(0, operand1D, seed) + operand1D * (fracEqnDetails.getMaxValue() - 1);
+        int operand2N = rand.randomize(0, operand2D, seed) + operand2D * (fracEqnDetails.getMaxValue() - 1);
         if (fracEqnDetails.isNegAllowed()) {
-            operand1N = makeNegativeRandom(operand1N, seed);
-            operand2N = makeNegativeRandom(operand2N, seed);
+            operand1N = rand.makeNegativeRandom(operand1N, seed);
+            operand2N = rand.makeNegativeRandom(operand2N, seed);
         }
         bedmasEquation.setOperand1(new Fraction(operand1N, operand1D));
         bedmasEquation.setOperand2(new Fraction(operand2N, operand2D));
