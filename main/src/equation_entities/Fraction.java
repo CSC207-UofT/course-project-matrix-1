@@ -90,6 +90,42 @@ public class Fraction extends Value {
     }
 
     /**
+     * Return this value raised to the power of the otherValue.
+     *
+     * @param otherValue the power with which to raise the current value
+     * @return the result of raising this value to the power of the otherValue
+     */
+    @Override
+    public Value exponentiate(Value otherValue) {
+        // TODO: Implement this or throw exception for usage.
+        return null;
+    }
+
+    /**
+     * Return the least common multiple of this value and the other value.
+     *
+     * @param otherValue the other number.
+     * @return the least common multiple of this and other value.
+     */
+    @Override
+    public Value lcm(Value otherValue) {
+        // TODO: Implement this or throw exception for usage.
+        return null;
+    }
+
+    /**
+     * Return the greatest common divisor of this value and the other value.
+     *
+     * @param otherValue the other number.
+     * @return the greatest common divisor of this and other value.
+     */
+    @Override
+    public Value gcd(Value otherValue) {
+        // TODO: Implement this or throw exception for usage.
+        return null;
+    }
+
+    /**
      * Uses a numerator and denominator to create an instance of a reduced Fraction.
      *
      * @param numerator   the unreduced numerator.
