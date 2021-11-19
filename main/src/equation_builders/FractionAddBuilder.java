@@ -2,9 +2,9 @@ package equation_builders;
 
 import equation_entities.Add;
 import equation_entities.Fraction;
-import equation_entities.WholeNum;
 import equation_parameters.FractionEquationDetails;
 import exceptions.InvalidInputException;
+import utilities.FactorFinder;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -31,8 +31,8 @@ public class FractionAddBuilder extends FractionBuilder {
             possibleAnswerD.add(i * operand1D);
         }
         int answerD = rand.randomize(possibleAnswerD, seed);
-        Set<Integer> operand1DFactors = EquationDirector.findFactors(operand1D);
-        Set<Integer> necessaryOperand2DFactors = EquationDirector.findFactors(answerD);
+        Set<Integer> operand1DFactors = FactorFinder.findFactors(operand1D);
+        Set<Integer> necessaryOperand2DFactors = FactorFinder.findFactors(answerD);
         necessaryOperand2DFactors.removeAll(operand1DFactors);
         int necessaryOperand2DValue = 1;
         for (int p : necessaryOperand2DFactors) {

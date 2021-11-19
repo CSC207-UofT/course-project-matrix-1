@@ -88,6 +88,16 @@ public class Fraction extends Value {
         int[] otherParts = ((Fraction) otherValue).getImproperFraction();
         return createReducedFraction(fractionParts[0] * otherParts[0], fractionParts[1] * otherParts[1]);
     }
+    /**
+     * As this operation is not relevant to fractions, this method will not be available for fractions.
+     *
+     * @param otherValue the power with which to raise the current value
+     * @return the result of raising this value to the power of the otherValue
+     */
+    @Override
+    public Value exponentiate(Value otherValue){
+        return null;
+    }
 
     /**
      * Uses a numerator and denominator to create an instance of a reduced Fraction.
