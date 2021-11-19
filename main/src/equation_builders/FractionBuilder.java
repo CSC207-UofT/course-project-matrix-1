@@ -1,8 +1,8 @@
 package equation_builders;
 
 import equation_entities.BedmasEquation;
-import equation_entities.WholeNum;
 import equation_parameters.FractionEquationDetails;
+import utilities.FactorFinder;
 import utilities.Randomizer;
 
 import java.util.*;
@@ -74,7 +74,7 @@ abstract class FractionBuilder {
             int maxMultiple = fracEqnDetails.getMaxDenominator() / i;// the maximum number of times i can fit in the max denominator.
             HashSet<Integer> totalFactors = new HashSet<>();
             for (int j = 1; j < maxMultiple + 1; j++) {
-                totalFactors.addAll(EquationDirector.findFactors(i*j));
+                totalFactors.addAll(FactorFinder.findFactors(i*j));
             }
             int score = totalFactors.size()-1; // The number of factors across all the possible answers represents the
             // number of numbers that could work as the second denominator, and is thus proportional to its score.
