@@ -44,7 +44,7 @@ public class FactorFinder {
     }
     /**
      * Finds the prime factors associated with a certain number recursively. This method adds to primeFactorList as it
-     * does so, increasing performance over time. Ex. 40 = [2, 2, 2, 3].
+     * does so, increasing performance over time. Ex. 40 = [2, 2, 2, 5].
      *
      * @param number the number to find prime factors for.
      * @return  a collection of the prime factors.
