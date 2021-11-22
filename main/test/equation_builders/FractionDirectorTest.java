@@ -48,6 +48,17 @@ public class FractionDirectorTest {
     }
 
     @Test
+    public void testNegPos() {
+        for (int i = 0; i < 100; i++) {
+            randomSeed = new Random().nextInt(100000);
+            director.setEquationBuilder('-');
+            director.constructEquation(fractionAddSubEquationDetails, randomSeed + 5);
+            System.out.println(director.getEquation().getEquation());
+            String firstOperand = director.getEquation().getEquationParts()[0].toString();
+            assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf('/') + 1))) <= Math.abs(maxDenominator));
+        }
+    }
+    @Test
     public void testMultPos() {
         for (int i = 0; i < 100; i++) {
             randomSeed = new Random().nextInt(100000);
