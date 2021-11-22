@@ -1,7 +1,9 @@
 package equation_builders;
 
 import equation_entities.BedmasEquation;
+import equation_parameters.FractionAddSubEquationDetails;
 import equation_parameters.FractionEquationDetails;
+import equation_parameters.FractionMultiDivEquationDetails;
 import utilities.FactorFinder;
 import utilities.Randomizer;
 
@@ -52,26 +54,20 @@ abstract class FractionBuilder {
     protected abstract void buildOperands(FractionEquationDetails fractionEquationDetails, int seed);
 
     /**
-     * Builds the bedmasEquation's answer.
-     */
-    protected void buildAnswer() {
-        bedmasEquation.solve();
-    }
-
-
-    /**
      * Uses the equation details to assign relative probabilities to each number for addition/subtraction so that
      * the distribution of questions is nicer.
      *
      * @param fracEqnDetails the parameters for fraction equation generation.
      */
+    //TODO: remove this method into a seperate class.
     public void assignProbability(FractionEquationDetails fracEqnDetails) {
-        if (fracEqnDetails.getDenominatorRange()[1] > fracEqnDetails.getMaxDenominator()) {
-            fracEqnDetails.setDenominatorRange(new int[]{fracEqnDetails.getDenominatorRange()[0], fracEqnDetails.getMaxDenominator()});
+        FractionAddSubEquationDetails fracAddSubEqnDetails = (FractionAddSubEquationDetails) fracEqnDetails;
+        if (fracAddSubEqnDetails.getDenominatorRange()[1] > fracAddSubEqnDetails.getMaxDenominator()) {
+            fracAddSubEqnDetails.setDenominatorRange(new int[]{fracAddSubEqnDetails.getDenominatorRange()[0], fracAddSubEqnDetails.getMaxDenominator()});
         }
         //Assign a relative weight to every number from 1 to the denominator range.
-        for (int i = fracEqnDetails.getDenominatorRange()[0]; i < fracEqnDetails.getDenominatorRange()[1] + 1; i++) {
-            int maxMultiple = fracEqnDetails.getMaxDenominator() / i;// the maximum number of times i can fit in the max denominator.
+        for (int i = fracAddSubEqnDetails.getDenominatorRange()[0]; i < fracAddSubEqnDetails.getDenominatorRange()[1] + 1; i++) {
+            int maxMultiple = fracAddSubEqnDetails.getMaxDenominator() / i;// the maximum number of times i can fit in the max denominator.
             HashSet<Integer> totalFactors = new HashSet<>();
             for (int j = 1; j < maxMultiple + 1; j++) {
                 totalFactors.addAll(FactorFinder.findFactors(i*j));

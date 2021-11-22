@@ -2,6 +2,7 @@ package equation_builders;
 
 import equation_entities.Add;
 import equation_entities.Fraction;
+import equation_parameters.FractionAddSubEquationDetails;
 import equation_parameters.FractionEquationDetails;
 import exceptions.InvalidInputException;
 import utilities.FactorFinder;
@@ -24,8 +25,9 @@ public class FractionAddBuilder extends FractionBuilder {
      */
     @Override
     protected void buildOperands(FractionEquationDetails fracEqnDetails, int seed) {
+        FractionAddSubEquationDetails fracAddSubEqnDetails = (FractionAddSubEquationDetails) fracEqnDetails;
         int operand1D = rand.randomize(getDenomDistribution(), seed);
-        int maxMultiple = fracEqnDetails.getMaxDenominator() / operand1D;
+        int maxMultiple = fracAddSubEqnDetails.getMaxDenominator() / operand1D;
         ArrayList<Integer> possibleAnswerD = new ArrayList<>();
         for (int i = 1; i < maxMultiple + 1; i++) {
             possibleAnswerD.add(i * operand1D);
