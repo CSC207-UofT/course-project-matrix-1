@@ -19,7 +19,7 @@ public class FractionAddBuilder extends FractionBuilder {
     }
 
     /**
-     * Uses the denominator distribution and the maximum possible denominator to get reasonable equations.
+     * Uses the denominator distribution and the maximum possible denominator to get reasonable operands for fraction addition.
      *
      * @param fracEqnDetails the parameters for fraction equation generation.
      * @param seed           random seed to fix random generation of operands
