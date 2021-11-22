@@ -19,14 +19,13 @@ import java.util.Objects;
 public class Screen extends JFrame implements MouseListener {
 
     // Screen size Dimensions are set to full screen
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    int width = screenSize.width;
-    int height = screenSize.height;
+    static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    static int width = screenSize.width;
+    static int height = screenSize.height;
 
     // Create all Panels and Frames
-    JFrame frame = new JFrame();
+    static JFrame frame = new JFrame();
 
-    JPanel cardPanel = new JPanel();
     JPanel loginPanel = new JPanel();
     JPanel optionPanel = new JPanel();
     JPanel topicPanel = new JPanel();
@@ -51,14 +50,13 @@ public class Screen extends JFrame implements MouseListener {
     Image historyImage = historyIconImage.getImage();
     Image historyScaledImage = historyImage.getScaledInstance(67,67, Image.SCALE_SMOOTH);
 
+
+    static String userName = "";
+
     public Screen() {
 
-        frame.setSize(width, height);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         // Update each panel to the default panel settings
-        updatePanels(panels);
+//        updatePanels(panels);
 
     }
 
@@ -74,10 +72,9 @@ public class Screen extends JFrame implements MouseListener {
     }
 
     public void changePanel(JPanel panel) {
-        removeAll();
+        frame.getContentPane().removeAll();
         frame.add(panel);
-        revalidate();
-        repaint();
+        frame.revalidate();
     }
 
     /**
@@ -216,6 +213,9 @@ public class Screen extends JFrame implements MouseListener {
     }
 
     public static void main(String[] args) {
+        frame.setSize(width, height);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         new LoginScreen();
     }
 }

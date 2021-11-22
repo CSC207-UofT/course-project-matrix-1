@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Topic Screen class for the User Interface. The topic screen prompts the user for their desired
@@ -15,106 +16,88 @@ import java.util.Map;
  */
 public class TopicScreen extends Screen implements MouseListener {
 
-    // Create buttons
-    JButton addButton = new JButton("Addition");
-    JButton subButton = new JButton("Subtraction");
-    JButton multiButton = new JButton("Multiplication");
-    JButton divButton = new JButton("Division");
+
     JButton topicNextButton = new JButton("Next");
     JButton topicScreenBackButton = new JButton("Back");
-    JButton[] topicButtons = {addButton, subButton, multiButton, divButton, topicNextButton, topicScreenBackButton};
+    JButton[] topicButtons = {topicNextButton, topicScreenBackButton};
 
     // Create the equation and format details maps
     Map<String, Object> equationDetailsTopic = new HashMap<>();
 
+    String[] numTypeOptions = {"Integers"};
+    JComboBox<String> numOptions = new JComboBox<>(numTypeOptions);
+
+    String[] topicOptions = {"Addition", "Subtraction", "Multiplication", "Division"};
+    JComboBox<String> topicChose = new JComboBox<>(topicOptions);
+
     public TopicScreen() {
 
-        changePanel(topicPanel);
+        topicPanel.setLayout(null);
 
         // Create JLabels
         JLabel topicTitle = new JLabel("Choose Topic", SwingConstants.CENTER);
         JLabel topicTitleShadow = new JLabel("Choose Topic", SwingConstants.CENTER);
-        JLabel numTypes = new JLabel("Number Types", SwingConstants.CENTER);
+        JLabel numTypes = new JLabel("Number Types");
+        JLabel topic = new JLabel("Topic");
 
         // Update the settings of each JLabel
         updateLabel(topicTitle, 0.2, 0.02, 0.6, 0.1, 0.03075, 'r');
         updateLabel(topicTitleShadow, 0.2, 0.0225, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(numTypes, 0.3, 0.59, 0.25, 0.1, 0.02, 'd');
+        updateLabel(numTypes, 0.325, 0.595, 0.25, 0.1, 0.02, 'd');
+        updateLabel(topic, 0.325, 0.268, 0.25, 0.1, 0.02, 'd');
 
-        // "Update the location of each Button
-        updateButtonLocation(addButton, 0.35, 0.125, 0.3, 0.1);
-        updateButtonLocation(subButton, 0.35, 0.25, 0.3, 0.1);
-        updateButtonLocation(multiButton, 0.35, 0.375, 0.3, 0.1);
-        updateButtonLocation(divButton, 0.35, 0.5, 0.3, 0.1);
         updateButtonLocation(topicNextButton, 0.4, 0.775, 0.2, 0.09);
         updateButtonLocation(topicScreenBackButton, 0.145, 0.8, 0.15, 0.05);
 
-        // Update the settings of each button and start with the addition button as the default choice
+        // Update the settings of each button
         defaultButton(topicButtons);
-        highlightButton(addButton);
-        equationDetailsTopic.put("operator", '+');
 
-        // Create comboBox for number types (for now, just integers is available)
-        String[] numTypeOptions = {"Integers"};
-        JComboBox<String> numOptions = new JComboBox<>(numTypeOptions);
-        numOptions.setBounds(convert(0.525, 'w'), convert(0.625, 'h'), convert(0.15, 'w'),
-                convert(0.05, 'h'));
-        numOptions.setSelectedIndex(0);
-
-        // Add Mouse Listener for hover and clicking features
-        addButton.addMouseListener(this);
-        subButton.addMouseListener(this);
-        multiButton.addMouseListener(this);
-        divButton.addMouseListener(this);
         topicNextButton.addMouseListener(this);
         topicScreenBackButton.addMouseListener(this);
 
+        // Create comboBox for number types (for now, just integers is available)
+        numOptions.setBounds(convert(0.525, 'w'), convert(0.625, 'h'), convert(0.15, 'w'),
+                convert(0.05, 'h'));
+//        numOptions.setSelectedIndex(0);
+
+        topicChose.setBounds(convert(0.525, 'w'), convert(0.3, 'h'), convert(0.15, 'w'),
+                convert(0.05, 'h'));
+//        topicChose.setSelectedIndex(0);
+
+
         // Add each component to the panel
-        topicPanel.add(addButton);
-        topicPanel.add(subButton);
-        topicPanel.add(multiButton);
-        topicPanel.add(divButton);
+        topicPanel.add(numOptions);
+        topicPanel.add(topicChose);
         topicPanel.add(topicNextButton);
         topicPanel.add(topicScreenBackButton);
         topicPanel.add(topicTitle);
         topicPanel.add(topicTitleShadow);
         topicPanel.add(numTypes);
-        topicPanel.add(numOptions);
+        topicPanel.add(topic);
+
+        changePanel(topicPanel);
+
     }
 
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource() == addButton) {
-            defaultButton(subButton);
-            defaultButton(multiButton);
-            defaultButton(divButton);
-            highlightButton(addButton);
-            equationDetailsTopic.put("operator", '+');
-        }
-        if (e.getSource() == subButton) {
-            defaultButton(addButton);
-            defaultButton(divButton);
-            defaultButton(multiButton);
-            highlightButton(subButton);
-            equationDetailsTopic.put("operator", '-');
-        }
-        if (e.getSource() == multiButton) {
-            defaultButton(divButton);
-            defaultButton(addButton);
-            defaultButton(subButton);
-            highlightButton(multiButton);
-            equationDetailsTopic.put("operator", '*');
-        }
-        if (e.getSource() == divButton) {
-            defaultButton(addButton);
-            defaultButton(subButton);
-            defaultButton(multiButton);
-            highlightButton(divButton);
-            equationDetailsTopic.put("operator", '/');
-        }
         if (e.getSource() == topicNextButton) {
+            String topic = (String) topicChose.getSelectedItem();
+            if (Objects.equals(topic, "Addition")) {
+                equationDetailsTopic.put("operator", '+');
+            }
+            else if (Objects.equals(topic, "Subtraction")) {
+                equationDetailsTopic.put("operator", '-');
+            }
+            else if (Objects.equals(topic, "Multiplication")) {
+                equationDetailsTopic.put("operator", '*');
+            }
+            else if (Objects.equals(topic, "Division")) {
+                equationDetailsTopic.put("operator", '/');
+            }
+
             new CustomizeScreen(equationDetailsTopic);
         }
-        if (e.getSource() == topicScreenBackButton) {
+        else if (e.getSource() == topicScreenBackButton) {
             new OptionScreen();
         }
     }
@@ -123,7 +106,7 @@ public class TopicScreen extends Screen implements MouseListener {
         if (e.getSource() == topicNextButton) {
             highlightButton(topicNextButton);
         }
-        if (e.getSource() == topicScreenBackButton) {
+        else if (e.getSource() == topicScreenBackButton) {
             highlightButton(topicScreenBackButton);
         }
     }
@@ -132,8 +115,9 @@ public class TopicScreen extends Screen implements MouseListener {
         if (e.getSource() == topicNextButton) {
             defaultButton(topicNextButton);
         }
-        if (e.getSource() == topicScreenBackButton) {
+        else if (e.getSource() == topicScreenBackButton) {
             defaultButton(topicScreenBackButton);
         }
     }
+
 }

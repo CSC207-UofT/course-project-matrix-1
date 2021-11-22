@@ -22,9 +22,9 @@ public class NewUserScreen extends Screen implements MouseListener {
     JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField username_tf = new JTextField(1);
-    JTextField name_tf = new JTextField(1);
-    JTextField age_tf = new JTextField(1);
+    JTextField usernameInput = new JTextField(1);
+    JTextField nameInput = new JTextField(1);
+    JTextField ageInput = new JTextField(1);
 
     // Create combo box for user role
     String[] roleOptions = {"Student", "Teacher"};
@@ -32,7 +32,7 @@ public class NewUserScreen extends Screen implements MouseListener {
 
     public NewUserScreen() {
 
-        changePanel(newUserPanel);
+        newUserPanel.setLayout(null);
 
         // Create the title
         JLabel newUserTitle = new JLabel("Create New User", SwingConstants.CENTER);
@@ -62,11 +62,11 @@ public class NewUserScreen extends Screen implements MouseListener {
         role.setSelectedIndex(0);
 
         // Update the location of the text fields
-        username_tf.setBounds(convert(0.5, 'w'), convert(0.175, 'h'), convert(0.175, 'w'),
+        usernameInput.setBounds(convert(0.5, 'w'), convert(0.175, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
-        name_tf.setBounds(convert(0.5, 'w'), convert(0.3, 'h'), convert(0.175, 'w'),
+        nameInput.setBounds(convert(0.5, 'w'), convert(0.3, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
-        age_tf.setBounds(convert(0.5, 'w'), convert(0.425, 'h'), convert(0.175, 'w'),
+        ageInput.setBounds(convert(0.5, 'w'), convert(0.425, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
 
         // Update the location of each button
@@ -82,9 +82,9 @@ public class NewUserScreen extends Screen implements MouseListener {
         // Add all components to the panel
         newUserPanel.add(newUserTitle);
         newUserPanel.add(newUserTitleShadow);
-        newUserPanel.add(username_tf);
-        newUserPanel.add(name_tf);
-        newUserPanel.add(age_tf);
+        newUserPanel.add(usernameInput);
+        newUserPanel.add(nameInput);
+        newUserPanel.add(ageInput);
         newUserPanel.add(role);
         newUserPanel.add(usernameLbl);
         newUserPanel.add(nameLbl);
@@ -93,22 +93,24 @@ public class NewUserScreen extends Screen implements MouseListener {
         newUserPanel.add(createUserButton);
         newUserPanel.add(newUserBackButton);
         newUserPanel.add(invalidInput);
+
+        changePanel(newUserPanel);
     }
 
     public void mouseClicked(MouseEvent e) {
 
         if (e.getSource() == createUserButton) {
 
-            String currUsername = username_tf.getText();
-            String currName = name_tf.getText();
+            String currUsername = usernameInput.getText();
+            String currName = nameInput.getText();
 
             // Check if any input is empty or cannot be parsed
-            if (tryToParse(age_tf.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
+            if (tryToParse(ageInput.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
                 invalidInput.setText("Invalid Input(s)");
                 invalidInput.setVisible(true);              // Set invalid input to visible
             }
             else {
-                int currAge = Integer.parseInt(age_tf.getText());   // Parse the age, which is a valid integer
+                int currAge = Integer.parseInt(ageInput.getText());   // Parse the age, which is a valid integer
                 String currRole = (String) role.getSelectedItem();  // Get the selected role of the user
 
                 // Attempt to register the user

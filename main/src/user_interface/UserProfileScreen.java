@@ -15,13 +15,14 @@ public class UserProfileScreen extends Screen implements MouseListener {
 
     // Create back button
     JButton userProfileBackButton = new JButton("Back");
+    JButton deleteUserButton = new JButton("Delete Account");
 
     // Create a map of the user's details
     Map<String, Object> userDetails = userController.getUserDetails();
 
     public UserProfileScreen() {
 
-        changePanel(userProfilePanel);
+        userProfilePanel.setLayout(null);
 
         // Create the user profile and its shadow
         JLabel userProfileTitle = new JLabel("User Profile", SwingConstants.CENTER);
@@ -41,10 +42,13 @@ public class UserProfileScreen extends Screen implements MouseListener {
 
         // Update the location of each button
         updateButtonLocation(userProfileBackButton, 0.145, 0.8, 0.125, 0.05);
+        updateButtonLocation(deleteUserButton, 0.675, 0.8, 0.2, 0.05);
         defaultButton(userProfileBackButton);
+        defaultButton(deleteUserButton);
 
         // Add MouseListener for the hover and clicking features
         userProfileBackButton.addMouseListener(this);
+        deleteUserButton.addMouseListener(this);
 
         // Add each component to the panel
         userProfilePanel.add(userProfileTitle);
@@ -53,11 +57,18 @@ public class UserProfileScreen extends Screen implements MouseListener {
         userProfilePanel.add(ageProfileLbl);
         userProfilePanel.add(roleProfileLBL);
         userProfilePanel.add(userProfileBackButton);
+        userProfilePanel.add(deleteUserButton);
+
+        changePanel(userProfilePanel);
     }
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
             new OptionScreen();
+        }
+        else if (e.getSource() == deleteUserButton) {
+            userController.deleteAccount(userName);
+            new LoginScreen();
         }
     }
 
@@ -65,11 +76,17 @@ public class UserProfileScreen extends Screen implements MouseListener {
         if (e.getSource() == userProfileBackButton) {
             highlightButton(userProfileBackButton);
         }
+        else if (e.getSource() == deleteUserButton) {
+            highlightButton(deleteUserButton);
+        }
     }
 
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
             defaultButton(userProfileBackButton);
+        }
+        else if (e.getSource() == deleteUserButton) {
+            defaultButton(deleteUserButton);
         }
     }
 }

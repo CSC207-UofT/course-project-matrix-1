@@ -23,17 +23,13 @@ public class LoginScreen extends Screen implements MouseListener {
     JLabel invalidUsernameError = new JLabel("Invalid Username", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField username_tf = new JTextField(1);
+
+
+    JTextField usernameInput = new JTextField(1);
 
     public LoginScreen() {
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        frame.add(loginPanel);
+        loginPanel.setLayout(null);
 
         // Create Title labels and its shadow
         JLabel matrixTitle = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
@@ -62,7 +58,7 @@ public class LoginScreen extends Screen implements MouseListener {
         invalidUsernameError.setVisible(false);
 
         // Set the location of the text field
-        username_tf.setBounds(convert(0.5, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
+        usernameInput.setBounds(convert(0.5, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
 
         // Add each component to the panel
@@ -71,10 +67,10 @@ public class LoginScreen extends Screen implements MouseListener {
         loginPanel.add(loginButton);
         loginPanel.add(createUserButton);
         loginPanel.add(username);
-        loginPanel.add(username_tf);
+        loginPanel.add(usernameInput);
         loginPanel.add(invalidUsernameError);
 
-
+        changePanel(loginPanel);
     }
 
     /**
@@ -87,7 +83,8 @@ public class LoginScreen extends Screen implements MouseListener {
 
             // Attempt to log in the user with the username entered
             try {
-                userController.login(username_tf.getText());
+                userController.login(usernameInput.getText());
+                userName = usernameInput.getText();
                 new OptionScreen();
             } catch (UserDoesNotExistException u) {
                 invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist

@@ -42,9 +42,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
     StringBuilder totalString = new StringBuilder();
 
     // Create the Temporary Maps that will be passed into Worksheet Viewer Screen
-    Map<String, Object> equation_details_temp = new HashMap<>();
-    Map<String, Object> format_details_temp = new HashMap<>();
-    Map<String, Object> worksheet_history_details_temp = new HashMap<>();
+    Map<String, Object> equationDetailsTemp = new HashMap<>();
+    Map<String, Object> formatDetailsTemp = new HashMap<>();
+    Map<String, Object> worksheetHistoryDetailsTemp = new HashMap<>();
 
     // Create List containing a Map that will take output from getUserHistory method in userController
     List<Map<String, Object>> userHistoryList;
@@ -59,7 +59,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
     @SuppressWarnings("unchecked")
     public WorksheetHistoryScreen() {
 
-        changePanel(historyPanel);
+        historyPanel.setLayout(null);
 
         // Set noWorksheets and invalidScore JLabel messages to not visible
         noWorksheets.setVisible(false);
@@ -152,6 +152,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
         historyPanel.add(regenerateButton);
         historyPanel.add(scrollPane);
         historyPanel.add(newScore);
+
+        changePanel(historyPanel);
     }
 
     /**
@@ -223,18 +225,18 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
             if (index != -1) {
 
                 // Store Necessary info to Regenerate Worksheet
-                equation_details_temp = (Map<String, Object>) userHistoryList.get(index).get("equationDetails");
-                format_details_temp = (Map<String, Object>) userHistoryList.get(index).get("formatDetails");
+                equationDetailsTemp = (Map<String, Object>) userHistoryList.get(index).get("equationDetails");
+                formatDetailsTemp = (Map<String, Object>) userHistoryList.get(index).get("formatDetails");
 
                 // Store the date and time the user regenerated the worksheet
                 dateAndTimeTemp = LocalDateTime.now().toString();
 
-                worksheet_history_details_temp.put("worksheetKey", dateAndTimeTemp);
-                worksheet_history_details_temp.put("equationDetails", equation_details_temp);
-                worksheet_history_details_temp.put("formatDetails", format_details_temp);
+                worksheetHistoryDetailsTemp.put("worksheetKey", dateAndTimeTemp);
+                worksheetHistoryDetailsTemp.put("equationDetails", equationDetailsTemp);
+                worksheetHistoryDetailsTemp.put("formatDetails", formatDetailsTemp);
 
                 try {
-                    new WorksheetViewerScreen(equation_details_temp, format_details_temp, worksheet_history_details_temp);
+                    new WorksheetViewerScreen(equationDetailsTemp, formatDetailsTemp, worksheetHistoryDetailsTemp);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
