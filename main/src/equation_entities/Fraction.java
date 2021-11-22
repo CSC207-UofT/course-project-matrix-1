@@ -100,18 +100,6 @@ public class Fraction extends Value {
     }
 
     /**
-     * Return this value raised to the power of the otherValue.
-     *
-     * @param otherValue the power with which to raise the current value
-     * @return the result of raising this value to the power of the otherValue
-     */
-    @Override
-    public Value exponentiate(Value otherValue) {
-        // TODO: Implement this or throw exception for usage.
-        return null;
-    }
-
-    /**
      * Return the least common multiple of this value and the other value.
      *
      * @param otherValue the other number.
