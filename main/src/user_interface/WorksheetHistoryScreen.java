@@ -94,7 +94,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
                 totalString.append(tempMapEquationDetails.get("numOfEquations"));
                 // Add score to String Builder (currently set to zero - implement next phase)
                 totalString.append(" | Score: ");
-                totalString.append("0");
+                if (userHistoryList.get(listModel.size()).get("score") != null){
+                    totalString.append(userHistoryList.get(listModel.size()).get("score"));
+                }else{totalString.append("0");}
                 // Add String Builder to DefaultListModel
                 listModel.addElement(totalString.toString());
             }
@@ -220,6 +222,10 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
                         String tempKey = (String) userHistoryList.get(index).get("worksheetKey");
                         userController.storeUserScore(tempKey, score);
                         invalidScore.setVisible(false);
+                        userHistoryList = userController.getUserHistory();
+                        frame.setVisible(false);
+                        historyPanel.setVisible(false);
+                        new WorksheetHistoryScreen();
                     }
                 }
             }
