@@ -38,14 +38,28 @@ public class FractionMultiplyBuilder extends FractionBuilder {
 
         int unreducedAnsD = rand.randomize(fracMultiDivEqnDetails.getAnsDenominatorRange(), seed);
         int unreducedAnsN = rand.randomize(0, unreducedAnsD, seed) + unreducedAnsD * (fracMultiDivEqnDetails.getMaxAnsValue() - 1);
+        System.out.println(unreducedAnsN);
+        System.out.println(unreducedAnsD);
 
         List<Integer> unreducedAnsDFactors = FactorFinder.primeFactorize(unreducedAnsD);
         List<Integer> unreducedAnsNFactors = FactorFinder.primeFactorize(unreducedAnsN);
 
+//        System.out.println(unreducedAnsNFactors);
+//        System.out.println(unreducedAnsDFactors);
+
         addComplexity(fracMultiDivEqnDetails.getComplexity(), unreducedAnsDFactors, unreducedAnsNFactors, seed);
+
+//        System.out.println(unreducedAnsNFactors);
+//        System.out.println(unreducedAnsDFactors);
 
         int[] operandsN = splitFactorsIntoTwoOperands(unreducedAnsNFactors, seed);
         int[] operandsD = splitFactorsIntoTwoOperands(unreducedAnsDFactors, seed);
+
+        System.out.println(operandsN[0]);
+        System.out.println(operandsD[0]);
+        System.out.println(operandsN[1]);
+        System.out.println(operandsD[1]);
+
 
         makeOperandsNegative(fracMultiDivEqnDetails.isNegAllowed(), operandsN, seed);
 
@@ -77,14 +91,14 @@ public class FractionMultiplyBuilder extends FractionBuilder {
         List<Integer> operand2Factors = new ArrayList<>();
         operand1Factors.add(1);
         operand2Factors.add(1);
-        for (int i = 0; i < factors.size() - 1; i++) {
+        while (!factors.isEmpty()){
             if (factors.size() % 2 == 0) {
                 operand1Factors.add(factors.remove(rand.randomize(0, factors.size() - 1, seed)));
             } else {
                 operand2Factors.add(factors.remove(rand.randomize(0, factors.size() - 1, seed)));
             }
         }
-        return new int[]{multipyFactors(operand1Factors), multipyFactors(operand2Factors)};
+        return new int[]{multiplyFactors(operand1Factors), multiplyFactors(operand2Factors)};
     }
 
     /**
@@ -93,7 +107,7 @@ public class FractionMultiplyBuilder extends FractionBuilder {
      * @param factors a list of factors that can be multiplied together to get a full number.
      * @return the value of all the factors multiplied together.
      */
-    private int multipyFactors(List<Integer> factors) {
+    private int multiplyFactors(List<Integer> factors) {
         int fullNumber = 1;
         for (int factor : factors) {
             fullNumber = factor * fullNumber;
@@ -126,7 +140,7 @@ public class FractionMultiplyBuilder extends FractionBuilder {
      */
     private int biasedSelectNumber(int[] numbers, int seed) {
         for (int number : numbers) {
-            if (rand.randomize(0, 1, seed) == 1) {
+            if (rand.randomize(0, 50, seed+=5) >= 25) {
                 return number;
             }
         }

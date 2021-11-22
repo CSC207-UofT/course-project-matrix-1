@@ -28,9 +28,9 @@ public class FractionDirectorTest {
         fractionAddSubEquationDetails.setOperator('+');
         fractionAddSubEquationDetails.setNegAllowed(true);
 
-        fractionMultiDivEquationDetails.setMaxAnsValue(3);
-        fractionMultiDivEquationDetails.setComplexity(3);
-        fractionMultiDivEquationDetails.setAnsDenominatorRange(generateRange(50, 100));
+        fractionMultiDivEquationDetails.setMaxAnsValue(1);
+        fractionMultiDivEquationDetails.setComplexity(1);
+        fractionMultiDivEquationDetails.setAnsDenominatorRange(generateRange(20, 40));
         fractionMultiDivEquationDetails.setOperator('*');
         fractionMultiDivEquationDetails.setNegAllowed(true);
     }
@@ -49,10 +49,10 @@ public class FractionDirectorTest {
 
     @Test
     public void testMultPos() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             randomSeed = new Random().nextInt(100000);
             director.setEquationBuilder('*');
-            director.constructEquation(fractionMultiDivEquationDetails, randomSeed + 5);
+            director.constructEquation(fractionMultiDivEquationDetails, 10);
             System.out.println(director.getEquation().getEquation());
             String firstOperand = director.getEquation().getEquationParts()[0].toString();
 //            assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf('/') + 1))) <= Math.abs(maxDenominator));
