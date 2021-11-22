@@ -3,7 +3,7 @@ package user_interface;
 import user_package.UserController;
 import worksheet_maker.WorksheetController;
 
-public abstract class ControllerFactory {
+public class ControllerFactory {
     UserController makeUserController() {
         // Create an instance of user controller to keep track of the user's information
         UserController userController = null;
