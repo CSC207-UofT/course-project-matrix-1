@@ -45,6 +45,7 @@ public class Screen extends JFrame implements MouseListener {
     public static WorksheetController worksheetController;
 
     public Screen() {
+        System.out.println("test");
 
         // Set Frame size to full screen
         frame.setSize(width, height);
@@ -65,7 +66,6 @@ public class Screen extends JFrame implements MouseListener {
         cardPanel.add(historyPanel, "WorksheetHistoryScreen");
         cardPanel.add(newUserPanel, "NewUserScreen");
         cardPanel.add(userProfilePanel, "UserProfileScreen");
-
     }
 
     /**
@@ -74,7 +74,7 @@ public class Screen extends JFrame implements MouseListener {
      * @param panels an array list of JPanels that will be updated
      */
     public void updatePanels(JPanel[] panels) {
-        for (JPanel p: panels) {
+        for (JPanel p : panels) {
             p.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
                     convert(0.1, 'w'), Color.BLACK));
             p.setLayout(null);
@@ -104,12 +104,12 @@ public class Screen extends JFrame implements MouseListener {
      * Precondition:
      * - Each parameter is less than 1
      *
-     * @param x the constant multiplied by the screen width to get the starting x-location of the label
-     * @param y the constant multiplied by the screen height to get the starting y-location of the label
-     * @param w the constant multiplied by the screen width to get the label width
-     * @param h the constant multiplied by the screen height to get the label height
+     * @param x        the constant multiplied by the screen width to get the starting x-location of the label
+     * @param y        the constant multiplied by the screen height to get the starting y-location of the label
+     * @param w        the constant multiplied by the screen width to get the label width
+     * @param h        the constant multiplied by the screen height to get the label height
      * @param textSize the constant used to get the text size for the label
-     * @param r the color of the font (r being red, anything else being dark gray)
+     * @param r        the color of the font (r being red, anything else being dark gray)
      */
     public void updateLabel(JLabel l, double x, double y, double w, double h, double textSize, char r) {
         l.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * textSize)));
@@ -117,8 +117,7 @@ public class Screen extends JFrame implements MouseListener {
                 convert(h, 'h'));
         if (r == 'r') {
             l.setForeground(new Color(255, 55, 51));
-        }
-        else {
+        } else {
             l.setForeground(Color.DARK_GRAY);
         }
     }
@@ -144,7 +143,7 @@ public class Screen extends JFrame implements MouseListener {
      * @param b an array list of JButtons that will be updated to the default settings
      */
     public void defaultButton(JButton[] b) {
-        for (JButton button: b) {
+        for (JButton button : b) {
             button.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
             button.setForeground(Color.DARK_GRAY);
             button.setBorder(new LineBorder(Color.DARK_GRAY));
@@ -168,7 +167,7 @@ public class Screen extends JFrame implements MouseListener {
      * @param b a JButton that will be highlighted
      */
     public void highlightButton(JButton b) {
-        b.setForeground(new Color(255,55,51));
+        b.setForeground(new Color(255, 55, 51));
         b.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
     }
 
@@ -178,7 +177,7 @@ public class Screen extends JFrame implements MouseListener {
      * - num must be less than 1
      *
      * @param num the constant to be multiplied by the width or height
-     * @param c the width or height to be multiplied by num (w for width, h for height)
+     * @param c   the width or height to be multiplied by num (w for width, h for height)
      */
     public int convert(double num, char c) {
         if (c == 'w')

@@ -27,4 +27,10 @@ public class EquationDirectorTest {
     public void testFindMultipleFactor() {
         assertEquals("[128, 64, 32, 16, 1, 2, 4, 8]", Arrays.toString(FactorFinder.findFactors(128).toArray()));
     }
+
+    @Test
+    public void testFindPrimeFactors() {
+        assertEquals("[2, 2, 2, 2, 2, 2]", Arrays.toString(FactorFinder.primeFactorize(64).toArray()));
+    }
+
 }

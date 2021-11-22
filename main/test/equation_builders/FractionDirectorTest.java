@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 public class FractionDirectorTest {
     private FractionDirector director;
     private int randomSeed;
-    private FractionEquationDetails fractionEquationDetails = new FractionEquationDetails(generateRange(1,10), 20, 4);
+    private FractionEquationDetails fractionEquationDetails = new FractionEquationDetails(generateRange(5,10), 100, 1);
 
     @Before
     public void init() {

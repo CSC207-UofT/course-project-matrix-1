@@ -19,7 +19,7 @@ public class FractionAddBuilder extends FractionBuilder {
     /**
      * Uses the denominator distribution and the maximum possible denominator to get reasonable equations.
      *
-     * @param fracEqnDetails
+     * @param fracEqnDetails the parameters for fraction equation generation.
      * @param seed           random seed to fix random generation of operands
      */
     @Override
@@ -32,19 +32,15 @@ public class FractionAddBuilder extends FractionBuilder {
         }
         int answerD = rand.randomize(possibleAnswerD, seed);
         Set<Integer> operand1DFactors = FactorFinder.findFactors(operand1D);
-        Set<Integer> necessaryOperand2DFactors = FactorFinder.findFactors(answerD);
-        necessaryOperand2DFactors.removeAll(operand1DFactors);
+        Set<Integer> necessaryOperand2DFactors = FactorFinder.primeFactorizeExponent(answerD);
+        necessaryOperand2DFactors.removeAll(FactorFinder.primeFactorizeExponent(operand1D));
         int necessaryOperand2DValue = 1;
         for (int p : necessaryOperand2DFactors) {
             necessaryOperand2DValue *= p;
         }
         ArrayList<Integer> possibleOperand2D = new ArrayList<>();
-        possibleOperand2D.add(necessaryOperand2DValue);
-        for (int p : operand1DFactors) {
-            int length = possibleOperand2D.size();
-            for (int dIndex = 0; dIndex < length; dIndex++) {
-                possibleOperand2D.add(p * possibleOperand2D.get(dIndex));
-            }
+        for (int p : FactorFinder.findFactors(answerD/necessaryOperand2DValue)) {
+            possibleOperand2D.add(p * necessaryOperand2DValue);
         }
         int operand2D = rand.randomize(possibleOperand2D, seed);
         if (fracEqnDetails.getMaxValue() <= 0) {
