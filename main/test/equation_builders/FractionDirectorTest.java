@@ -1,8 +1,6 @@
 package equation_builders;
 
-import equation_entities.Symbol;
-import equation_entities.WholeNum;
-import equation_parameters.FractionEquationDetails;
+import equation_parameters.FractionAddSubEquationDetails;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,22 +11,30 @@ import static org.junit.Assert.*;
 public class FractionDirectorTest {
     private FractionDirector director;
     private int randomSeed;
-    private FractionEquationDetails fractionEquationDetails = new FractionEquationDetails(generateRange(5,10), 100, 1);
+    private FractionAddSubEquationDetails fractionAddSubEquationDetails = new FractionAddSubEquationDetails();
+    private int maxDenominator = 20;
 
     @Before
     public void init() {
+        fractionAddSubEquationDetails.setMaxOperandValue(1);
+        fractionAddSubEquationDetails.setOperand1DenomRange(generateRange(15, 30));
+        fractionAddSubEquationDetails.setNegAllowed(true);
+        fractionAddSubEquationDetails.setMaxOperand2AndAnswerDenom(maxDenominator);
         director = new FractionDirector();
         randomSeed = new Random().nextInt(100000);
-        fractionEquationDetails.setOperator('+');
-        fractionEquationDetails.setNegAllowed(false);
+        fractionAddSubEquationDetails.setOperator('+');
+        fractionAddSubEquationDetails.setNegAllowed(true);
     }
 
     @Test
     public void testAddPos() {
         director.setEquationBuilder('+');
-        director.constructEquation(fractionEquationDetails, randomSeed + 5);
+        director.constructEquation(fractionAddSubEquationDetails, randomSeed + 5);
         System.out.println(director.getEquation().getEquation());
+        String firstOperand = director.getEquation().getEquationParts()[0].toString();
+        assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf('/') + 1))) <= Math.abs(maxDenominator));
     }
+
     public int[] generateRange(int min, int max) {
         return new int[]{min, max};
     }

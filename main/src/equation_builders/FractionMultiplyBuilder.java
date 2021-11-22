@@ -1,7 +1,7 @@
 package equation_builders;
 
 import equation_entities.Multiply;
-import equation_parameters.FractionEquationDetails;
+import equation_parameters.EquationDetails;
 import equation_parameters.FractionMultiDivEquationDetails;
 
 public class FractionMultiplyBuilder extends FractionBuilder {
@@ -11,7 +11,7 @@ public class FractionMultiplyBuilder extends FractionBuilder {
     }
 
     @Override
-    protected void buildOperands(FractionEquationDetails fractionEquationDetails, int seed) {
+    protected void buildOperands(EquationDetails fractionEquationDetails, int seed) {
         FractionMultiDivEquationDetails fracMultiDivEqnDetails = (FractionMultiDivEquationDetails) fractionEquationDetails;
 
     }
