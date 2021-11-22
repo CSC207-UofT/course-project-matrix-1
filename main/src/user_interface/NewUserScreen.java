@@ -2,6 +2,7 @@ package user_interface;
 
 import exceptions.UsernameTakenException;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -33,6 +34,7 @@ public class NewUserScreen extends Screen implements MouseListener {
     public NewUserScreen() {
 
         newUserPanel.setLayout(null);
+        newUserPanel.setBackground(new Color(177, 203, 187));
 
         // Create the title
         JLabel newUserTitle = new JLabel("Create New User", SwingConstants.CENTER);

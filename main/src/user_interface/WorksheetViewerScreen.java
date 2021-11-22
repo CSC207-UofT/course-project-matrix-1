@@ -52,6 +52,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
                                  Map<String, Object> worksheet_details) throws IOException {
 
         previewPanel.setLayout(null);
+        previewPanel.setBackground(new Color(177, 203, 187));
 
         // Set the updated equation details and format details chosen by the user
         equationDetailsViewer = equation_Details;
@@ -108,6 +109,9 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         // Update the settings of each button
         defaultButton(viewerButtons);
 
+        downloadButton.setOpaque(true);
+        downloadButton.setBackground(new Color(121, 188, 239));
+
         // Add MouseListener for hover and clicking features
         downloadButton.addMouseListener(this);
         printPageButton.addMouseListener(this);
@@ -146,7 +150,6 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
             documents[0].save(downloadPathInput.getText() + "/" + documentTitle + "_questions.pdf");
             documents[1].save(downloadPathInput.getText() + "/" + documentTitle + "_answers.pdf");
             invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPathInput.getText());
-            invalidPathLbl.setVisible(true);
         } catch (IOException ex) {
             invalidPathLbl.setText("Invalid Path");     // Show invalid input label if files cannot be downloaded
         }

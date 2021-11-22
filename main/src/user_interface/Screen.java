@@ -4,7 +4,6 @@ import user_package.UserController;
 import worksheet_maker.WorksheetController;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -35,9 +34,6 @@ public class Screen extends JFrame implements MouseListener {
     JPanel newUserPanel = new JPanel();
     JPanel userProfilePanel = new JPanel();
 
-    JPanel[] panels = {loginPanel, optionPanel, topicPanel, customizePanel, previewPanel, historyPanel,
-            newUserPanel, userProfilePanel};
-
     // Create a user controller and worksheet controller instance
     public static UserController userController;
     public static WorksheetController worksheetController;
@@ -58,17 +54,6 @@ public class Screen extends JFrame implements MouseListener {
         // Update each panel to the default panel settings
 //        updatePanels(panels);
 
-    }
-
-    /**
-     * Update layout settings of each panel
-     *
-     * @param panels an array list of JPanels that will be updated
-     */
-    public void updatePanels(JPanel[] panels) {
-        for (JPanel p: panels) {
-            p.setLayout(null);
-        }
     }
 
     public void changePanel(JPanel panel) {
@@ -142,10 +127,26 @@ public class Screen extends JFrame implements MouseListener {
     public void defaultButton(JButton[] buttons) {
         for (JButton button: buttons) {
             button.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
+            button.setOpaque(true);
             button.setForeground(Color.DARK_GRAY);
-            button.setBorder(new LineBorder(Color.DARK_GRAY));
+            button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                    4, Color.DARK_GRAY));
+            button.setBackground(new Color(220, 220, 220, 255));
         }
     }
+
+    /**
+     * Update the settings of each text field
+     *
+     * @param textFields an array list of JTextFields that will be updated to the default settings
+     */
+    public void updateTextFields(JTextField[] textFields) {
+        for (JTextField textField: textFields) {
+            textField.setBorder(BorderFactory.createMatteBorder(2, 2, 2,
+                    2, Color.DARK_GRAY));
+        }
+    }
+
 
     /**
      * Update the settings of the button to the default (font, color, and border). Overloaded method with one button.
@@ -153,9 +154,12 @@ public class Screen extends JFrame implements MouseListener {
      * @param button a JButton that will be updated to the default settings
      */
     public void defaultButton(JButton button) {
+        button.setOpaque(true);
         button.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
         button.setForeground(Color.DARK_GRAY);
-        button.setBorder(new LineBorder(Color.DARK_GRAY));
+        button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                4, Color.DARK_GRAY));
+        button.setBackground(new Color(220, 220, 220, 255));
     }
 
     /**

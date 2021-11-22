@@ -1,6 +1,7 @@
 package user_interface;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
     public UserProfileScreen() {
 
         userProfilePanel.setLayout(null);
+        userProfilePanel.setBackground(new Color(177, 203, 187));
 
         // Create the user profile and its shadow
         JLabel userProfileTitle = new JLabel("User Profile", SwingConstants.CENTER);
@@ -42,9 +44,11 @@ public class UserProfileScreen extends Screen implements MouseListener {
 
         // Update the location of each button
         updateButtonLocation(userProfileBackButton, 0.145, 0.8, 0.125, 0.05);
-        updateButtonLocation(deleteUserButton, 0.675, 0.8, 0.2, 0.05);
+        updateButtonLocation(deleteUserButton, 0.65, 0.8, 0.225, 0.05);
         defaultButton(userProfileBackButton);
         defaultButton(deleteUserButton);
+        deleteUserButton.setOpaque(true);
+        deleteUserButton.setBackground(new Color(199, 63, 63));
 
         // Add MouseListener for the hover and clicking features
         userProfileBackButton.addMouseListener(this);

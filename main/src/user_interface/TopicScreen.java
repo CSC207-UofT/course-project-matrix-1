@@ -1,6 +1,7 @@
 package user_interface;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ public class TopicScreen extends Screen implements MouseListener {
     public TopicScreen() {
 
         topicPanel.setLayout(null);
+        topicPanel.setBackground(new Color(177, 203, 187));
 
         // Create JLabels
         JLabel topicTitle = new JLabel("Choose Topic", SwingConstants.CENTER);
@@ -42,7 +44,7 @@ public class TopicScreen extends Screen implements MouseListener {
 
         // Update the settings of each JLabel
         updateLabel(topicTitle, 0.2, 0.02, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(topicTitleShadow, 0.2, 0.0225, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(topicTitleShadow, 0.2025, 0.0225, 0.6, 0.1, 0.03075, 'd');
         updateLabel(numTypes, 0.325, 0.595, 0.25, 0.1, 0.02, 'd');
         updateLabel(topic, 0.325, 0.268, 0.25, 0.1, 0.02, 'd');
 

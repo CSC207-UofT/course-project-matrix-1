@@ -1,6 +1,7 @@
 package user_interface;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -62,6 +63,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     public WorksheetHistoryScreen() {
 
         historyPanel.setLayout(null);
+        historyPanel.setBackground(new Color(177, 203, 187));
 
         // Set noWorksheets and invalidScore JLabel messages to not visible
         noWorksheets.setVisible(false);
@@ -128,6 +130,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         defaultButton(removeButton);
         defaultButton(updateScoreButton);
         defaultButton(regenerateButton);
+        updateScoreButton.setOpaque(true);
+        updateScoreButton.setBackground(new Color(121, 188, 239));
 
         // Update the Location of each Text Field
         newScore.setBounds(convert(0.6, 'w'), convert(0.725, 'h'), convert(0.2, 'w'),
@@ -226,7 +230,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                 try {
                     new WorksheetViewerScreen(equationDetailsTemp, formatDetailsTemp, worksheetHistoryDetailsTemp);
                 } catch (IOException ex) {
-                    ex.printStackTrace();
+                    invalidScore.setText("Worksheet cannot be regenerated");
+                    invalidScore.setVisible(true);
                 }
             }
         }

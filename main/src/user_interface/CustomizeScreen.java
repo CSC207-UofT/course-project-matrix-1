@@ -38,6 +38,9 @@ public class CustomizeScreen extends Screen implements MouseListener {
     JTextField op2MIN = new JTextField(1);
     JTextField op2MAX = new JTextField(1);
 
+    JTextField[] textFields = {titleInput, numQuestionsInput, numRowsInput, numColumnInput, op1MIN, op1MAX, op2MIN,
+            op2MAX};
+
     // Create checkbox
     JCheckBox negAllowedBox = new JCheckBox("");
 
@@ -66,6 +69,7 @@ public class CustomizeScreen extends Screen implements MouseListener {
     public CustomizeScreen(Map<String, Object> equation_details) {
 
         customizePanel.setLayout(null);
+        customizePanel.setBackground(new Color(177, 203, 187));
 
         // Gets the chosen topic from the previous screen
         equationsDetailsCustomizeScreen.put("operator", equation_details.get("operator"));
@@ -152,6 +156,8 @@ public class CustomizeScreen extends Screen implements MouseListener {
         // Add Mouse Listener for hover and clicking features
         generateWorksheetButton.addMouseListener(this);
         customizeBackButton.addMouseListener(this);
+
+        updateTextFields(textFields);
 
         // Add all components to the panel
         customizePanel.add(equationDetailsTitle);
@@ -279,10 +285,12 @@ public class CustomizeScreen extends Screen implements MouseListener {
 
                 try {
                     new WorksheetViewerScreen(equationsDetailsCustomizeScreen, formatDetailsCustomizeScreen,
-                            worksheetHistoryDetails);
+                                worksheetHistoryDetails);
                 } catch (IOException ex) {
-                    ex.printStackTrace();
+                    invalidInput.setText("Worksheet cannot be created");
+                    invalidInput.setVisible(true);
                 }
+
             }
         }
         else if (e.getSource() == customizeBackButton) {
