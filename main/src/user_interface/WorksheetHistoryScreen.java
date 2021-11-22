@@ -148,6 +148,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         // Add Key Listener for the newScore TextField
         newScore.addKeyListener(this);
 
+        // Add Key Listener for the viewerBack Button
+        customizeBackButton.addKeyListener(this);
+
         // Add JList
         history.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         history.setLayoutOrientation(JList.VERTICAL);
@@ -309,7 +312,15 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
      * @param e keeps track of which key is being pressed
      */
     public void keyPressed(KeyEvent e){
-        if (e.getKeyCode()==KeyEvent.VK_ENTER) {scoreHelper();}
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+            scoreHelper();
+        }
+        // Go back to previous screen
+        else if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+            frame.setVisible(false);
+            historyPanel.setVisible(false);
+            new OptionScreen();
+        }
     }
 
     @Override

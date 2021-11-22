@@ -119,6 +119,9 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         // Add Key Listener for the downloadPath TextField
         downloadPath_tf.addKeyListener(this);
 
+        // Add Key Listener for the viewerBack Button
+        viewerBackButton.addKeyListener(this);
+
         // Add all components to the panel
         viewerPanel.add(downloadButton);
         viewerPanel.add(mainMenuButton);
@@ -133,7 +136,6 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == downloadButton) {
-
             // Attempt to save the generated worksheet's questions and answers to user's download path
             downloadHelper();
         } else if (e.getSource() == mainMenuButton) {
@@ -196,7 +198,15 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     @Override
     public void keyPressed(KeyEvent e) {
         // Attempt to save the generated worksheet's questions and answers to user's download path
-        downloadHelper();
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+            downloadHelper();
+        }
+        // Go back to previous screen
+        else if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+            frame.setVisible(false);
+            viewerPanel.setVisible(false);
+            new CustomizeScreen(equation_details_viewer);
+        }
     }
 
     @Override
