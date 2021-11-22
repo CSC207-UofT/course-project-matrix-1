@@ -1,6 +1,6 @@
 package equation_parameters;
 
-public class FractionMultiDivEquationDetails extends FractionEquationDetails{
+public class FractionMultiDivEquationDetails extends EquationDetails{
     private int[] ansDenominatorRange;
     private int complexity;
 

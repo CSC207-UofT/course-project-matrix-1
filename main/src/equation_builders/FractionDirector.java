@@ -2,9 +2,9 @@ package equation_builders;
 
 import equation_entities.BedmasEquation;
 import equation_parameters.EquationDetails;
-import equation_parameters.FractionEquationDetails;
-import equation_parameters.WholeNumEquationDetails;
+import equation_parameters.FractionAddSubEquationDetails;
 import exceptions.InvalidInputException;
+import utilities.DistributionCalculator;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -55,21 +55,22 @@ public class FractionDirector extends EquationDirector {
     }
 
     /**
-     * Construct a bedmas equation given the following parameters.
+     * Construct a bedmas equation given the following parameters. If this class has not been initialized and this
+     * is a subtraction or addition question, a distribution for the denominator will be calculated.
      *
      * @param equationDetails the parameters for fraction equation generation.
      * @param seed            random seed to fix random generation of operands
      */
     @Override
     public void constructEquation(EquationDetails equationDetails, int seed) {
-        if (!initialized) {
-            fractionBuilder.assignProbability((FractionEquationDetails) equationDetails);
+        //TODO: make this more flexible.
+        if (!initialized && (equationDetails.getOperator()=='+')||(equationDetails.getOperator()=='-')) {
+            DistributionCalculator.assignProbability(equationDetails);
             initialized = true;
         }
-        FractionEquationDetails fractionEquationDetails = (FractionEquationDetails) equationDetails;
         fractionBuilder.createNewBedmasEquationProduct();
         fractionBuilder.buildOperator();
-        fractionBuilder.buildOperands(fractionEquationDetails, seed);
+        fractionBuilder.buildOperands(equationDetails, seed);
         fractionBuilder.buildAnswer();
     }
 

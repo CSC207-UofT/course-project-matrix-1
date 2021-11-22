@@ -2,7 +2,7 @@ package equation_builders;
 
 import equation_entities.Fraction;
 import equation_entities.Multiply;
-import equation_parameters.FractionEquationDetails;
+import equation_parameters.EquationDetails;
 import equation_parameters.FractionMultiDivEquationDetails;
 import utilities.FactorFinder;
 
@@ -33,7 +33,7 @@ public class FractionMultiplyBuilder extends FractionBuilder {
      * @param seed                    random seed to fix random generation of operands
      */
     @Override
-    protected void buildOperands(FractionEquationDetails fractionEquationDetails, int seed) {
+    protected void buildOperands(EquationDetails fractionEquationDetails, int seed) {
         FractionMultiDivEquationDetails fracMultiDivEqnDetails = (FractionMultiDivEquationDetails) fractionEquationDetails;
 
         int unreducedAnsD = rand.randomize(fracMultiDivEqnDetails.getAnsDenominatorRange(), seed);

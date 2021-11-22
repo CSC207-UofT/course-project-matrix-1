@@ -1,7 +1,7 @@
 package equation_builders;
 
 import equation_entities.Subtract;
-import equation_parameters.FractionEquationDetails;
+import equation_parameters.EquationDetails;
 
 
 public class FractionSubBuilder extends FractionBuilder {
@@ -11,7 +11,7 @@ public class FractionSubBuilder extends FractionBuilder {
     }
 
     @Override
-    protected void buildOperands(FractionEquationDetails fractionEquationDetails, int seed) {
+    protected void buildOperands(EquationDetails fractionEquationDetails, int seed) {
 
     }
 }
