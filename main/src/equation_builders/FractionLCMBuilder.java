@@ -1,12 +1,12 @@
 package equation_builders;
 
-import equation_entities.Multiply;
+import equation_entities.LCM;
 import equation_parameters.FractionEquationDetails;
 
-public class FractionExponentiateBuilder extends FractionBuilder {
+public class FractionLCMBuilder extends FractionBuilder {
     @Override
     protected void buildOperator() {
-        bedmasEquation.setOperator(new Multiply());
+        bedmasEquation.setOperator(new LCM());
     }
 
     @Override
