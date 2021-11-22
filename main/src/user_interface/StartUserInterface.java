@@ -10,24 +10,21 @@ import worksheet_maker.WorksheetController;
  * @since 2021-11-01
  */
 class StartUserInterface {
-
-    static UserController user_controller;
-    static WorksheetController worksheet_controller;
+    static ControllerFactory controllerFactory;
+    static UserController userController;
+    static WorksheetController worksheetController;
 
     public static void main(String[] args) {
 
         // Create an instance of user controller to keep track of the user's information
-        try {
-            user_controller = new UserController();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        userController = controllerFactory.makeUserController();
+
 
         // Create an instance of worksheet controller to generate the worksheet
-        worksheet_controller = new WorksheetController();
+        worksheetController = controllerFactory.makeWorksheetController();
 
-        Screen.userController = user_controller;
-        Screen.worksheetController = worksheet_controller;
+        Screen.userController = userController;
+        Screen.worksheetController = worksheetController;
         Screen.main(null);
     }
 }
