@@ -54,7 +54,6 @@ public class FractionAddBuilder extends FractionBuilder {
         if (fracAddSubEqnDetails.isNegAllowed()) {
             operand1N = rand.makeNegativeRandom(operand1N, seed);
             operand2N = rand.makeNegativeRandom(operand2N, seed);
-            System.out.println(operand1N);
         }
         bedmasEquation.setOperand1(new Fraction(operand1N, operand1D));
         bedmasEquation.setOperand2(new Fraction(operand2N, operand2D));
