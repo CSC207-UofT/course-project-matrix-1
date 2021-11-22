@@ -4,7 +4,6 @@ import equation_parameters.EquationDetails;
 import equation_parameters.FractionAddSubEquationDetails;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class DistributionCalculator {
 
@@ -39,9 +38,29 @@ public class DistributionCalculator {
 
     /**
      * Returns the denomDistribution.
+     *
      * @return the denomDistribution, which is the probability associated with each denominator.
      */
     public static ArrayList<Integer> getDenomDistribution() {
         return denomDistribution;
+    }
+
+    /**
+     * Adds an extra copy of the number for every extra factor the number in the list contains, weighing more easily
+     * divisible numbers highly.
+     *
+     * @param unweightedList An unweighted list with only one copy of each number.
+     */
+    public static void modifyWeights(ArrayList<Integer> unweightedList) {
+        int originalLength = unweightedList.size();
+        for (int i = 0; i < originalLength; i++) {
+            int score = FactorFinder.findFactors(unweightedList.get(i)).size() - 1;
+            if (unweightedList.get(i) == 1) {
+                score++;
+            }
+            for (int j = 0; j < score - 1; j++) {
+                unweightedList.add(unweightedList.get(i));
+            }
+        }
     }
 }
