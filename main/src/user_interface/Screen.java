@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Objects;
 
 /**
  * Screen class for the User Interface. Superclass that stores panels and each method to update buttons and labels.
@@ -24,29 +25,34 @@ public class Screen extends JFrame implements MouseListener {
 
     // Create all Panels and Frames
     JFrame frame = new JFrame();
+
     JPanel cardPanel = new JPanel();
-    JPanel startPanel = new JPanel();
+    JPanel loginPanel = new JPanel();
     JPanel optionPanel = new JPanel();
     JPanel topicPanel = new JPanel();
-    JPanel customizeWSPanel = new JPanel();
-    JPanel viewerPanel = new JPanel();
+    JPanel customizePanel = new JPanel();
+    JPanel previewPanel = new JPanel();
     JPanel historyPanel = new JPanel();
     JPanel newUserPanel = new JPanel();
     JPanel userProfilePanel = new JPanel();
 
-    JPanel[] panels = {startPanel, optionPanel, topicPanel, customizeWSPanel, viewerPanel, historyPanel,
+    JPanel[] panels = {loginPanel, optionPanel, topicPanel, customizePanel, previewPanel, historyPanel,
             newUserPanel, userProfilePanel};
-
-    // Card Layout for the Panels to switch between them
-    CardLayout cardLayout = new CardLayout();
 
     // Create a user controller and worksheet controller instance
     public static UserController userController;
     public static WorksheetController worksheetController;
 
+    ImageIcon profileIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userProfileIcon.png")));
+    Image profileImage = profileIconImage.getImage();
+    Image profileScaledImage = profileImage.getScaledInstance(150,150, Image.SCALE_SMOOTH);
+
+    ImageIcon historyIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userHistoryIcon.png")));
+    Image historyImage = historyIconImage.getImage();
+    Image historyScaledImage = historyImage.getScaledInstance(67,67, Image.SCALE_SMOOTH);
+
     public Screen() {
 
-        // Set Frame size to full screen
         frame.setSize(width, height);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,31 +60,24 @@ public class Screen extends JFrame implements MouseListener {
         // Update each panel to the default panel settings
         updatePanels(panels);
 
-        // Adding each panel to the card layout
-        frame.add(cardPanel);
-        cardPanel.setLayout(cardLayout);
-        cardPanel.add(startPanel, "StartScreen");
-        cardPanel.add(optionPanel, "OptionScreen");
-        cardPanel.add(topicPanel, "TopicScreen");
-        cardPanel.add(customizeWSPanel, "CustomizeScreen");
-        cardPanel.add(viewerPanel, "ViewerScreen");
-        cardPanel.add(historyPanel, "WorksheetHistoryScreen");
-        cardPanel.add(newUserPanel, "NewUserScreen");
-        cardPanel.add(userProfilePanel, "UserProfileScreen");
-
     }
 
     /**
-     * Update the border and layout settings of each panel
+     * Update layout settings of each panel
      *
      * @param panels an array list of JPanels that will be updated
      */
     public void updatePanels(JPanel[] panels) {
         for (JPanel p: panels) {
-            p.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
-                    convert(0.1, 'w'), Color.BLACK));
             p.setLayout(null);
         }
+    }
+
+    public void changePanel(JPanel panel) {
+        removeAll();
+        frame.add(panel);
+        revalidate();
+        repaint();
     }
 
     /**
@@ -88,15 +87,15 @@ public class Screen extends JFrame implements MouseListener {
      *
      * @param x the constant multiplied by the screen width to get the starting x-location of the button
      * @param y the constant multiplied by the screen height to get the starting y-location of the button
-     * @param w the constant multiplied by the screen width to get the button width
-     * @param h the constant multiplied by the screen height to get the button height
+     * @param width the constant multiplied by the screen width to get the button width
+     * @param height the constant multiplied by the screen height to get the button height
      */
-    public void updateButtonLocation(JButton b, double x, double y, double w, double h) {
-        int start_x = convert(x, 'w');
-        int start_y = convert(y, 'y');
-        int b_width = convert(w, 'w');
-        int b_height = convert(h, 'h');
-        b.setBounds(start_x, start_y, b_width, b_height);
+    public void updateButtonLocation(JButton b, double x, double y, double width, double height) {
+        int startX = convert(x, 'w');
+        int startY = convert(y, 'y');
+        int buttonWidth = convert(width, 'w');
+        int buttonHeight = convert(height, 'h');
+        b.setBounds(startX, startY, buttonWidth, buttonHeight);
     }
 
     /**
@@ -141,10 +140,10 @@ public class Screen extends JFrame implements MouseListener {
     /**
      * Update the settings of each button to the default (font, color, and border).
      *
-     * @param b an array list of JButtons that will be updated to the default settings
+     * @param buttons an array list of JButtons that will be updated to the default settings
      */
-    public void defaultButton(JButton[] b) {
-        for (JButton button: b) {
+    public void defaultButton(JButton[] buttons) {
+        for (JButton button: buttons) {
             button.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
             button.setForeground(Color.DARK_GRAY);
             button.setBorder(new LineBorder(Color.DARK_GRAY));
@@ -154,22 +153,22 @@ public class Screen extends JFrame implements MouseListener {
     /**
      * Update the settings of the button to the default (font, color, and border). Overloaded method with one button.
      *
-     * @param b a JButton that will be updated to the default settings
+     * @param button a JButton that will be updated to the default settings
      */
-    public void defaultButton(JButton b) {
-        b.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
-        b.setForeground(Color.DARK_GRAY);
-        b.setBorder(new LineBorder(Color.DARK_GRAY));
+    public void defaultButton(JButton button) {
+        button.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
+        button.setForeground(Color.DARK_GRAY);
+        button.setBorder(new LineBorder(Color.DARK_GRAY));
     }
 
     /**
      * Update the button to be highlighted red and a bigger font.
      *
-     * @param b a JButton that will be highlighted
+     * @param button a JButton that will be highlighted
      */
-    public void highlightButton(JButton b) {
-        b.setForeground(new Color(255,55,51));
-        b.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
+    public void highlightButton(JButton button) {
+        button.setForeground(new Color(255,55,51));
+        button.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
     }
 
     /**

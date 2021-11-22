@@ -29,9 +29,9 @@ public class CustomizeScreen extends Screen implements MouseListener {
 
     // Create text fields
     JTextField title_tf = new JTextField(1);
-    JTextField numQuestions_tf = new JTextField(1);
-    JTextField numRows_tf = new JTextField(1);
-    JTextField numColumn_tf = new JTextField(1);
+    JTextField numQuestionsInput = new JTextField(1);
+    JTextField numRowsInput = new JTextField(1);
+    JTextField numColumnInput = new JTextField(1);
 
     JTextField op1MIN = new JTextField(1);
     JTextField op1MAX = new JTextField(1);
@@ -59,17 +59,16 @@ public class CustomizeScreen extends Screen implements MouseListener {
     String dateAndTime;
 
     // Create the temporary map's to be passed into worksheet viewer screen
-    Map <String, Object> equations_details_customizeScreen = new HashMap<>();
-    Map <String, Object> format_details_customizeScreen = new HashMap<>();
-    Map <String, Object> worksheet_history_details = new HashMap<>();
+    Map <String, Object> equationsDetailsCustomizeScreen = new HashMap<>();
+    Map <String, Object> formatDetailsCustomizeScreen = new HashMap<>();
+    Map <String, Object> worksheetHistoryDetails = new HashMap<>();
 
     public CustomizeScreen(Map<String, Object> equation_details) {
 
-        // Change cardPanel to the custom worksheet screen
-        cardLayout.show(cardPanel, "CustomizeScreen");
+        changePanel(customizePanel);
 
         // Gets the chosen topic from the previous screen
-        equations_details_customizeScreen.put("operator", equation_details.get("operator"));
+        equationsDetailsCustomizeScreen.put("operator", equation_details.get("operator"));
 
         // Create Equation Details and Formatting JLabels and its shadow
         JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
@@ -127,11 +126,11 @@ public class CustomizeScreen extends Screen implements MouseListener {
         // Update the location of each text field
         title_tf.setBounds(convert(0.525, 'w'), convert(0.475, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
-        numQuestions_tf.setBounds(convert(0.525, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
+        numQuestionsInput.setBounds(convert(0.525, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
-        numRows_tf.setBounds(convert(0.525, 'w'), convert(0.625, 'h'), convert(0.175, 'w'),
+        numRowsInput.setBounds(convert(0.525, 'w'), convert(0.625, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
-        numColumn_tf.setBounds(convert(0.525, 'w'), convert(0.7, 'h'), convert(0.175, 'w'),
+        numColumnInput.setBounds(convert(0.525, 'w'), convert(0.7, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
 
         // Update the labels for formatting
@@ -155,36 +154,36 @@ public class CustomizeScreen extends Screen implements MouseListener {
         customizeBackButton.addMouseListener(this);
 
         // Add all components to the panel
-        customizeWSPanel.add(equationDetailsTitle);
-        customizeWSPanel.add(equationDetailsShadow);
-        customizeWSPanel.add(formatTitle);
-        customizeWSPanel.add(formatShadow);
+        customizePanel.add(equationDetailsTitle);
+        customizePanel.add(equationDetailsShadow);
+        customizePanel.add(formatTitle);
+        customizePanel.add(formatShadow);
 
-        customizeWSPanel.add(generateWorksheetButton);
-        customizeWSPanel.add(customizeBackButton);
+        customizePanel.add(generateWorksheetButton);
+        customizePanel.add(customizeBackButton);
 
-        customizeWSPanel.add(op1Range);
-        customizeWSPanel.add(op1MIN);
-        customizeWSPanel.add(dash);
-        customizeWSPanel.add(op1MAX);
-        customizeWSPanel.add(op2Range);
-        customizeWSPanel.add(op2MIN);
-        customizeWSPanel.add(dash2);
-        customizeWSPanel.add(op2MAX);
-        customizeWSPanel.add(negAllowed);
-        customizeWSPanel.add(negAllowedBox);
+        customizePanel.add(op1Range);
+        customizePanel.add(op1MIN);
+        customizePanel.add(dash);
+        customizePanel.add(op1MAX);
+        customizePanel.add(op2Range);
+        customizePanel.add(op2MIN);
+        customizePanel.add(dash2);
+        customizePanel.add(op2MAX);
+        customizePanel.add(negAllowed);
+        customizePanel.add(negAllowedBox);
 
-        customizeWSPanel.add(qFormat);
-        customizeWSPanel.add(questionFormat);
-        customizeWSPanel.add(titleLabel);
-        customizeWSPanel.add(title_tf);
-        customizeWSPanel.add(numQuestions);
-        customizeWSPanel.add(numQuestions_tf);
-        customizeWSPanel.add(numRows);
-        customizeWSPanel.add(numRows_tf);
-        customizeWSPanel.add(numColumns);
-        customizeWSPanel.add(numColumn_tf);
-        customizeWSPanel.add(invalidInput);
+        customizePanel.add(qFormat);
+        customizePanel.add(questionFormat);
+        customizePanel.add(titleLabel);
+        customizePanel.add(title_tf);
+        customizePanel.add(numQuestions);
+        customizePanel.add(numQuestionsInput);
+        customizePanel.add(numRows);
+        customizePanel.add(numRowsInput);
+        customizePanel.add(numColumns);
+        customizePanel.add(numColumnInput);
+        customizePanel.add(invalidInput);
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -230,16 +229,16 @@ public class CustomizeScreen extends Screen implements MouseListener {
             titleInput = title_tf.getText();
 
             // Check if any formatting text fields are empty
-            if (tryToParse(numQuestions_tf.getText()) == null || tryToParse(numRows_tf.getText()) == null ||
-                    tryToParse(numColumn_tf.getText()) == null || titleInput.length() == 0) {
+            if (tryToParse(numQuestionsInput.getText()) == null || tryToParse(numRowsInput.getText()) == null ||
+                    tryToParse(numColumnInput.getText()) == null || titleInput.length() == 0) {
                 invalidInput.setVisible(true);
                 passed = false;
             }
             else {
                 // Each value can be parsed
-                numOfEquations_temp = Integer.parseInt(numQuestions_tf.getText());
-                numOfRows_temp = Integer.parseInt(numRows_tf.getText());
-                numOfColumns_temp = Integer.parseInt(numColumn_tf.getText());
+                numOfEquations_temp = Integer.parseInt(numQuestionsInput.getText());
+                numOfRows_temp = Integer.parseInt(numRowsInput.getText());
+                numOfColumns_temp = Integer.parseInt(numColumnInput.getText());
             }
 
             // Check that number of equations, rows, and columns are greater than zero
@@ -255,40 +254,36 @@ public class CustomizeScreen extends Screen implements MouseListener {
 
             // If all inputs check out, add to the equation details and formatting details maps
             if (passed) {
-                frame.setVisible(false);
-                customizeWSPanel.setVisible(false);
 
                 // Add all equation details to the map
-                equations_details_customizeScreen.put("numOfEquations", numOfEquations);
-                equations_details_customizeScreen.put("operandRange1", operandRange1);
-                equations_details_customizeScreen.put("operandRange2", operandRange2);
-                equations_details_customizeScreen.put("negAllowed", negAllowed);
+                equationsDetailsCustomizeScreen.put("numOfEquations", numOfEquations);
+                equationsDetailsCustomizeScreen.put("operandRange1", operandRange1);
+                equationsDetailsCustomizeScreen.put("operandRange2", operandRange2);
+                equationsDetailsCustomizeScreen.put("negAllowed", negAllowed);
 
                 // Add all formatting details to the map
-                format_details_customizeScreen.put("equationFormat", equationFormat);
-                format_details_customizeScreen.put("title", titleInput);
-                format_details_customizeScreen.put("numRows", numOfRows);
-                format_details_customizeScreen.put("numColumns", numOfColumns);
+                formatDetailsCustomizeScreen.put("equationFormat", equationFormat);
+                formatDetailsCustomizeScreen.put("title", titleInput);
+                formatDetailsCustomizeScreen.put("numRows", numOfRows);
+                formatDetailsCustomizeScreen.put("numColumns", numOfColumns);
 
                 // Find the exact date/time the user created the worksheet
                 dateAndTime = LocalDateTime.now().toString();
 
                 // Create the unique worksheet history details
-                worksheet_history_details.put("worksheetKey", dateAndTime);
-                worksheet_history_details.put("equationDetails", equations_details_customizeScreen);
-                worksheet_history_details.put("formatDetails", format_details_customizeScreen);
+                worksheetHistoryDetails.put("worksheetKey", dateAndTime);
+                worksheetHistoryDetails.put("equationDetails", equationsDetailsCustomizeScreen);
+                worksheetHistoryDetails.put("formatDetails", formatDetailsCustomizeScreen);
 
                 try {
-                    new WorksheetViewerScreen(equations_details_customizeScreen, format_details_customizeScreen,
-                            worksheet_history_details);
+                    new WorksheetViewerScreen(equationsDetailsCustomizeScreen, formatDetailsCustomizeScreen,
+                            worksheetHistoryDetails);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
         }
         else if (e.getSource() == customizeBackButton) {
-            frame.setVisible(false);
-            customizeWSPanel.setVisible(false);
             new TopicScreen();
         }
     }

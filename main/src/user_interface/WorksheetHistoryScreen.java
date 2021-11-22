@@ -1,7 +1,6 @@
 package user_interface;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -60,6 +59,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
     @SuppressWarnings("unchecked")
     public WorksheetHistoryScreen() {
 
+        changePanel(historyPanel);
+
         // Set noWorksheets and invalidScore JLabel messages to not visible
         noWorksheets.setVisible(false);
         invalidScore.setVisible(false);
@@ -107,13 +108,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
         // Create JLabel and JButton for the Worksheet History Screen
         JLabel previewTitle = new JLabel("Worksheet History", SwingConstants.CENTER);
         JLabel previewTitleShadow = new JLabel("Worksheet History", SwingConstants.CENTER);
-
-        // Set the Panel to the Option Screen
-        cardLayout.show(cardPanel, "WorksheetHistoryScreen");
-
-        historyPanel.setBorder(BorderFactory.createMatteBorder(1, convert(0.1, 'w'), 1,
-                convert(0.1, 'w'), Color.BLACK));
-        historyPanel.setLayout(null);
 
         // Update the Settings of the JLabels
         updateLabel(previewTitle, 0.2, 0.02, 0.6, 0.1, 0.03075, 'r');
@@ -184,8 +178,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
     @SuppressWarnings("unchecked")
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == customizeBackButton) {
-            frame.setVisible(false);
-            historyPanel.setVisible(false);
             new OptionScreen();
         }
         if (e.getSource() == removeButton) {
@@ -242,8 +234,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
                 worksheet_history_details_temp.put("formatDetails", format_details_temp);
 
                 try {
-                    frame.setVisible(false);
-                    historyPanel.setVisible(false);
                     new WorksheetViewerScreen(equation_details_temp, format_details_temp, worksheet_history_details_temp);
                 } catch (IOException ex) {
                     ex.printStackTrace();

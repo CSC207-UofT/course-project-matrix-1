@@ -27,8 +27,13 @@ public class LoginScreen extends Screen implements MouseListener {
 
     public LoginScreen() {
 
-        // Start showing the start screen (login) panel
-        cardLayout.show(cardPanel, "StartScreen");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        frame.add(loginPanel);
 
         // Create Title labels and its shadow
         JLabel matrixTitle = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
@@ -61,13 +66,15 @@ public class LoginScreen extends Screen implements MouseListener {
                 convert(0.05, 'h'));
 
         // Add each component to the panel
-        startPanel.add(matrixTitle);
-        startPanel.add(matrixTitleShadow);
-        startPanel.add(loginButton);
-        startPanel.add(createUserButton);
-        startPanel.add(username);
-        startPanel.add(username_tf);
-        startPanel.add(invalidUsernameError);
+        loginPanel.add(matrixTitle);
+        loginPanel.add(matrixTitleShadow);
+        loginPanel.add(loginButton);
+        loginPanel.add(createUserButton);
+        loginPanel.add(username);
+        loginPanel.add(username_tf);
+        loginPanel.add(invalidUsernameError);
+
+
     }
 
     /**
@@ -81,8 +88,6 @@ public class LoginScreen extends Screen implements MouseListener {
             // Attempt to log in the user with the username entered
             try {
                 userController.login(username_tf.getText());
-                startPanel.setVisible(false);
-                frame.setVisible(false);
                 new OptionScreen();
             } catch (UserDoesNotExistException u) {
                 invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist
@@ -90,8 +95,6 @@ public class LoginScreen extends Screen implements MouseListener {
         }
         // Move to create new user screen
         else if (e.getSource() == createUserButton) {
-            startPanel.setVisible(false);
-            frame.setVisible(false);
             new NewUserScreen();
         }
     }

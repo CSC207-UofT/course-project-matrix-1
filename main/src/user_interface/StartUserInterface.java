@@ -11,23 +11,23 @@ import worksheet_maker.WorksheetController;
  */
 class StartUserInterface {
 
-    static UserController user_controller;
-    static WorksheetController worksheet_controller;
+    static UserController userController;
+    static WorksheetController worksheetController;
 
     public static void main(String[] args) {
 
         // Create an instance of user controller to keep track of the user's information
         try {
-            user_controller = new UserController();
+            userController = new UserController();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // Create an instance of worksheet controller to generate the worksheet
-        worksheet_controller = new WorksheetController();
+        worksheetController = new WorksheetController();
 
-        Screen.userController = user_controller;
-        Screen.worksheetController = worksheet_controller;
+        Screen.userController = userController;
+        Screen.worksheetController = worksheetController;
         Screen.main(null);
     }
 }

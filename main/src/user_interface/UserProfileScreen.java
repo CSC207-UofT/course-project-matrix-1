@@ -21,8 +21,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
 
     public UserProfileScreen() {
 
-        // Set the Panel to the new user screen
-        cardLayout.show(cardPanel, "UserProfileScreen");
+        changePanel(userProfilePanel);
 
         // Create the user profile and its shadow
         JLabel userProfileTitle = new JLabel("User Profile", SwingConstants.CENTER);
@@ -58,8 +57,6 @@ public class UserProfileScreen extends Screen implements MouseListener {
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
-            frame.setVisible(false);
-            userProfilePanel.setVisible(false);
             new OptionScreen();
         }
     }

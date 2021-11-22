@@ -49,8 +49,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
     public WorksheetViewerScreen(Map<String, Object> equation_Details, Map<String, Object> format_Details,
                                  Map<String, Object> worksheet_details) throws IOException {
 
-        // Set Panel to the viewer screen
-        cardLayout.show(cardPanel, "ViewerScreen");
+        changePanel(previewPanel);
 
         // Set the updated equation details and format details chosen by the user
         equation_details_viewer = equation_Details;
@@ -115,15 +114,15 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         viewerBackButton.addMouseListener(this);
 
         // Add all components to the panel
-        viewerPanel.add(downloadButton);
-        viewerPanel.add(mainMenuButton);
-        viewerPanel.add(viewerBackButton);
-        viewerPanel.add(downloadLbl);
-        viewerPanel.add(downloadPath_tf);
-        viewerPanel.add(invalidPathLbl);
-        viewerPanel.add(previewTitle);
-        viewerPanel.add(previewTitleShadow);
-        viewerPanel.add(wsImageLbl);
+        previewPanel.add(downloadButton);
+        previewPanel.add(mainMenuButton);
+        previewPanel.add(viewerBackButton);
+        previewPanel.add(downloadLbl);
+        previewPanel.add(downloadPath_tf);
+        previewPanel.add(invalidPathLbl);
+        previewPanel.add(previewTitle);
+        previewPanel.add(previewTitleShadow);
+        previewPanel.add(wsImageLbl);
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -140,12 +139,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
             }
             invalidPathLbl.setVisible(true);
         } else if (e.getSource() == mainMenuButton) {
-            frame.setVisible(false);
-            viewerPanel.setVisible(false);
             new OptionScreen();
         } else if (e.getSource() == viewerBackButton) {
-            frame.setVisible(false);
-            viewerPanel.setVisible(false);
             new CustomizeScreen(equation_details_viewer);
         }
 

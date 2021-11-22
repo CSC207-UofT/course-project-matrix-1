@@ -32,8 +32,7 @@ public class NewUserScreen extends Screen implements MouseListener {
 
     public NewUserScreen() {
 
-        // Set the Panel to the new user screen
-        cardLayout.show(cardPanel, "NewUserScreen");
+        changePanel(newUserPanel);
 
         // Create the title
         JLabel newUserTitle = new JLabel("Create New User", SwingConstants.CENTER);
@@ -115,8 +114,6 @@ public class NewUserScreen extends Screen implements MouseListener {
                 // Attempt to register the user
                 try {
                     userController.registerUser(currUsername, currName, currAge, currRole);
-                    frame.setVisible(false);
-                    newUserPanel.setVisible(false);
                     new OptionScreen();                         // Successful registration
                 } catch (UsernameTakenException u) {
                     invalidInput.setText("Invalid username");
@@ -125,8 +122,6 @@ public class NewUserScreen extends Screen implements MouseListener {
             }
         }
         else if (e.getSource() == newUserBackButton){
-            frame.setVisible(false);
-            newUserPanel.setVisible(false);
             new LoginScreen();
         }
     }
