@@ -3,6 +3,7 @@ package equation_parameters;
 public class FractionMultiDivEquationDetails extends EquationDetails{
     private int[] ansDenominatorRange;
     private int complexity;
+    private int maxAnsValue;
 
     public int[] getAnsDenominatorRange() {
         return ansDenominatorRange;
@@ -20,4 +21,11 @@ public class FractionMultiDivEquationDetails extends EquationDetails{
         this.complexity = complexity;
     }
 
+    public int getMaxAnsValue() {
+        return maxAnsValue;
+    }
+
+    public void setMaxAnsValue(int maxAnsValue) {
+        this.maxAnsValue = maxAnsValue;
+    }
 }

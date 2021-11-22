@@ -1,6 +1,7 @@
 package equation_builders;
 
 import equation_parameters.FractionAddSubEquationDetails;
+import equation_parameters.FractionMultiDivEquationDetails;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,17 +13,26 @@ public class FractionDirectorTest {
     private FractionDirector director;
     private int randomSeed;
     private FractionAddSubEquationDetails fractionAddSubEquationDetails = new FractionAddSubEquationDetails();
+    private FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
     private int maxDenominator = 100;
 
     @Before
     public void init() {
+        director = new FractionDirector();
+
         fractionAddSubEquationDetails.setMaxOperandValue(1);
         fractionAddSubEquationDetails.setOperand1DenomRange(generateRange(1, 50));
         fractionAddSubEquationDetails.setNegAllowed(true);
         fractionAddSubEquationDetails.setMaxOperand2AndAnswerDenom(maxDenominator);
-        director = new FractionDirector();
+
         fractionAddSubEquationDetails.setOperator('+');
         fractionAddSubEquationDetails.setNegAllowed(true);
+
+        fractionMultiDivEquationDetails.setMaxAnsValue(3);
+        fractionMultiDivEquationDetails.setComplexity(3);
+        fractionMultiDivEquationDetails.setAnsDenominatorRange(generateRange(50, 100));
+        fractionMultiDivEquationDetails.setOperator('*');
+        fractionMultiDivEquationDetails.setNegAllowed(true);
     }
 
     @Test
@@ -34,6 +44,18 @@ public class FractionDirectorTest {
             System.out.println(director.getEquation().getEquation());
             String firstOperand = director.getEquation().getEquationParts()[0].toString();
             assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf('/') + 1))) <= Math.abs(maxDenominator));
+        }
+    }
+
+    @Test
+    public void testMultPos() {
+        for (int i = 0; i < 100; i++) {
+            randomSeed = new Random().nextInt(100000);
+            director.setEquationBuilder('*');
+            director.constructEquation(fractionMultiDivEquationDetails, randomSeed + 5);
+            System.out.println(director.getEquation().getEquation());
+            String firstOperand = director.getEquation().getEquationParts()[0].toString();
+//            assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf('/') + 1))) <= Math.abs(maxDenominator));
         }
     }
 

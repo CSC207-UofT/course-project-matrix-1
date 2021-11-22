@@ -37,7 +37,7 @@ public class FractionMultiplyBuilder extends FractionBuilder {
         FractionMultiDivEquationDetails fracMultiDivEqnDetails = (FractionMultiDivEquationDetails) fractionEquationDetails;
 
         int unreducedAnsD = rand.randomize(fracMultiDivEqnDetails.getAnsDenominatorRange(), seed);
-        int unreducedAnsN = rand.randomize(0, unreducedAnsD, seed) + unreducedAnsD * (fracMultiDivEqnDetails.getMaxValue() - 1);
+        int unreducedAnsN = rand.randomize(0, unreducedAnsD, seed) + unreducedAnsD * (fracMultiDivEqnDetails.getMaxAnsValue() - 1);
 
         List<Integer> unreducedAnsDFactors = FactorFinder.primeFactorize(unreducedAnsD);
         List<Integer> unreducedAnsNFactors = FactorFinder.primeFactorize(unreducedAnsN);
@@ -47,15 +47,29 @@ public class FractionMultiplyBuilder extends FractionBuilder {
         int[] operandsN = splitFactorsIntoTwoOperands(unreducedAnsNFactors, seed);
         int[] operandsD = splitFactorsIntoTwoOperands(unreducedAnsDFactors, seed);
 
+        makeOperandsNegative(fracMultiDivEqnDetails.isNegAllowed(), operandsN, seed);
+
         bedmasEquation.setOperand1(new Fraction(operandsN[0], operandsD[0]));
         bedmasEquation.setOperand2(new Fraction(operandsN[1], operandsD[1]));
+    }
+
+    /**
+     * @param isNegAllowed whether negatives are allowed for this equation.
+     * @param operandsN    the numerator of the operands as a list of 2 ints.
+     * @param seed         random seed to fix random generation of operands
+     */
+    private void makeOperandsNegative(boolean isNegAllowed, int[] operandsN, int seed) {
+        if (isNegAllowed) {
+            operandsN[0] = rand.makeNegativeRandom(operandsN[0], seed);
+            operandsN[1] = rand.makeNegativeRandom(operandsN[1], seed);
+        }
     }
 
     /**
      * Split the factors in a given list into two operands somewhat evenly. Ex. [2, 3, 2, 5] makes [6, 10].
      *
      * @param factors a list of factors that can be multiplied together.
-     * @param seed random seed to fix random generation of operands.
+     * @param seed    random seed to fix random generation of operands.
      * @return a list of 2 numbers that together are the product of all the factors.
      */
     private int[] splitFactorsIntoTwoOperands(List<Integer> factors, int seed) {
@@ -63,8 +77,8 @@ public class FractionMultiplyBuilder extends FractionBuilder {
         List<Integer> operand2Factors = new ArrayList<>();
         operand1Factors.add(1);
         operand2Factors.add(1);
-        for (int i = 0; i < factors.size() - 1; i++){
-            if (factors.size() % 2 == 0){
+        for (int i = 0; i < factors.size() - 1; i++) {
+            if (factors.size() % 2 == 0) {
                 operand1Factors.add(factors.remove(rand.randomize(0, factors.size() - 1, seed)));
             } else {
                 operand2Factors.add(factors.remove(rand.randomize(0, factors.size() - 1, seed)));
@@ -81,7 +95,7 @@ public class FractionMultiplyBuilder extends FractionBuilder {
      */
     private int multipyFactors(List<Integer> factors) {
         int fullNumber = 1;
-        for (int factor : factors){
+        for (int factor : factors) {
             fullNumber = factor * fullNumber;
         }
         return fullNumber;
@@ -90,13 +104,13 @@ public class FractionMultiplyBuilder extends FractionBuilder {
     /**
      * Randomly add more complexity by adding a random (prime) factor to the numerator and denominator of the answer.
      *
-     * @param complexity how many additional factors will be added to the numerator adn denominator to make the fraction more complex.
+     * @param complexity           how many additional factors will be added to the numerator adn denominator to make the fraction more complex.
      * @param unreducedAnsDFactors a list of all the factors in the numerator of the answer.
      * @param unreducedAnsNFactors a list of all the factors in the denominator of the answer.
-     * @param seed random seed to fix random generation of operands.
+     * @param seed                 random seed to fix random generation of operands.
      */
     private void addComplexity(int complexity, List<Integer> unreducedAnsDFactors, List<Integer> unreducedAnsNFactors, int seed) {
-        for (int i = 0; i < complexity; i++){
+        for (int i = 0; i < complexity; i++) {
             int prime = biasedSelectNumber(PRIMES, seed);
             unreducedAnsDFactors.add(prime);
             unreducedAnsNFactors.add(prime);
@@ -107,12 +121,12 @@ public class FractionMultiplyBuilder extends FractionBuilder {
      * Randomly select a number from a given set of numbers. Be biased towards the ones on the left of the list.
      *
      * @param numbers the possible number values to choose from
-     * @param seed random seed to fix random generation of operands.
+     * @param seed    random seed to fix random generation of operands.
      * @return a randomly selected number (biased towards smaller ones)
      */
     private int biasedSelectNumber(int[] numbers, int seed) {
-        for (int number : numbers){
-            if (rand.randomize(0,1, seed) == 1){
+        for (int number : numbers) {
+            if (rand.randomize(0, 1, seed) == 1) {
                 return number;
             }
         }
