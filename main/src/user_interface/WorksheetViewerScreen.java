@@ -6,6 +6,8 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -19,7 +21,7 @@ import java.util.Map;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
-public class WorksheetViewerScreen extends Screen implements MouseListener {
+public class WorksheetViewerScreen extends Screen implements MouseListener, KeyListener {
 
     // Create buttons
     JButton downloadButton = new JButton("Download");
@@ -174,6 +176,22 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         } else if (e.getSource() == viewerBackButton) {
             defaultButton(viewerBackButton);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // Attempt to save the generated worksheet's questions and answers to user's download path
+        downloadHelper();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }
 
