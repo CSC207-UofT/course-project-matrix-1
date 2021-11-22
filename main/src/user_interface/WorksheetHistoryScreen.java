@@ -2,6 +2,8 @@ package user_interface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -18,7 +20,7 @@ import java.util.Map;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-14
  */
-public class WorksheetHistoryScreen extends Screen implements MouseListener {
+public class WorksheetHistoryScreen extends Screen implements MouseListener, KeyListener {
 
     // Create JLabels
     JLabel noWorksheets = new JLabel("No Worksheets Available", SwingConstants.CENTER);
@@ -143,6 +145,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
         updateScoreButton.addMouseListener(this);
         regenerateButton.addMouseListener(this);
 
+        // Add Key Listener for the newScore TextField
+        newScore.addKeyListener(this);
+
         // Add JList
         history.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         history.setLayoutOrientation(JList.VERTICAL);
@@ -205,30 +210,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
         // Not fully implemented will be complete in next Phase (display change of score in table missing)
         if (e.getSource() == updateScoreButton) {
             // Check if JText is empty and return message if true
-            if (tryToParse(newScore.getText()) == null) {
-                invalidScore.setVisible(true);
-            } else {
-                int index = history.getSelectedIndex();
-                if (index != -1) {
-                    int score = Integer.parseInt(newScore.getText());
-                    Map<String, Object> tempMapEquationDetails = (Map<String, Object>) userHistoryList.get(index).get("equationDetails");
-                    int maxScore = (int) tempMapEquationDetails.get("numOfEquations");
-                    // Check if score is illegal option and return message if true
-                    if (score < 0 || score > maxScore) {
-                        invalidScore.setVisible(true);
-
-                    } else {
-                        // Store Score of Worksheet
-                        String tempKey = (String) userHistoryList.get(index).get("worksheetKey");
-                        userController.storeUserScore(tempKey, score);
-                        invalidScore.setVisible(false);
-                        userHistoryList = userController.getUserHistory();
-                        frame.setVisible(false);
-                        historyPanel.setVisible(false);
-                        new WorksheetHistoryScreen();
-                    }
-                }
-            }
+            scoreHelper();
         }
 
         if (e.getSource() == regenerateButton) {
@@ -253,6 +235,34 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
                     new WorksheetViewerScreen(equation_details_temp, format_details_temp, worksheet_history_details_temp);
                 } catch (IOException ex) {
                     ex.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void scoreHelper() {
+        if (tryToParse(newScore.getText()) == null) {
+            invalidScore.setVisible(true);
+        } else {
+            int index = history.getSelectedIndex();
+            if (index != -1) {
+                int score = Integer.parseInt(newScore.getText());
+                Map<String, Object> tempMapEquationDetails = (Map<String, Object>) userHistoryList.get(index).get("equationDetails");
+                int maxScore = (int) tempMapEquationDetails.get("numOfEquations");
+                // Check if score is illegal option and return message if true
+                if (score < 0 || score > maxScore) {
+                    invalidScore.setVisible(true);
+
+                } else {
+                    // Store Score of Worksheet
+                    String tempKey = (String) userHistoryList.get(index).get("worksheetKey");
+                    userController.storeUserScore(tempKey, score);
+                    invalidScore.setVisible(false);
+                    userHistoryList = userController.getUserHistory();
+                    frame.setVisible(false);
+                    historyPanel.setVisible(false);
+                    new WorksheetHistoryScreen();
                 }
             }
         }
@@ -286,5 +296,24 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
         else if (e.getSource() == regenerateButton) {
             defaultButton(regenerateButton);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    /**
+     * key Pressed feature when each key is being pressed
+     *
+     * @param e keeps track of which key is being pressed
+     */
+    public void keyPressed(KeyEvent e){
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {scoreHelper();}
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }
