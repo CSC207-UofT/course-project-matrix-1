@@ -131,23 +131,26 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == downloadButton) {
-
             // Attempt to save the generated worksheet's questions and answers to user's download path
-            try {
-                documents[0].save(downloadPathInput.getText() + "/" + documentTitle + "_questions.pdf");
-                documents[1].save(downloadPathInput.getText() + "/" + documentTitle + "_answers.pdf");
-                invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPathInput.getText());
-                invalidPathLbl.setVisible(true);
-            } catch (IOException ex) {
-                invalidPathLbl.setText("Invalid Path");     // Show invalid input label if files cannot be downloaded
-            }
-            invalidPathLbl.setVisible(true);
+            downloadHelper();
         } else if (e.getSource() == mainMenuButton) {
             new OptionScreen();
         } else if (e.getSource() == viewerBackButton) {
             new CustomizeScreen(equationDetailsViewer);
         }
 
+    }
+
+    private void downloadHelper() {
+        try {
+            documents[0].save(downloadPathInput.getText() + "/" + documentTitle + "_questions.pdf");
+            documents[1].save(downloadPathInput.getText() + "/" + documentTitle + "_answers.pdf");
+            invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPathInput.getText());
+            invalidPathLbl.setVisible(true);
+        } catch (IOException ex) {
+            invalidPathLbl.setText("Invalid Path");     // Show invalid input label if files cannot be downloaded
+        }
+        invalidPathLbl.setVisible(true);
     }
 
     public void mouseEntered(MouseEvent e) {
@@ -180,7 +183,6 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
@@ -191,7 +193,6 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
     @Override
     public void keyReleased(KeyEvent e) {
-
     }
 }
 

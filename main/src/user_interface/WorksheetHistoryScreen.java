@@ -1,7 +1,6 @@
 package user_interface;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -253,8 +252,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                     userController.storeUserScore(tempKey, score);
                     invalidScore.setVisible(false);
                     userHistoryList = userController.getUserHistory();
-                    frame.setVisible(false);
-                    historyPanel.setVisible(false);
                     new WorksheetHistoryScreen();
                 }
             }

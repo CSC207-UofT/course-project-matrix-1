@@ -51,7 +51,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         createUserButton.addMouseListener(this);
 
         // Add Key Listener for the username TextField
-        username_tf.addKeyListener(this);
+        usernameInput.addKeyListener(this);
 
         // Update the settings of each Label
         updateLabel(matrixTitle, 0.2, 0.2, 0.6, 0.1, 0.03075, 'r');
@@ -146,9 +146,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         // Attempt to log in the user with the username entered
         if (e.getKeyCode()==KeyEvent.VK_ENTER){
             try {
-                userController.login(username_tf.getText());
-                startPanel.setVisible(false);
-                frame.setVisible(false);
+                userController.login(usernameInput.getText());
                 new OptionScreen();
             } catch (UserDoesNotExistException u) {
             invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist
