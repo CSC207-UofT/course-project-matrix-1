@@ -3,7 +3,7 @@ package user_interface;
 import user_package.UserController;
 import worksheet_maker.WorksheetController;
 
-public class ControllerFactory {
+public class ControllerInterface {
     //TODO: Refactor the of this class
     UserController makeUserController() {
         // Create an instance of user controller to keep track of the user's information
