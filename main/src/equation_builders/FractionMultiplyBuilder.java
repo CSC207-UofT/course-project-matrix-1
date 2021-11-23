@@ -4,6 +4,7 @@ import equation_entities.Fraction;
 import equation_entities.Multiply;
 import equation_parameters.EquationDetails;
 import equation_parameters.FractionMultiDivEquationDetails;
+import utilities.DistributionCalculator;
 import utilities.FactorFinder;
 
 import java.util.ArrayList;
@@ -37,8 +38,8 @@ public class FractionMultiplyBuilder extends FractionBuilder {
         FractionMultiDivEquationDetails fracMultiDivEqnDetails = (FractionMultiDivEquationDetails) fractionEquationDetails;
         int unreducedAnsD = rand.randomize(fracMultiDivEqnDetails.getAnsDenominatorRange(), seed);
         int unreducedAnsN = rand.randomize(0, unreducedAnsD, seed) + unreducedAnsD * (fracMultiDivEqnDetails.getMaxAnsValue() - 1);
-        List<Integer> unreducedAnsDFactors = FactorFinder.primeFactorize(unreducedAnsD);
-        List<Integer> unreducedAnsNFactors = FactorFinder.primeFactorize(unreducedAnsN);
+        ArrayList<Integer> unreducedAnsDFactors = FactorFinder.primeFactorize(unreducedAnsD);
+        ArrayList<Integer> unreducedAnsNFactors = FactorFinder.primeFactorize(unreducedAnsN);
         addComplexity(fracMultiDivEqnDetails.getComplexity(), unreducedAnsDFactors, unreducedAnsNFactors, seed);
         int[] operandsN = splitFactorsIntoTwoOperands(unreducedAnsNFactors, seed);
         int[] operandsD = splitFactorsIntoTwoOperands(unreducedAnsDFactors, seed);
