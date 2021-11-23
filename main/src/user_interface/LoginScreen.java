@@ -4,6 +4,8 @@ import exceptions.UserDoesNotExistException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -13,7 +15,7 @@ import java.awt.event.MouseListener;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
-public class LoginScreen extends Screen implements MouseListener {
+public class LoginScreen extends Screen implements MouseListener, KeyListener {
 
     // Create Buttons
     JButton loginButton = new JButton("Login");
@@ -52,6 +54,9 @@ public class LoginScreen extends Screen implements MouseListener {
         loginButton.addMouseListener(this);
         createUserButton.addMouseListener(this);
 
+        // Add Key Listener for the username TextField
+        username_tf.addKeyListener(this);
+
         // Update the settings of each Label
         updateLabel(matrixTitle, 0.2, 0.2, 0.6, 0.1, 0.03075, 'r');
         updateLabel(matrixTitleShadow, 0.2025, 0.2025, 0.6, 0.1, 0.03075, 'd');
@@ -84,7 +89,6 @@ public class LoginScreen extends Screen implements MouseListener {
      */
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == loginButton) {
-
             // Attempt to log in the user with the username entered
             try {
                 userController.login(username_tf.getText());
@@ -129,5 +133,34 @@ public class LoginScreen extends Screen implements MouseListener {
             defaultButton(createUserButton);
             createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.015)));
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    /**
+     * key Pressed feature when each key is being pressed
+     *
+     * @param e keeps track of which key is being pressed
+     */
+    public void keyPressed(KeyEvent e){
+        // Attempt to log in the user with the username entered
+        if (e.getKeyCode()==KeyEvent.VK_ENTER){
+            try {
+                userController.login(username_tf.getText());
+                startPanel.setVisible(false);
+                frame.setVisible(false);
+                new OptionScreen();
+            } catch (UserDoesNotExistException u) {
+            invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }

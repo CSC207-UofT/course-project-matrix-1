@@ -6,6 +6,8 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -19,7 +21,7 @@ import java.util.Map;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
-public class WorksheetViewerScreen extends Screen implements MouseListener {
+public class WorksheetViewerScreen extends Screen implements MouseListener, KeyListener {
 
     // Create buttons
     JButton downloadButton = new JButton("Download");
@@ -113,6 +115,12 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         mainMenuButton.addMouseListener(this);
         viewerBackButton.addMouseListener(this);
 
+        // Add Key Listener for the downloadPath TextField
+        downloadPath_tf.addKeyListener(this);
+
+        // Add Key Listener for the viewerBack Button
+        viewerBackButton.addKeyListener(this);
+
         // Add all components to the panel
         previewPanel.add(downloadButton);
         previewPanel.add(mainMenuButton);
@@ -127,23 +135,26 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == downloadButton) {
-
             // Attempt to save the generated worksheet's questions and answers to user's download path
-            try {
-                documents[0].save(downloadPath_tf.getText() + "/" + documentTitle + "_questions.pdf");
-                documents[1].save(downloadPath_tf.getText() + "/" + documentTitle + "_answers.pdf");
-                invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPath_tf.getText());
-                invalidPathLbl.setVisible(true);
-            } catch (IOException ex) {
-                invalidPathLbl.setText("Invalid Path");     // Show invalid input label if files cannot be downloaded
-            }
-            invalidPathLbl.setVisible(true);
+            downloadHelper();
         } else if (e.getSource() == mainMenuButton) {
             new OptionScreen();
         } else if (e.getSource() == viewerBackButton) {
             new CustomizeScreen(equation_details_viewer);
         }
 
+    }
+
+    private void downloadHelper() {
+        try {
+            documents[0].save(downloadPath_tf.getText() + "/" + documentTitle + "_questions.pdf");
+            documents[1].save(downloadPath_tf.getText() + "/" + documentTitle + "_answers.pdf");
+            invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPath_tf.getText());
+            invalidPathLbl.setVisible(true);
+        } catch (IOException ex) {
+            invalidPathLbl.setText("Invalid Path");     // Show invalid input label if files cannot be downloaded
+        }
+        invalidPathLbl.setVisible(true);
     }
 
     public void mouseEntered(MouseEvent e) {
@@ -172,6 +183,30 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         } else if (e.getSource() == viewerBackButton) {
             defaultButton(viewerBackButton);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // Attempt to save the generated worksheet's questions and answers to user's download path
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+            downloadHelper();
+        }
+        // Go back to previous screen
+        else if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+            frame.setVisible(false);
+            viewerPanel.setVisible(false);
+            new CustomizeScreen(equation_details_viewer);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }
 
