@@ -10,18 +10,18 @@ import worksheet_maker.WorksheetController;
  * @since 2021-11-01
  */
 class StartUserInterface {
-    static ControllerFactory controllerFactory;
+    static ControllerInterface controllerInterface;
     static UserController userController;
     static WorksheetController worksheetController;
 
     public static void main(String[] args) {
 
         // Create an instance of user controller to keep track of the user's information
-        userController = controllerFactory.makeUserController();
+        userController = controllerInterface.makeUserController();
 
 
         // Create an instance of worksheet controller to generate the worksheet
-        worksheetController = controllerFactory.makeWorksheetController();
+        worksheetController = controllerInterface.makeWorksheetController();
 
         Screen.userController = userController;
         Screen.worksheetController = worksheetController;
