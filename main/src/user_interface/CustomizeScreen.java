@@ -28,7 +28,7 @@ public class CustomizeScreen extends Screen implements MouseListener {
     JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField title_tf = new JTextField(1);
+    JTextField titleInput = new JTextField(1);
     JTextField numQuestionsInput = new JTextField(1);
     JTextField numRowsInput = new JTextField(1);
     JTextField numColumnInput = new JTextField(1);
@@ -38,12 +38,15 @@ public class CustomizeScreen extends Screen implements MouseListener {
     JTextField op2MIN = new JTextField(1);
     JTextField op2MAX = new JTextField(1);
 
+    JTextField[] textFields = {titleInput, numQuestionsInput, numRowsInput, numColumnInput, op1MIN, op1MAX, op2MIN,
+            op2MAX};
+
     // Create checkbox
     JCheckBox negAllowedBox = new JCheckBox("");
 
     // Create combo box for question format
-    String[] options2 = {"Horizontal"};
-    JComboBox<String> questionFormat = new JComboBox<>(options2);
+    String[] questionFormatOptions = {"Horizontal"};
+    JComboBox<String> questionFormat = new JComboBox<>(questionFormatOptions);
 
     // Create the equation details variables with initial invalid values
     int numOfEquations = -1;
@@ -53,7 +56,7 @@ public class CustomizeScreen extends Screen implements MouseListener {
 
     // Create the formatting details variables with initial invalid values
     String equationFormat = " ";
-    String titleInput = " ";
+    String worksheetTitle = " ";
     int numOfRows = -1;
     int numOfColumns = -1;
     String dateAndTime;
@@ -65,7 +68,8 @@ public class CustomizeScreen extends Screen implements MouseListener {
 
     public CustomizeScreen(Map<String, Object> equation_details) {
 
-        changePanel(customizePanel);
+        customizePanel.setLayout(null);
+        customizePanel.setBackground(new Color(177, 203, 187));
 
         // Gets the chosen topic from the previous screen
         equationsDetailsCustomizeScreen.put("operator", equation_details.get("operator"));
@@ -124,7 +128,7 @@ public class CustomizeScreen extends Screen implements MouseListener {
         questionFormat.setSelectedIndex(0);
 
         // Update the location of each text field
-        title_tf.setBounds(convert(0.525, 'w'), convert(0.475, 'h'), convert(0.175, 'w'),
+        titleInput.setBounds(convert(0.525, 'w'), convert(0.475, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
         numQuestionsInput.setBounds(convert(0.525, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
@@ -153,6 +157,8 @@ public class CustomizeScreen extends Screen implements MouseListener {
         generateWorksheetButton.addMouseListener(this);
         customizeBackButton.addMouseListener(this);
 
+        updateTextFields(textFields);
+
         // Add all components to the panel
         customizePanel.add(equationDetailsTitle);
         customizePanel.add(equationDetailsShadow);
@@ -176,7 +182,7 @@ public class CustomizeScreen extends Screen implements MouseListener {
         customizePanel.add(qFormat);
         customizePanel.add(questionFormat);
         customizePanel.add(titleLabel);
-        customizePanel.add(title_tf);
+        customizePanel.add(titleInput);
         customizePanel.add(numQuestions);
         customizePanel.add(numQuestionsInput);
         customizePanel.add(numRows);
@@ -184,6 +190,8 @@ public class CustomizeScreen extends Screen implements MouseListener {
         customizePanel.add(numColumns);
         customizePanel.add(numColumnInput);
         customizePanel.add(invalidInput);
+
+        changePanel(customizePanel);
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -192,11 +200,11 @@ public class CustomizeScreen extends Screen implements MouseListener {
             boolean passed = true;
 
             // Create temporary equation details and format details variables
-            int op1Min_temp, op1Max_temp, op2Min_temp, op2Max_temp;
-            op1Min_temp = op1Max_temp = op2Min_temp = op2Max_temp = -1;
+            int op1MinTemp, op1MaxTemp, op2MinTemp, op2MaxTemp;
+            op1MinTemp = op1MaxTemp = op2MinTemp = op2MaxTemp = -1;
 
-            int numOfEquations_temp, numOfRows_temp, numOfColumns_temp;
-            numOfEquations_temp = numOfRows_temp = numOfColumns_temp = -1;
+            int numOfEquationsTemp, numOfRowsTemp, numOfColumnsTemp;
+            numOfEquationsTemp = numOfRowsTemp = numOfColumnsTemp = -1;
 
             // Check if any operand range cannot be parsed (invalid input)
             if (tryToParse(op1MIN.getText()) == null || tryToParse(op1MAX.getText()) == null ||
@@ -206,17 +214,17 @@ public class CustomizeScreen extends Screen implements MouseListener {
             }
             else {
                 // Each operand value can be parsed (is an integer)
-                op1Min_temp = Integer.parseInt(op1MIN.getText());
-                op1Max_temp = Integer.parseInt(op1MAX.getText());
-                op2Min_temp = Integer.parseInt(op2MIN.getText());
-                op2Max_temp = Integer.parseInt(op2MAX.getText());
+                op1MinTemp = Integer.parseInt(op1MIN.getText());
+                op1MaxTemp = Integer.parseInt(op1MAX.getText());
+                op2MinTemp = Integer.parseInt(op2MIN.getText());
+                op2MaxTemp = Integer.parseInt(op2MAX.getText());
             }
 
             // Check to see if all operand range are greater than zero and max > min
-            if (op1Min_temp >= 0 && op1Max_temp >= 0 && op2Min_temp >= 0 && op2Max_temp >= 0
-                    && op1Max_temp >= op1Min_temp && op2Max_temp >= op2Min_temp) {
-                operandRange1 = new int[]{op1Min_temp, op1Max_temp};      // Set the operand 1 range to inputted values
-                operandRange2 = new int[]{op2Min_temp, op2Max_temp};      // Set the operand 2 range to inputted values
+            if (op1MinTemp >= 0 && op1MaxTemp >= 0 && op2MinTemp >= 0 && op2MaxTemp >= 0
+                    && op1MaxTemp >= op1MinTemp && op2MaxTemp >= op2MinTemp) {
+                operandRange1 = new int[]{op1MinTemp, op1MaxTemp};      // Set the operand 1 range to inputted values
+                operandRange2 = new int[]{op2MinTemp, op2MaxTemp};      // Set the operand 2 range to inputted values
             }
             else {
                 invalidInput.setVisible(true);
@@ -226,26 +234,26 @@ public class CustomizeScreen extends Screen implements MouseListener {
             // Get selection for checkbox, question format, and title
             negAllowed = negAllowedBox.isSelected();
             equationFormat = Objects.requireNonNull(questionFormat.getSelectedItem()).toString();
-            titleInput = title_tf.getText();
+            worksheetTitle = titleInput.getText();
 
             // Check if any formatting text fields are empty
             if (tryToParse(numQuestionsInput.getText()) == null || tryToParse(numRowsInput.getText()) == null ||
-                    tryToParse(numColumnInput.getText()) == null || titleInput.length() == 0) {
+                    tryToParse(numColumnInput.getText()) == null || worksheetTitle.length() == 0) {
                 invalidInput.setVisible(true);
                 passed = false;
             }
             else {
                 // Each value can be parsed
-                numOfEquations_temp = Integer.parseInt(numQuestionsInput.getText());
-                numOfRows_temp = Integer.parseInt(numRowsInput.getText());
-                numOfColumns_temp = Integer.parseInt(numColumnInput.getText());
+                numOfEquationsTemp = Integer.parseInt(numQuestionsInput.getText());
+                numOfRowsTemp = Integer.parseInt(numRowsInput.getText());
+                numOfColumnsTemp = Integer.parseInt(numColumnInput.getText());
             }
 
             // Check that number of equations, rows, and columns are greater than zero
-            if (numOfEquations_temp > 0 && numOfRows_temp > 0 && numOfColumns_temp > 0) {
-                numOfEquations = numOfEquations_temp;
-                numOfRows = numOfRows_temp;
-                numOfColumns = numOfColumns_temp;
+            if (numOfEquationsTemp > 0 && numOfRowsTemp > 0 && numOfColumnsTemp > 0) {
+                numOfEquations = numOfEquationsTemp;
+                numOfRows = numOfRowsTemp;
+                numOfColumns = numOfColumnsTemp;
             }
             else {
                 invalidInput.setVisible(true);
@@ -263,7 +271,7 @@ public class CustomizeScreen extends Screen implements MouseListener {
 
                 // Add all formatting details to the map
                 formatDetailsCustomizeScreen.put("equationFormat", equationFormat);
-                formatDetailsCustomizeScreen.put("title", titleInput);
+                formatDetailsCustomizeScreen.put("title", worksheetTitle);
                 formatDetailsCustomizeScreen.put("numRows", numOfRows);
                 formatDetailsCustomizeScreen.put("numColumns", numOfColumns);
 
@@ -277,10 +285,12 @@ public class CustomizeScreen extends Screen implements MouseListener {
 
                 try {
                     new WorksheetViewerScreen(equationsDetailsCustomizeScreen, formatDetailsCustomizeScreen,
-                            worksheetHistoryDetails);
+                                worksheetHistoryDetails);
                 } catch (IOException ex) {
-                    ex.printStackTrace();
+                    invalidInput.setText("Worksheet cannot be created");
+                    invalidInput.setVisible(true);
                 }
+
             }
         }
         else if (e.getSource() == customizeBackButton) {

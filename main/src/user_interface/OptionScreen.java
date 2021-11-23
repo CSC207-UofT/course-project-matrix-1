@@ -22,7 +22,8 @@ public class OptionScreen extends Screen implements MouseListener {
 
     public OptionScreen() {
 
-        changePanel(optionPanel);
+        optionPanel.setLayout(null);
+        optionPanel.setBackground(new Color(177, 203, 187));
 
         JLabel userProfileLbl = new JLabel("Profile", SwingConstants.CENTER);
         JLabel userHistoryLbl = new JLabel("History", SwingConstants.CENTER);
@@ -65,6 +66,8 @@ public class OptionScreen extends Screen implements MouseListener {
         optionPanel.add(userHistoryLbl);
         optionPanel.add(profileImageLbl);
         optionPanel.add(historyImageLbl);
+
+        changePanel(optionPanel);
 
     }
 

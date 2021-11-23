@@ -25,17 +25,14 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     JLabel invalidUsernameError = new JLabel("Invalid Username", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField username_tf = new JTextField(1);
+    JTextField usernameInput = new JTextField(1);
 
     public LoginScreen() {
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        frame.add(loginPanel);
+        loginPanel.setLayout(null);
+        loginPanel.setBackground(new Color(177, 203, 187));
+        loginPanel.setBorder(BorderFactory.createMatteBorder(convert(0.35, 'h'), 2, 2,
+                2, new Color(142, 202, 234, 255)));
 
         // Create Title labels and its shadow
         JLabel matrixTitle = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
@@ -43,10 +40,12 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         JLabel username = new JLabel("Username", SwingConstants.CENTER);
 
         // Update the location and settings of each Button
-        updateButtonLocation(loginButton, 0.4125, 0.66, 0.175, 0.08);
-        updateButtonLocation(createUserButton, 0.425, 0.77, 0.15, 0.075);
+        updateButtonLocation(loginButton, 0.4125, 0.61, 0.175, 0.08);
+        updateButtonLocation(createUserButton, 0.425, 0.72, 0.15, 0.075);
         defaultButton(loginButton);
         defaultButton(createUserButton);
+        loginButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                4, new Color(142, 202, 234, 255)));
         loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
         createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.015)));
 
@@ -55,20 +54,22 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         createUserButton.addMouseListener(this);
 
         // Add Key Listener for the username TextField
-        username_tf.addKeyListener(this);
+        usernameInput.addKeyListener(this);
 
         // Update the settings of each Label
-        updateLabel(matrixTitle, 0.2, 0.2, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(matrixTitleShadow, 0.2025, 0.2025, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(username, 0.25, 0.525, 0.3, 0.1,0.025, 'd');
-        updateLabel(invalidUsernameError, 0.4,0.525,0.2,0.2,0.015, 'r');
+        updateLabel(matrixTitle, 0.2, 0.14, 0.6, 0.1, 0.03075, 'r');
+        updateLabel(matrixTitleShadow, 0.2025, 0.1425, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(username, 0.25, 0.475, 0.3, 0.1,0.025, 'd');
+        updateLabel(invalidUsernameError, 0.4,0.475,0.2,0.2,0.015, 'r');
 
         // Initially set the invalid username error to not visible
         invalidUsernameError.setVisible(false);
 
         // Set the location of the text field
-        username_tf.setBounds(convert(0.5, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
+        usernameInput.setBounds(convert(0.5, 'w'), convert(0.5, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
+        usernameInput.setBorder(BorderFactory.createMatteBorder(2, 2, 2,
+                2, Color.DARK_GRAY));
 
         // Add each component to the panel
         loginPanel.add(matrixTitle);
@@ -76,10 +77,10 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         loginPanel.add(loginButton);
         loginPanel.add(createUserButton);
         loginPanel.add(username);
-        loginPanel.add(username_tf);
+        loginPanel.add(usernameInput);
         loginPanel.add(invalidUsernameError);
 
-
+        changePanel(loginPanel);
     }
 
     /**
@@ -91,7 +92,8 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         if (e.getSource() == loginButton) {
             // Attempt to log in the user with the username entered
             try {
-                userController.login(username_tf.getText());
+                userController.login(usernameInput.getText());
+                userName = usernameInput.getText();
                 new OptionScreen();
             } catch (UserDoesNotExistException u) {
                 invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist
@@ -112,6 +114,8 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         if (e.getSource() == loginButton) {
             highlightButton(loginButton);
             loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.025)));
+            loginButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                    4, new Color(142, 202, 234, 255)));
         }
         else if (e.getSource() == createUserButton) {
             highlightButton(createUserButton);
@@ -128,6 +132,8 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         if (e.getSource() == loginButton) {
             defaultButton(loginButton);
             loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
+            loginButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                    4, new Color(142, 202, 234, 255)));
         }
         else if (e.getSource() == createUserButton) {
             defaultButton(createUserButton);
@@ -149,9 +155,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         // Attempt to log in the user with the username entered
         if (e.getKeyCode()==KeyEvent.VK_ENTER){
             try {
-                userController.login(username_tf.getText());
-                startPanel.setVisible(false);
-                frame.setVisible(false);
+                userController.login(usernameInput.getText());
                 new OptionScreen();
             } catch (UserDoesNotExistException u) {
             invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist

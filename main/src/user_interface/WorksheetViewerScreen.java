@@ -35,7 +35,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     JLabel invalidPathLbl = new JLabel("Invalid file path", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField downloadPath_tf = new JTextField(1);
+    JTextField downloadPathInput = new JTextField(1);
 
     // Initialize a buffered image and pd document
     BufferedImage bim = null;
@@ -45,20 +45,21 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     String documentTitle;
 
     // Create the map's to store the temporary equation and format details
-    Map<String, Object> equation_details_viewer;
-    Map<String, Object> format_details_viewer;
+    Map<String, Object> equationDetailsViewer;
+    Map<String, Object> formatDetailsViewer;
 
     public WorksheetViewerScreen(Map<String, Object> equation_Details, Map<String, Object> format_Details,
                                  Map<String, Object> worksheet_details) throws IOException {
 
-        changePanel(previewPanel);
+        previewPanel.setLayout(null);
+        previewPanel.setBackground(new Color(177, 203, 187));
 
         // Set the updated equation details and format details chosen by the user
-        equation_details_viewer = equation_Details;
-        format_details_viewer = format_Details;
+        equationDetailsViewer = equation_Details;
+        formatDetailsViewer = format_Details;
 
         // Set the document title
-        documentTitle = format_details_viewer.get("title").toString();
+        documentTitle = formatDetailsViewer.get("title").toString();
 
         // Store the worksheet information to the user's history
         userController.storeUserRecord(worksheet_details);
@@ -97,7 +98,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         invalidPathLbl.setVisible(false);
 
         // Update the location of the text fields
-        downloadPath_tf.setBounds(convert(0.55, 'w'), convert(0.655, 'h'), convert(0.175, 'w'),
+        downloadPathInput.setBounds(convert(0.55, 'w'), convert(0.655, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
 
         // Update the location of each button
@@ -108,6 +109,9 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         // Update the settings of each button
         defaultButton(viewerButtons);
 
+        downloadButton.setOpaque(true);
+        downloadButton.setBackground(new Color(121, 188, 239));
+
         // Add MouseListener for hover and clicking features
         downloadButton.addMouseListener(this);
         printPageButton.addMouseListener(this);
@@ -115,22 +119,18 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         mainMenuButton.addMouseListener(this);
         viewerBackButton.addMouseListener(this);
 
-        // Add Key Listener for the downloadPath TextField
-        downloadPath_tf.addKeyListener(this);
-
-        // Add Key Listener for the viewerBack Button
-        viewerBackButton.addKeyListener(this);
-
         // Add all components to the panel
         previewPanel.add(downloadButton);
         previewPanel.add(mainMenuButton);
         previewPanel.add(viewerBackButton);
         previewPanel.add(downloadLbl);
-        previewPanel.add(downloadPath_tf);
+        previewPanel.add(downloadPathInput);
         previewPanel.add(invalidPathLbl);
         previewPanel.add(previewTitle);
         previewPanel.add(previewTitleShadow);
         previewPanel.add(wsImageLbl);
+
+        changePanel(previewPanel);
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -140,17 +140,16 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         } else if (e.getSource() == mainMenuButton) {
             new OptionScreen();
         } else if (e.getSource() == viewerBackButton) {
-            new CustomizeScreen(equation_details_viewer);
+            new CustomizeScreen(equationDetailsViewer);
         }
 
     }
 
     private void downloadHelper() {
         try {
-            documents[0].save(downloadPath_tf.getText() + "/" + documentTitle + "_questions.pdf");
-            documents[1].save(downloadPath_tf.getText() + "/" + documentTitle + "_answers.pdf");
-            invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPath_tf.getText());
-            invalidPathLbl.setVisible(true);
+            documents[0].save(downloadPathInput.getText() + "/" + documentTitle + "_questions.pdf");
+            documents[1].save(downloadPathInput.getText() + "/" + documentTitle + "_answers.pdf");
+            invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPathInput.getText());
         } catch (IOException ex) {
             invalidPathLbl.setText("Invalid Path");     // Show invalid input label if files cannot be downloaded
         }
@@ -187,26 +186,16 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         // Attempt to save the generated worksheet's questions and answers to user's download path
-        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-            downloadHelper();
-        }
-        // Go back to previous screen
-        else if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-            frame.setVisible(false);
-            viewerPanel.setVisible(false);
-            new CustomizeScreen(equation_details_viewer);
-        }
+        downloadHelper();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
     }
 }
 
