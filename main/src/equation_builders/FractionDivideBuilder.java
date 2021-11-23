@@ -6,6 +6,14 @@ import equation_parameters.EquationDetails;
 import equation_parameters.FractionMultiDivEquationDetails;
 import utilities.FactorFinder;
 
+/**
+ * Directs the construction of fraction divide equations, starting from the operator, then the operands,
+ * and finally the answer.
+ *
+ * @author Sean Jeong
+ * @version 1.0
+ * @since 2021-11-22
+ */
 import java.util.ArrayList;
 import java.util.List;
 

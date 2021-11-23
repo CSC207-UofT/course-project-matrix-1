@@ -8,10 +8,11 @@ import utilities.DistributionCalculator;
 import utilities.FactorFinder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Directs the construction of whole number BEDMAS equations, starting from the operator, then the operands,
+ * Directs the construction of fraction multiply equations, starting from the operator, then the operands,
  * and finally the answer.
  *
  * @author Sean Jeong
