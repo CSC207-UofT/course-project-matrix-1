@@ -1,7 +1,7 @@
 package equation_builders;
 
 import equation_entities.Fraction;
-import equation_entities.Multiply;
+import equation_entities.Divide;
 import equation_parameters.EquationDetails;
 import equation_parameters.FractionMultiDivEquationDetails;
 import utilities.FactorFinder;
@@ -17,13 +17,13 @@ import java.util.List;
  * @version 1.0
  * @since 2021-11-22
  */
-public class FractionMultiplyBuilder extends FractionBuilder {
+public class FractionDivisionBuilder extends FractionBuilder {
     // Arbitrary prime numbers that are used to add complexity to a fraction.
     int[] PRIMES = {2, 3, 5, 7, 11};
 
     @Override
     protected void buildOperator() {
-        bedmasEquation.setOperator(new Multiply());
+        bedmasEquation.setOperator(new Divide());
     }
 
     /**
@@ -44,7 +44,7 @@ public class FractionMultiplyBuilder extends FractionBuilder {
         int[] operandsD = splitFactorsIntoTwoOperands(unreducedAnsDFactors, seed);
         makeOperandsNegative(fracMultiDivEqnDetails.isNegAllowed(), operandsN, seed);
         bedmasEquation.setOperand1(new Fraction(operandsN[0], operandsD[0]));
-        bedmasEquation.setOperand2(new Fraction(operandsN[1], operandsD[1]));
+        bedmasEquation.setOperand2(new Fraction(operandsD[1],operandsN[1]));
     }
 
     /**

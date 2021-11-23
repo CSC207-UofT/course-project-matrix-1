@@ -23,4 +23,11 @@ public class FactorFinderTest {
     public void testFindPrimeFactors() {
         assertEquals("[2, 2, 2, 2, 2, 2]", Arrays.toString(FactorFinder.primeFactorize(64).toArray()));
     }
+
+    @Test
+    public void testFindDuplicateFactors() {
+        assertEquals("[29]", Arrays.toString(FactorFinder.primeFactorize(29).toArray()));
+        assertEquals("[29]", Arrays.toString(FactorFinder.primeFactorize(29).toArray()));
+        assertEquals("[29]", Arrays.toString(FactorFinder.primeFactorize(29).toArray()));
+    }
 }

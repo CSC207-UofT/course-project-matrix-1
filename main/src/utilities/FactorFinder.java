@@ -33,13 +33,13 @@ public class FactorFinder {
                     factors.add(i); //i should be a prime number, otherwise it would have been divided earlier
                     factors.add(number);
                     allFactors.put(number, factors);
-                    return factors;
+                    return (HashSet<Integer>) factors.clone();
                 }
             }
             factors.add(number);
             factors.add(1);
             allFactors.put(number, factors);
-            return factors;
+            return (HashSet<Integer>) factors.clone();
         }
     }
     /**
@@ -51,7 +51,7 @@ public class FactorFinder {
      */
     public static ArrayList<Integer> primeFactorize(int number) {
         if (allPrimeFactors.containsKey(number)) {
-            return allPrimeFactors.get(number);
+            return (ArrayList<Integer>) allPrimeFactors.get(number).clone();
         } else {
             ArrayList<Integer> factors = new ArrayList<>();
             for (int i = 2; i < number + 1; i++) {
@@ -59,10 +59,10 @@ public class FactorFinder {
                     factors.addAll(primeFactorize(number / i));
                     factors.add(i); //i should be a prime number, otherwise it would have been divided earlier
                     allPrimeFactors.put(number, factors);
-                    return factors;
+                    return (ArrayList<Integer>) factors.clone();
                 }
             }
-            return factors;
+            return (ArrayList<Integer>) factors.clone();
         }
     }
     /**
