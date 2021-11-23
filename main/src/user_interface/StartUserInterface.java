@@ -14,11 +14,11 @@ class StartUserInterface {
     static UserController userController;
     static WorksheetController worksheetController;
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args){
+        controllerInterface = new ControllerInterface();
+        controllerInterface.makeUserController();
         // Create an instance of user controller to keep track of the user's information
-        userController = controllerInterface.makeUserController();
-
+        userController = controllerInterface.getUserController();
 
         // Create an instance of worksheet controller to generate the worksheet
         worksheetController = controllerInterface.makeWorksheetController();
