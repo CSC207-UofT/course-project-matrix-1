@@ -65,6 +65,17 @@ public class WholeNum extends Value {
         return new WholeNum(this.wholeNumber * ((WholeNum) otherValue).getValue());
     }
 
+    /**
+     * Return this value raised to the power of the otherValue.
+     *
+     * @param otherValue the power with which to raise the current value
+     * @return the result of raising this value to the power of the otherValue
+     */
+    @Override
+    public Value exponentiate(Value otherValue){
+        return new WholeNum((int) Math.pow(this.wholeNumber, ((WholeNum) otherValue).getValue()));
+    }
+
 
     /**
      * Returns the value stored in this WholeNum, as an int.

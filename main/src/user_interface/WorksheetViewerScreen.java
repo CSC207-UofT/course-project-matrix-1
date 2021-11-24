@@ -1,13 +1,14 @@
 package user_interface;
 
+import equation_parameters.EquationDetails;
+import equation_parameters.FormatDetails;
+import equation_parameters.WholeNumEquationDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -21,7 +22,7 @@ import java.util.Map;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
-public class WorksheetViewerScreen extends Screen implements MouseListener, KeyListener {
+public class WorksheetViewerScreen extends Screen implements MouseListener {
 
     // Create buttons
     JButton downloadButton = new JButton("Download");
@@ -45,27 +46,25 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     String documentTitle;
 
     // Create the map's to store the temporary equation and format details
-    Map<String, Object> equation_details_viewer;
-    Map<String, Object> format_details_viewer;
+    EquationDetails equationDetails;
+    FormatDetails formatDetails;
 
-    public WorksheetViewerScreen(Map<String, Object> equation_Details, Map<String, Object> format_Details,
-                                 Map<String, Object> worksheet_details) throws IOException {
+    public WorksheetViewerScreen(Map<String, Object> worksheetDetails) throws IOException {
+        equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
+        formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
 
         // Set Panel to the viewer screen
         cardLayout.show(cardPanel, "ViewerScreen");
 
-        // Set the updated equation details and format details chosen by the user
-        equation_details_viewer = equation_Details;
-        format_details_viewer = format_Details;
-
         // Set the document title
-        documentTitle = format_details_viewer.get("title").toString();
+        documentTitle = formatDetails.getTitle();
 
         // Store the worksheet information to the user's history
-        userController.storeUserRecord(worksheet_details);
+        userController.storeUserRecord(worksheetDetails);
+        //TODO: this method call sends in a map containing EquationDetails and FormatDetails, currently does not work
 
         // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
-        documents = worksheetController.generateWorksheetAndPDF(equation_Details, format_Details, 0);
+        documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, 0);
 
         // Create an image of the documents first page to preview
         try {
@@ -116,12 +115,6 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         mainMenuButton.addMouseListener(this);
         viewerBackButton.addMouseListener(this);
 
-        // Add Key Listener for the downloadPath TextField
-        downloadPath_tf.addKeyListener(this);
-
-        // Add Key Listener for the viewerBack Button
-        viewerBackButton.addKeyListener(this);
-
         // Add all components to the panel
         viewerPanel.add(downloadButton);
         viewerPanel.add(mainMenuButton);
@@ -136,8 +129,17 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == downloadButton) {
+
             // Attempt to save the generated worksheet's questions and answers to user's download path
-            downloadHelper();
+            try {
+                documents[0].save(downloadPath_tf.getText() + "/" + documentTitle + "_questions.pdf");
+                documents[1].save(downloadPath_tf.getText() + "/" + documentTitle + "_answers.pdf");
+                invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPath_tf.getText());
+                invalidPathLbl.setVisible(true);
+            } catch (IOException ex) {
+                invalidPathLbl.setText("Invalid Path");     // Show invalid input label if files cannot be downloaded
+            }
+            invalidPathLbl.setVisible(true);
         } else if (e.getSource() == mainMenuButton) {
             frame.setVisible(false);
             viewerPanel.setVisible(false);
@@ -145,21 +147,9 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         } else if (e.getSource() == viewerBackButton) {
             frame.setVisible(false);
             viewerPanel.setVisible(false);
-            new CustomizeScreen(equation_details_viewer);
+            new CustomizeScreen(equationDetails);
         }
 
-    }
-
-    private void downloadHelper() {
-        try {
-            documents[0].save(downloadPath_tf.getText() + "/" + documentTitle + "_questions.pdf");
-            documents[1].save(downloadPath_tf.getText() + "/" + documentTitle + "_answers.pdf");
-            invalidPathLbl.setText("The Worksheet has been downloaded to " + downloadPath_tf.getText());
-            invalidPathLbl.setVisible(true);
-        } catch (IOException ex) {
-            invalidPathLbl.setText("Invalid Path");     // Show invalid input label if files cannot be downloaded
-        }
-        invalidPathLbl.setVisible(true);
     }
 
     public void mouseEntered(MouseEvent e) {
@@ -188,30 +178,6 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         } else if (e.getSource() == viewerBackButton) {
             defaultButton(viewerBackButton);
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        // Attempt to save the generated worksheet's questions and answers to user's download path
-        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-            downloadHelper();
-        }
-        // Go back to previous screen
-        else if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-            frame.setVisible(false);
-            viewerPanel.setVisible(false);
-            new CustomizeScreen(equation_details_viewer);
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 }
 

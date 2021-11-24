@@ -40,4 +40,13 @@ public abstract class Value implements Symbol {
      * @return the product of the values, as this * other.
      */
     public abstract Value multiply(Value otherValue);
+
+
+    /**
+     * Return this value raised to the power of the otherValue.
+     *
+     * @param otherValue the power with which to raise the current value
+     * @return the result of raising this value to the power of the otherValue
+     */
+    public abstract Value exponentiate(Value otherValue);
 }
