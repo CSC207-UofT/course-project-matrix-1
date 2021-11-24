@@ -1,7 +1,11 @@
 package equation_builders;
 
 import equation_entities.BedmasEquation;
-import equation_parameters.FractionEquationDetails;
+import equation_parameters.EquationDetails;
+import equation_parameters.FractionAddSubEquationDetails;
+import equation_parameters.FractionMultiDivEquationDetails;
+import exceptions.InvalidInputException;
+import utilities.DistributionCalculator;
 import utilities.FactorFinder;
 import utilities.Randomizer;
 
@@ -14,14 +18,9 @@ import java.util.*;
  * @version 1.0
  * @since 2021-10-30
  */
-abstract class FractionBuilder {
+abstract class FractionBuilder{
     protected BedmasEquation bedmasEquation;
     protected Randomizer rand;
-    private ArrayList<Integer> denomDistribution = new ArrayList<>();
-
-    public ArrayList<Integer> getDenomDistribution() {
-        return denomDistribution;
-    }
 
 
     protected BedmasEquation getBedmasEquation() {
@@ -49,7 +48,9 @@ abstract class FractionBuilder {
      * @param fractionEquationDetails the parameters for fraction equation generation.
      * @param seed                    random seed to fix random generation of operands
      */
-    protected abstract void buildOperands(FractionEquationDetails fractionEquationDetails, int seed);
+    protected abstract void buildOperands(EquationDetails fractionEquationDetails, int seed);
+
+
 
     /**
      * Builds the bedmasEquation's answer.
@@ -58,31 +59,51 @@ abstract class FractionBuilder {
         bedmasEquation.solve();
     }
 
-
     /**
-     * Uses the equation details to assign relative probabilities to each number for addition/subtraction so that
-     * the distribution of questions is nicer.
+     * Uses the operand1 denominator to generate a set of possible answer denominators, and randomly selects from
+     * those possible answer denominators. Mathematically, answerD % operand1D = 0.
      *
-     * @param fracEqnDetails the parameters for fraction equation generation.
+     * @param seed                 random seed to fix random generation of operands
+     * @param fracAddSubEqnDetails the parameters for specifically fraction addition/subtraction equation generation.
+     * @param operand1D            the first operand denominator.
+     * @return the answer denominator.
      */
-    public void assignProbability(FractionEquationDetails fracEqnDetails) {
-        if (fracEqnDetails.getDenominatorRange()[1] > fracEqnDetails.getMaxDenominator()) {
-            fracEqnDetails.setDenominatorRange(new int[]{fracEqnDetails.getDenominatorRange()[0], fracEqnDetails.getMaxDenominator()});
+    protected int calculateAnswerD(int seed, FractionAddSubEquationDetails fracAddSubEqnDetails, int operand1D) {
+        int maxMultiple = fracAddSubEqnDetails.getMaxOperand2AndAnswerDenom() / operand1D;
+        ArrayList<Integer> possibleAnswerD = new ArrayList<>();
+        for (int i = 1; i < maxMultiple + 1; i++) {
+            possibleAnswerD.add(i * operand1D);
         }
-        //Assign a relative weight to every number from 1 to the denominator range.
-        for (int i = fracEqnDetails.getDenominatorRange()[0]; i < fracEqnDetails.getDenominatorRange()[1] + 1; i++) {
-            int maxMultiple = fracEqnDetails.getMaxDenominator() / i;// the maximum number of times i can fit in the max denominator.
-            HashSet<Integer> totalFactors = new HashSet<>();
-            for (int j = 1; j < maxMultiple + 1; j++) {
-                totalFactors.addAll(FactorFinder.findFactors(i*j));
-            }
-            int score = totalFactors.size()-1; // The number of factors across all the possible answers represents the
-            // number of numbers that could work as the second denominator, and is thus proportional to its score.
-            // Subtract 1 to account for how every number has 1 and itself as a factor.
-            for (int s = 0; s<score;s++){
-                denomDistribution.add(i);
-            }
-        }
+        return rand.randomize(possibleAnswerD, seed);
     }
 
+    /**
+     * Uses the answer denominator and operand1 denominator to generate an operand2 denominator that satisfies the
+     * equation. Mathematically, this means LCM(operand1D, operand2D) = answerD.
+     *
+     * @param seed                 random seed to fix random generation of operands
+     * @param fracAddSubEqnDetails the parameters for specifically fraction addition/subtraction equation generation.
+     * @param operand1D            the first operand denominator.
+     * @param answerD              the second operand denominator.
+     * @return the second operand denominator.
+     */
+    protected int calculateOperand2D(int seed, FractionAddSubEquationDetails fracAddSubEqnDetails, int operand1D,
+                                   int answerD) {
+        Set<Integer> necessaryOperand2DFactors = FactorFinder.primeFactorizeExponent(answerD);
+        necessaryOperand2DFactors.removeAll(FactorFinder.primeFactorizeExponent(operand1D));
+        int necessaryOperand2DValue = 1;
+        for (int p : necessaryOperand2DFactors) {
+            necessaryOperand2DValue *= p;
+        }
+        ArrayList<Integer> possibleOperand2D = new ArrayList<>();
+        for (int p : FactorFinder.findFactors(answerD / necessaryOperand2DValue)) {
+            possibleOperand2D.add(p * necessaryOperand2DValue);
+        }
+        DistributionCalculator.modifyWeights(possibleOperand2D);
+        int operand2D = rand.randomize(possibleOperand2D, seed);
+        if (fracAddSubEqnDetails.getMaxOperandValue() <= 0) {
+            throw new InvalidInputException();
+        }
+        return operand2D;
+    }
 }

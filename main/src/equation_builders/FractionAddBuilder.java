@@ -2,8 +2,10 @@ package equation_builders;
 
 import equation_entities.Add;
 import equation_entities.Fraction;
-import equation_parameters.FractionEquationDetails;
+import equation_parameters.EquationDetails;
+import equation_parameters.FractionAddSubEquationDetails;
 import exceptions.InvalidInputException;
+import utilities.DistributionCalculator;
 import utilities.FactorFinder;
 
 import java.util.ArrayList;
@@ -17,48 +19,30 @@ public class FractionAddBuilder extends FractionBuilder {
     }
 
     /**
-     * Uses the denominator distribution and the maximum possible denominator to get reasonable equations.
+     * Uses the denominator distribution and the maximum possible denominator to get reasonable operands for fraction addition.
      *
-     * @param fracEqnDetails
+     * @param fracEqnDetails the parameters for fraction equation generation.
      * @param seed           random seed to fix random generation of operands
      */
     @Override
-    protected void buildOperands(FractionEquationDetails fracEqnDetails, int seed) {
-        int operand1D = rand.randomize(getDenomDistribution(), seed);
-        int maxMultiple = fracEqnDetails.getMaxDenominator() / operand1D;
-        ArrayList<Integer> possibleAnswerD = new ArrayList<>();
-        for (int i = 1; i < maxMultiple + 1; i++) {
-            possibleAnswerD.add(i * operand1D);
-        }
-        int answerD = rand.randomize(possibleAnswerD, seed);
-        Set<Integer> operand1DFactors = FactorFinder.findFactors(operand1D);
-        Set<Integer> necessaryOperand2DFactors = FactorFinder.findFactors(answerD);
-        necessaryOperand2DFactors.removeAll(operand1DFactors);
-        int necessaryOperand2DValue = 1;
-        for (int p : necessaryOperand2DFactors) {
-            necessaryOperand2DValue *= p;
-        }
-        ArrayList<Integer> possibleOperand2D = new ArrayList<>();
-        possibleOperand2D.add(necessaryOperand2DValue);
-        for (int p : operand1DFactors) {
-            int length = possibleOperand2D.size();
-            for (int dIndex = 0; dIndex < length; dIndex++) {
-                possibleOperand2D.add(p * possibleOperand2D.get(dIndex));
-            }
-        }
-        int operand2D = rand.randomize(possibleOperand2D, seed);
-        if (fracEqnDetails.getMaxValue() <= 0) {
-            throw new InvalidInputException();
-        }
-        int operand1N = rand.randomize(0, operand1D, seed) + operand1D * (fracEqnDetails.getMaxValue() - 1);
-        int operand2N = rand.randomize(0, operand2D, seed) + operand2D * (fracEqnDetails.getMaxValue() - 1);
-        if (fracEqnDetails.isNegAllowed()) {
+    protected void buildOperands(EquationDetails fracEqnDetails, int seed) {
+        FractionAddSubEquationDetails fracAddSubEqnDetails = (FractionAddSubEquationDetails) fracEqnDetails;
+        int operand1D = rand.randomize(DistributionCalculator.getDenomDistribution(), seed);
+        int answerD = calculateAnswerD(seed, fracAddSubEqnDetails, operand1D);
+        int operand2D = calculateOperand2D(seed, fracAddSubEqnDetails, operand1D, answerD);
+        int operand1N = rand.randomize(0, operand1D * fracAddSubEqnDetails.getMaxOperandValue(), seed);
+        seed += 5;
+        int operand2N = rand.randomize(0, operand2D * fracAddSubEqnDetails.getMaxOperandValue(), seed);
+        if (fracAddSubEqnDetails.isNegAllowed()) {
             operand1N = rand.makeNegativeRandom(operand1N, seed);
+            seed += 5;
             operand2N = rand.makeNegativeRandom(operand2N, seed);
         }
         bedmasEquation.setOperand1(new Fraction(operand1N, operand1D));
         bedmasEquation.setOperand2(new Fraction(operand2N, operand2D));
     }
+
+
 
 }
 

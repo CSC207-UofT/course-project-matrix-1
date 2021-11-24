@@ -1,8 +1,7 @@
 package equation_builders;
 
-import equation_entities.Symbol;
-import equation_entities.WholeNum;
-import equation_parameters.FractionEquationDetails;
+import equation_parameters.FractionAddSubEquationDetails;
+import equation_parameters.FractionMultiDivEquationDetails;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,21 +12,70 @@ import static org.junit.Assert.*;
 public class FractionDirectorTest {
     private FractionDirector director;
     private int randomSeed;
-    private FractionEquationDetails fractionEquationDetails = new FractionEquationDetails(generateRange(1,10), 20, 4);
+    private FractionAddSubEquationDetails fractionAddSubEquationDetails = new FractionAddSubEquationDetails();
+    private FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
+    private int maxDenominator = 100;
 
     @Before
     public void init() {
         director = new FractionDirector();
-        randomSeed = new Random().nextInt(100000);
-        fractionEquationDetails.setOperator('+');
-        fractionEquationDetails.setNegAllowed(false);
+
+        fractionAddSubEquationDetails.setMaxOperandValue(1);
+        fractionAddSubEquationDetails.setOperand1DenomRange(generateRange(1, 50));
+        fractionAddSubEquationDetails.setNegAllowed(true);
+        fractionAddSubEquationDetails.setMaxOperand2AndAnswerDenom(maxDenominator);
+
+        fractionAddSubEquationDetails.setOperator('+');
+        fractionAddSubEquationDetails.setNegAllowed(true);
+
+        fractionMultiDivEquationDetails.setMaxAnsValue(1);
+        fractionMultiDivEquationDetails.setComplexity(1);
+        fractionMultiDivEquationDetails.setAnsDenominatorRange(generateRange(20, 40));
+        fractionMultiDivEquationDetails.setOperator('*');
+        fractionMultiDivEquationDetails.setNegAllowed(true);
     }
 
     @Test
     public void testAddPos() {
-        director.setEquationBuilder('+');
-        director.constructEquation(fractionEquationDetails, randomSeed + 5);
-        System.out.println(director.getEquation().getEquation());
+        for (int i = 0; i < 100; i++) {
+            randomSeed = new Random().nextInt(100000);
+            director.setEquationBuilder('+');
+            director.constructEquation(fractionAddSubEquationDetails, randomSeed + 5);
+            System.out.println(director.getEquation().getEquation());
+            String firstOperand = director.getEquation().getEquationParts()[0].toString();
+            assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf('/') + 1))) <= Math.abs(maxDenominator));
+        }
+    }
+
+    @Test
+    public void testNegPos() {
+        for (int i = 0; i < 100; i++) {
+            randomSeed = new Random().nextInt(100000);
+            director.setEquationBuilder('-');
+            director.constructEquation(fractionAddSubEquationDetails, randomSeed + 5);
+            System.out.println(director.getEquation().getEquation());
+            String firstOperand = director.getEquation().getEquationParts()[0].toString();
+            assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf('/') + 1))) <= Math.abs(maxDenominator));
+        }
+    }
+    @Test
+    public void testMultPos() {
+        for (int i = 0; i < 100; i++) {
+            randomSeed = new Random().nextInt(100000);
+            director.setEquationBuilder('*');
+            director.constructEquation(fractionMultiDivEquationDetails, randomSeed);
+            System.out.println(director.getEquation().getEquation());
+        }
+    }
+    @Test
+    public void testDiviPos() {
+        for (int i = 0; i < 100; i++) {
+            randomSeed = new Random().nextInt(100000);
+            director.setEquationBuilder('/');
+            director.constructEquation(fractionMultiDivEquationDetails, randomSeed);
+            System.out.println(director.getEquation().getEquation());
+            String firstOperand = director.getEquation().getEquationParts()[0].toString();
+        }
     }
     public int[] generateRange(int min, int max) {
         return new int[]{min, max};

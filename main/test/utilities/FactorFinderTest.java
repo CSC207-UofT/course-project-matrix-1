@@ -1,21 +1,12 @@
-package equation_builders;
+package utilities;
 
-import org.junit.Before;
 import org.junit.Test;
-import utilities.FactorFinder;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class EquationDirectorTest {
-
-
-    @Before
-    public void init() {
-
-    }
-
+public class FactorFinderTest {
     @Test
     public void testFindFactors() {
         assertEquals("[1, 3, 35, 21, 5, 7, 105, 15]", Arrays.toString(FactorFinder.findFactors(105).toArray()));
@@ -26,5 +17,17 @@ public class EquationDirectorTest {
     @Test
     public void testFindMultipleFactor() {
         assertEquals("[128, 64, 32, 16, 1, 2, 4, 8]", Arrays.toString(FactorFinder.findFactors(128).toArray()));
+    }
+
+    @Test
+    public void testFindPrimeFactors() {
+        assertEquals("[2, 2, 2, 2, 2, 2]", Arrays.toString(FactorFinder.primeFactorize(64).toArray()));
+    }
+
+    @Test
+    public void testFindDuplicateFactors() {
+        assertEquals("[29]", Arrays.toString(FactorFinder.primeFactorize(29).toArray()));
+        assertEquals("[29]", Arrays.toString(FactorFinder.primeFactorize(29).toArray()));
+        assertEquals("[29]", Arrays.toString(FactorFinder.primeFactorize(29).toArray()));
     }
 }

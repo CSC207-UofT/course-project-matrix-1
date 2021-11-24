@@ -3,15 +3,21 @@ package user_interface;
 import user_package.UserController;
 import worksheet_maker.WorksheetController;
 
-public class ControllerFactory {
-    UserController makeUserController() {
+
+public class ControllerInterface {
+    static UserController userController;
+
+    public ControllerInterface(){}
+    public void makeUserController(){
         // Create an instance of user controller to keep track of the user's information
-        UserController userController = null;
         try {
-            userController = new UserController();
+             userController = new UserController();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public UserController getUserController(){
         return userController;
     }
     WorksheetController makeWorksheetController(){
