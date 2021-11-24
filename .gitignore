@@ -91,5 +91,5 @@ fabric.properties
 /.idea/
 
 #personal
-history.ser
-users.ser
+main/src/user_package/users_data/history.ser
+main/src/user_package/users_data/users.ser
