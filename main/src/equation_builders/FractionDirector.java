@@ -32,8 +32,7 @@ public class FractionDirector extends EquationDirector {
         char SUBTRACT = '-';
         char MULTIPLY = '*';
         char DIVIDE = '/';
-        char EXPONENTIATE = '^';
-
+        
         if (operator == ADD) {
             this.fractionBuilder = new FractionAddBuilder();
         } else if (operator == SUBTRACT) {
@@ -42,8 +41,6 @@ public class FractionDirector extends EquationDirector {
             this.fractionBuilder = new FractionMultiplyBuilder();
         } else if (operator == DIVIDE) {
             this.fractionBuilder = new FractionDivideBuilder();
-        } else if (operator == EXPONENTIATE) {
-            this.fractionBuilder = new FractionExponentiateBuilder();
         } else {
             throw new InvalidInputException();
         }
