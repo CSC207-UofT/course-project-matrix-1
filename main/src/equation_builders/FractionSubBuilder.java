@@ -4,12 +4,7 @@ import equation_entities.Fraction;
 import equation_entities.Subtract;
 import equation_parameters.EquationDetails;
 import equation_parameters.FractionAddSubEquationDetails;
-import exceptions.InvalidInputException;
 import utilities.DistributionCalculator;
-import utilities.FactorFinder;
-
-import java.util.ArrayList;
-import java.util.Set;
 
 
 public class FractionSubBuilder extends FractionBuilder {
@@ -22,8 +17,8 @@ public class FractionSubBuilder extends FractionBuilder {
     protected void buildOperands(EquationDetails fracEqnDetails, int seed) {
         FractionAddSubEquationDetails fracAddSubEqnDetails = (FractionAddSubEquationDetails) fracEqnDetails;
         int operand1D = rand.randomize(DistributionCalculator.getDenomDistribution(), seed);
-        int answerD = calculateAnswerD(seed, fracAddSubEqnDetails, operand1D);
-        int operand2D = calculateOperand2D(seed, fracAddSubEqnDetails, operand1D, answerD);
+        int answerD = fractionCalculator.calculateAnswerD(seed, fracAddSubEqnDetails, operand1D);
+        int operand2D = fractionCalculator.calculateOperand2D(seed, fracAddSubEqnDetails, operand1D, answerD);
         int operand1N = rand.randomize(0, operand1D * fracAddSubEqnDetails.getMaxOperandValue(), seed);
         seed += 5;
         int operand2N;

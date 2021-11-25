@@ -2,6 +2,7 @@ package equation_builders;
 
 import equation_entities.BedmasEquation;
 import equation_parameters.EquationDetails;
+import utilities.DistributionCalculator;
 
 /**
  * Directs the construction of BEDMAS equations, starting from the operator, then the operands,
@@ -13,6 +14,8 @@ import equation_parameters.EquationDetails;
  */
 public class BedmasEquationDirector extends EquationDirector {
     private BedmasEquationMaker bedmasEquationMaker;
+    private boolean initialized = false;
+    private String operandType;
 
     /**
      * Create and store new GeneralEquationMaker.
@@ -22,8 +25,9 @@ public class BedmasEquationDirector extends EquationDirector {
      */
     //TODO: Use Class.forName, have them assign the class directly instead.
     @Override
-    public void setEquationBuilder(char operator, String operandType) {
+    public void setEquationBuilder(String operator, String operandType) {
         this.bedmasEquationMaker = new BedmasEquationMaker(operator, operandType);
+        this.operandType = operandType;
     }
 
     /**
@@ -44,6 +48,11 @@ public class BedmasEquationDirector extends EquationDirector {
      */
     @Override
     public void constructEquation(EquationDetails equationDetails, int seed) {
+        if (operandType.equals("Fraction") && !initialized && (equationDetails.getOperator()=='+')||(equationDetails.getOperator()=='-')) {
+            DistributionCalculator.assignProbability(equationDetails);
+            initialized = true;
+        }
+
         bedmasEquationMaker.createNewBedmasEquationProduct();
         bedmasEquationMaker.buildOperator();
         bedmasEquationMaker.buildOperands(equationDetails, seed);

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public abstract class EquationDirector {
 
-    public abstract void setEquationBuilder(char operator, String operandType);
+    public abstract void setEquationBuilder(String operator, String operandType);
 
     public abstract BedmasEquation getEquation();
 

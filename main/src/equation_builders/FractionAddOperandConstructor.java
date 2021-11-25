@@ -6,6 +6,7 @@ import equation_entities.Value;
 import equation_parameters.EquationDetails;
 import equation_parameters.FractionAddSubEquationDetails;
 import exceptions.InvalidInputException;
+import utilities.FractionCalculator;
 import utilities.Randomizer;
 import utilities.DistributionCalculator;
 import utilities.FactorFinder;
@@ -23,11 +24,11 @@ public class FractionAddOperandConstructor implements OperandConstructorInterfac
      * @return array of first operand and second operand values
      */
     @Override
-    protected Value[] buildOperands(EquationDetails fracEqnDetails, int seed, Randomizer rand) {
+    public Value[] buildOperands(EquationDetails fracEqnDetails, int seed, Randomizer rand) {
         FractionAddSubEquationDetails fracAddSubEqnDetails = (FractionAddSubEquationDetails) fracEqnDetails;
         int operand1D = rand.randomize(DistributionCalculator.getDenomDistribution(), seed);
-        int answerD = calculateAnswerD(seed, fracAddSubEqnDetails, operand1D);
-        int operand2D = calculateOperand2D(seed, fracAddSubEqnDetails, operand1D, answerD);
+        int answerD = FractionCalculator.calculateAnswerD(seed, fracAddSubEqnDetails, operand1D, rand);
+        int operand2D = FractionCalculator.calculateOperand2D(seed, fracAddSubEqnDetails, operand1D, answerD, rand);
         int operand1N = rand.randomize(0, operand1D * fracAddSubEqnDetails.getMaxOperandValue(), seed);
         seed += 5;
         int operand2N = rand.randomize(0, operand2D * fracAddSubEqnDetails.getMaxOperandValue(), seed);

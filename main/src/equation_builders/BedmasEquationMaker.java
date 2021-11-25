@@ -20,13 +20,15 @@ public class BedmasEquationMaker {
     protected BedmasEquation bedmasEquation;
     protected Randomizer rand;
     protected OperandConstructorInterface operandConstructor;
-    protected char currentOperator;
+    protected String currentOperator;
 
-    protected final char ADD = '+';
-    protected final char SUBTRACT = '-';
-    protected final char MULTIPLY = '*';
-    protected final char DIVIDE = '/';
-    protected final char EXPONENTIATE = '^';
+    protected final String ADD = "+";
+    protected final String SUBTRACT = "-";
+    protected final String MULTIPLY = "*";
+    protected final String DIVIDE = "/";
+    protected final String EXPONENTIATE = "^";
+    protected final String LCM = "LCM";
+    protected final String GCD = "LCM";
 
     protected final String wholeNumber = "Whole Number";
     protected final String decimal = "Decimal";
@@ -38,32 +40,44 @@ public class BedmasEquationMaker {
      * @param operandType specifies whether operand is a whole number, decimal or fraction.
      * @param operator the char that determines which builder this director will use.
      */
-    protected BedmasEquationMaker(char operator, String operandType) {
+    protected BedmasEquationMaker(String operator, String operandType) {
         this.currentOperator = operator;
 
         if (operandType.equals(wholeNumber)) {
-            if (operator == ADD) {
-                this.operandConstructor = new WholeNumAddOperandConstructor();
-            } else if (operator == SUBTRACT) {
-                this.operandConstructor = new WholeNumSubOperandConstructor();
-            } else if (operator == MULTIPLY) {
-                this.operandConstructor = new WholeNumAddOperandConstructor(); // same way of constructing operands
-            } else if (operator == DIVIDE) {
-                this.operandConstructor = new WholeNumDivideOperandConstructor();
-            } else if (operator == EXPONENTIATE) {
-                this.operandConstructor = new WholeNumAddOperandConstructor(); // same way of constructing operands
+            switch (operator) {
+                case ADD:
+                    this.operandConstructor = new WholeNumAddOperandConstructor();
+                    break;
+                case SUBTRACT:
+                    this.operandConstructor = new WholeNumSubOperandConstructor();
+                    break;
+                case MULTIPLY:
+                    this.operandConstructor = new WholeNumAddOperandConstructor(); // same way of constructing operands
+                    break;
+                case DIVIDE:
+                    this.operandConstructor = new WholeNumDivideOperandConstructor();
+                    break;
+                case EXPONENTIATE:
+                    this.operandConstructor = new WholeNumAddOperandConstructor(); // same way of constructing operands
+                    break;
             }
         } else if (operandType.equals(fraction)) {
-            if (operator == ADD) {
-                this.operandConstructor = new FractionAddOperandConstructor();
-            } else if (operator == SUBTRACT) {
-                this.operandConstructor = new FractionSubOperandConstructor();
-            } else if (operator == MULTIPLY) {
-                this.operandConstructor = new FractionMultiplyOperandConstructor();
-            } else if (operator == DIVIDE) {
-                this.operandConstructor = new FractionDivideOperandConstructor();
-            } else if (operator == EXPONENTIATE) {
-                this.operandConstructor = new FractionExponentiateOperandConstructor();
+            switch (operator) {
+                case ADD:
+                    this.operandConstructor = new FractionAddOperandConstructor();
+                    break;
+                case SUBTRACT:
+                    this.operandConstructor = new FractionSubOperandConstructor();
+                    break;
+                case MULTIPLY:
+                    this.operandConstructor = new FractionMultiplyOperandConstructor();
+                    break;
+                case DIVIDE:
+                    this.operandConstructor = new FractionDivideOperandConstructor();
+                    break;
+                case EXPONENTIATE:
+                    this.operandConstructor = new FractionExponentiateOperandConstructor();
+                    break;
             }
         }
 
@@ -94,6 +108,8 @@ public class BedmasEquationMaker {
             case MULTIPLY: bedmasEquation.setOperator(new Multiply());
             case DIVIDE: bedmasEquation.setOperator(new Divide());
             case EXPONENTIATE: bedmasEquation.setOperator(new Exponentiate());
+//            case LCM: bedmasEquation.setOperator(new LCM());
+//            case GCD: bedmasEquation.setOperator(new GCD());
         }
     }
 

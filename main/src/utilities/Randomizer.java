@@ -3,11 +3,19 @@ package utilities;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Randomizer class. Used to generate random numbers for equation generation.
+ */
 public class Randomizer {
     public Random rand;
 
     public Randomizer(){
         rand = new Random();
+    }
+
+    public Randomizer(int seed){
+        rand = new Random();
+        rand.setSeed(seed);
     }
 
     /**
