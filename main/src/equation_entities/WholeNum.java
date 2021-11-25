@@ -1,9 +1,11 @@
 package equation_entities;
 
+import utilities.EuclideanAlgorithm;
+
 /**
  * Stores a whole number which is represented by a single integer.
  *
- * @author Will Jeong
+ * @author Will Jeong, Stanley Hua
  * @version 1.0
  * @since 2021-10-30
  */
@@ -76,6 +78,32 @@ public class WholeNum extends Value {
         return new WholeNum((int) Math.pow(this.wholeNumber, ((WholeNum) otherValue).getValue()));
     }
 
+    /**
+     * Return the least common multiple of this value and the other value. Computes LCM from GCD computed using
+     * Euclidean algorithm: (this value multiplied by other value) divided by their greatest common divisor.
+     *
+     * @param otherValue the other number.
+     * @return the least common multiple of this and other value.
+     */
+    @Override
+    public Value lcm(Value otherValue) {
+        Value greatestCommonDivisor = gcd(otherValue);
+        int leastCommonMultiple = this.wholeNumber * ((WholeNum) otherValue).getValue();
+        leastCommonMultiple = leastCommonMultiple / ((WholeNum) greatestCommonDivisor).getValue();
+
+        return new WholeNum(leastCommonMultiple);
+    }
+
+    /**
+     * Return the least common multiple of this value and the other value. Computes LCM using Euclidean algorithm.
+     *
+     * @param otherValue the other number.
+     * @return the least common multiple of this and other value.
+     */
+    @Override
+    public Value gcd(Value otherValue) {
+        return new WholeNum(EuclideanAlgorithm.findGreatestCommonDivisor(this.wholeNumber, ((WholeNum) otherValue).getValue()));
+    }
 
     /**
      * Returns the value stored in this WholeNum, as an int.

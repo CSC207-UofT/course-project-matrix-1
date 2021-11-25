@@ -1,20 +1,19 @@
 package equation_builders;
 
-import equation_entities.Exponentiate;
-import equation_entities.Multiply;
+import equation_entities.GCD;
 import equation_parameters.EquationDetails;
 
 /**
- * Generates exponentiation BEDMAS equations for fractions.
+ * Generates GCD BEDMAS equations for fractions.
  *
  * @author Stanley Hua
  * @version 1.0
  * @since 2021-11-23
  */
-public class FractionExponentiateBuilder extends FractionBuilder {
+public class FractionGCDBuilder extends FractionBuilder {
     @Override
     protected void buildOperator() {
-        bedmasEquation.setOperator(new Exponentiate());
+        bedmasEquation.setOperator(new GCD());
     }
 
     @Override
