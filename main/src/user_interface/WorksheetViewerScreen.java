@@ -52,8 +52,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     public WorksheetViewerScreen(Map<String, Object> equation_Details, Map<String, Object> format_Details,
                                  Map<String, Object> worksheet_details) throws IOException {
 
-        previewPanel.setLayout(null);
-        previewPanel.setBackground(new Color(177, 203, 187));
+        updatePanel(previewPanel);
 
         // Set the updated equation details and format details chosen by the user
         equationDetailsViewer = equation_Details;
@@ -89,26 +88,26 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         // Create label where the image is displayed
         ImageIcon wsImage = new ImageIcon(bim);
         Image newWsImage = wsImage.getImage();
-        Image wsScaledImage = newWsImage.getScaledInstance((int) (convert(0.55, 'h') * bim.getWidth() * 1.0 / bim.getHeight()), convert(0.55, 'h'), Image.SCALE_SMOOTH);
+        Image wsScaledImage = newWsImage.getScaledInstance((int) (convert(0.55, 'h') * bim.getWidth() * 1.0 / bim.getHeight()), convert(0.45, 'h'), Image.SCALE_SMOOTH);
         wsImage = new ImageIcon(wsScaledImage);
         JLabel wsImageLbl = new JLabel(wsImage, SwingConstants.CENTER);
-        updateLabel(wsImageLbl, 0.275, 0.05, 0.45, 0.65, 0, 'r');
+        updateLabel(wsImageLbl, 0.275, 0.2575, 0.45, 0.45, 0, 'r');
 
         // Update the location of the labels
-        updateLabel(previewTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(previewTitleShadow, 0.2025, 0.0125, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(downloadLbl, 0.1, 0.63, 0.6, 0.1, 0.02, 'd');
-        updateLabel(invalidPathLbl, 0.15, 0.7, 0.7, 0.05, 0.0125, 'r');
+        updateLabel(previewTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(previewTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'w');
+        updateLabel(downloadLbl, 0.1, 0.7, 0.6, 0.1, 0.02, 'd');
+        updateLabel(invalidPathLbl, 0.15, 0.77, 0.7, 0.05, 0.0125, 'r');
 
         // Initially set the invalid file path label to not visible
         invalidPathLbl.setVisible(false);
 
         // Update the location of the text fields
-        downloadPathInput.setBounds(convert(0.55, 'w'), convert(0.655, 'h'), convert(0.175, 'w'),
+        downloadPathInput.setBounds(convert(0.55, 'w'), convert(0.725, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
 
         // Update the location of each button
-        updateButtonLocation(downloadButton, 0.4, 0.75, 0.2, 0.1);
+        updateButtonLocation(downloadButton, 0.4, 0.82, 0.2, 0.1);
         updateButtonLocation(mainMenuButton, 0.705, 0.8, 0.15, 0.05);
         updateButtonLocation(viewerBackButton, 0.145, 0.8, 0.125, 0.05);
 

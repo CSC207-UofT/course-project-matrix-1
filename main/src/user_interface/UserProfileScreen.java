@@ -23,8 +23,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
 
     public UserProfileScreen() {
 
-        userProfilePanel.setLayout(null);
-        userProfilePanel.setBackground(new Color(177, 203, 187));
+        updatePanel(userProfilePanel);
 
         // Create the user profile and its shadow
         JLabel userProfileTitle = new JLabel("User Profile", SwingConstants.CENTER);
@@ -36,11 +35,11 @@ public class UserProfileScreen extends Screen implements MouseListener {
         JLabel roleProfileLBL = new JLabel("Role:\t\t" + userDetails.get("role"));
 
         // Update the location of the labels
-        updateLabel(userProfileTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(userProfileTitleShadow, 0.2, 0.0125, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(nameProfileLbl, 0.325, 0.15, 0.6, 0.1, 0.025, 'd');
-        updateLabel(ageProfileLbl, 0.325, 0.275, 0.6, 0.1, 0.025, 'd');
-        updateLabel(roleProfileLBL, 0.325, 0.4, 0.6, 0.1, 0.025, 'd');
+        updateLabel(userProfileTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(userProfileTitleShadow, 0.2, 0.1625, 0.6, 0.1, 0.03075, 'w');
+        updateLabel(nameProfileLbl, 0.325, 0.275, 0.6, 0.1, 0.025, 'd');
+        updateLabel(ageProfileLbl, 0.325, 0.4, 0.6, 0.1, 0.025, 'd');
+        updateLabel(roleProfileLBL, 0.325, 0.525, 0.6, 0.1, 0.025, 'd');
 
         // Update the location of each button
         updateButtonLocation(userProfileBackButton, 0.145, 0.8, 0.125, 0.05);

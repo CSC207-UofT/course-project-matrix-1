@@ -1,7 +1,6 @@
 package user_interface;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
@@ -33,20 +32,26 @@ public class TopicScreen extends Screen implements MouseListener {
 
     public TopicScreen() {
 
-        topicPanel.setLayout(null);
-        topicPanel.setBackground(new Color(177, 203, 187));
+        updatePanel(topicPanel);
 
         // Create JLabels
         JLabel topicTitle = new JLabel("Choose Topic", SwingConstants.CENTER);
         JLabel topicTitleShadow = new JLabel("Choose Topic", SwingConstants.CENTER);
+
+        JLabel formatTitle = new JLabel("Formatting", SwingConstants.CENTER);
+        JLabel formatTitleShadow = new JLabel("Formatting", SwingConstants.CENTER);
+
+        JLabel topic = new JLabel("Operator");
         JLabel numTypes = new JLabel("Number Types");
-        JLabel topic = new JLabel("Topic");
 
         // Update the settings of each JLabel
-        updateLabel(topicTitle, 0.2, 0.02, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(topicTitleShadow, 0.2025, 0.0225, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(numTypes, 0.325, 0.595, 0.25, 0.1, 0.02, 'd');
-        updateLabel(topic, 0.325, 0.268, 0.25, 0.1, 0.02, 'd');
+        updateLabel(topicTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(topicTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'w');
+        updateLabel(formatTitle, 0.2, 0.375, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(formatTitleShadow, 0.2025, 0.3775, 0.6, 0.1, 0.03075, 'w');
+
+        updateLabel(numTypes, 0.325, 0.325, 0.25, 0.1, 0.02, 'd');
+        updateLabel(topic, 0.325, 0.225, 0.25, 0.1, 0.02, 'd');
 
         updateButtonLocation(topicNextButton, 0.4, 0.775, 0.2, 0.09);
         updateButtonLocation(topicScreenBackButton, 0.145, 0.8, 0.15, 0.05);
@@ -58,11 +63,11 @@ public class TopicScreen extends Screen implements MouseListener {
         topicScreenBackButton.addMouseListener(this);
 
         // Create comboBox for number types (for now, just integers is available)
-        numOptions.setBounds(convert(0.525, 'w'), convert(0.625, 'h'), convert(0.15, 'w'),
+        numOptions.setBounds(convert(0.525, 'w'), convert(0.35, 'h'), convert(0.15, 'w'),
                 convert(0.05, 'h'));
 //        numOptions.setSelectedIndex(0);
 
-        topicChose.setBounds(convert(0.525, 'w'), convert(0.3, 'h'), convert(0.15, 'w'),
+        topicChose.setBounds(convert(0.525, 'w'), convert(0.25, 'h'), convert(0.15, 'w'),
                 convert(0.05, 'h'));
 //        topicChose.setSelectedIndex(0);
 
@@ -76,6 +81,8 @@ public class TopicScreen extends Screen implements MouseListener {
         topicPanel.add(topicTitleShadow);
         topicPanel.add(numTypes);
         topicPanel.add(topic);
+        topicPanel.add(formatTitle);
+        topicPanel.add(formatTitleShadow);
 
         changePanel(topicPanel);
 

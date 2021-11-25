@@ -15,7 +15,7 @@ import java.util.Objects;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-09
  */
-public class Screen extends JFrame implements MouseListener {
+public class Screen extends JComponent implements MouseListener {
 
     // Screen size Dimensions are set to full screen
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -46,20 +46,29 @@ public class Screen extends JFrame implements MouseListener {
     Image historyImage = historyIconImage.getImage();
     Image historyScaledImage = historyImage.getScaledInstance(67,67, Image.SCALE_SMOOTH);
 
-
     static String userName = "";
 
     public Screen() {
-
-        // Update each panel to the default panel settings
-//        updatePanels(panels);
-
     }
 
     public void changePanel(JPanel panel) {
         frame.getContentPane().removeAll();
         frame.add(panel);
         frame.revalidate();
+    }
+
+    public void updatePanel(JPanel panel) {
+        panel.setLayout(null);
+        panel.setBackground(new Color(177, 203, 187));
+        panel.setBorder(BorderFactory.createMatteBorder(convert(0.15, 'h'), 2, 2,
+                2, new Color(142, 202, 234, 255)));
+
+        JLabel matrixTitle = new JLabel("Matrix", SwingConstants.CENTER);
+        JLabel matrixTitleShadow = new JLabel("Matrix", SwingConstants.CENTER);
+        updateLabel(matrixTitle, 0.35, 0.03, 0.3, 0.1, 0.03, 'r');
+        updateLabel(matrixTitleShadow, 0.3525, 0.0325, 0.3, 0.1, 0.03, 'd');
+        panel.add(matrixTitle);
+        panel.add(matrixTitleShadow);
     }
 
     /**
@@ -99,8 +108,11 @@ public class Screen extends JFrame implements MouseListener {
         if (r == 'r') {
             l.setForeground(new Color(255, 55, 51));
         }
-        else {
+        else if (r == 'd'){
             l.setForeground(Color.DARK_GRAY);
+        }
+        else if (r == 'w') {
+            l.setForeground(Color.WHITE);
         }
     }
 

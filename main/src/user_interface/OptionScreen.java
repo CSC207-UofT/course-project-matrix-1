@@ -22,19 +22,18 @@ public class OptionScreen extends Screen implements MouseListener {
 
     public OptionScreen() {
 
-        optionPanel.setLayout(null);
-        optionPanel.setBackground(new Color(177, 203, 187));
+        updatePanel(optionPanel);
 
         JLabel userProfileLbl = new JLabel("Profile", SwingConstants.CENTER);
         JLabel userHistoryLbl = new JLabel("History", SwingConstants.CENTER);
 
-        updateLabel(userProfileLbl, 0.72, 0.115, 0.2, 0.2, 0.015, 'd');
-        updateLabel(userHistoryLbl, 0.72, 0.2875, 0.2, 0.2, 0.015, 'd');
+        updateLabel(userProfileLbl, 0.82, 0.215, 0.2, 0.2, 0.015, 'd');
+        updateLabel(userHistoryLbl, 0.82, 0.393, 0.2, 0.2, 0.015, 'd');
 
         JLabel profileImageLbl = new JLabel("", SwingConstants.CENTER);
-        updateLabel(profileImageLbl, 0.72, 0.015, 0.2, 0.2, 0, 'd');
+        updateLabel(profileImageLbl, 0.82, 0.1225, 0.2, 0.2, 0, 'd');
         JLabel historyImageLbl = new JLabel("", SwingConstants.CENTER);
-        updateLabel(historyImageLbl, 0.72, 0.21, 0.2, 0.2, 0, 'd');
+        updateLabel(historyImageLbl, 0.825, 0.32, 0.2, 0.2, 0, 'd');
 
         // Resize and create JLabels for the images
         profileIconImage = new ImageIcon(profileScaledImage);
@@ -48,13 +47,13 @@ public class OptionScreen extends Screen implements MouseListener {
         updateButtonLocation(createWSButton, 0.35, 0.375, 0.3, 0.1);
         defaultButton(createWSButton);
 
-        updateButtonLocation(userProfileButton, 0.7795, 0.05, 0.145, 0.145);
-        userProfileButton.setBorder(new RoundedBorder(convert(0.05, 'w') + convert(0.05, 'h')));
+        updateButtonLocation(userProfileButton, 0.8795, 0.16, 0.14, 0.15);
+        userProfileButton.setBorder(new RoundedBorder(convert(0.051, 'w') + convert(0.051, 'h')));
         userProfileButton.setOpaque(false);
         userProfileButton.setContentAreaFilled(false);
 
-        updateButtonLocation(userHistoryButton, 0.7855, 0.2525, 0.13, 0.13);
-        userHistoryButton.setBorder(new RoundedBorder(convert(0.04, 'w') + convert(0.04, 'h')));
+        updateButtonLocation(userHistoryButton, 0.8795, 0.3525, 0.14, 0.15);
+        userHistoryButton.setBorder(new RoundedBorder(convert(0.05, 'w') + convert(0.05, 'h')));
         userHistoryButton.setOpaque(false);
         userHistoryButton.setContentAreaFilled(false);
 
