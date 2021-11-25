@@ -1,7 +1,5 @@
 package equation_builders;
 
-import equation_entities.Add;
-import equation_entities.Equation;
 import equation_entities.Value;
 import equation_entities.WholeNum;
 import equation_parameters.EquationDetails;
@@ -10,9 +8,10 @@ import utilities.Randomizer;
 
 
 /**
- * Builds whole number addition equations. Both operands are uniformly distributed across their specified range.
+ * Handles the construction of operands for the whole number addition equations. Both operands are uniformly distributed
+ * across their specified range.
  *
- * @author Sean Jeong, Stanley Hua
+ * @author Will Jeong, Stanley Hua
  * @version 1.0
  * @since 2021-10-30
  */
@@ -20,22 +19,20 @@ class WholeNumAddOperandConstructor implements OperandConstructorInterface {
     /**
      * Builds the operands (first and second) for the bedmasEquation.
      *
-     * RANDOM SEED (for fixing random number generation): First random operation uses the random seed. Succeeding
-     * operations increment the random seed by 5.
-     *
      * @param equationDetails contains the necessary parameters for equation generation.
-     * @param seed random seed to fix randomness in generating of operands
-     * @param rand Randomizer instance used to perform random number generation.
+     * @param randomizer      Randomizer instance used to perform random number generation.
      * @return array of first operand and second operand values
      */
-    public Value[] buildOperands(EquationDetails equationDetails, int seed, Randomizer rand){
+    public Value[] buildOperands(EquationDetails equationDetails, Randomizer randomizer) {
         WholeNumEquationDetails wholeEquationDetails = (WholeNumEquationDetails) equationDetails;
-        int operand1 = rand.randomize(wholeEquationDetails.getOperandRange1(), seed);
-        int operand2 = rand.randomize(wholeEquationDetails.getOperandRange2(), seed + 5);
+        int operand1 = randomizer.randomize(wholeEquationDetails.getOperandRange1());
+        int operand2 = randomizer.randomize(wholeEquationDetails.getOperandRange2());
         if (equationDetails.isNegAllowed()) {
-            operand1 = rand.makeNegativeRandom(operand1, seed + 10);
-            operand2 = rand.makeNegativeRandom(operand2, seed + 15);
+            operand1 = randomizer.makeNegativeRandom(operand1);
+            operand2 = randomizer.makeNegativeRandom(operand2);
         }
         return new Value[]{new WholeNum(operand1), new WholeNum(operand2)};
     }
 }
+
+

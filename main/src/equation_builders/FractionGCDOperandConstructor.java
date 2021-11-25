@@ -5,14 +5,13 @@ import equation_parameters.EquationDetails;
 import utilities.Randomizer;
 
 /**
- * Classes that implement this interface must provide a buildOperands method that returns an array of two Value objects
- * corresponding to the first and second operand.
+ * Handles the construction of operands for the fraction GCD equations.
  *
  * @author Stanley Hua
  * @version 1.0
- * @since 2021-11-17
+ * @since 2021-11-23
  */
-public interface OperandConstructorInterface {
+public class FractionGCDOperandConstructor implements OperandConstructorInterface {
     /**
      * Returns array of values with a randomly generated first operand and second operand.
      *
@@ -20,5 +19,9 @@ public interface OperandConstructorInterface {
      * @param rand            Randomizer instance used to perform random number generation.
      * @return array of first operand and second operand values
      */
-    Value[] buildOperands(EquationDetails equationDetails, Randomizer rand);
+    @Override
+    public Value[] buildOperands(EquationDetails equationDetails, Randomizer rand) {
+        // TODO: Implement this
+        return new Value[0];
+    }
 }

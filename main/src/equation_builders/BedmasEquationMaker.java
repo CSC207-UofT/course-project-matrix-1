@@ -7,7 +7,7 @@ import utilities.Randomizer;
 
 /**
  * An equation maker for all types of BEDMAS equations.
- *
+ * <p>
  * Implements Strategy design pattern to instantiate a specific class that implements the OperandConstructorInterface
  * based on runtime input. For example, it will instantiate a WholeNumDivideOperandConstructor class, which will be
  * called in the BedmasEquationMaker.
@@ -18,7 +18,7 @@ import utilities.Randomizer;
  */
 public class BedmasEquationMaker {
     protected BedmasEquation bedmasEquation;
-    protected Randomizer rand;
+    protected Randomizer randomizer;
     protected OperandConstructorInterface operandConstructor;
     protected String currentOperator;
 
@@ -28,7 +28,7 @@ public class BedmasEquationMaker {
     protected final String DIVIDE = "/";
     protected final String EXPONENTIATE = "^";
     protected final String LCM = "LCM";
-    protected final String GCD = "LCM";
+    protected final String GCD = "GCD";
 
     protected final String wholeNumber = "Whole Number";
     protected final String decimal = "Decimal";
@@ -38,7 +38,7 @@ public class BedmasEquationMaker {
      * Instantiates the proper OperandConstructor strategy based on input, and stores current equation operand.
      *
      * @param operandType specifies whether operand is a whole number, decimal or fraction.
-     * @param operator the char that determines which builder this director will use.
+     * @param operator    the char that determines which builder this director will use.
      */
     protected BedmasEquationMaker(String operator, String operandType) {
         this.currentOperator = operator;
@@ -46,19 +46,16 @@ public class BedmasEquationMaker {
         if (operandType.equals(wholeNumber)) {
             switch (operator) {
                 case ADD:
+                case EXPONENTIATE:
+                case MULTIPLY:
+                    // plain method for constructing operands
                     this.operandConstructor = new WholeNumAddOperandConstructor();
                     break;
                 case SUBTRACT:
                     this.operandConstructor = new WholeNumSubOperandConstructor();
                     break;
-                case MULTIPLY:
-                    this.operandConstructor = new WholeNumAddOperandConstructor(); // same way of constructing operands
-                    break;
                 case DIVIDE:
                     this.operandConstructor = new WholeNumDivideOperandConstructor();
-                    break;
-                case EXPONENTIATE:
-                    this.operandConstructor = new WholeNumAddOperandConstructor(); // same way of constructing operands
                     break;
             }
         } else if (operandType.equals(fraction)) {
@@ -95,7 +92,7 @@ public class BedmasEquationMaker {
      */
     protected void createNewBedmasEquationProduct() {
         bedmasEquation = new BedmasEquation();
-        rand = new Randomizer();
+        randomizer = new Randomizer();
     }
 
     /**
@@ -103,27 +100,35 @@ public class BedmasEquationMaker {
      */
     protected void buildOperator() {
         switch (currentOperator) {
-            case ADD: bedmasEquation.setOperator(new Add());
-            case SUBTRACT: bedmasEquation.setOperator(new Subtract());
-            case MULTIPLY: bedmasEquation.setOperator(new Multiply());
-            case DIVIDE: bedmasEquation.setOperator(new Divide());
-            case EXPONENTIATE: bedmasEquation.setOperator(new Exponentiate());
-//            case LCM: bedmasEquation.setOperator(new LCM());
-//            case GCD: bedmasEquation.setOperator(new GCD());
+            case ADD:
+                bedmasEquation.setOperator(new Add());
+            case SUBTRACT:
+                bedmasEquation.setOperator(new Subtract());
+            case MULTIPLY:
+                bedmasEquation.setOperator(new Multiply());
+            case DIVIDE:
+                bedmasEquation.setOperator(new Divide());
+            case EXPONENTIATE:
+                bedmasEquation.setOperator(new Exponentiate());
+            case LCM:
+                bedmasEquation.setOperator(new LCM());
+            case GCD:
+                bedmasEquation.setOperator(new GCD());
         }
     }
 
     /**
      * Builds the operands (first and second) for the bedmasEquation using operand constructor.
-     *
+     * <p>
      * RANDOM SEED (for fixing random number generation):
-     *      First random operation uses the random seed. Succeeding operations increment the random seed by 5.
+     * First random operation uses the random seed. Succeeding operations increment the random seed by 5.
      *
      * @param equationDetails contains necessary parameters for equation generation.
-     * @param seed random seed to fix random generation of operands
+     * @param seed            random seed to fix random generation of operands
      */
-    public void buildOperands(EquationDetails equationDetails, int seed){
-        Value[] operands = this.operandConstructor.buildOperands(equationDetails, seed, rand);
+    public void buildOperands(EquationDetails equationDetails, int seed) {
+        this.randomizer.setSeed(seed);
+        Value[] operands = this.operandConstructor.buildOperands(equationDetails, randomizer);
         bedmasEquation.setOperand1(operands[0]);
         bedmasEquation.setOperand2(operands[1]);
     }

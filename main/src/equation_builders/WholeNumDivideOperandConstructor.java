@@ -1,6 +1,5 @@
 package equation_builders;
 
-import equation_entities.Divide;
 import equation_entities.Value;
 import equation_entities.WholeNum;
 import equation_parameters.EquationDetails;
@@ -11,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Builds whole number division equations. Only equations that yield whole number answers are built.
+ * Handles the construction of operands for the whole number division equations. Only equations that yield whole number
+ * answers are built.
  *
  * @author Will Jeong, Stanley Hua
  * @version 1.0
@@ -22,28 +22,23 @@ class WholeNumDivideOperandConstructor implements OperandConstructorInterface {
      * Creates operands (first and second) in the division bedmas equation's question. Operand 1 must be divisible by
      * operand 2 to yield a negative answer.
      *
-     * RANDOM SEED (for fixing random number generation): First random operation uses the random seed. Succeeding
-     * operations increment the random seed by 5.
-     *
      * @param equationDetails contains the necessary parameters for equation generation.
-     * @param seed random seed to fix randomness in generating of operands
-     * @param rand Randomizer instance used to perform random number generation.
+     * @param randomizer      Randomizer instance used to perform random number generation.
      * @return array of first operand and second operand values
      */
     @Override
-    public Value[] buildOperands(EquationDetails equationDetails, int seed, Randomizer rand) {
+    public Value[] buildOperands(EquationDetails equationDetails, Randomizer randomizer) {
         WholeNumEquationDetails wholeEquationDetails = (WholeNumEquationDetails) equationDetails;
         //TODO: Zeros are not allowed for operator 2. At UI level, restrict this.
-        // TODO: Why restrict at UI level? 0 can be removed upon random number generation
         List<Integer> possibleOperand2 = restrictRanges(wholeEquationDetails.getOperandRange1(), wholeEquationDetails.getOperandRange2());
-        int operand2 = rand.randomize(possibleOperand2, seed);
+        int operand2 = randomizer.randomize(possibleOperand2);
         int[] answerRange = new int[]{(int) Math.ceil((float) wholeEquationDetails.getOperandRange1()[0] / operand2),
                 (int) Math.floor((float) wholeEquationDetails.getOperandRange1()[1] / operand2)};
-        int answer = rand.randomize(answerRange, seed + 5);
+        int answer = randomizer.randomize(answerRange);
         int operand1 = answer * operand2;
         if (wholeEquationDetails.isNegAllowed()) {
-            operand1 = rand.makeNegativeRandom(operand1, seed + 10);
-            operand2 = rand.makeNegativeRandom(operand2, seed + 15);
+            operand1 = randomizer.makeNegativeRandom(operand1);
+            operand2 = randomizer.makeNegativeRandom(operand2);
         }
         return new Value[]{new WholeNum(operand1), new WholeNum(operand2)};
     }

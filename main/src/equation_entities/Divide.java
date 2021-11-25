@@ -1,4 +1,5 @@
 package equation_entities;
+
 /**
  * Divides two Values and returns the string representation of this operator.
  *

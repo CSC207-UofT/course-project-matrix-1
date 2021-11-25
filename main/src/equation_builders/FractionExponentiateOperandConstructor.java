@@ -1,25 +1,30 @@
 package equation_builders;
 
-import equation_entities.Multiply;
 import equation_entities.Value;
 import equation_parameters.EquationDetails;
-import equation_parameters.FractionEquationDetails;
+import utilities.Randomizer;
 
+/**
+ * Handles the construction of operands for the fraction exponentiation equations.
+ *
+ * @author Stanley Hua
+ * @version 1.0
+ * @since 2021-11-22
+ */
 public class FractionExponentiateOperandConstructor implements OperandConstructorInterface {
+    private Randomizer randomizer;
+
     /**
-     * Creates fraction operands (first and second) for the subtraction bedmas equation's question.
-     *
-     * RANDOM SEED (for fixing random number generation): First random operation uses the random seed. Succeeding
-     * operations increment the random seed by 5.
+     * Returns array of values with a randomly generated first operand and second operand for subtraction bedmas
+     * equation.
      *
      * @param equationDetails contains the necessary parameters for equation generation.
-     * @param seed random seed to fix randomness in generating of operands
-     * @param rand Randomizer instance used to perform random number generation.
+     * @param rand            Randomizer instance used to perform random number generation.
      * @return array of first operand and second operand values
      */
-    public Value[] buildOperands(EquationDetails equationDetails, int seed, utilities.Randomizer rand) {
-        FractionEquationDetails fractionEquationDetails = (FractionEquationDetails) equationDetails;
+    @Override
+    public Value[] buildOperands(EquationDetails equationDetails, Randomizer rand) {
         // TODO: Implement this
-        return new Value[]{};
+        return new Value[0];
     }
 }

@@ -14,20 +14,25 @@ import utilities.DistributionCalculator;
  */
 public class BedmasEquationDirector extends EquationDirector {
     private BedmasEquationMaker bedmasEquationMaker;
-    private boolean initialized = false;
-    private String operandType;
+    private boolean initialized = false;                // used for fractions
+    private final String operandType;
+
+    /**
+     * @param operandType specifies whether operand is a whole number, decimal or fraction.
+     */
+    public BedmasEquationDirector(String operandType) {
+        this.operandType = operandType;
+    }
 
     /**
      * Create and store new GeneralEquationMaker.
      *
-     * @param operandType specifies whether operand is a whole number, decimal or fraction.
      * @param operator the char that determines which builder this director will use.
      */
     //TODO: Use Class.forName, have them assign the class directly instead.
     @Override
-    public void setEquationBuilder(String operator, String operandType) {
+    public void setEquationBuilder(String operator) {
         this.bedmasEquationMaker = new BedmasEquationMaker(operator, operandType);
-        this.operandType = operandType;
     }
 
     /**
@@ -44,11 +49,13 @@ public class BedmasEquationDirector extends EquationDirector {
      * Construct a bedmas equation given the following parameters.
      *
      * @param equationDetails the parameters for whole number equation generation.
-     * @param seed          random seed to fix random generation of operands
+     * @param seed            random seed to fix random generation of operands
      */
     @Override
     public void constructEquation(EquationDetails equationDetails, int seed) {
-        if (operandType.equals("Fraction") && !initialized && (equationDetails.getOperator()=='+')||(equationDetails.getOperator()=='-')) {
+        // TODO: Change implementation of initialized.
+        if (operandType.equals("Fraction") && !initialized && (equationDetails.getOperator().equals("+")) ||
+                (equationDetails.getOperator().equals("-"))) {
             DistributionCalculator.assignProbability(equationDetails);
             initialized = true;
         }
