@@ -34,7 +34,7 @@ public class OptionScreen extends Screen implements MouseListener {
         JLabel profileImageLbl = new JLabel("", SwingConstants.CENTER);
         updateLabel(profileImageLbl, 0.72, 0.015, 0.2, 0.2, 0, 'd');
         JLabel historyImageLbl = new JLabel("", SwingConstants.CENTER);
-        updateLabel(historyImageLbl, 0.725, 0.21, 0.2, 0.2, 0, 'd');
+        updateLabel(historyImageLbl, 0.72, 0.21, 0.2, 0.2, 0, 'd');
 
         // Resize and create JLabels for the images
         profileIconImage = new ImageIcon(profileScaledImage);
@@ -48,10 +48,15 @@ public class OptionScreen extends Screen implements MouseListener {
         updateButtonLocation(createWSButton, 0.35, 0.375, 0.3, 0.1);
         defaultButton(createWSButton);
 
-        updateButtonLocation(userProfileButton, 0.775, 0.05, 0.15, 0.15);
-        userProfileButton.setBorder(new RoundedBorder(convert(0.055, 'w') + convert(0.055, 'h')));
-        updateButtonLocation(userHistoryButton, 0.7825, 0.25, 0.15, 0.15);
-        userHistoryButton.setBorder(new RoundedBorder(convert(0.045, 'w') + convert(0.045, 'h')));
+        updateButtonLocation(userProfileButton, 0.7795, 0.05, 0.145, 0.145);
+        userProfileButton.setBorder(new RoundedBorder(convert(0.05, 'w') + convert(0.05, 'h')));
+        userProfileButton.setOpaque(false);
+        userProfileButton.setContentAreaFilled(false);
+
+        updateButtonLocation(userHistoryButton, 0.7855, 0.2525, 0.13, 0.13);
+        userHistoryButton.setBorder(new RoundedBorder(convert(0.04, 'w') + convert(0.04, 'h')));
+        userHistoryButton.setOpaque(false);
+        userHistoryButton.setContentAreaFilled(false);
 
         // Add Mouse Listener for hover and clicking features
         createWSButton.addMouseListener(this);
