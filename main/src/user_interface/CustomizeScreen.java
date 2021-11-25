@@ -69,13 +69,9 @@ public class CustomizeScreen extends Screen implements MouseListener {
     Map <String, Object> equationsDetailsCustomizeScreen = new HashMap<>();
     Map <String, Object> formatDetailsCustomizeScreen = new HashMap<>();
     Map <String, Object> worksheetHistoryDetails = new HashMap<>();
-//    Map <String, Object> equations_details_customizeScreen = new HashMap<>();
-//    Map <String, Object> format_details_customizeScreen = new HashMap<>();
 
     EquationDetails equationDetails;
     FormatDetails formatDetails = new FormatDetails();
-
-    Map <String, Object> worksheetHistoryDetails = new HashMap<>();
 
     public CustomizeScreen(EquationDetails equationDetails) {
 
@@ -290,7 +286,7 @@ public class CustomizeScreen extends Screen implements MouseListener {
                 formatDetailsCustomizeScreen.put("title", worksheetTitle);
                 formatDetailsCustomizeScreen.put("numRows", numOfRows);
                 formatDetailsCustomizeScreen.put("numColumns", numOfColumns);
-                this.formatDetails.setTitle(titleInput);
+                this.formatDetails.setTitle(titleInput.getText().trim());
                 this.formatDetails.setEquationFormat(equationFormat);
                 this.formatDetails.setNumColumns(numOfColumns);
                 this.formatDetails.setNumRows(numOfRows);
@@ -299,9 +295,6 @@ public class CustomizeScreen extends Screen implements MouseListener {
                 dateAndTime = LocalDateTime.now().toString();
 
                 // Create the unique worksheet history details
-                worksheetHistoryDetails.put("worksheetKey", dateAndTime);
-                worksheetHistoryDetails.put("equationDetails", equationsDetailsCustomizeScreen);
-                worksheetHistoryDetails.put("formatDetails", formatDetailsCustomizeScreen);
                 worksheetHistoryDetails.put("worksheetKey", dateAndTime);
                 worksheetHistoryDetails.put("equationDetails", this.equationDetails);
                 worksheetHistoryDetails.put("formatDetails", this.formatDetails);

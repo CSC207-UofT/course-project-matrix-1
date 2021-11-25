@@ -4,7 +4,6 @@ import user_package.UserController;
 import worksheet_maker.WorksheetController;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -109,10 +108,10 @@ public class Screen extends JFrame implements MouseListener {
         if (r == 'r') {
             l.setForeground(new Color(255, 55, 51));
         }
-        else {
+        else if (r == 'd'){
             l.setForeground(Color.DARK_GRAY);
         }
-        else if (r == 'w') {
+        else if (r == 'w'){
             l.setForeground(Color.WHITE);
         }
     }
@@ -137,8 +136,8 @@ public class Screen extends JFrame implements MouseListener {
      *
      * @param buttons an array list of JButtons that will be updated to the default settings
      */
-    public void defaultButton(JButton[] b) {
-        for (JButton button: b) {
+    public void defaultButton(JButton[] buttons) {
+        for (JButton button: buttons) {
             button.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
             button.setOpaque(true);
             button.setForeground(Color.DARK_GRAY);

@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Topic Screen class for the User Interface. The topic screen prompts the user for their desired
@@ -93,34 +94,6 @@ public class TopicScreen extends Screen implements MouseListener {
     }
 
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource() == addButton) {
-            defaultButton(subButton);
-            defaultButton(multiButton);
-            defaultButton(divButton);
-            highlightButton(addButton);
-            equationDetails.setOperator('+');
-        }
-        if (e.getSource() == subButton) {
-            defaultButton(addButton);
-            defaultButton(divButton);
-            defaultButton(multiButton);
-            highlightButton(subButton);
-            equationDetails.setOperator('-');
-        }
-        if (e.getSource() == multiButton) {
-            defaultButton(divButton);
-            defaultButton(addButton);
-            defaultButton(subButton);
-            highlightButton(multiButton);
-            equationDetails.setOperator('*');
-        }
-        if (e.getSource() == divButton) {
-            defaultButton(addButton);
-            defaultButton(subButton);
-            defaultButton(multiButton);
-            highlightButton(divButton);
-            equationDetails.setOperator('/');
-        }
         if (e.getSource() == topicNextButton) {
             String topic = (String) topicChose.getSelectedItem();
             if (Objects.equals(topic, "Addition")) {
@@ -135,10 +108,7 @@ public class TopicScreen extends Screen implements MouseListener {
             else if (Objects.equals(topic, "Division")) {
                 equationDetailsTopic.put("operator", '/');
             }
-
-            new CustomizeScreen(equationDetailsTopic);
-            topicPanel.setVisible(false);
-            frame.setVisible(false);
+            new CustomizeScreen((EquationDetails) equationDetailsTopic);
             new CustomizeScreen(equationDetails);
         }
         else if (e.getSource() == topicScreenBackButton) {

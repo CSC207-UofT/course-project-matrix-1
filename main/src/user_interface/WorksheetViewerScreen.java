@@ -2,7 +2,6 @@ package user_interface;
 
 import equation_parameters.EquationDetails;
 import equation_parameters.FormatDetails;
-import equation_parameters.WholeNumEquationDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -16,6 +15,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Worksheet viewer screen class for the User Interface. The user can preview the first page of the generated
@@ -57,9 +57,6 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
         formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
 
-        // Set Panel to the viewer screen
-        cardLayout.show(cardPanel, "ViewerScreen");
-
         // Set the document title
         documentTitle = formatDetails.getTitle();
         documentTitle = formatDetailsViewer.get("title").toString();
@@ -67,11 +64,11 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         // Generate worksheet random seed, and store for later regeneration.
         Random r = new Random();
         int randomSeed = r.nextInt(1000000000);
-        worksheet_details.put("seed", randomSeed);
+        worksheetDetails.put("seed", randomSeed);
 
         // Store the worksheet information to the user's history
-        userController.storeUserRecord(worksheetDetails);
-        //TODO: this method call sends in a map containing EquationDetails and FormatDetails, currently does not work
+//        userController.storeUserRecord(worksheetDetails);
+//        //TODO: this method call sends in a map containing EquationDetails and FormatDetails, currently does not work
 
         // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
         documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, 0);
@@ -149,7 +146,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         } else if (e.getSource() == mainMenuButton) {
             new OptionScreen();
         } else if (e.getSource() == viewerBackButton) {
-            new CustomizeScreen(equationDetailsViewer);
+            new CustomizeScreen((EquationDetails) equationDetailsViewer);
         }
 
     }

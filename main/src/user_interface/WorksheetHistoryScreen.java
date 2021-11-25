@@ -234,7 +234,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                 worksheetHistoryDetailsTemp.put("formatDetails", formatDetailsTemp);
 
                 try {
-                    new WorksheetViewerScreen(equationDetailsTemp, formatDetailsTemp, worksheetHistoryDetailsTemp);
+                    new WorksheetViewerScreen(worksheetHistoryDetailsTemp);
                 } catch (IOException ex) {
                     invalidScore.setText("Worksheet cannot be regenerated");
                     invalidScore.setVisible(true);
