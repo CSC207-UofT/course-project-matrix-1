@@ -90,6 +90,17 @@ public class Fraction extends Value {
     }
 
     /**
+     * As this operation is not relevant to fractions, this method will not be available for fractions.
+     *
+     * @param otherValue the power with which to raise the current value
+     * @return the result of raising this value to the power of the otherValue
+     */
+    @Override
+    public Value exponentiate(Value otherValue) {
+        return null;
+    }
+
+    /**
      * Uses a numerator and denominator to create an instance of a reduced Fraction.
      *
      * @param numerator   the unreduced numerator.
@@ -125,8 +136,8 @@ public class Fraction extends Value {
      * Reduces the numerator and denominator to their smallest possible values.
      */
     public void reduce() {
-        for (int i = 2; i < Math.min(fractionParts[0], fractionParts[1]) + 1; i++) {
-            int limit = Math.min(fractionParts[0], fractionParts[1]) + 1;
+        for (int i = 2; i < Math.min(Math.abs(fractionParts[0]), fractionParts[1]) + 1; i++) {
+            int limit = Math.min(Math.abs(fractionParts[0]), fractionParts[1]) + 1;
             if (fractionParts[0] % i == 0 && fractionParts[1] % i == 0) {
                 fractionParts[0] = fractionParts[0] / i;
                 fractionParts[1] = fractionParts[1] / i;
@@ -137,6 +148,10 @@ public class Fraction extends Value {
 
     @Override
     public String toString() {
-        return (fractionParts[0]+"/"+fractionParts[1]);
+        if (fractionParts[0] != 0) {
+            return (fractionParts[0] + "/" + fractionParts[1]);
+        }else{
+            return ("0");
+        }
     }
 }

@@ -1,6 +1,9 @@
 package equation_parameters;
 
 public final class WholeNumEquationDetails extends EquationDetails {
+    private int[] operandRange1;
+    private int[] operandRange2;
+
     public int[] getOperandRange1() {
         return operandRange1;
     }
@@ -17,8 +20,6 @@ public final class WholeNumEquationDetails extends EquationDetails {
         this.operandRange2 = operandRange2;
     }
 
-    private int[] operandRange1;
-    private int[] operandRange2;
 
     //TODO: give this class more functionality. maybe move randomize operand here? would need to pass all of equation details down though (is this unnecessary parameters?)
 

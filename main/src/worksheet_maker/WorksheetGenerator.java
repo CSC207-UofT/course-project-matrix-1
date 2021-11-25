@@ -1,10 +1,7 @@
 package worksheet_maker;
 
 import equation_builders.*;
-import equation_parameters.DecimalEquationDetails;
-import equation_parameters.EquationDetails;
-import equation_parameters.FractionEquationDetails;
-import equation_parameters.WholeNumEquationDetails;
+import equation_parameters.*;
 
 /**
  * Generates a worksheet through the WorksheetInput interface.
@@ -18,8 +15,8 @@ public class WorksheetGenerator {
     private final int seed;
 
     /**
-     * @param worksheet     Worksheet input
-     * @param seed          Random seed used to fix randomness in worksheet generation
+     * @param worksheet Worksheet input
+     * @param seed      Random seed used to fix randomness in worksheet generation
      */
     public WorksheetGenerator(WorksheetInput worksheet, int seed) {
         this.worksheet = worksheet;
@@ -29,7 +26,7 @@ public class WorksheetGenerator {
     /**
      * Populates the worksheet with equations that adhere to the various equation related parameters found in
      * equationDetails.
-     *
+     * <p>
      * Initial equation takes in worksheet seed. Succeeding equations will take on fixed increments of the seed. This
      * allows later reconstruction of the worksheet given only one worksheet seed.
      *
@@ -42,7 +39,7 @@ public class WorksheetGenerator {
         //Create and assign the appropriate builder to a director.
         if (equationDetails instanceof WholeNumEquationDetails) {
             equationDirector = getWholeBedmasDirector(equationDetails.getOperator());
-        } else if (equationDetails instanceof FractionEquationDetails) {
+        } else if (equationDetails instanceof FractionAddSubEquationDetails || equationDetails instanceof FractionMultiDivEquationDetails) {
             //TODO: make FractionDirector
         } else if (equationDetails instanceof DecimalEquationDetails) {
             //TODO: make DecimalDirector

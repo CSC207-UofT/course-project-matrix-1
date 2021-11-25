@@ -3,6 +3,11 @@ package equation_parameters;
 import java.io.Serializable;
 
 public final class FormatDetails implements Serializable {
+    private String equationFormat;
+    private String title;
+    private int numRows;
+    private int numColumns;
+
     public String getEquationFormat() {
         return equationFormat;
     }
@@ -35,8 +40,4 @@ public final class FormatDetails implements Serializable {
         this.numColumns = numColumns;
     }
 
-    private String equationFormat;
-    private String title;
-    private int numRows;
-    private int numColumns;
 }
