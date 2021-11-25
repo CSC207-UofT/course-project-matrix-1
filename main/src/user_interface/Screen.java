@@ -65,8 +65,8 @@ public class Screen extends JFrame implements MouseListener {
 
         JLabel matrixTitle = new JLabel("Matrix", SwingConstants.CENTER);
         JLabel matrixTitleShadow = new JLabel("Matrix", SwingConstants.CENTER);
-        updateLabel(matrixTitle, 0.35, 0.03, 0.3, 0.1, 0.03, 'r');
-        updateLabel(matrixTitleShadow, 0.3525, 0.0325, 0.3, 0.1, 0.03, 'd');
+        updateLabel(matrixTitle, 0.35, 0.03, 0.3, 0.1, 0.04, 'r');
+        updateLabel(matrixTitleShadow, 0.3525, 0.0325, 0.3, 0.1, 0.04, 'd');
         panel.add(matrixTitle);
         panel.add(matrixTitleShadow);
     }

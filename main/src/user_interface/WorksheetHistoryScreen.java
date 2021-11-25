@@ -57,12 +57,10 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     @SuppressWarnings("unchecked")
     public WorksheetHistoryScreen() {
 
-        historyPanel.setLayout(null);
-        historyPanel.setBackground(new Color(177, 203, 187));
+        updatePanel(historyPanel);
 
         // Set noWorksheets and invalidScore JLabel messages to not visible
         noWorksheets.setVisible(false);
-        invalidScore.setVisible(false);
 
         // ArrayList that will add each worksheet's data
         List<String[]> twoDimArrayList = new ArrayList<>();
@@ -124,10 +122,13 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         JLabel previewTitleShadow = new JLabel("Worksheet History", SwingConstants.CENTER);
 
         // Update the Settings of the JLabels
-        updateLabel(previewTitle, 0.2, 0.02, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(previewTitleShadow, 0.2025, 0.0225, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(previewTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(previewTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'w');
         updateLabel(noWorksheets, 0.2, 0.15, 0.3, 0.05, 0.015, 'r');
-        updateLabel(invalidScore, 0.5, 0.15, 0.3, 0.05, 0.015, 'r');
+        updateLabel(invalidScore, 0.625, 0.67, 0.15, 0.05, 0.013, 'w');
+        invalidScore.setOpaque(true);
+        invalidScore.setBackground(new Color(217, 207, 131, 252));
+        invalidScore.setVisible(false);
 
         // Update the Location and Settings of each Button
         updateButtonLocation(customizeBackButton, 0.145, 0.825, 0.15, 0.05);
@@ -139,7 +140,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         defaultButton(updateScoreButton);
         defaultButton(regenerateButton);
         updateScoreButton.setOpaque(true);
-        updateScoreButton.setBackground(new Color(121, 188, 239));
+        updateScoreButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                4, new Color(142, 202, 234, 255)));
 
         // Update the Location of each Text Field
         newScore.setBounds(convert(0.6, 'w'), convert(0.725, 'h'), convert(0.2, 'w'),
@@ -154,7 +156,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         // Add Key Listener for the newScore TextField
         newScore.addKeyListener(this);
 
-        scrollPane.setBounds(convert(0.2, 'w'), convert(0.2,'h'), convert(0.6, 'w'),
+        scrollPane.setBounds(convert(0.2, 'w'), convert(0.26,'h'), convert(0.6, 'w'),
                 convert(0.4, 'h'));
         scrollPane.setViewportView(table);
 
@@ -214,7 +216,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
 
         if (e.getSource() == updateScoreButton) {
             // Check if JText is empty and return message if true
-            scoreHelper();
+            updateScore();
         }
 
         if (e.getSource() == regenerateButton) {
@@ -244,7 +246,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     }
 
     @SuppressWarnings("unchecked")
-    private void scoreHelper() {
+    private void updateScore() {
         if (tryToParse(newScore.getText()) == null) {
             invalidScore.setVisible(true);
         } else {
@@ -278,6 +280,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         }
         else if (e.getSource() == updateScoreButton) {
             highlightButton(updateScoreButton);
+            updateScoreButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                    4, new Color(142, 202, 234, 255)));
         }
         else if (e.getSource() == regenerateButton) {
             highlightButton(regenerateButton);
@@ -293,6 +297,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         }
         else if (e.getSource() == updateScoreButton) {
             defaultButton(updateScoreButton);
+            updateScoreButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                    4, new Color(142, 202, 234, 255)));
         }
         else if (e.getSource() == regenerateButton) {
             defaultButton(regenerateButton);
@@ -310,7 +316,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
      * @param e keeps track of which key is being pressed
      */
     public void keyPressed(KeyEvent e){
-        if (e.getKeyCode()==KeyEvent.VK_ENTER) {scoreHelper();}
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+            updateScore();}
     }
 
     @Override

@@ -47,19 +47,18 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     // Create a variable to hold he title of the document
     String documentTitle;
 
-    // Create the map's to store the temporary equation and format details
-    Map<String, Object> equationDetailsViewer;
-    Map<String, Object> formatDetailsViewer;
     EquationDetails equationDetails;
     FormatDetails formatDetails;
 
     public WorksheetViewerScreen(Map<String, Object> worksheetDetails) throws IOException {
+
+        updatePanel(previewPanel);
+
         equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
         formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
 
         // Set the document title
         documentTitle = formatDetails.getTitle();
-        documentTitle = formatDetailsViewer.get("title").toString();
 
         // Generate worksheet random seed, and store for later regeneration.
         Random r = new Random();
@@ -71,7 +70,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 //        //TODO: this method call sends in a map containing EquationDetails and FormatDetails, currently does not work
 
         // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
-        documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, 0);
+        documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, (int) worksheetDetails.get("seed"));
 
         // Create an image of the documents first page to preview
         try {
@@ -116,7 +115,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         defaultButton(viewerButtons);
 
         downloadButton.setOpaque(true);
-        downloadButton.setBackground(new Color(121, 188, 239));
+        downloadButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                4, new Color(142, 202, 234, 255)));
 
         // Add MouseListener for hover and clicking features
         downloadButton.addMouseListener(this);
@@ -142,16 +142,16 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == downloadButton) {
             // Attempt to save the generated worksheet's questions and answers to user's download path
-            downloadHelper();
+            downloadDocument();
         } else if (e.getSource() == mainMenuButton) {
             new OptionScreen();
         } else if (e.getSource() == viewerBackButton) {
-            new CustomizeScreen((EquationDetails) equationDetailsViewer);
+            new CustomizeScreen(equationDetails, formatDetails);
         }
 
     }
 
-    private void downloadHelper() {
+    private void downloadDocument() {
         try {
             documents[0].save(downloadPathInput.getText() + "/" + documentTitle + "_questions.pdf");
             documents[1].save(downloadPathInput.getText() + "/" + documentTitle + "_answers.pdf");
@@ -165,6 +165,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == downloadButton) {
             highlightButton(downloadButton);
+            downloadButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                    4, new Color(142, 202, 234, 255)));
         } else if (e.getSource() == printPageButton) {
             highlightButton(printPageButton);
         } else if (e.getSource() == historyButton) {
@@ -179,6 +181,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == downloadButton) {
             defaultButton(downloadButton);
+            downloadButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                    4, new Color(142, 202, 234, 255)));
         } else if (e.getSource() == printPageButton) {
             defaultButton(printPageButton);
         } else if (e.getSource() == historyButton) {
@@ -197,7 +201,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     @Override
     public void keyPressed(KeyEvent e) {
         // Attempt to save the generated worksheet's questions and answers to user's download path
-        downloadHelper();
+        downloadDocument();
     }
 
     @Override

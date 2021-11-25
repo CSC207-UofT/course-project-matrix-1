@@ -81,6 +81,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
         }
         else if (e.getSource() == deleteUserButton) {
             highlightButton(deleteUserButton);
+            deleteUserButton.setBackground(new Color(199, 63, 63));
         }
     }
 
@@ -90,6 +91,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
         }
         else if (e.getSource() == deleteUserButton) {
             defaultButton(deleteUserButton);
+            deleteUserButton.setBackground(new Color(199, 63, 63));
         }
     }
 }

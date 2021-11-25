@@ -28,7 +28,7 @@ public class OptionScreen extends Screen implements MouseListener {
         JLabel userHistoryLbl = new JLabel("History", SwingConstants.CENTER);
 
         updateLabel(userProfileLbl, 0.82, 0.215, 0.2, 0.2, 0.015, 'd');
-        updateLabel(userHistoryLbl, 0.82, 0.393, 0.2, 0.2, 0.015, 'd');
+        updateLabel(userHistoryLbl, 0.82, 0.395, 0.2, 0.2, 0.015, 'd');
 
         JLabel profileImageLbl = new JLabel("", SwingConstants.CENTER);
         updateLabel(profileImageLbl, 0.82, 0.1225, 0.2, 0.2, 0, 'd');

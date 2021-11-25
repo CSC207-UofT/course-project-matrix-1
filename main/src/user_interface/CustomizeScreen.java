@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Customize Screen class for the User Interface. The "customize worksheet screen" prompts the user for their desired
@@ -29,63 +28,43 @@ public class CustomizeScreen extends Screen implements MouseListener {
     JButton [] generateWSButtons = {generateWorksheetButton, customizeBackButton};
 
     // Invalid input JLabel
-    JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
+    JLabel operatorWarning = new JLabel("Operand's' minimum must be lower than the maximum", SwingConstants.CENTER);
 
-    // Create text fields
-    JTextField titleInput = new JTextField("New Worksheet",1);
-    JTextField numQuestionsInput = new JTextField("10",1);
-    JTextField numRowsInput = new JTextField("5",1);
-    JTextField numColumnInput = new JTextField("2",1);
+    JTextField op1MIN = new JTextField(1);
+    JTextField op1MAX = new JTextField(1);
+    JTextField op2MIN = new JTextField(1);
+    JTextField op2MAX = new JTextField(1);
 
-    JTextField op1MIN = new JTextField("0",1);
-    JTextField op1MAX = new JTextField("10",1);
-    JTextField op2MIN = new JTextField("0",1);
-    JTextField op2MAX = new JTextField("10",1);
-
-    JTextField[] textFields = {titleInput, numQuestionsInput, numRowsInput, numColumnInput, op1MIN, op1MAX, op2MIN,
-            op2MAX};
+    JTextField[] textFields = {op1MIN, op1MAX, op2MIN, op2MAX};
 
     // Create checkbox
     JCheckBox negAllowedBox = new JCheckBox("");
 
-    // Create combo box for question format
-    String[] questionFormatOptions = {"Horizontal"};
-    JComboBox<String> questionFormat = new JComboBox<>(questionFormatOptions);
-
     // Create the equation details variables with initial invalid values
-    int numOfEquations = -1;
     int [] operandRange1 = {-1, -1};
     int [] operandRange2 = {-1, -1};
     boolean negAllowed = false;
 
     // Create the formatting details variables with initial invalid values
-    String equationFormat = " ";
-    String worksheetTitle = " ";
-    int numOfRows = -1;
-    int numOfColumns = -1;
     String dateAndTime;
 
     // Create the temporary map's to be passed into worksheet viewer screen
-    Map <String, Object> equationsDetailsCustomizeScreen = new HashMap<>();
-    Map <String, Object> formatDetailsCustomizeScreen = new HashMap<>();
     Map <String, Object> worksheetHistoryDetails = new HashMap<>();
 
     EquationDetails equationDetails;
-    FormatDetails formatDetails = new FormatDetails();
+    FormatDetails formatDetails;
 
-    public CustomizeScreen(EquationDetails equationDetails) {
+    public CustomizeScreen(EquationDetails equationDetails, FormatDetails formatDetails) {
 
-        customizePanel.setLayout(null);
-        customizePanel.setBackground(new Color(177, 203, 187));
+        updatePanel(customizePanel);
 
         // Gets the chosen operator/equationDetail type from the previous screen
         this.equationDetails = equationDetails;
+        this.formatDetails = formatDetails;
 
         // Create Equation Details and Formatting JLabels and its shadow
         JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
         JLabel equationDetailsShadow = new JLabel("Equation Details", SwingConstants.CENTER);
-        JLabel formatTitle = new JLabel("Formatting", SwingConstants.CENTER);
-        JLabel formatShadow = new JLabel("Formatting", SwingConstants.CENTER);
 
         // Create equation questions labels
         JLabel op1Range = new JLabel("Operand 1 Range");
@@ -95,63 +74,33 @@ public class CustomizeScreen extends Screen implements MouseListener {
         JLabel negAllowed = new JLabel("Negative are Allowed?");
 
         // Update the labels for the equation customization
-        updateLabel(equationDetailsTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(equationDetailsShadow, 0.2025, 0.0125, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(op1Range, 0.25, 0.1, 0.6, 0.1, 0.02, 'd');
-        updateLabel(dash, 0.645, 0.1, 0.05, 0.1, 0.025, 'd');
-        updateLabel(op2Range, 0.25, 0.175, 0.6, 0.1, 0.02, 'd');
-        updateLabel(dash2, 0.645, 0.175, 0.1, 0.1, 0.025, 'd');
-        updateLabel(negAllowed, 0.25, 0.25, 0.6, 0.1, 0.02, 'd');
-        updateLabel(invalidInput, 0.4, 0.75, 0.2, 0.05, 0.015, 'r');
+        updateLabel(equationDetailsTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(equationDetailsShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'w');
+        updateLabel(operatorWarning, 0.3, 0.525, 0.4, 0.07, 0.0125, 'w');
+        updateLabel(op1Range, 0.25, 0.24, 0.6, 0.1, 0.02, 'd');
+        updateLabel(dash, 0.645, 0.24, 0.05, 0.1, 0.025, 'd');
+        updateLabel(op2Range, 0.25, 0.335, 0.6, 0.1, 0.02, 'd');
+        updateLabel(dash2, 0.645, 0.335, 0.1, 0.1, 0.025, 'd');
+        updateLabel(negAllowed, 0.25, 0.43, 0.6, 0.1, 0.02, 'd');
 
-        // Initially set the invalid input to not visible
-        invalidInput.setVisible(false);
+        operatorWarning.setOpaque(true);
+        operatorWarning.setBackground(new Color(217, 207, 131, 252));
+        operatorWarning.setVisible(false);
 
         // Minimum and maximum text fields
-        op1MIN.setBounds(convert(0.525, 'w'), convert(0.125, 'h'), convert(0.1, 'w'),
+        op1MIN.setBounds(convert(0.525, 'w'), convert(0.265, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
-        op1MAX.setBounds(convert(0.675, 'w'), convert(0.125, 'h'), convert(0.1, 'w'),
+        op1MAX.setBounds(convert(0.675, 'w'), convert(0.265, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
-        op2MIN.setBounds(convert(0.525, 'w'), convert(0.2, 'h'), convert(0.1, 'w'),
+        op2MIN.setBounds(convert(0.525, 'w'), convert(0.36, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
-        op2MAX.setBounds(convert(0.675, 'w'), convert(0.2, 'h'), convert(0.1, 'w'),
+        op2MAX.setBounds(convert(0.675, 'w'), convert(0.36, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
 
         // Update checkbox location
-        negAllowedBox.setBounds(convert(0.565, 'w'), convert(0.275, 'h'), convert(0.5, 'w'),
+        negAllowedBox.setBounds(convert(0.565, 'w'), convert(0.455, 'h'), convert(0.5, 'w'),
                 convert(0.5, 'h'));
         negAllowedBox.setSize(new Dimension(40, 40));
-
-        // Create formatting questions labels
-        JLabel qFormat = new JLabel("Question Format");
-        JLabel titleLabel = new JLabel("Title");
-        JLabel numQuestions = new JLabel("Number of Questions");
-        JLabel numRows = new JLabel("Number of Rows");
-        JLabel numColumns = new JLabel("Number of Columns");
-
-        // Update location of the combobox for the question format
-        questionFormat.setBounds(convert(0.535, 'w'), convert(0.405, 'h'), convert(0.15, 'w'),
-                convert(0.05, 'h'));
-        questionFormat.setSelectedIndex(0);
-
-        // Update the location of each text field
-        titleInput.setBounds(convert(0.525, 'w'), convert(0.475, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        numQuestionsInput.setBounds(convert(0.525, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        numRowsInput.setBounds(convert(0.525, 'w'), convert(0.625, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        numColumnInput.setBounds(convert(0.525, 'w'), convert(0.7, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-
-        // Update the labels for formatting
-        updateLabel(formatTitle, 0.2, 0.3025, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(formatShadow, 0.2025, 0.305, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(qFormat, 0.25, 0.375, 0.6, 0.1, 0.02, 'd');
-        updateLabel(titleLabel, 0.25, 0.45, 0.6, 0.1, 0.02, 'd');
-        updateLabel(numQuestions, 0.25, 0.525, 0.6, 0.1, 0.02, 'd');
-        updateLabel(numRows, 0.25, 0.6, 0.6, 0.1, 0.02, 'd');
-        updateLabel(numColumns, 0.25, 0.675, 0.6, 0.1, 0.02, 'd');
 
         // Update the location of each button
         updateButtonLocation(generateWorksheetButton, 0.35, 0.8, 0.3, 0.1);
@@ -169,8 +118,6 @@ public class CustomizeScreen extends Screen implements MouseListener {
         // Add all components to the panel
         customizePanel.add(equationDetailsTitle);
         customizePanel.add(equationDetailsShadow);
-        customizePanel.add(formatTitle);
-        customizePanel.add(formatShadow);
 
         customizePanel.add(generateWorksheetButton);
         customizePanel.add(customizeBackButton);
@@ -185,18 +132,7 @@ public class CustomizeScreen extends Screen implements MouseListener {
         customizePanel.add(op2MAX);
         customizePanel.add(negAllowed);
         customizePanel.add(negAllowedBox);
-
-        customizePanel.add(qFormat);
-        customizePanel.add(questionFormat);
-        customizePanel.add(titleLabel);
-        customizePanel.add(titleInput);
-        customizePanel.add(numQuestions);
-        customizePanel.add(numQuestionsInput);
-        customizePanel.add(numRows);
-        customizePanel.add(numRowsInput);
-        customizePanel.add(numColumns);
-        customizePanel.add(numColumnInput);
-        customizePanel.add(invalidInput);
+        customizePanel.add(operatorWarning);
 
         changePanel(customizePanel);
     }
@@ -210,21 +146,19 @@ public class CustomizeScreen extends Screen implements MouseListener {
             int op1MinTemp, op1MaxTemp, op2MinTemp, op2MaxTemp;
             op1MinTemp = op1MaxTemp = op2MinTemp = op2MaxTemp = -1;
 
-            int numOfEquationsTemp, numOfRowsTemp, numOfColumnsTemp;
-            numOfEquationsTemp = numOfRowsTemp = numOfColumnsTemp = -1;
-
             // Check if any operand range cannot be parsed (invalid input)
-            if (tryToParse(op1MIN.getText()) == null || tryToParse(op1MAX.getText()) == null ||
-                    tryToParse(op2MIN.getText()) == null || tryToParse(op2MAX.getText()) == null) {
-                invalidInput.setVisible(true);
+            if (tryToParse(op1MIN.getText().trim()) == null || tryToParse(op1MAX.getText().trim()) == null ||
+                    tryToParse(op2MIN.getText().trim()) == null || tryToParse(op2MAX.getText().trim()) == null) {
+                operatorWarning.setText("Operand's must be positive numbers");
+                operatorWarning.setVisible(true);
                 passed = false;
             }
             else {
                 // Each operand value can be parsed (is an integer)
-                op1MinTemp = Integer.parseInt(op1MIN.getText());
-                op1MaxTemp = Integer.parseInt(op1MAX.getText());
-                op2MinTemp = Integer.parseInt(op2MIN.getText());
-                op2MaxTemp = Integer.parseInt(op2MAX.getText());
+                op1MinTemp = Integer.parseInt(op1MIN.getText().trim());
+                op1MaxTemp = Integer.parseInt(op1MAX.getText().trim());
+                op2MinTemp = Integer.parseInt(op2MIN.getText().trim());
+                op2MaxTemp = Integer.parseInt(op2MAX.getText().trim());
             }
 
             // Check to see if all operand range are greater than zero and max > min
@@ -233,63 +167,27 @@ public class CustomizeScreen extends Screen implements MouseListener {
                 operandRange1 = new int[]{op1MinTemp, op1MaxTemp};      // Set the operand 1 range to inputted values
                 operandRange2 = new int[]{op2MinTemp, op2MaxTemp};      // Set the operand 2 range to inputted values
             }
-            else {
-                invalidInput.setVisible(true);
+            else if (op1MaxTemp < op1MinTemp || op2MaxTemp < op2MinTemp){
+                operatorWarning.setText("Operand's' minimum must be lower than the maximum");
+                operatorWarning.setVisible(true);
                 passed = false;
+            }
+            else {
+                operatorWarning.setText("Operand's must be positive numbers");
+                operatorWarning.setVisible(true);
             }
 
             // Get selection for checkbox, question format, and title
             negAllowed = negAllowedBox.isSelected();
-            equationFormat = Objects.requireNonNull(questionFormat.getSelectedItem()).toString();
-            worksheetTitle = titleInput.getText();
-
-            // Check if any formatting text fields are empty
-            if (tryToParse(numQuestionsInput.getText()) == null || tryToParse(numRowsInput.getText()) == null ||
-                    tryToParse(numColumnInput.getText()) == null || worksheetTitle.length() == 0) {
-                invalidInput.setVisible(true);
-                passed = false;
-            }
-            else {
-                // Each value can be parsed
-                numOfEquationsTemp = Integer.parseInt(numQuestionsInput.getText());
-                numOfRowsTemp = Integer.parseInt(numRowsInput.getText());
-                numOfColumnsTemp = Integer.parseInt(numColumnInput.getText());
-            }
-
-            // Check that number of equations, rows, and columns are greater than zero
-            if (numOfEquationsTemp > 0 && numOfRowsTemp > 0 && numOfColumnsTemp > 0) {
-                numOfEquations = numOfEquationsTemp;
-                numOfRows = numOfRowsTemp;
-                numOfColumns = numOfColumnsTemp;
-            }
-            else {
-                invalidInput.setVisible(true);
-                passed = false;
-            }
 
             // If all inputs check out, add to the equation details and formatting details maps
             if (passed) {
 
-                // Add all equation details to the map
-                equationsDetailsCustomizeScreen.put("numOfEquations", numOfEquations);
-                equationsDetailsCustomizeScreen.put("operandRange1", operandRange1);
-                equationsDetailsCustomizeScreen.put("operandRange2", operandRange2);
-                equationsDetailsCustomizeScreen.put("negAllowed", negAllowed);
-                this.equationDetails.setNumOfEquations(numOfEquations);
                 this.equationDetails.setNegAllowed(negAllowed);
+
                 //TODO: need different casting for different equation details, make if statements
                 ((WholeNumEquationDetails) this.equationDetails).setOperandRange1(operandRange1);
                 ((WholeNumEquationDetails) this.equationDetails).setOperandRange2(operandRange2);
-
-                // Add all formatting details to the map
-                formatDetailsCustomizeScreen.put("equationFormat", equationFormat);
-                formatDetailsCustomizeScreen.put("title", worksheetTitle);
-                formatDetailsCustomizeScreen.put("numRows", numOfRows);
-                formatDetailsCustomizeScreen.put("numColumns", numOfColumns);
-                this.formatDetails.setTitle(titleInput.getText().trim());
-                this.formatDetails.setEquationFormat(equationFormat);
-                this.formatDetails.setNumColumns(numOfColumns);
-                this.formatDetails.setNumRows(numOfRows);
 
                 // Find the exact date/time the user created the worksheet
                 dateAndTime = LocalDateTime.now().toString();
@@ -302,8 +200,8 @@ public class CustomizeScreen extends Screen implements MouseListener {
                 try {
                     new WorksheetViewerScreen(worksheetHistoryDetails);
                 } catch (IOException ex) {
-                    invalidInput.setText("Worksheet cannot be created");
-                    invalidInput.setVisible(true);
+                    operatorWarning.setText("Worksheet cannot be created");
+                    operatorWarning.setVisible(true);
                 }
             }
         }
