@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Worksheet viewer screen class for the User Interface. The user can preview the first page of the generated
@@ -61,11 +62,16 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         // Set the document title
         documentTitle = formatDetailsViewer.get("title").toString();
 
+        // Generate worksheet random seed, and store for later regeneration.
+        Random r = new Random();
+        int randomSeed = r.nextInt(1000000000);
+        worksheet_details.put("seed", randomSeed);
+
         // Store the worksheet information to the user's history
         userController.storeUserRecord(worksheet_details);
 
-        // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
-        documents = worksheetController.generateWorksheetAndPDF(equation_Details, format_Details, 0);
+        // Generate the documents worksheets
+        documents = worksheetController.generateWorksheetAndPDF(equation_Details, format_Details, randomSeed);
 
         // Create an image of the documents first page to preview
         try {
