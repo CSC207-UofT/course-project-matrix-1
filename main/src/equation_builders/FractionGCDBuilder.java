@@ -3,7 +3,6 @@ package equation_builders;
 import equation_entities.GCD;
 import equation_parameters.EquationDetails;
 
-
 /**
  * Generates GCD BEDMAS equations for fractions.
  *
