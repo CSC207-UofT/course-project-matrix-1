@@ -2,13 +2,10 @@ package equation_builders;
 
 import equation_entities.BedmasEquation;
 import equation_parameters.EquationDetails;
-import equation_parameters.FractionAddSubEquationDetails;
 import exceptions.InvalidInputException;
 import utilities.DistributionCalculator;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import static constants.OperatorRep.*;
 
 /**
  * Directs the construction of whole number BEDMAS equations, starting from the operator, then the operands,
@@ -28,18 +25,13 @@ public class FractionDirector extends EquationDirector {
      * @param operator the char that determines which builder this director will use.
      */
     public void setEquationBuilder(char operator) {
-        char ADD = '+';
-        char SUBTRACT = '-';
-        char MULTIPLY = '*';
-        char DIVIDE = '/';
-        
         if (operator == ADD) {
             this.fractionBuilder = new FractionAddBuilder();
-        } else if (operator == SUBTRACT) {
+        } else if (operator ==  SUB) {
             this.fractionBuilder = new FractionSubBuilder();
-        } else if (operator == MULTIPLY) {
+        } else if (operator ==  MULT) {
             this.fractionBuilder = new FractionMultiplyBuilder();
-        } else if (operator == DIVIDE) {
+        } else if (operator ==  DIV) {
             this.fractionBuilder = new FractionDivideBuilder();
         } else {
             throw new InvalidInputException();

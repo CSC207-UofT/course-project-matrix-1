@@ -4,12 +4,7 @@ import equation_entities.Add;
 import equation_entities.Fraction;
 import equation_parameters.EquationDetails;
 import equation_parameters.FractionAddSubEquationDetails;
-import exceptions.InvalidInputException;
 import utilities.DistributionCalculator;
-import utilities.FactorFinder;
-
-import java.util.ArrayList;
-import java.util.Set;
 
 public class FractionAddBuilder extends FractionBuilder {
 
