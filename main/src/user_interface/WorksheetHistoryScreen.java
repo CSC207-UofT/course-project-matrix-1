@@ -8,9 +8,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Worksheet History Screen class for the User Interface. The worksheet history screen displays the details of previous
@@ -26,7 +25,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     JLabel noWorksheets = new JLabel("No Worksheets Available", SwingConstants.CENTER);
     JLabel invalidScore = new JLabel("Invalid Score", SwingConstants.CENTER);
 
-    // Create buttons
+    // Create JButtons
     JButton customizeBackButton = new JButton("Back");
     JButton removeButton = new JButton("Remove");
     JButton updateScoreButton = new JButton("Update Score");
@@ -34,15 +33,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
 
     // Create JTextField for New Score Option
     JTextField newScore = new JTextField(1);
-
-    // Create JList that holds Strings that will represent the Worksheet History
-    JList <String> history;
-
-    // Create DefaultListModel that holds Strings that will be inputted into JList
-    DefaultListModel<String> listModel = new DefaultListModel<>();
-
-    // Create String Builder that will hold our Display of the Worksheet in the JList
-    StringBuilder totalString = new StringBuilder();
 
     // Create the Temporary Maps that will be passed into Worksheet Viewer Screen
     Map<String, Object> equationDetailsTemp = new HashMap<>();
@@ -52,8 +42,13 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     // Create List containing a Map that will take output from getUserHistory method in userController
     List<Map<String, Object>> userHistoryList;
 
-    // Create JScrollPane that will hold userHistoryList later
-    JScrollPane scrollPane = new JScrollPane();
+    // Create JTable and Arrays affiliated with it (rows and columns)
+    String[] columnNames = {"Title","Date Created","Topic","Number of Equations","Score"};
+    String[][] data = {};
+    JTable table;
+
+    // Create JScrollPane that holds the JTable
+    JScrollPane scrollPane = new JScrollPane(table);
 
     // Store the date and time when user regenerates a worksheet
     String dateAndTimeTemp;
@@ -69,7 +64,10 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         noWorksheets.setVisible(false);
         invalidScore.setVisible(false);
 
-        // Store necessary info for each element in JList String Builder
+        // ArrayList that will add each worksheet's data
+        List<String[]> twoDimArrayList = new ArrayList<>();
+
+        // Store necessary info for each element in the JTable
         try {
             userHistoryList = userController.getUserHistory();
             // Run through each Worksheet
@@ -79,37 +77,47 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                 Map <String, Object> tempMapFormatDetails = (Map<String, Object>) map.get("formatDetails");
                 Map <String, Object>  tempMapEquationDetails = (Map <String, Object>) map.get("equationDetails");
 
-                // Clear String Builder
-                totalString.setLength(0);
+                // ArrayList that stores data for the current worksheet
+                ArrayList<String> currentWorksheetArray = new ArrayList<>();
 
-                // Add title to String Builder
-                totalString.append("Title: ");
-                totalString.append(tempMapFormatDetails.get("title"));
-                // Add date to String Builder
-                totalString.append(" | Date Created: ");
+                // Add title to ArrayList
+                currentWorksheetArray.add((String) tempMapFormatDetails.get("title"));
+
+                // Add date of creation to ArrayList
                 String tempName = (String) map.get("worksheetKey");
-                totalString.append(tempName, 0, tempName.indexOf("T"));
-                // Add topic to String Builder
+                tempName = tempName.substring(0, tempName.indexOf("T"));
+                currentWorksheetArray.add(tempName);
 
-                totalString.append(" | Topic: ");
+                // Add topic to ArrayList
                 char tempOperator = (char) tempMapEquationDetails.get("operator");
-                getOperator(tempOperator);
-                // Add number of equations to String Builder
-                totalString.append(" | Number of Equations: ");
-                totalString.append(tempMapEquationDetails.get("numOfEquations"));
-                // Add score to String Builder (currently set to zero - implement next phase)
-                totalString.append(" | Score: ");
-                if (userHistoryList.get(listModel.size()).get("score") != null){
-                    totalString.append(userHistoryList.get(listModel.size()).get("score"));
-                }else{totalString.append("0");}
-                // Add String Builder to DefaultListModel
-                listModel.addElement(totalString.toString());
+                currentWorksheetArray.add(getOperator(tempOperator));
+
+                // Add number of equations to ArrayList
+                currentWorksheetArray.add(String.valueOf(tempMapEquationDetails.get("numOfEquations")));
+
+                // Add score to ArrayList or 0 if no score
+                if (userHistoryList.get(twoDimArrayList.size()).get("score") != null){
+                    currentWorksheetArray.add(String.valueOf(userHistoryList.get(twoDimArrayList.size()).get("score")));
+                }else {
+                    currentWorksheetArray.add("0");
+                }
+
+                // Convert ArrayList to Array
+                String[] tempArray = new String[0];
+                tempArray = currentWorksheetArray.toArray(tempArray);
+
+                // Add Array to Two Dimensional ArrayList
+                twoDimArrayList.add(tempArray);
             }
             // Make noWorksheets JLabel message visible if there are no worksheets
         } catch (NullPointerException u) {noWorksheets.setVisible(true);}
 
-        // Create JList which holds info from the listModel (DefaultListModel<String>)
-        history = new JList<>(listModel);
+        // Convert Two Dimensional ArrayList to Two Dimensional Array
+        data = twoDimArrayList.toArray(data);
+
+        // Create JTable including info
+        table = new JTable(data, columnNames);
+
 
         // Create JLabel and JButton for the Worksheet History Screen
         JLabel previewTitle = new JLabel("Worksheet History", SwingConstants.CENTER);
@@ -146,11 +154,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         // Add Key Listener for the newScore TextField
         newScore.addKeyListener(this);
 
-        // Add JList
-        history.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        history.setLayoutOrientation(JList.VERTICAL);
-        updateList(scrollPane, 0.2, 0.2, 0.6, 0.5);
-        scrollPane.setViewportView(history);
+        scrollPane.setBounds(convert(0.2, 'w'), convert(0.2,'h'), convert(0.6, 'w'),
+                convert(0.4, 'h'));
+        scrollPane.setViewportView(table);
 
         // Add Components to the Panel
         historyPanel.add(previewTitle);
@@ -173,19 +179,20 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
      *
      * @param operatorInputted the operator inputted as a character
      */
-    public void getOperator(char operatorInputted) {
+    public String getOperator(char operatorInputted) {
         if (operatorInputted == '+') {
-            totalString.append("Addition");
+            return "Addition";
         }
         else if (operatorInputted == '-') {
-            totalString.append("Subtraction");
+            return "Subtraction";
         }
         else if (operatorInputted == '*') {
-            totalString.append("Multiplication");
+            return "Multiplication";
         }
         else if (operatorInputted == '/') {
-            totalString.append("Division");
+            return "Division";
         }
+        return null;
     }
 
     @SuppressWarnings("unchecked")
@@ -195,17 +202,16 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         }
         if (e.getSource() == removeButton) {
             // Get selected worksheet index
-            int index = history.getSelectedIndex();
+            int index = table.getSelectedRow();
             // If worksheet is selected remove it from the List and History Memory
             if (index != -1) {
                 String removeWorksheetStr = String.valueOf(userHistoryList.get(index).get("worksheetKey"));
                 userController.removeUserRecord(removeWorksheetStr);
                 userHistoryList.remove(index);
-                listModel.removeElementAt(index);
+                new WorksheetHistoryScreen();
             }
         }
 
-        // Not fully implemented will be complete in next Phase (display change of score in table missing)
         if (e.getSource() == updateScoreButton) {
             // Check if JText is empty and return message if true
             scoreHelper();
@@ -213,7 +219,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
 
         if (e.getSource() == regenerateButton) {
             // Check if Worksheet is Selected
-            int index = history.getSelectedIndex();
+            int index = table.getSelectedRow();
             if (index != -1) {
 
                 // Store Necessary info to Regenerate Worksheet
@@ -242,7 +248,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         if (tryToParse(newScore.getText()) == null) {
             invalidScore.setVisible(true);
         } else {
-            int index = history.getSelectedIndex();
+            int index = table.getSelectedRow();
             if (index != -1) {
                 int score = Integer.parseInt(newScore.getText());
                 Map<String, Object> tempMapEquationDetails = (Map<String, Object>) userHistoryList.get(index).get("equationDetails");
