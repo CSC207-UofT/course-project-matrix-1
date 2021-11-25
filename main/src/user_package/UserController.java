@@ -9,9 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Accesses or updates user information based on inputs from UserInterface.
- * <p>
- * Using dependency injection, existing users and their histories are retrieved and injected into UserManager and
+ * Accesses or updates user information based on inputs from UserInterface. Every data updating method has the data
+ * saved. Using dependency injection, a DataAccessInterface-implementing object is created and injected into UserManager and
  * HistoryManager.
  * <p>
  * Collaborators: userPackage.UserManager, userPackage.HistoryManager

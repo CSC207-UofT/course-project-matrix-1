@@ -1,5 +1,8 @@
 package user_interface;
 
+import equation_parameters.EquationDetails;
+import equation_parameters.FormatDetails;
+import equation_parameters.WholeNumEquationDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -13,7 +16,6 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Worksheet viewer screen class for the User Interface. The user can preview the first page of the generated
@@ -48,17 +50,18 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     // Create the map's to store the temporary equation and format details
     Map<String, Object> equationDetailsViewer;
     Map<String, Object> formatDetailsViewer;
+    EquationDetails equationDetails;
+    FormatDetails formatDetails;
 
-    public WorksheetViewerScreen(Map<String, Object> equation_Details, Map<String, Object> format_Details,
-                                 Map<String, Object> worksheet_details) throws IOException {
+    public WorksheetViewerScreen(Map<String, Object> worksheetDetails) throws IOException {
+        equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
+        formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
 
-        updatePanel(previewPanel);
-
-        // Set the updated equation details and format details chosen by the user
-        equationDetailsViewer = equation_Details;
-        formatDetailsViewer = format_Details;
+        // Set Panel to the viewer screen
+        cardLayout.show(cardPanel, "ViewerScreen");
 
         // Set the document title
+        documentTitle = formatDetails.getTitle();
         documentTitle = formatDetailsViewer.get("title").toString();
 
         // Generate worksheet random seed, and store for later regeneration.
@@ -67,10 +70,11 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         worksheet_details.put("seed", randomSeed);
 
         // Store the worksheet information to the user's history
-        userController.storeUserRecord(worksheet_details);
+        userController.storeUserRecord(worksheetDetails);
+        //TODO: this method call sends in a map containing EquationDetails and FormatDetails, currently does not work
 
-        // Generate the documents worksheets
-        documents = worksheetController.generateWorksheetAndPDF(equation_Details, format_Details, randomSeed);
+        // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
+        documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, 0);
 
         // Create an image of the documents first page to preview
         try {

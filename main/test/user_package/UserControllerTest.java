@@ -1,5 +1,7 @@
 package user_package;
 
+import equation_parameters.EquationDetails;
+import equation_parameters.WholeNumEquationDetails;
 import exceptions.NotLoggedInException;
 import exceptions.RecordDoesNotExistException;
 import exceptions.UserDoesNotExistException;
@@ -163,8 +165,8 @@ public class UserControllerTest {
         HashMap<String, Object> record = new HashMap<>();
         record.put("worksheetKey", "156");
 
-        Map<String, Object> equationDetails = new HashMap<>();
-        equationDetails.put("numOfEquations", 40);
+        EquationDetails equationDetails = new WholeNumEquationDetails();
+        equationDetails.setNumOfEquations(40);
         record.put("equationDetails", equationDetails);
 
         userController.storeUserRecord(record);

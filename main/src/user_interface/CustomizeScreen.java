@@ -1,5 +1,9 @@
 package user_interface;
 
+import equation_parameters.EquationDetails;
+import equation_parameters.FormatDetails;
+import equation_parameters.WholeNumEquationDetails;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -65,14 +69,21 @@ public class CustomizeScreen extends Screen implements MouseListener {
     Map <String, Object> equationsDetailsCustomizeScreen = new HashMap<>();
     Map <String, Object> formatDetailsCustomizeScreen = new HashMap<>();
     Map <String, Object> worksheetHistoryDetails = new HashMap<>();
+//    Map <String, Object> equations_details_customizeScreen = new HashMap<>();
+//    Map <String, Object> format_details_customizeScreen = new HashMap<>();
 
-    public CustomizeScreen(Map<String, Object> equation_details) {
+    EquationDetails equationDetails;
+    FormatDetails formatDetails = new FormatDetails();
+
+    Map <String, Object> worksheetHistoryDetails = new HashMap<>();
+
+    public CustomizeScreen(EquationDetails equationDetails) {
 
         customizePanel.setLayout(null);
         customizePanel.setBackground(new Color(177, 203, 187));
 
-        // Gets the chosen topic from the previous screen
-        equationsDetailsCustomizeScreen.put("operator", equation_details.get("operator"));
+        // Gets the chosen operator/equationDetail type from the previous screen
+        this.equationDetails = equationDetails;
 
         // Create Equation Details and Formatting JLabels and its shadow
         JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
@@ -268,12 +279,21 @@ public class CustomizeScreen extends Screen implements MouseListener {
                 equationsDetailsCustomizeScreen.put("operandRange1", operandRange1);
                 equationsDetailsCustomizeScreen.put("operandRange2", operandRange2);
                 equationsDetailsCustomizeScreen.put("negAllowed", negAllowed);
+                this.equationDetails.setNumOfEquations(numOfEquations);
+                this.equationDetails.setNegAllowed(negAllowed);
+                //TODO: need different casting for different equation details, make if statements
+                ((WholeNumEquationDetails) this.equationDetails).setOperandRange1(operandRange1);
+                ((WholeNumEquationDetails) this.equationDetails).setOperandRange2(operandRange2);
 
                 // Add all formatting details to the map
                 formatDetailsCustomizeScreen.put("equationFormat", equationFormat);
                 formatDetailsCustomizeScreen.put("title", worksheetTitle);
                 formatDetailsCustomizeScreen.put("numRows", numOfRows);
                 formatDetailsCustomizeScreen.put("numColumns", numOfColumns);
+                this.formatDetails.setTitle(titleInput);
+                this.formatDetails.setEquationFormat(equationFormat);
+                this.formatDetails.setNumColumns(numOfColumns);
+                this.formatDetails.setNumRows(numOfRows);
 
                 // Find the exact date/time the user created the worksheet
                 dateAndTime = LocalDateTime.now().toString();
@@ -282,15 +302,16 @@ public class CustomizeScreen extends Screen implements MouseListener {
                 worksheetHistoryDetails.put("worksheetKey", dateAndTime);
                 worksheetHistoryDetails.put("equationDetails", equationsDetailsCustomizeScreen);
                 worksheetHistoryDetails.put("formatDetails", formatDetailsCustomizeScreen);
+                worksheetHistoryDetails.put("worksheetKey", dateAndTime);
+                worksheetHistoryDetails.put("equationDetails", this.equationDetails);
+                worksheetHistoryDetails.put("formatDetails", this.formatDetails);
 
                 try {
-                    new WorksheetViewerScreen(equationsDetailsCustomizeScreen, formatDetailsCustomizeScreen,
-                                worksheetHistoryDetails);
+                    new WorksheetViewerScreen(worksheetHistoryDetails);
                 } catch (IOException ex) {
                     invalidInput.setText("Worksheet cannot be created");
                     invalidInput.setVisible(true);
                 }
-
             }
         }
         else if (e.getSource() == customizeBackButton) {

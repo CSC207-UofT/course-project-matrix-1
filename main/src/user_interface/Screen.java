@@ -4,6 +4,7 @@ import user_package.UserController;
 import worksheet_maker.WorksheetController;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,7 +16,7 @@ import java.util.Objects;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-09
  */
-public class Screen extends JComponent implements MouseListener {
+public class Screen extends JFrame implements MouseListener {
 
     // Screen size Dimensions are set to full screen
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -108,7 +109,7 @@ public class Screen extends JComponent implements MouseListener {
         if (r == 'r') {
             l.setForeground(new Color(255, 55, 51));
         }
-        else if (r == 'd'){
+        else {
             l.setForeground(Color.DARK_GRAY);
         }
         else if (r == 'w') {
@@ -136,8 +137,8 @@ public class Screen extends JComponent implements MouseListener {
      *
      * @param buttons an array list of JButtons that will be updated to the default settings
      */
-    public void defaultButton(JButton[] buttons) {
-        for (JButton button: buttons) {
+    public void defaultButton(JButton[] b) {
+        for (JButton button: b) {
             button.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
             button.setOpaque(true);
             button.setForeground(Color.DARK_GRAY);
