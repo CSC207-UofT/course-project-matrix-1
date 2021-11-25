@@ -32,15 +32,15 @@ public class CustomizeScreen extends Screen implements MouseListener {
     JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField titleInput = new JTextField(1);
-    JTextField numQuestionsInput = new JTextField(1);
-    JTextField numRowsInput = new JTextField(1);
-    JTextField numColumnInput = new JTextField(1);
+    JTextField titleInput = new JTextField("New Worksheet",1);
+    JTextField numQuestionsInput = new JTextField("10",1);
+    JTextField numRowsInput = new JTextField("5",1);
+    JTextField numColumnInput = new JTextField("2",1);
 
-    JTextField op1MIN = new JTextField(1);
-    JTextField op1MAX = new JTextField(1);
-    JTextField op2MIN = new JTextField(1);
-    JTextField op2MAX = new JTextField(1);
+    JTextField op1MIN = new JTextField("0",1);
+    JTextField op1MAX = new JTextField("10",1);
+    JTextField op2MIN = new JTextField("0",1);
+    JTextField op2MAX = new JTextField("10",1);
 
     JTextField[] textFields = {titleInput, numQuestionsInput, numRowsInput, numColumnInput, op1MIN, op1MAX, op2MIN,
             op2MAX};
