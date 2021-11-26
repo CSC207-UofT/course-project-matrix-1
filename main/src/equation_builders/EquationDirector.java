@@ -12,7 +12,6 @@ import equation_parameters.EquationDetails;
  */
 public abstract class EquationDirector {
 
-
     public abstract StandardEquation getEquation();
 
     public abstract void constructEquation(EquationDetails equationDetails, int seed);

@@ -44,15 +44,15 @@ public class StandardEquationMaker {
         this.currentOperator = operator;
 
         if (operandType.equals(wholeNumber)) {
+            //TODO: Are all these breaks really cleaner?
             switch (operator) {
                 case ADD:
+                    //Proceeds to case multiply
+                case MULTIPLY:
                     this.operandConstructor = new WholeNumAddOperandConstructor();
+                    break;
                 case EXPONENTIATE:
                     //TODO: Implement
-                    break;
-                case MULTIPLY:
-                    // Uses the same strategy - rename
-                    this.operandConstructor = new WholeNumAddOperandConstructor();
                     break;
                 case SUBTRACT:
                     this.operandConstructor = new WholeNumSubOperandConstructor();

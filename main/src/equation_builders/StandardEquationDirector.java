@@ -24,7 +24,8 @@ public class StandardEquationDirector extends EquationDirector {
      */
     public StandardEquationDirector(String operandType, EquationDetails equationDetails) {
         this.standardEquationMaker = new StandardEquationMaker(equationDetails.getOperator(), operandType);
-        if (operandType.equals("Fraction") && (equationDetails.getOperator().equals("+") || (equationDetails.getOperator().equals("-")))) {
+        if (operandType.equals("Fraction")) {
+            //If the equation is a fraction, reweight numbers so that primes are less likely.
             DistributionCalculator.assignProbability(equationDetails);
         }
     }
@@ -33,7 +34,7 @@ public class StandardEquationDirector extends EquationDirector {
      * Construct a standard equation given the following parameters.
      *
      * @param equationDetails the parameters for whole number equation generation.
-     * @param seed            random seed to fix random generation of operands
+     * @param seed            random seed to fix random generation of operands.
      */
     @Override
     public void constructEquation(EquationDetails equationDetails, int seed) {
