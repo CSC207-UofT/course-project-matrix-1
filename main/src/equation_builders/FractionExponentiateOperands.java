@@ -11,7 +11,7 @@ import utilities.Randomizer;
  * @version 1.0
  * @since 2021-11-22
  */
-public class FractionExponentiateOperandConstructor implements OperandConstructorInterface {
+public class FractionExponentiateOperands implements OperandConstructorInterface {
     private Randomizer randomizer;
 
     /**

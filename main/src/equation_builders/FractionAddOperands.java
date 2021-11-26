@@ -15,7 +15,7 @@ import utilities.Randomizer;
  * @version 1.0
  * @since 2021-11-22
  */
-public class FractionAddOperandConstructor implements OperandConstructorInterface {
+public class FractionAddOperands implements OperandConstructorInterface {
     /**
      * Uses the denominator distribution and the maximum possible denominator to get reasonable operands for fraction addition.
      *

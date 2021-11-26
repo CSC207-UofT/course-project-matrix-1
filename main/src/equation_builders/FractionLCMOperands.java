@@ -11,7 +11,7 @@ import utilities.Randomizer;
  * @version 1.0
  * @since 2021-11-23
  */
-public class FractionLCMOperandConstructor implements OperandConstructorInterface {
+public class FractionLCMOperands implements OperandConstructorInterface {
     /**
      * Returns array of values with a randomly generated first operand and second operand.
      *

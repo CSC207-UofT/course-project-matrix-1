@@ -9,7 +9,7 @@ import utilities.Randomizer;
  * An equation maker for all types of standard equations.
  * <p>
  * Implements Strategy design pattern to instantiate a specific class that implements the OperandConstructorInterface
- * based on runtime input. For example, it will instantiate a WholeNumDivideOperandConstructor class, which will be
+ * based on runtime input. For example, it will instantiate a WholeNumDivideOperands class, which will be
  * called in the StandardEquationMaker.
  *
  * @author Will Jeong, Stanley Hua
@@ -42,38 +42,36 @@ public class StandardEquationMaker {
      */
     protected StandardEquationMaker(String operator, String operandType) {
         this.currentOperator = operator;
-
         if (operandType.equals(wholeNumber)) {
-            //TODO: Are all these breaks really cleaner?
             switch (operator) {
                 case ADD:
                     //Proceeds to case multiply
                 case MULTIPLY:
-                    this.operandConstructor = new WholeNumAddOperandConstructor();
+                    this.operandConstructor = new WholeNumAddMultOperands();
                     break;
                 case EXPONENTIATE:
                     //TODO: Implement
                     break;
                 case SUBTRACT:
-                    this.operandConstructor = new WholeNumSubOperandConstructor();
+                    this.operandConstructor = new WholeNumSubOperands();
                     break;
                 case DIVIDE:
-                    this.operandConstructor = new WholeNumDivideOperandConstructor();
+                    this.operandConstructor = new WholeNumDivideOperands();
                     break;
             }
         } else if (operandType.equals(fraction)) {
             switch (operator) {
                 case ADD:
-                    this.operandConstructor = new FractionAddOperandConstructor();
+                    this.operandConstructor = new FractionAddOperands();
                     break;
                 case SUBTRACT:
-                    this.operandConstructor = new FractionSubOperandConstructor();
+                    this.operandConstructor = new FractionSubOperands();
                     break;
                 case MULTIPLY:
-                    this.operandConstructor = new FractionMultiplyOperandConstructor();
+                    this.operandConstructor = new FractionMultiplyOperands();
                     break;
                 case DIVIDE:
-                    this.operandConstructor = new FractionDivideOperandConstructor();
+                    this.operandConstructor = new FractionDivideOperands();
                     break;
             }
         }

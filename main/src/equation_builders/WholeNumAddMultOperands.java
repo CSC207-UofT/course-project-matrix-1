@@ -8,14 +8,14 @@ import utilities.Randomizer;
 
 
 /**
- * Handles the construction of operands for the whole number addition equations. Both operands are uniformly distributed
- * across their specified range.
+ * Handles the construction of operands for the whole number addition or multiplication equations. Both operands are
+ * uniformly distributed across their specified range.
  *
  * @author Will Jeong, Stanley Hua
  * @version 1.0
  * @since 2021-10-30
  */
-class WholeNumAddOperandConstructor implements OperandConstructorInterface {
+class WholeNumAddMultOperands implements OperandConstructorInterface {
     /**
      * Builds the operands (first and second) for the standardEquation.
      *

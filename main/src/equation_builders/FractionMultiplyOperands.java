@@ -18,7 +18,7 @@ import java.util.List;
  * @version 1.0
  * @since 2021-11-22
  */
-public class FractionMultiplyOperandConstructor implements OperandConstructorInterface {
+public class FractionMultiplyOperands implements OperandConstructorInterface {
     private Randomizer randomizer;
 
     // Arbitrary prime numbers that are used to add complexity to a fraction.
