@@ -200,7 +200,6 @@ public class CustomizeScreen extends Screen implements MouseListener {
                 try {
                     new WorksheetViewerScreen(worksheetHistoryDetails);
                 } catch (IOException ex) {
-                    operatorWarning.setText("Worksheet cannot be created");
                     operatorWarning.setVisible(true);
                 }
             }

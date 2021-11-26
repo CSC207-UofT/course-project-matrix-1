@@ -40,7 +40,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         JLabel username = new JLabel("Username", SwingConstants.CENTER);
 
         // Update the location and settings of each Button
-        updateButtonLocation(loginButton, 0.4125, 0.61, 0.175, 0.08);
+        updateButtonLocation(loginButton, 0.4125, 0.62, 0.175, 0.08);
         updateButtonLocation(createUserButton, 0.425, 0.72, 0.15, 0.075);
         defaultButton(loginButton);
         defaultButton(createUserButton);
@@ -60,7 +60,10 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         updateLabel(matrixTitle, 0.2, 0.14, 0.6, 0.1, 0.03075, 'r');
         updateLabel(matrixTitleShadow, 0.2025, 0.1425, 0.6, 0.1, 0.03075, 'd');
         updateLabel(username, 0.25, 0.475, 0.3, 0.1,0.025, 'd');
-        updateLabel(invalidUsernameError, 0.4,0.475,0.2,0.2,0.015, 'r');
+        updateLabel(invalidUsernameError, 0.4125,0.559,0.175,0.045,0.014, 'w');
+
+        invalidUsernameError.setOpaque(true);
+        invalidUsernameError.setBackground(new Color(217, 207, 131, 252));
 
         // Initially set the invalid username error to not visible
         invalidUsernameError.setVisible(false);
@@ -92,8 +95,8 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         if (e.getSource() == loginButton) {
             // Attempt to log in the user with the username entered
             try {
-                userController.login(usernameInput.getText());
-                userName = usernameInput.getText();
+                username = usernameInput.getText();
+                userController.login(username);
                 new OptionScreen();
             } catch (UserDoesNotExistException u) {
                 invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist
@@ -155,7 +158,8 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         // Attempt to log in the user with the username entered
         if (e.getKeyCode()==KeyEvent.VK_ENTER){
             try {
-                userController.login(usernameInput.getText());
+                username = usernameInput.getText();
+                userController.login(username);
                 new OptionScreen();
             } catch (UserDoesNotExistException u) {
             invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist

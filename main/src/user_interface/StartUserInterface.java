@@ -10,6 +10,7 @@ import worksheet_maker.WorksheetController;
  * @since 2021-11-01
  */
 class StartUserInterface {
+
     static ControllerInterface controllerInterface;
     static UserController userController;
     static WorksheetController worksheetController;

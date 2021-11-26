@@ -33,10 +33,11 @@ public class Screen extends JFrame implements MouseListener {
     JPanel historyPanel = new JPanel();
     JPanel newUserPanel = new JPanel();
     JPanel userProfilePanel = new JPanel();
+    JPanel loadingScreen = new JPanel();
 
     // Create a user controller and worksheet controller instance
-    public static UserController userController;
-    public static WorksheetController worksheetController;
+    static UserController userController;
+    static WorksheetController worksheetController;
 
     ImageIcon profileIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userProfileIcon.png")));
     Image profileImage = profileIconImage.getImage();
@@ -46,7 +47,7 @@ public class Screen extends JFrame implements MouseListener {
     Image historyImage = historyIconImage.getImage();
     Image historyScaledImage = historyImage.getScaledInstance(67,67, Image.SCALE_SMOOTH);
 
-    static String userName = "";
+    static String username;
 
     public Screen() {
     }

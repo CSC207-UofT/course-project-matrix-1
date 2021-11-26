@@ -3,6 +3,7 @@ package user_interface;
 import exceptions.UsernameTakenException;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -20,10 +21,10 @@ public class NewUserScreen extends Screen implements MouseListener {
     JButton newUserBackButton = new JButton("Back");
 
     // Create Invalid Input JLabel
-    JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
+    JLabel newUserInvalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField usernameInput = new JTextField(1);
+    JTextField newUsernameInput = new JTextField(1);
     JTextField nameInput = new JTextField(1);
     JTextField ageInput = new JTextField(1);
 
@@ -52,10 +53,13 @@ public class NewUserScreen extends Screen implements MouseListener {
         updateLabel(nameLbl, 0.325, 0.4, 0.6, 0.1, 0.025, 'd');
         updateLabel(ageLbl, 0.325, 0.525, 0.6, 0.1, 0.025, 'd');
         updateLabel(roleLBL, 0.325, 0.65, 0.6, 0.1, 0.025, 'd');
-        updateLabel(invalidInput, 0.4, 0.865, 0.2, 0.05, 0.015, 'r');
+        updateLabel(newUserInvalidInput, 0.425, 0.74, 0.15, 0.05, 0.014, 'w');
+
+        newUserInvalidInput.setOpaque(true);
+        newUserInvalidInput.setBackground(new Color(217, 207, 131, 252));
 
         // Initially set the invalid input to not visible
-        invalidInput.setVisible(false);
+        newUserInvalidInput.setVisible(false);
 
         // Update the location of the combobox
         role.setBounds(convert(0.5, 'w'), convert(0.655, 'h'), convert(0.175, 'w'),
@@ -63,7 +67,7 @@ public class NewUserScreen extends Screen implements MouseListener {
         role.setSelectedIndex(0);
 
         // Update the location of the text fields
-        usernameInput.setBounds(convert(0.5, 'w'), convert(0.3, 'h'), convert(0.175, 'w'),
+        newUsernameInput.setBounds(convert(0.5, 'w'), convert(0.3, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
         nameInput.setBounds(convert(0.5, 'w'), convert(0.425, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
@@ -83,7 +87,7 @@ public class NewUserScreen extends Screen implements MouseListener {
         // Add all components to the panel
         newUserPanel.add(newUserTitle);
         newUserPanel.add(newUserTitleShadow);
-        newUserPanel.add(usernameInput);
+        newUserPanel.add(newUsernameInput);
         newUserPanel.add(nameInput);
         newUserPanel.add(ageInput);
         newUserPanel.add(role);
@@ -93,7 +97,7 @@ public class NewUserScreen extends Screen implements MouseListener {
         newUserPanel.add(roleLBL);
         newUserPanel.add(createUserButton);
         newUserPanel.add(newUserBackButton);
-        newUserPanel.add(invalidInput);
+        newUserPanel.add(newUserInvalidInput);
 
         changePanel(newUserPanel);
     }
@@ -102,13 +106,13 @@ public class NewUserScreen extends Screen implements MouseListener {
 
         if (e.getSource() == createUserButton) {
 
-            String currUsername = usernameInput.getText();
+            String currUsername = newUsernameInput.getText();
             String currName = nameInput.getText();
 
             // Check if any input is empty or cannot be parsed
             if (tryToParse(ageInput.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
-                invalidInput.setText("Invalid Input(s)");
-                invalidInput.setVisible(true);              // Set invalid input to visible
+                newUserInvalidInput.setText("Invalid Input(s)");
+                newUserInvalidInput.setVisible(true);              // Set invalid input to visible
             }
             else {
                 int currAge = Integer.parseInt(ageInput.getText());   // Parse the age, which is a valid integer
@@ -117,10 +121,11 @@ public class NewUserScreen extends Screen implements MouseListener {
                 // Attempt to register the user
                 try {
                     userController.registerUser(currUsername, currName, currAge, currRole);
+                    username = currUsername;
                     new OptionScreen();                         // Successful registration
                 } catch (UsernameTakenException u) {
-                    invalidInput.setText("Invalid username");
-                    invalidInput.setVisible(true);              // Show invalid username label if the username is taken
+                    newUserInvalidInput.setText("Username taken");
+                    newUserInvalidInput.setVisible(true);              // Show invalid username label if the username is taken
                 }
             }
         }

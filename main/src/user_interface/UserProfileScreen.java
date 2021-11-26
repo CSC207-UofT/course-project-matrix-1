@@ -21,6 +21,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
     // Create a map of the user's details
     Map<String, Object> userDetails = userController.getUserDetails();
 
+
     public UserProfileScreen() {
 
         updatePanel(userProfilePanel);
@@ -70,8 +71,17 @@ public class UserProfileScreen extends Screen implements MouseListener {
             new OptionScreen();
         }
         else if (e.getSource() == deleteUserButton) {
-            userController.deleteAccount(userName);
-            new LoginScreen();
+
+            int option = JOptionPane.showConfirmDialog(frame, "Confirm deletion of " + username + "'s account?", "Delete Account", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            if (option == JOptionPane.YES_OPTION) {
+                userController.deleteAccount(username);
+                JOptionPane.showMessageDialog(frame,
+                        "Account Successfully Deleted",
+                        "",
+                        JOptionPane.PLAIN_MESSAGE);
+                new LoginScreen();
+            }
         }
     }
 
