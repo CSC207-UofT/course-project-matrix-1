@@ -1,6 +1,7 @@
 package worksheet_maker;
 
-import equation_builders.*;
+import equation_builders.StandardEquationDirector;
+import equation_builders.EquationDirector;
 import equation_parameters.*;
 
 /**
@@ -38,40 +39,23 @@ public class WorksheetGenerator {
         //TODO: fix this to not be null
         //Create and assign the appropriate builder to a director.
         if (equationDetails instanceof WholeNumEquationDetails) {
-            equationDirector = getWholeBedmasDirector(equationDetails.getOperator());
+            equationDirector = new StandardEquationDirector("Whole Number", equationDetails);
         } else if (equationDetails instanceof FractionAddSubEquationDetails || equationDetails instanceof FractionMultiDivEquationDetails) {
-            //TODO: make FractionDirector
+            equationDirector = new StandardEquationDirector("Fraction", equationDetails);
         } else if (equationDetails instanceof DecimalEquationDetails) {
-            //TODO: make DecimalDirector
+            // TODO: Not yet implemented
+            throw new RuntimeException("Decimal Standard Equations Not Implemented!");
+//            equationDirector = new StandardEquationDirector("Decimal");
         }
+        assert equationDirector != null;
 
         // Update worksheet random seed per question.
         int currentSeed = this.seed;
 
         for (int i = 0; i < equationDetails.getNumOfEquations(); i++) {
-//            if (equationDetails instanceof WholeNumEquationDetails){
-//                equationDirector.constructBedmasEquation(((WholeNumEquationDetails) equationDetails).getOperandRange1(),
-//                        ((WholeNumEquationDetails) equationDetails).getOperandRange2(), equationDetails.isNegAllowed(),
-//                        currentSeed);
-//            }
-            assert equationDirector != null;
             equationDirector.constructEquation(equationDetails, currentSeed);
             this.worksheet.addEquation(equationDirector.getEquation());
             currentSeed += 100;
         }
-    }
-
-
-    /**
-     * Creates a BedmasEquationBuilder according to the operator and assigns it to BedmasEquationDirector, which it
-     * returns.
-     *
-     * @param operator the operator in the equations of the worksheet.
-     * @return WholeNumDirector with the correct WholeBedmasBuilder set to it.
-     */
-    private WholeNumDirector getWholeBedmasDirector(char operator) {
-        WholeNumDirector wholeBedmasDirector = new WholeNumDirector();
-        wholeBedmasDirector.setEquationBuilder(operator);
-        return wholeBedmasDirector;
     }
 }

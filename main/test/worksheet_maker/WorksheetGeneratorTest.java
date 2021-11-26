@@ -21,7 +21,7 @@ public class WorksheetGeneratorTest {
         ws = new Worksheet();
         wg = new WorksheetGenerator(ws, randomSeed);
         wholeNumEquationDetails.setNumOfEquations(5);
-        wholeNumEquationDetails.setOperator('+');
+        wholeNumEquationDetails.setOperator("+");
         wholeNumEquationDetails.setOperandRange1(new int[]{1, 10});
         wholeNumEquationDetails.setOperandRange2(new int[]{1, 10});
         wholeNumEquationDetails.setNegAllowed(false);

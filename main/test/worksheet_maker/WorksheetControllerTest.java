@@ -27,7 +27,7 @@ public class WorksheetControllerTest {
     public void WholeNumVisualTest() throws IOException {
         WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
         wholeNumEquationDetails.setNumOfEquations(97);
-        wholeNumEquationDetails.setOperator('/');
+        wholeNumEquationDetails.setOperator("/");
         wholeNumEquationDetails.setOperandRange1(new int[]{1, 100});
         wholeNumEquationDetails.setOperandRange2(new int[]{5, 9});
         wholeNumEquationDetails.setNegAllowed(true);

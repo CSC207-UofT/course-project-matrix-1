@@ -9,69 +9,69 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
-public class FractionDirectorTest {
-    private FractionDirector director;
+public class StandardEquationDirectorFractionTest {
+    private StandardEquationDirector director;
     private int randomSeed;
-    private FractionAddSubEquationDetails fractionAddSubEquationDetails = new FractionAddSubEquationDetails();
-    private FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
-    private int maxDenominator = 100;
+    private final FractionAddSubEquationDetails fractionAddSubEquationDetails = new FractionAddSubEquationDetails();
+    private final FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
+    private final int maxDenominator = 100;
 
     @Before
     public void init() {
-        director = new FractionDirector();
 
         fractionAddSubEquationDetails.setMaxOperandValue(1);
         fractionAddSubEquationDetails.setOperand1DenomRange(generateRange(1, 50));
         fractionAddSubEquationDetails.setNegAllowed(true);
         fractionAddSubEquationDetails.setMaxOperand2AndAnswerDenom(maxDenominator);
-
-        fractionAddSubEquationDetails.setOperator('+');
         fractionAddSubEquationDetails.setNegAllowed(true);
 
         fractionMultiDivEquationDetails.setMaxAnsValue(1);
         fractionMultiDivEquationDetails.setComplexity(1);
         fractionMultiDivEquationDetails.setAnsDenominatorRange(generateRange(20, 40));
-        fractionMultiDivEquationDetails.setOperator('*');
         fractionMultiDivEquationDetails.setNegAllowed(true);
     }
 
     @Test
     public void testAddPos() {
+        fractionAddSubEquationDetails.setOperator("+");
+        director = new StandardEquationDirector("Fraction", fractionAddSubEquationDetails);
         for (int i = 0; i < 100; i++) {
             randomSeed = new Random().nextInt(100000);
-            director.setEquationBuilder('+');
             director.constructEquation(fractionAddSubEquationDetails, randomSeed + 5);
             System.out.println(director.getEquation().equationToHashMap());
             String firstOperand = director.getEquation().getEquationParts()[0].toString();
-            assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf('/') + 1))) <= Math.abs(maxDenominator));
+            assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf("/") + 1))) <= Math.abs(maxDenominator));
         }
     }
 
     @Test
     public void testNegPos() {
+        fractionAddSubEquationDetails.setOperator("-");
+        director = new StandardEquationDirector("Fraction", fractionAddSubEquationDetails);
         for (int i = 0; i < 100; i++) {
             randomSeed = new Random().nextInt(100000);
-            director.setEquationBuilder('-');
             director.constructEquation(fractionAddSubEquationDetails, randomSeed + 5);
             System.out.println(director.getEquation().equationToHashMap());
             String firstOperand = director.getEquation().getEquationParts()[0].toString();
-            assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf('/') + 1))) <= Math.abs(maxDenominator));
+            assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf("/") + 1))) <= Math.abs(maxDenominator));
         }
     }
     @Test
-    public void testMultPos() {
+    public void testMultiplyPos() {
+        fractionMultiDivEquationDetails.setOperator("*");
+        director = new StandardEquationDirector("Fraction", fractionMultiDivEquationDetails);
         for (int i = 0; i < 100; i++) {
             randomSeed = new Random().nextInt(100000);
-            director.setEquationBuilder('*');
             director.constructEquation(fractionMultiDivEquationDetails, randomSeed);
             System.out.println(director.getEquation().equationToHashMap());
         }
     }
     @Test
-    public void testDiviPos() {
+    public void testDivPos() {
+        fractionMultiDivEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Fraction", fractionMultiDivEquationDetails);
         for (int i = 0; i < 100; i++) {
             randomSeed = new Random().nextInt(100000);
-            director.setEquationBuilder('/');
             director.constructEquation(fractionMultiDivEquationDetails, randomSeed);
             System.out.println(director.getEquation().equationToHashMap());
             String firstOperand = director.getEquation().getEquationParts()[0].toString();

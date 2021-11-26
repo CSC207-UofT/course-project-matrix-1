@@ -11,15 +11,14 @@ import java.util.Random;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class WholeBedmasDirectorTest {
-    private WholeNumDirector bed;
-    private int randomSeed;
-    private WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
+public class StandardDirectorWholeNumTest {
+    private StandardEquationDirector director;
+    private int seed;
+    private final WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
 
     @Before
     public void init() {
-        bed = new WholeNumDirector();
-        randomSeed = new Random().nextInt(100000);
+        seed = new Random().nextInt(100000);
         wholeNumEquationDetails.setOperandRange1(generateRange(1, 10));
         wholeNumEquationDetails.setOperandRange2(generateRange(1, 10));
         wholeNumEquationDetails.setNegAllowed(false);
@@ -27,146 +26,157 @@ public class WholeBedmasDirectorTest {
 
     @Test
     public void testAddPos() {
-        bed.setEquationBuilder('+');
+        wholeNumEquationDetails.setOperator("+");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(false);
-        bed.constructEquation(wholeNumEquationDetails, randomSeed + 5);
-        Symbol[] equation = bed.getEquation().getEquationParts();
+        director.constructEquation(wholeNumEquationDetails, seed + 5);
+        Symbol[] equation = director.getEquation().getEquationParts();
         int operand1 = ((WholeNum) equation[0]).getValue();
         int operand2 = ((WholeNum) equation[2]).getValue();
         int answer = ((WholeNum) equation[3]).getValue();
         assertTrue(0 <= operand1 && operand1 <= 10);
         assertTrue(0 <= operand2 && operand2 <= 10);
         assertEquals(operand1 + operand2, answer);
-        System.out.println(bed.getEquation().equationToHashMap());
+        System.out.println(director.getEquation().equationToHashMap());
     }
 
     @Test
     public void testAddNeg() {
-        bed.setEquationBuilder('+');
+        wholeNumEquationDetails.setOperator("+");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(true);
-        bed.constructEquation(wholeNumEquationDetails, randomSeed + 10);
-        Symbol[] equation = bed.getEquation().getEquationParts();
+        director.constructEquation(wholeNumEquationDetails, seed + 10);
+        Symbol[] equation = director.getEquation().getEquationParts();
         int operand1 = ((WholeNum) equation[0]).getValue();
         int operand2 = ((WholeNum) equation[2]).getValue();
         int answer = ((WholeNum) equation[3]).getValue();
         assertTrue(-10 <= operand1 && operand1 <= 10);
         assertTrue(-10 <= operand2 && operand2 <= 10);
         assertEquals(operand1 + operand2, answer);
-        System.out.println(bed.getEquation().equationToHashMap());
+        System.out.println(director.getEquation().equationToHashMap());
     }
 
     @Test
     public void testSubPos() {
-        bed.setEquationBuilder('-');
+        wholeNumEquationDetails.setOperator("-");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(false);
-        bed.constructEquation(wholeNumEquationDetails, randomSeed + 15);
-        Symbol[] equation = bed.getEquation().getEquationParts();
+        director.constructEquation(wholeNumEquationDetails, seed + 15);
+        Symbol[] equation = director.getEquation().getEquationParts();
         int operand1 = ((WholeNum) equation[0]).getValue();
         int operand2 = ((WholeNum) equation[2]).getValue();
         int answer = ((WholeNum) equation[3]).getValue();
         assertTrue(operand1 >= operand2);
         assertEquals(operand1 - operand2, answer);
-        System.out.println(bed.getEquation().equationToHashMap());
+        System.out.println(director.getEquation().equationToHashMap());
     }
 
     @Test
     public void testSubNeg() {
-        bed.setEquationBuilder('-');
+        wholeNumEquationDetails.setOperator("-");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(true);
-        bed.constructEquation(wholeNumEquationDetails, randomSeed + 20);
-        Symbol[] equation = bed.getEquation().getEquationParts();
+        director.constructEquation(wholeNumEquationDetails, seed + 20);
+        Symbol[] equation = director.getEquation().getEquationParts();
         int operand1 = ((WholeNum) equation[0]).getValue();
         int operand2 = ((WholeNum) equation[2]).getValue();
         int answer = ((WholeNum) equation[3]).getValue();
         assertTrue(-10 <= operand1 && operand1 <= 10);
         assertTrue(-10 <= operand2 && operand2 <= 10);
         assertEquals(operand1 - operand2, answer);
-        System.out.println(bed.getEquation().equationToHashMap());
+        System.out.println(director.getEquation().equationToHashMap());
     }
 
     @Test
-    public void testMultPos() {
-        bed.setEquationBuilder('*');
+    public void testMultiplyPos() {
+        wholeNumEquationDetails.setOperator("*");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(false);
-        bed.constructEquation(wholeNumEquationDetails, randomSeed + 25);
-        Symbol[] equation = bed.getEquation().getEquationParts();
+        director.constructEquation(wholeNumEquationDetails, seed + 25);
+        Symbol[] equation = director.getEquation().getEquationParts();
         int operand1 = ((WholeNum) equation[0]).getValue();
         int operand2 = ((WholeNum) equation[2]).getValue();
         int answer = ((WholeNum) equation[3]).getValue();
         assertTrue(0 <= operand1 && operand1 <= 10);
         assertTrue(0 <= operand2 && operand2 <= 10);
         assertEquals(operand1 * operand2, answer);
-        System.out.println(bed.getEquation().equationToHashMap());
+        System.out.println(director.getEquation().equationToHashMap());
     }
 
     @Test
-    public void testMultNeg() {
-        bed.setEquationBuilder('*');
+    public void testMultiplyNeg() {
+        wholeNumEquationDetails.setOperator("*");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(true);
-        bed.constructEquation(wholeNumEquationDetails, randomSeed + 30);
-        Symbol[] equation = bed.getEquation().getEquationParts();
+        director.constructEquation(wholeNumEquationDetails, seed + 30);
+        Symbol[] equation = director.getEquation().getEquationParts();
         int operand1 = ((WholeNum) equation[0]).getValue();
         int operand2 = ((WholeNum) equation[2]).getValue();
         int answer = ((WholeNum) equation[3]).getValue();
         assertTrue(-10 <= operand1 && operand1 <= 10);
         assertTrue(-10 <= operand2 && operand2 <= 10);
         assertEquals(operand1 * operand2, answer);
-        System.out.println(bed.getEquation().equationToHashMap());
+        System.out.println(director.getEquation().equationToHashMap());
     }
 
     @Test
     public void testDivPos() {
-        bed.setEquationBuilder('/');
+        wholeNumEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(false);
-        bed.constructEquation(wholeNumEquationDetails, randomSeed + 35);
-        Symbol[] equation = bed.getEquation().getEquationParts();
+        director.constructEquation(wholeNumEquationDetails, seed + 35);
+        Symbol[] equation = director.getEquation().getEquationParts();
         int operand1 = ((WholeNum) equation[0]).getValue();
         int operand2 = ((WholeNum) equation[2]).getValue();
         int answer = ((WholeNum) equation[3]).getValue();
         assertEquals(operand1 / operand2, answer);
         assertEquals(0, operand1 % operand2);
-        System.out.println(bed.getEquation().equationToHashMap());
+        System.out.println(director.getEquation().equationToHashMap());
     }
 
     @Test
     public void testDivNeg() {
-        bed.setEquationBuilder('/');
+        wholeNumEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(true);
-        bed.constructEquation(wholeNumEquationDetails, randomSeed + 40);
-        Symbol[] equation = bed.getEquation().getEquationParts();
+        director.constructEquation(wholeNumEquationDetails, seed + 40);
+        Symbol[] equation = director.getEquation().getEquationParts();
         int operand1 = ((WholeNum) equation[0]).getValue();
         int operand2 = ((WholeNum) equation[2]).getValue();
         int answer = ((WholeNum) equation[3]).getValue();
         assertEquals(0, operand1 % operand2);
         assertEquals(operand1 / operand2, answer);
-        System.out.println(bed.getEquation().equationToHashMap());
+        System.out.println(director.getEquation().equationToHashMap());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testUndivisibleDiv() {
-        bed.setEquationBuilder('/');
+    public void testIndivisibleDiv() {
+        wholeNumEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setOperandRange1(generateRange(10,10));
         wholeNumEquationDetails.setOperandRange2(generateRange(6,7));
-        bed.constructEquation(wholeNumEquationDetails, randomSeed + 45);
+        director.constructEquation(wholeNumEquationDetails, seed + 45);
     }
 
     @Test
     public void testOneAnswerDiv() {
-        bed.setEquationBuilder('/');
+        wholeNumEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setOperandRange1(generateRange(10,10));
         wholeNumEquationDetails.setOperandRange2(generateRange(5,6));
-        bed.constructEquation(wholeNumEquationDetails, randomSeed + 50);
-        Symbol[] equation = bed.getEquation().getEquationParts();
+        director.constructEquation(wholeNumEquationDetails, seed + 50);
+        Symbol[] equation = director.getEquation().getEquationParts();
         int operand2 = ((WholeNum) equation[2]).getValue();
         assertEquals(5, operand2);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testBadRangeDiv() {
-        bed.setEquationBuilder('/');
+        wholeNumEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setOperandRange1(generateRange(0,5));
         wholeNumEquationDetails.setOperandRange2(generateRange(6,10));
-        bed.constructEquation(wholeNumEquationDetails, randomSeed + 55);
+        director.constructEquation(wholeNumEquationDetails, seed + 55);
     }
 
     public int[] generateRange(int min, int max) {

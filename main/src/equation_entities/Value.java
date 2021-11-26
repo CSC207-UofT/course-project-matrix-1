@@ -2,7 +2,7 @@ package equation_entities;
 
 /**
  * Stores an abstract value for a number that can appear in various forms (whole number, decimals, or fraction).
- * Standard BEDMAS operations can be applied to these values.
+ * Standard  operations can be applied to these values.
  *
  * @author Will Jeong, Stanley Hua
  * @version 1.0
