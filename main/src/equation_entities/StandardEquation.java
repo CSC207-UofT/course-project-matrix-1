@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Refers to an equation with any number of operands that use BEDMAS operators. An example is 5 + 3 = 8. The question
- * will be stored as a binary expression tree, while the answer will be a string.
+ * Refers to an equation with any number of operands that use standard operators (BEDMAS + LCM + GCF). An example is
+ * 5 + 3 = 8. The question will be stored as a binary expression tree, while the answer will be a string.
  *
  * @author Sean Jeong
  * @version 2.0
  * @since 2021-10-12
  */
-public class BedmasEquation implements Equation {
+public class StandardEquation implements Equation {
     private BinaryExpressionTree question;
     private Value answer;
 

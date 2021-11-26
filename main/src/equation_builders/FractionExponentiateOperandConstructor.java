@@ -15,7 +15,7 @@ public class FractionExponentiateOperandConstructor implements OperandConstructo
     private Randomizer randomizer;
 
     /**
-     * Returns array of values with a randomly generated first operand and second operand for subtraction bedmas
+     * Returns array of values with a randomly generated first operand and second operand for subtraction standard
      * equation.
      *
      * @param equationDetails contains the necessary parameters for equation generation.

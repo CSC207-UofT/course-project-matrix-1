@@ -16,7 +16,7 @@ import utilities.Randomizer;
  */
 class WholeNumSubOperandConstructor implements OperandConstructorInterface {
     /**
-     * Creates operands (first and second) in the subtraction bedmas equation's question. If not negAllowed, prevent
+     * Creates operands (first and second) in the subtraction standard equation's question. If not negAllowed, prevent
      * operand 2 from being greater than operand 1.
      * <p>
      * RANDOM SEED (for fixing random number generation): First random operation uses the random seed. Succeeding

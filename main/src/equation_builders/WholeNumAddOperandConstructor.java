@@ -17,7 +17,7 @@ import utilities.Randomizer;
  */
 class WholeNumAddOperandConstructor implements OperandConstructorInterface {
     /**
-     * Builds the operands (first and second) for the bedmasEquation.
+     * Builds the operands (first and second) for the standardEquation.
      *
      * @param equationDetails contains the necessary parameters for equation generation.
      * @param randomizer      Randomizer instance used to perform random number generation.

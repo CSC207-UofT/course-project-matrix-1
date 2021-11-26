@@ -1,7 +1,7 @@
 package worksheet_maker;
 
 import equation_entities.Add;
-import equation_entities.BedmasEquation;
+import equation_entities.StandardEquation;
 import equation_entities.WholeNum;
 import equation_parameters.FormatDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
@@ -20,12 +19,12 @@ public class PDFPresenterTest {
     @Before
     public void init() {
         worksheet = new Worksheet();
-        BedmasEquation bedmasEquation = new BedmasEquation();
-        bedmasEquation.setOperator(new Add());
-        bedmasEquation.setOperand1(new WholeNum(1));
-        bedmasEquation.setOperand2(new WholeNum(2));
-        bedmasEquation.solve();
-        worksheet.addEquation(bedmasEquation);
+        StandardEquation standardEquation = new StandardEquation();
+        standardEquation.setOperator(new Add());
+        standardEquation.setOperand1(new WholeNum(1));
+        standardEquation.setOperand2(new WholeNum(2));
+        standardEquation.solve();
+        worksheet.addEquation(standardEquation);
         pdfPresenter = new PDFPresenter(worksheet);
     }
 

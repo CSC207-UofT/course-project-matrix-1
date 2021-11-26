@@ -9,8 +9,8 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
-public class BedmasEquationDirectorFractionTest {
-    private BedmasEquationDirector director;
+public class StandardEquationDirectorFractionTest {
+    private StandardEquationDirector director;
     private int randomSeed;
     private final FractionAddSubEquationDetails fractionAddSubEquationDetails = new FractionAddSubEquationDetails();
     private final FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
@@ -18,28 +18,25 @@ public class BedmasEquationDirectorFractionTest {
 
     @Before
     public void init() {
-        director = new BedmasEquationDirector("Fraction");
 
         fractionAddSubEquationDetails.setMaxOperandValue(1);
         fractionAddSubEquationDetails.setOperand1DenomRange(generateRange(1, 50));
         fractionAddSubEquationDetails.setNegAllowed(true);
         fractionAddSubEquationDetails.setMaxOperand2AndAnswerDenom(maxDenominator);
-
-        fractionAddSubEquationDetails.setOperator("+");
         fractionAddSubEquationDetails.setNegAllowed(true);
 
         fractionMultiDivEquationDetails.setMaxAnsValue(1);
         fractionMultiDivEquationDetails.setComplexity(1);
         fractionMultiDivEquationDetails.setAnsDenominatorRange(generateRange(20, 40));
-        fractionMultiDivEquationDetails.setOperator("*");
         fractionMultiDivEquationDetails.setNegAllowed(true);
     }
 
     @Test
     public void testAddPos() {
+        fractionAddSubEquationDetails.setOperator("+");
+        director = new StandardEquationDirector("Fraction", fractionAddSubEquationDetails);
         for (int i = 0; i < 100; i++) {
             randomSeed = new Random().nextInt(100000);
-            director.setEquationBuilder("+");
             director.constructEquation(fractionAddSubEquationDetails, randomSeed + 5);
             System.out.println(director.getEquation().getEquation());
             String firstOperand = director.getEquation().getEquationParts()[0].toString();
@@ -49,9 +46,10 @@ public class BedmasEquationDirectorFractionTest {
 
     @Test
     public void testNegPos() {
+        fractionAddSubEquationDetails.setOperator("-");
+        director = new StandardEquationDirector("Fraction", fractionAddSubEquationDetails);
         for (int i = 0; i < 100; i++) {
             randomSeed = new Random().nextInt(100000);
-            director.setEquationBuilder("-");
             director.constructEquation(fractionAddSubEquationDetails, randomSeed + 5);
             System.out.println(director.getEquation().getEquation());
             String firstOperand = director.getEquation().getEquationParts()[0].toString();
@@ -60,18 +58,20 @@ public class BedmasEquationDirectorFractionTest {
     }
     @Test
     public void testMultiplyPos() {
+        fractionMultiDivEquationDetails.setOperator("*");
+        director = new StandardEquationDirector("Fraction", fractionMultiDivEquationDetails);
         for (int i = 0; i < 100; i++) {
             randomSeed = new Random().nextInt(100000);
-            director.setEquationBuilder("*");
             director.constructEquation(fractionMultiDivEquationDetails, randomSeed);
             System.out.println(director.getEquation().getEquation());
         }
     }
     @Test
     public void testDivPos() {
+        fractionMultiDivEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Fraction", fractionMultiDivEquationDetails);
         for (int i = 0; i < 100; i++) {
             randomSeed = new Random().nextInt(100000);
-            director.setEquationBuilder("/");
             director.constructEquation(fractionMultiDivEquationDetails, randomSeed);
             System.out.println(director.getEquation().getEquation());
             String firstOperand = director.getEquation().getEquationParts()[0].toString();

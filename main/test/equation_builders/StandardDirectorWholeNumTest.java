@@ -11,14 +11,13 @@ import java.util.Random;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class BedmasDirectorWholeNumTest {
-    private BedmasEquationDirector director;
+public class StandardDirectorWholeNumTest {
+    private StandardEquationDirector director;
     private int seed;
     private final WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
 
     @Before
     public void init() {
-        director = new BedmasEquationDirector("Whole Number");
         seed = new Random().nextInt(100000);
         wholeNumEquationDetails.setOperandRange1(generateRange(1, 10));
         wholeNumEquationDetails.setOperandRange2(generateRange(1, 10));
@@ -27,7 +26,8 @@ public class BedmasDirectorWholeNumTest {
 
     @Test
     public void testAddPos() {
-        director.setEquationBuilder("+");
+        wholeNumEquationDetails.setOperator("+");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(false);
         director.constructEquation(wholeNumEquationDetails, seed + 5);
         Symbol[] equation = director.getEquation().getEquationParts();
@@ -42,7 +42,8 @@ public class BedmasDirectorWholeNumTest {
 
     @Test
     public void testAddNeg() {
-        director.setEquationBuilder("+");
+        wholeNumEquationDetails.setOperator("+");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(true);
         director.constructEquation(wholeNumEquationDetails, seed + 10);
         Symbol[] equation = director.getEquation().getEquationParts();
@@ -57,7 +58,8 @@ public class BedmasDirectorWholeNumTest {
 
     @Test
     public void testSubPos() {
-        director.setEquationBuilder("-");
+        wholeNumEquationDetails.setOperator("-");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(false);
         director.constructEquation(wholeNumEquationDetails, seed + 15);
         Symbol[] equation = director.getEquation().getEquationParts();
@@ -71,7 +73,8 @@ public class BedmasDirectorWholeNumTest {
 
     @Test
     public void testSubNeg() {
-        director.setEquationBuilder("-");
+        wholeNumEquationDetails.setOperator("-");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(true);
         director.constructEquation(wholeNumEquationDetails, seed + 20);
         Symbol[] equation = director.getEquation().getEquationParts();
@@ -86,7 +89,8 @@ public class BedmasDirectorWholeNumTest {
 
     @Test
     public void testMultiplyPos() {
-        director.setEquationBuilder("*");
+        wholeNumEquationDetails.setOperator("*");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(false);
         director.constructEquation(wholeNumEquationDetails, seed + 25);
         Symbol[] equation = director.getEquation().getEquationParts();
@@ -101,7 +105,8 @@ public class BedmasDirectorWholeNumTest {
 
     @Test
     public void testMultiplyNeg() {
-        director.setEquationBuilder("*");
+        wholeNumEquationDetails.setOperator("*");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(true);
         director.constructEquation(wholeNumEquationDetails, seed + 30);
         Symbol[] equation = director.getEquation().getEquationParts();
@@ -116,7 +121,8 @@ public class BedmasDirectorWholeNumTest {
 
     @Test
     public void testDivPos() {
-        director.setEquationBuilder("/");
+        wholeNumEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(false);
         director.constructEquation(wholeNumEquationDetails, seed + 35);
         Symbol[] equation = director.getEquation().getEquationParts();
@@ -130,7 +136,8 @@ public class BedmasDirectorWholeNumTest {
 
     @Test
     public void testDivNeg() {
-        director.setEquationBuilder("/");
+        wholeNumEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setNegAllowed(true);
         director.constructEquation(wholeNumEquationDetails, seed + 40);
         Symbol[] equation = director.getEquation().getEquationParts();
@@ -144,7 +151,8 @@ public class BedmasDirectorWholeNumTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testIndivisibleDiv() {
-        director.setEquationBuilder("/");
+        wholeNumEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setOperandRange1(generateRange(10,10));
         wholeNumEquationDetails.setOperandRange2(generateRange(6,7));
         director.constructEquation(wholeNumEquationDetails, seed + 45);
@@ -152,7 +160,8 @@ public class BedmasDirectorWholeNumTest {
 
     @Test
     public void testOneAnswerDiv() {
-        director.setEquationBuilder("/");
+        wholeNumEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setOperandRange1(generateRange(10,10));
         wholeNumEquationDetails.setOperandRange2(generateRange(5,6));
         director.constructEquation(wholeNumEquationDetails, seed + 50);
@@ -163,7 +172,8 @@ public class BedmasDirectorWholeNumTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testBadRangeDiv() {
-        director.setEquationBuilder("/");
+        wholeNumEquationDetails.setOperator("/");
+        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
         wholeNumEquationDetails.setOperandRange1(generateRange(0,5));
         wholeNumEquationDetails.setOperandRange2(generateRange(6,10));
         director.constructEquation(wholeNumEquationDetails, seed + 55);

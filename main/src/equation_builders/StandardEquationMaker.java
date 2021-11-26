@@ -6,18 +6,18 @@ import exceptions.InvalidInputException;
 import utilities.Randomizer;
 
 /**
- * An equation maker for all types of BEDMAS equations.
+ * An equation maker for all types of standard equations.
  * <p>
  * Implements Strategy design pattern to instantiate a specific class that implements the OperandConstructorInterface
  * based on runtime input. For example, it will instantiate a WholeNumDivideOperandConstructor class, which will be
- * called in the BedmasEquationMaker.
+ * called in the StandardEquationMaker.
  *
  * @author Will Jeong, Stanley Hua
  * @version 2.0
  * @since 2021-10-30
  */
-public class BedmasEquationMaker {
-    protected BedmasEquation bedmasEquation;
+public class StandardEquationMaker {
+    protected StandardEquation standardEquation;
     protected Randomizer randomizer;
     protected OperandConstructorInterface operandConstructor;
     protected String currentOperator;
@@ -40,7 +40,7 @@ public class BedmasEquationMaker {
      * @param operandType specifies whether operand is a whole number, decimal or fraction.
      * @param operator    the char that determines which builder this director will use.
      */
-    protected BedmasEquationMaker(String operator, String operandType) {
+    protected StandardEquationMaker(String operator, String operandType) {
         this.currentOperator = operator;
 
         if (operandType.equals(wholeNumber)) {
@@ -83,49 +83,53 @@ public class BedmasEquationMaker {
         }
     }
 
-    protected BedmasEquation getBedmasEquation() {
-        return bedmasEquation;
+    /**
+     * Returns the instance of the standard equation.
+     * @return the StandardEquation stored in this maker.
+     */
+    protected StandardEquation getStandardEquation() {
+        return standardEquation;
     }
 
     /**
-     * Creates a new instance of the bedmas equation.
+     * Creates a new instance of the standard equation.
      */
-    protected void createNewBedmasEquationProduct() {
-        bedmasEquation = new BedmasEquation();
+    protected void createNewStandardEquationProduct() {
+        standardEquation = new StandardEquation();
         randomizer = new Randomizer();
     }
 
     /**
-     * Sets the bedmasEquation's operator based on current operator.
+     * Sets the standardEquation's operator based on current operator.
      */
     protected void buildOperator() {
         switch (currentOperator) {
             case ADD:
-                bedmasEquation.setOperator(new Add());
+                standardEquation.setOperator(new Add());
                 break;
             case SUBTRACT:
-                bedmasEquation.setOperator(new Subtract());
+                standardEquation.setOperator(new Subtract());
                 break;
             case MULTIPLY:
-                bedmasEquation.setOperator(new Multiply());
+                standardEquation.setOperator(new Multiply());
                 break;
             case DIVIDE:
-                bedmasEquation.setOperator(new Divide());
+                standardEquation.setOperator(new Divide());
                 break;
             case EXPONENTIATE:
-                bedmasEquation.setOperator(new Exponentiate());
+                standardEquation.setOperator(new Exponentiate());
                 break;
             case LCM:
-                bedmasEquation.setOperator(new LCM());
+                standardEquation.setOperator(new LCM());
                 break;
             case GCD:
-                bedmasEquation.setOperator(new GCD());
+                standardEquation.setOperator(new GCD());
                 break;
         }
     }
 
     /**
-     * Builds the operands (first and second) for the bedmasEquation using operand constructor.
+     * Builds the operands (first and second) for the standardEquation using operand constructor.
      * <p>
      * RANDOM SEED (for fixing random number generation):
      * First random operation uses the random seed. Succeeding operations increment the random seed by 5.
@@ -136,14 +140,14 @@ public class BedmasEquationMaker {
     public void buildOperands(EquationDetails equationDetails, int seed) {
         this.randomizer.setSeed(seed);
         Value[] operands = this.operandConstructor.buildOperands(equationDetails, randomizer);
-        bedmasEquation.setOperand1(operands[0]);
-        bedmasEquation.setOperand2(operands[1]);
+        standardEquation.setOperand1(operands[0]);
+        standardEquation.setOperand2(operands[1]);
     }
 
     /**
-     * Builds the bedmasEquation's answer.
+     * Builds the standardEquation's answer.
      */
     protected void buildAnswer() {
-        bedmasEquation.solve();
+        standardEquation.solve();
     }
 }
