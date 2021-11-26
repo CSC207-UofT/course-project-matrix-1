@@ -54,6 +54,7 @@ public class WorksheetGenerator {
 //                        ((WholeNumEquationDetails) equationDetails).getOperandRange2(), equationDetails.isNegAllowed(),
 //                        currentSeed);
 //            }
+            assert equationDirector != null;
             equationDirector.constructEquation(equationDetails, currentSeed);
             this.worksheet.addEquation(equationDirector.getEquation());
             currentSeed += 100;

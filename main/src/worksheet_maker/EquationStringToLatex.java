@@ -53,9 +53,9 @@ public class EquationStringToLatex {
      */
     private String createHorizontalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
         if (withAnswer){
-            return equationStringMap.get("operator1") + equationStringMap.get("operand") + equationStringMap.get("operator2") + "=" + equationStringMap.get("answer");
+            return equationStringMap.get("operand1") + equationStringMap.get("operator") + equationStringMap.get("operand2") + "=" + equationStringMap.get("answer");
         }else{
-            return equationStringMap.get("operator1") + equationStringMap.get("operand") + equationStringMap.get("operator2");
+            return equationStringMap.get("operand1") + equationStringMap.get("operator") + equationStringMap.get("operand2") + "=";
         }
 //      StringBuilder latexStringBuilder = new StringBuilder();
 //        for (int i = 0; !equationStringMap[i].equals("="); i++) {

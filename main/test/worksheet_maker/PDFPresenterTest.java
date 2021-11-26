@@ -38,5 +38,6 @@ public class PDFPresenterTest {
         formatDetails.setNumColumns(10);
         PDDocument[] pdf = pdfPresenter.createPDF(formatDetails);
         assertEquals(2, pdf.length);
+
     }
 }

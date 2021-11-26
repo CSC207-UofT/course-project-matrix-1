@@ -173,7 +173,8 @@ public class Fraction extends Value {
     @Override
     public String toString() {
         if (fractionParts[0] != 0) {
-            return (fractionParts[0] + "/" + fractionParts[1]);
+            //return (fractionParts[0] + "/" + fractionParts[1]);
+            return ("\\frac{"+fractionParts[0]+"}{"+fractionParts[1]+"}");
         }else{
             return ("0");
         }
