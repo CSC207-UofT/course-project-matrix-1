@@ -1,5 +1,7 @@
 package equation_entities;
 
+import exceptions.NotImplementedException;
+
 /**
  * Stores a fraction that has a whole number, numerator, and denominator each represented by an integer.
  *
@@ -101,6 +103,22 @@ public class Fraction extends Value {
     }
 
     /**
+     * Fraction LCM is not implemented! Throw exception if called.
+     */
+    @Override
+    public Value lcm(Value otherValue) {
+        throw new NotImplementedException();
+    }
+
+    /**
+     * Fraction GCD is not implemented! Throw exception if called.
+     */
+    @Override
+    public Value gcd(Value otherValue) {
+        throw new NotImplementedException();
+    }
+
+    /**
      * Uses a numerator and denominator to create an instance of a reduced Fraction.
      *
      * @param numerator   the unreduced numerator.
@@ -149,8 +167,8 @@ public class Fraction extends Value {
     @Override
     public String toString() {
         if (fractionParts[0] != 0) {
-            return (fractionParts[0] + "/" + fractionParts[1]);
-        }else{
+            return ("\\frac{" + fractionParts[0] + "}{" + fractionParts[1] + "}");
+        } else {
             return ("0");
         }
     }

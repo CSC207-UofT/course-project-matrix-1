@@ -21,7 +21,7 @@ public class WorksheetGeneratorTest {
         ws = new Worksheet();
         wg = new WorksheetGenerator(ws, randomSeed);
         wholeNumEquationDetails.setNumOfEquations(5);
-        wholeNumEquationDetails.setOperator('+');
+        wholeNumEquationDetails.setOperator("+");
         wholeNumEquationDetails.setOperandRange1(new int[]{1, 10});
         wholeNumEquationDetails.setOperandRange2(new int[]{1, 10});
         wholeNumEquationDetails.setNegAllowed(false);
@@ -37,8 +37,8 @@ public class WorksheetGeneratorTest {
     public void testWorksheetHasQuestionAndAnswer() {
         wg.populateWorksheet(wholeNumEquationDetails);
         for (int i = 0; i < ws.getEquations().size(); i++) {
-            //Test if each equation has a question and an answer (greater than length of 2 list)
-            assertTrue(ws.getEquations().get(i).getEquation().size()>2);
+            //Test if each equation has all the parts of an equation (should be 4)
+            assertEquals(ws.getEquations().get(i).equationToHashMap().size(), 4);
         }
     }
 

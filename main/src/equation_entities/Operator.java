@@ -1,7 +1,7 @@
 package equation_entities;
 
 /**
- * A BEDMAS operator. All Operators can solve binary expressions.
+ * A standard operator. All Operators can solve binary expressions.
  *
  * @author Will Jeong
  * @version 1.0

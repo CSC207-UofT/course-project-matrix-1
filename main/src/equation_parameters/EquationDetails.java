@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public abstract class EquationDetails implements Serializable {
     private int numOfEquations;
-    private char operator;
+    private String operator;
     private boolean negAllowed;
 
     public int getNumOfEquations() {
@@ -15,11 +15,11 @@ public abstract class EquationDetails implements Serializable {
         this.numOfEquations = numOfEquations;
     }
 
-    public char getOperator() {
+    public String getOperator() {
         return operator;
     }
 
-    public void setOperator(char operator) {
+    public void setOperator(String operator) {
         this.operator = operator;
     }
 
