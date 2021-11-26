@@ -1,6 +1,7 @@
 package equation_entities;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * An equation that can be solved and returns its stored equation.
@@ -11,12 +12,21 @@ import java.util.List;
  */
 public interface Equation {
 
+//    /**
+//     * Returns the array representation of the equation.
+//     *
+//     * @return the array representation of the equation, where every symbol is a separate item in the array.
+//     */
+//    List<String> getEquation();
+
     /**
-     * Returns the array representation of the equation.
+     * Returns a Hashmap of String representation of an Equation. Key is operator, operand1, operand2, and answer.
+     * Values are a String representation of each of those for a given equation.
      *
-     * @return the array representation of the equation, where every symbol is a separate item in the array.
+     * @return Hashmap of String representation of a Worksheet.
+     * Ex. {"operator"="\div","operand1"="10", "operand2"="5", "answer"="2" }
      */
-    List<String> getEquation();
+    Map<String, String> equationToHashMap();
 
     /**
      * Uses the question assigned to the equation to determine the answer, and assigns this answer to this equation's

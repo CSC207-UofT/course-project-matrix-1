@@ -6,6 +6,7 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.scilab.forge.jlatexmath.TeXFormula;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,19 +27,19 @@ public class EquationsToPDImages {
      *
      * @param formatDetails Contains details necessary for formatting equation images on a PDF. The keys are
      *                              "equationFormat", "numRows", "numColumns".
-     * @param equations             An array containing equations represented as an array of strings.
+     * @param equations
      * @param worksheetPDFs         Two PDFs that equations will be added to. The first represents a PDF with questions
      *                              only, the second represents a PDF with questions and answers.
      * @return A list of high resolution PD images. The first array represents the images for the questions, the second
      * array represents the images for the answers.
      * @throws IOException if the images cannot be added to the file properly.
      */
-    public PDImageXObject[][] createResizedImages(FormatDetails formatDetails, String[][] equations,
+    public PDImageXObject[][] createResizedImages(FormatDetails formatDetails, List<Map<String, String>> equations,
                                                   PDDocument[] worksheetPDFs) throws IOException {
-        PDImageXObject[][] qAndAImages = new PDImageXObject[2][equations.length];
-        for (int i = 0; i < equations.length; i++) {
+        PDImageXObject[][] qAndAImages = new PDImageXObject[2][equations.size()];
+        for (int i = 0; i < equations.size(); i++) {
             for (int ans = 0; ans < 2; ans++) { //If ans = 1, add it to the answer. Otherwise, add it to question.
-                TeXFormula questionFormula = equationStringToLatex.convertEquationStringToLatex(equations[i],
+                TeXFormula questionFormula = equationStringToLatex.convertEquationStringToLatex(equations.get(i),
                         formatDetails.getEquationFormat(), ans == 1);
                 qAndAImages[ans][i] = latexToImage.convertLatexToImage((new TeXFormula((i + 1) + ")\\;\\;\\;")).
                         add(questionFormula), worksheetPDFs[ans]);
