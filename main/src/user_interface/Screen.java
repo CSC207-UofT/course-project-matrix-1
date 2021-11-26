@@ -45,7 +45,6 @@ public class Screen extends JFrame implements MouseListener {
     public static WorksheetController worksheetController;
 
     public Screen() {
-        System.out.println("test");
 
         // Set Frame size to full screen
         frame.setSize(width, height);

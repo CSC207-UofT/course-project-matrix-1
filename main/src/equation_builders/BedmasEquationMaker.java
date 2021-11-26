@@ -46,9 +46,12 @@ public class BedmasEquationMaker {
         if (operandType.equals(wholeNumber)) {
             switch (operator) {
                 case ADD:
+                    this.operandConstructor = new WholeNumAddOperandConstructor();
                 case EXPONENTIATE:
+                    //TODO: Implement
+                    break;
                 case MULTIPLY:
-                    // plain method for constructing operands
+                    // Uses the same strategy - rename
                     this.operandConstructor = new WholeNumAddOperandConstructor();
                     break;
                 case SUBTRACT:
@@ -71,9 +74,6 @@ public class BedmasEquationMaker {
                     break;
                 case DIVIDE:
                     this.operandConstructor = new FractionDivideOperandConstructor();
-                    break;
-                case EXPONENTIATE:
-                    this.operandConstructor = new FractionExponentiateOperandConstructor();
                     break;
             }
         }
@@ -102,18 +102,25 @@ public class BedmasEquationMaker {
         switch (currentOperator) {
             case ADD:
                 bedmasEquation.setOperator(new Add());
+                break;
             case SUBTRACT:
                 bedmasEquation.setOperator(new Subtract());
+                break;
             case MULTIPLY:
                 bedmasEquation.setOperator(new Multiply());
+                break;
             case DIVIDE:
                 bedmasEquation.setOperator(new Divide());
+                break;
             case EXPONENTIATE:
                 bedmasEquation.setOperator(new Exponentiate());
+                break;
             case LCM:
                 bedmasEquation.setOperator(new LCM());
+                break;
             case GCD:
                 bedmasEquation.setOperator(new GCD());
+                break;
         }
     }
 
