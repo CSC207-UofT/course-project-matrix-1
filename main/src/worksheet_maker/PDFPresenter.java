@@ -39,7 +39,7 @@ public class PDFPresenter {
         PDDocument[] worksheetPDFs = instantiatePDFs(formatDetails.getNumRows(),
                 formatDetails.getNumColumns(), worksheet.getQuestionNumber());
         PDImageXObject[][] equationImages = equationsToPD.createResizedImages(formatDetails,
-                worksheet.equationsToStringArray(), worksheetPDFs);
+                worksheet.worksheetToHashMapList(), worksheetPDFs);
         pdfArranger.arrangeOnPDFs(equationImages, worksheetPDFs, formatDetails);
         return worksheetPDFs;
     }

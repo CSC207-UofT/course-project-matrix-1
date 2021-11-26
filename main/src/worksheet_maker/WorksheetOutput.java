@@ -1,5 +1,9 @@
 package worksheet_maker;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Retrieves an array of equations and the equation number from Worksheet.
  *
@@ -8,14 +12,12 @@ package worksheet_maker;
  * @since 2021-10-25.
  */
 interface WorksheetOutput {
-
     /**
-     * Returns a String representation of a Worksheet.
+     * Returns a list of each equation (a 'worksheet') each as a Hashmap<String, String>.
      *
-     * @return an array of equations arrays, where each symbol in the equation array is a separate term.
-     * Ex. [5, +, 4, =, 9]
+     * @return a list of each equation as a Hashmap<String, String>.
      */
-    String[][] equationsToStringArray();
+    public List<Map<String, String>> worksheetToHashMapList();
 
     /**
      * Returns the number of questions in the Worksheet.
