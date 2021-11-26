@@ -29,7 +29,7 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
-        String path = "out/production/course-project-matrix-1/user_package/users_data/";
+        String path = "out/production/course-project-matrix-1/user_package/user_package.users_data/";
         pdf[0].save(path + "/questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/answers.pdf");
