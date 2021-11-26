@@ -76,6 +76,16 @@ public class Decimal extends Value {
         return new WholeNum((int) Math.pow(this.decimalValue, ((WholeNum) otherValue).getValue()));
     }
 
+    @Override
+    public Value lcm(Value otherValue) {
+        return null;
+    }
+
+    @Override
+    public Value gcd(Value otherValue) {
+        return null;
+    }
+
     /**
      * Returns the value stored in this Decimal, as an int.
      *

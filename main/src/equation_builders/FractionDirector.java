@@ -42,8 +42,6 @@ public class FractionDirector extends EquationDirector {
             this.fractionBuilder = new FractionMultiplyBuilder();
         } else if (operator == DIVIDE) {
             this.fractionBuilder = new FractionDivideBuilder();
-        } else if (operator == EXPONENTIATE) {
-            this.fractionBuilder = new FractionExponentiateBuilder();
         } else {
             throw new InvalidInputException();
         }
@@ -64,7 +62,7 @@ public class FractionDirector extends EquationDirector {
     @Override
     public void constructEquation(EquationDetails equationDetails, int seed) {
         //TODO: make this more flexible.
-        if (!initialized && (equationDetails.getOperator()=='+')||(equationDetails.getOperator()=='-')) {
+        if (!initialized && (equationDetails.getOperator() == '+') || (equationDetails.getOperator() == '-')) {
             DistributionCalculator.assignProbability(equationDetails);
             initialized = true;
         }
