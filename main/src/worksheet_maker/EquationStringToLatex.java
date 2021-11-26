@@ -5,6 +5,8 @@ import org.scilab.forge.jlatexmath.TeXFormula;
 import java.util.Arrays;
 import java.util.Map;
 
+import static constants.EquationFormats.*;
+
 /**
  * Converts an Equation as a String into a TexFormula.
  *
@@ -26,13 +28,13 @@ public class EquationStringToLatex {
         String latexString;
         //DO NOT UPDATE THIS FOR HIGHER VERSIONS OF JAVA
         switch (equationFormat) {
-            case "Horizontal":
+            case HORIZONTAL:
                 latexString = createHorizontalLatex(equationStringMap, withAnswer);
                 break;
-            case "Vertical":
+            case VERTICAL:
                 latexString = createVerticalLatex(equationStringMap, withAnswer);
                 break;
-            case "Division bracket":
+            case DIVISION_BRACKET:
                 latexString = createDivisionBracketLatex(equationStringMap, withAnswer);
                 break;
             default:

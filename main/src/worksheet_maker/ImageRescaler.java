@@ -1,6 +1,9 @@
 package worksheet_maker;
 
+import constants.PDFDimensions;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+
+import static constants.PDFDimensions.*;
 
 /**
  * Calculates by what factor images should be rescaled such that they will all fit within the specified number of
@@ -21,7 +24,7 @@ public class ImageRescaler {
      * @return rescale factor to which all images should be multiplied by to fill in the page.
      */
     public double findRescaleFactor(PDImageXObject[] answerImages, int numRows, int numColumns) {
-        return Math.min(1.0 * PDFDimensions.PRINT_WIDTH / numColumns / findBiggestWidth(answerImages), 1.0 * PDFDimensions.PRINT_HEIGHT / numRows / findBiggestHeight(answerImages));
+        return Math.min(1.0 * PRINT_WIDTH / numColumns / findBiggestWidth(answerImages), 1.0 * PRINT_HEIGHT / numRows / findBiggestHeight(answerImages));
     }
 
     /**
