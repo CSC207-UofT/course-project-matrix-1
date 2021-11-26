@@ -2,6 +2,7 @@ package equation_entities;
 
 import exceptions.NotImplementedException;
 
+
 /**
  * Stores a decimal represented as a double.
  *
