@@ -41,7 +41,7 @@ public class FractionDirectorTest {
             randomSeed = new Random().nextInt(100000);
             director.setEquationBuilder('+');
             director.constructEquation(fractionAddSubEquationDetails, randomSeed + 5);
-            System.out.println(director.getEquation().getEquation());
+            System.out.println(director.getEquation().equationToHashMap());
             String firstOperand = director.getEquation().getEquationParts()[0].toString();
             assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf('/') + 1))) <= Math.abs(maxDenominator));
         }
@@ -53,7 +53,7 @@ public class FractionDirectorTest {
             randomSeed = new Random().nextInt(100000);
             director.setEquationBuilder('-');
             director.constructEquation(fractionAddSubEquationDetails, randomSeed + 5);
-            System.out.println(director.getEquation().getEquation());
+            System.out.println(director.getEquation().equationToHashMap());
             String firstOperand = director.getEquation().getEquationParts()[0].toString();
             assertTrue(Math.abs(Integer.parseInt(firstOperand.substring(firstOperand.indexOf('/') + 1))) <= Math.abs(maxDenominator));
         }
@@ -64,7 +64,7 @@ public class FractionDirectorTest {
             randomSeed = new Random().nextInt(100000);
             director.setEquationBuilder('*');
             director.constructEquation(fractionMultiDivEquationDetails, randomSeed);
-            System.out.println(director.getEquation().getEquation());
+            System.out.println(director.getEquation().equationToHashMap());
         }
     }
     @Test
@@ -73,7 +73,7 @@ public class FractionDirectorTest {
             randomSeed = new Random().nextInt(100000);
             director.setEquationBuilder('/');
             director.constructEquation(fractionMultiDivEquationDetails, randomSeed);
-            System.out.println(director.getEquation().getEquation());
+            System.out.println(director.getEquation().equationToHashMap());
             String firstOperand = director.getEquation().getEquationParts()[0].toString();
         }
     }
