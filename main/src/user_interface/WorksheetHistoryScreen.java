@@ -37,7 +37,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
     JTextField newScore = new JTextField(1);
 
     // Create JList that holds Strings that will represent the Worksheet History
-    JList <String> history;
+    JList<String> history;
 
     // Create DefaultListModel that holds Strings that will be inputted into JList
     DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -60,7 +60,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
     String dateAndTimeTemp;
 
 
-    @SuppressWarnings("unchecked")
     public WorksheetHistoryScreen() {
 
         // Set noWorksheets and invalidScore JLabel messages to not visible
@@ -71,7 +70,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
         try {
             userHistoryList = userController.getUserHistory();
             // Run through each Worksheet
-            for (Map <String, Object> map : userHistoryList) {
+            for (Map<String, Object> map : userHistoryList) {
 
                 // Create temporary maps for the format, and equation details
                 FormatDetails tempMapFormatDetails = (FormatDetails) map.get("formatDetails");
@@ -93,7 +92,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
                 // Add topic to String Builder
 
                 totalString.append(" | Topic: ");
-                char tempOperator = (char) tempMapEquationDetails.getOperator();
+                String tempOperator = tempMapEquationDetails.getOperator();
                 getOperator(tempOperator);
                 // Add number of equations to String Builder
                 totalString.append(" | Number of Equations: ");
@@ -105,7 +104,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
                 listModel.addElement(totalString.toString());
             }
             // Make noWorksheets JLabel message visible if there are no worksheets
-        } catch (NullPointerException u) {noWorksheets.setVisible(true);}
+        } catch (NullPointerException u) {
+            noWorksheets.setVisible(true);
+        }
 
         // Create JList which holds info from the listModel (DefaultListModel<String>)
         history = new JList<>(listModel);
@@ -172,17 +173,14 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
      *
      * @param operatorInputted the operator inputted as a character
      */
-    public void getOperator(char operatorInputted) {
-        if (operatorInputted == '+') {
+    public void getOperator(String operatorInputted) {
+        if (operatorInputted.equals("+")) {
             totalString.append("Addition");
-        }
-        else if (operatorInputted == '-') {
+        } else if (operatorInputted.equals("-")) {
             totalString.append("Subtraction");
-        }
-        else if (operatorInputted == '*') {
+        } else if (operatorInputted.equals("*")) {
             totalString.append("Multiplication");
-        }
-        else if (operatorInputted == '/') {
+        } else if (operatorInputted.equals("/")) {
             totalString.append("Division");
         }
     }
@@ -261,14 +259,11 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == customizeBackButton) {
             highlightButton(customizeBackButton);
-        }
-        else if (e.getSource() == removeButton) {
+        } else if (e.getSource() == removeButton) {
             highlightButton(removeButton);
-        }
-        else if (e.getSource() == updateScoreButton) {
+        } else if (e.getSource() == updateScoreButton) {
             highlightButton(updateScoreButton);
-        }
-        else if (e.getSource() == regenerateButton) {
+        } else if (e.getSource() == regenerateButton) {
             highlightButton(regenerateButton);
         }
     }
@@ -276,14 +271,11 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener {
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == customizeBackButton) {
             defaultButton(customizeBackButton);
-        }
-        else if (e.getSource() == removeButton) {
+        } else if (e.getSource() == removeButton) {
             defaultButton(removeButton);
-        }
-        else if (e.getSource() == updateScoreButton) {
+        } else if (e.getSource() == updateScoreButton) {
             defaultButton(updateScoreButton);
-        }
-        else if (e.getSource() == regenerateButton) {
+        } else if (e.getSource() == regenerateButton) {
             defaultButton(regenerateButton);
         }
     }

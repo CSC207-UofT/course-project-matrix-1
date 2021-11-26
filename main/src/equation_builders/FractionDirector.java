@@ -1,3 +1,4 @@
+
 package equation_builders;
 
 import equation_entities.BedmasEquation;
