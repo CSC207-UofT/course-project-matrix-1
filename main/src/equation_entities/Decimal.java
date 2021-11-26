@@ -1,5 +1,7 @@
 package equation_entities;
 
+import exceptions.NotImplementedException;
+
 
 /**
  * Stores a decimal represented as a double.
@@ -82,7 +84,7 @@ public class Decimal extends Value {
      */
     @Override
     public Value lcm(Value otherValue) {
-        return null;
+        throw new NotImplementedException();
     }
 
     /**
@@ -90,7 +92,7 @@ public class Decimal extends Value {
      */
     @Override
     public Value gcd(Value otherValue) {
-        return null;
+        throw new NotImplementedException();
     }
 
     /**
