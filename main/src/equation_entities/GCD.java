@@ -1,4 +1,5 @@
 package equation_entities;
+
 /**
  * Finds the greatest common divisor of the two numbers and returns the string representation of this operator.
  *

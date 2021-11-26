@@ -6,8 +6,6 @@ import equation_parameters.WholeNumEquationDetails;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Topic Screen class for the User Interface. The topic screen prompts the user for their desired
@@ -57,7 +55,7 @@ public class TopicScreen extends Screen implements MouseListener {
         // Update the settings of each button and start with the addition button as the default choice
         defaultButton(topicButtons);
         highlightButton(addButton);
-        equationDetails.setOperator('+');
+        equationDetails.setOperator("+");
 
         // Create comboBox for number types (for now, just integers is available)
         String[] numTypeOptions = {"Integers"};
@@ -93,28 +91,28 @@ public class TopicScreen extends Screen implements MouseListener {
             defaultButton(multiButton);
             defaultButton(divButton);
             highlightButton(addButton);
-            equationDetails.setOperator('+');
+            equationDetails.setOperator("+");
         }
         if (e.getSource() == subButton) {
             defaultButton(addButton);
             defaultButton(divButton);
             defaultButton(multiButton);
             highlightButton(subButton);
-            equationDetails.setOperator('-');
+            equationDetails.setOperator("-");
         }
         if (e.getSource() == multiButton) {
             defaultButton(divButton);
             defaultButton(addButton);
             defaultButton(subButton);
             highlightButton(multiButton);
-            equationDetails.setOperator('*');
+            equationDetails.setOperator("*");
         }
         if (e.getSource() == divButton) {
             defaultButton(addButton);
             defaultButton(subButton);
             defaultButton(multiButton);
             highlightButton(divButton);
-            equationDetails.setOperator('/');
+            equationDetails.setOperator("/");
         }
         if (e.getSource() == topicNextButton) {
             topicPanel.setVisible(false);
