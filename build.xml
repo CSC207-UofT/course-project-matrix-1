@@ -46,7 +46,7 @@
         <classpath refid="libraries.classpath" />
     </javac>
 
-    <!-- Compile source directory -->s
+    <!-- Compile source directory -->
     <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
 			<classpath refid="junit.class.path" />
 		</javac>
