@@ -3,6 +3,7 @@ package equation_builders;
 import equation_entities.*;
 import equation_parameters.EquationDetails;
 import exceptions.InvalidInputException;
+import exceptions.NotImplementedException;
 import utilities.Randomizer;
 
 /**
@@ -48,7 +49,6 @@ public class BedmasEquationMaker {
                 case ADD:
                 case EXPONENTIATE:
                 case MULTIPLY:
-                    // Uses the same strategy - rename
                     this.operandConstructor = new WholeNumAddOperandConstructor();
                     break;
                 case SUBTRACT:
@@ -58,7 +58,9 @@ public class BedmasEquationMaker {
                     this.operandConstructor = new WholeNumDivideOperandConstructor();
                     break;
                 case LCM:
+                case GCD:
                     this.operandConstructor = new WholeNumLCMOperandConstructor();
+                    break;
             }
         } else if (operandType.equals(fraction)) {
             switch (operator) {
@@ -74,6 +76,10 @@ public class BedmasEquationMaker {
                 case DIVIDE:
                     this.operandConstructor = new FractionDivideOperandConstructor();
                     break;
+                case EXPONENTIATE:
+                case LCM:
+                case GCD:
+                    throw new NotImplementedException();
             }
         }
 
