@@ -3,10 +3,11 @@
 <project name="Project-Matrix-Test" default="mainTarget" basedir=".">
   <!-- Sets the properties here-->
   <property name="src.dir" location="main/src" />
+  <property name="test.dir" location="main/test" />
   <property name="lib" location="libraries" />
 
   <property name="build.dir" location="bin" />
-  <property name="build.test.dir" location="bin/tests" />
+  <property name="build.test.dir" location="bin/test" />
   <property name="test.report.dir" location="testreport" />
 
   <!-- Define the classpath for libraries -->
