@@ -46,10 +46,7 @@ public class BedmasEquationMaker {
         if (operandType.equals(wholeNumber)) {
             switch (operator) {
                 case ADD:
-                    this.operandConstructor = new WholeNumAddOperandConstructor();
                 case EXPONENTIATE:
-                    //TODO: Implement
-                    break;
                 case MULTIPLY:
                     // Uses the same strategy - rename
                     this.operandConstructor = new WholeNumAddOperandConstructor();
@@ -60,6 +57,8 @@ public class BedmasEquationMaker {
                 case DIVIDE:
                     this.operandConstructor = new WholeNumDivideOperandConstructor();
                     break;
+                case LCM:
+                    this.operandConstructor = new WholeNumLCMOperandConstructor();
             }
         } else if (operandType.equals(fraction)) {
             switch (operator) {

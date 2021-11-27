@@ -54,8 +54,8 @@ public class BedmasEquationDirector extends EquationDirector {
     @Override
     public void constructEquation(EquationDetails equationDetails, int seed) {
         // TODO: Change implementation of initialized.
-        if (operandType.equals("Fraction") && !initialized && (equationDetails.getOperator().equals("+")) ||
-                (equationDetails.getOperator().equals("-"))) {
+        if (operandType.equals("Fraction") && (!initialized && (equationDetails.getOperator().equals("+")) ||
+                (equationDetails.getOperator().equals("-")))) {
             DistributionCalculator.assignProbability(equationDetails);
             initialized = true;
         }
