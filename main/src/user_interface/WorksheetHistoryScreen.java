@@ -1,5 +1,8 @@
 package user_interface;
 
+import equation_parameters.EquationDetails;
+import equation_parameters.FormatDetails;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -35,8 +38,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     JTextField newScore = new JTextField(1);
 
     // Create the Temporary Maps that will be passed into Worksheet Viewer Screen
-    Map<String, Object> equationDetailsTemp = new HashMap<>();
-    Map<String, Object> formatDetailsTemp = new HashMap<>();
     Map<String, Object> worksheetHistoryDetailsTemp = new HashMap<>();
 
     // Create List containing a Map that will take output from getUserHistory method in userController
@@ -54,7 +55,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     String dateAndTimeTemp;
 
 
-    @SuppressWarnings("unchecked")
     public WorksheetHistoryScreen() {
 
         updatePanel(historyPanel);
@@ -71,15 +71,18 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
             // Run through each Worksheet
             for (Map <String, Object> map : userHistoryList) {
 
+                // CHANGE
                 // Crete temporary maps for the format, and equation details
-                Map <String, Object> tempMapFormatDetails = (Map<String, Object>) map.get("formatDetails");
-                Map <String, Object>  tempMapEquationDetails = (Map <String, Object>) map.get("equationDetails");
+                FormatDetails tempMapFormatDetails = (FormatDetails) map.get("formatDetails");
+                EquationDetails tempMapEquationDetails = (EquationDetails) map.get("equationDetails");
+                //Map <String, Object> tempMapFormatDetails = (Map<String, Object>) map.get("formatDetails");
+                //Map <String, Object>  tempMapEquationDetails = (Map <String, Object>) map.get("equationDetails");
 
                 // ArrayList that stores data for the current worksheet
                 ArrayList<String> currentWorksheetArray = new ArrayList<>();
 
                 // Add title to ArrayList
-                currentWorksheetArray.add((String) tempMapFormatDetails.get("title"));
+                currentWorksheetArray.add(tempMapFormatDetails.getTitle());
 
                 // Add date of creation to ArrayList
                 String tempName = (String) map.get("worksheetKey");
@@ -87,11 +90,11 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                 currentWorksheetArray.add(tempName);
 
                 // Add topic to ArrayList
-                char tempOperator = (char) tempMapEquationDetails.get("operator");
+                char tempOperator = tempMapEquationDetails.getOperator();
                 currentWorksheetArray.add(getOperator(tempOperator));
 
                 // Add number of equations to ArrayList
-                currentWorksheetArray.add(String.valueOf(tempMapEquationDetails.get("numOfEquations")));
+                currentWorksheetArray.add(String.valueOf(tempMapEquationDetails.getNumOfEquations()));
 
                 // Add score to ArrayList or 0 if no score
                 if (userHistoryList.get(twoDimArrayList.size()).get("score") != null){
@@ -197,7 +200,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == customizeBackButton) {
             new OptionScreen();
@@ -225,8 +227,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
             if (index != -1) {
 
                 // Store Necessary info to Regenerate Worksheet
-                equationDetailsTemp = (Map<String, Object>) userHistoryList.get(index).get("equationDetails");
-                formatDetailsTemp = (Map<String, Object>) userHistoryList.get(index).get("formatDetails");
+                EquationDetails equationDetailsTemp = (EquationDetails) userHistoryList.get(index).get("equationDetails");
+                FormatDetails formatDetailsTemp = (FormatDetails) userHistoryList.get(index).get("formatDetails");
 
                 // Store the date and time the user regenerated the worksheet
                 dateAndTimeTemp = LocalDateTime.now().toString();
@@ -245,7 +247,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         }
     }
 
-    @SuppressWarnings("unchecked")
     private void updateScore() {
         if (tryToParse(newScore.getText()) == null) {
             invalidScore.setVisible(true);
@@ -253,8 +254,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
             int index = table.getSelectedRow();
             if (index != -1) {
                 int score = Integer.parseInt(newScore.getText());
-                Map<String, Object> tempMapEquationDetails = (Map<String, Object>) userHistoryList.get(index).get("equationDetails");
-                int maxScore = (int) tempMapEquationDetails.get("numOfEquations");
+                EquationDetails tempMapEquationDetails = (EquationDetails) userHistoryList.get(index).get("equationDetails");
+                int maxScore = tempMapEquationDetails.getNumOfEquations();
                 // Check if score is illegal option and return message if true
                 if (score < 0 || score > maxScore) {
                     invalidScore.setVisible(true);

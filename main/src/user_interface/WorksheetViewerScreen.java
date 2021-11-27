@@ -73,7 +73,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         ArrayList<JLabel> labels = new ArrayList<>();
 
         // Store the worksheet information to the user's history
-//        userController.storeUserRecord(worksheetDetails);
+        userController.storeUserRecord(worksheetDetails);
 //        //TODO: this method call sends in a map containing EquationDetails and FormatDetails, currently does not work
 
         // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
