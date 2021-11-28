@@ -6,6 +6,8 @@ import equation_parameters.WholeNumEquationDetails;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Objects;
@@ -17,7 +19,7 @@ import java.util.Objects;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
-public class TopicScreen extends Screen implements MouseListener {
+public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
 
     JButton topicNextButton = new JButton("Next");
@@ -125,8 +127,15 @@ public class TopicScreen extends Screen implements MouseListener {
         // Update the settings of each button
         defaultButton(topicButtons);
 
+        // Add Mouse Listener for hover and clicking features
         topicNextButton.addMouseListener(this);
         topicScreenBackButton.addMouseListener(this);
+
+        // Add Key Listener for the JTextFields
+        titleInput.addKeyListener(this);
+        numQuestionsInput.addKeyListener(this);
+        numRowsInput.addKeyListener(this);
+        numColumnInput.addKeyListener(this);
 
         // Create comboBox for number types (for now, just integers is available)
         numOptions.setBounds(convert(0.525, 'w'), convert(0.325, 'h'), convert(0.15, 'w'),
@@ -168,64 +177,68 @@ public class TopicScreen extends Screen implements MouseListener {
 
     }
 
+    public void nextHelper(){
+        String topic = (String) topicChose.getSelectedItem();
+        if (Objects.equals(topic, "Addition")) {
+            this.equationDetails.setOperator('+');
+        }
+        else if (Objects.equals(topic, "Subtraction")) {
+            this.equationDetails.setOperator('-');
+        }
+        else if (Objects.equals(topic, "Multiplication")) {
+            this.equationDetails.setOperator('*');
+        }
+        else if (Objects.equals(topic, "Division")) {
+            this.equationDetails.setOperator('/');
+        }
+
+        boolean passed = true;
+
+        // Create temporary equation details and format details variables
+        int numOfEquationsTemp, numOfRowsTemp, numOfColumnsTemp;
+        numOfEquationsTemp = numOfRowsTemp = numOfColumnsTemp= -1;
+
+        equationFormat = Objects.requireNonNull(questionFormat.getSelectedItem()).toString();
+        worksheetTitle = titleInput.getText();
+
+        // Check if any formatting text fields are empty
+        if (tryToParse(numQuestionsInput.getText().trim()) == null || tryToParse(numRowsInput.getText().trim()) == null ||
+                tryToParse(numColumnInput.getText().trim()) == null || worksheetTitle.trim().length() == 0) {
+            invalidFormat.setVisible(true);
+            passed = false;
+        }
+        else {
+            // Each value can be parsed
+            numOfEquationsTemp = Integer.parseInt(numQuestionsInput.getText().trim());
+            numOfRowsTemp = Integer.parseInt(numRowsInput.getText().trim());
+            numOfColumnsTemp = Integer.parseInt(numColumnInput.getText().trim());
+        }
+
+        // Check that number of equations, rows, and columns are greater than zero
+        if (numOfEquationsTemp > 0 && numOfRowsTemp > 0 && numOfColumnsTemp > 0) {
+            numOfEquations = numOfEquationsTemp;
+            numOfRows = numOfRowsTemp;
+            numOfColumns = numOfColumnsTemp;
+        }
+        else {
+            invalidFormat.setVisible(true);
+            passed = false;
+        }
+
+        if (passed) {
+            this.equationDetails.setNumOfEquations(numOfEquations);
+            this.formatDetails.setTitle(titleInput.getText().trim());
+            this.formatDetails.setEquationFormat(equationFormat);
+            this.formatDetails.setNumColumns(numOfColumns);
+            this.formatDetails.setNumRows(numOfRows);
+
+            new CustomizeScreen(equationDetails, formatDetails);
+        }
+    }
+
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == topicNextButton) {
-            String topic = (String) topicChose.getSelectedItem();
-            if (Objects.equals(topic, "Addition")) {
-                this.equationDetails.setOperator('+');
-            }
-            else if (Objects.equals(topic, "Subtraction")) {
-                this.equationDetails.setOperator('-');
-            }
-            else if (Objects.equals(topic, "Multiplication")) {
-                this.equationDetails.setOperator('*');
-            }
-            else if (Objects.equals(topic, "Division")) {
-                this.equationDetails.setOperator('/');
-            }
-
-            boolean passed = true;
-
-            // Create temporary equation details and format details variables
-            int numOfEquationsTemp, numOfRowsTemp, numOfColumnsTemp;
-            numOfEquationsTemp = numOfRowsTemp = numOfColumnsTemp= -1;
-
-            equationFormat = Objects.requireNonNull(questionFormat.getSelectedItem()).toString();
-            worksheetTitle = titleInput.getText();
-
-            // Check if any formatting text fields are empty
-            if (tryToParse(numQuestionsInput.getText().trim()) == null || tryToParse(numRowsInput.getText().trim()) == null ||
-                    tryToParse(numColumnInput.getText().trim()) == null || worksheetTitle.trim().length() == 0) {
-                invalidFormat.setVisible(true);
-                passed = false;
-            }
-            else {
-                // Each value can be parsed
-                numOfEquationsTemp = Integer.parseInt(numQuestionsInput.getText().trim());
-                numOfRowsTemp = Integer.parseInt(numRowsInput.getText().trim());
-                numOfColumnsTemp = Integer.parseInt(numColumnInput.getText().trim());
-            }
-
-            // Check that number of equations, rows, and columns are greater than zero
-            if (numOfEquationsTemp > 0 && numOfRowsTemp > 0 && numOfColumnsTemp > 0) {
-                numOfEquations = numOfEquationsTemp;
-                numOfRows = numOfRowsTemp;
-                numOfColumns = numOfColumnsTemp;
-            }
-            else {
-                invalidFormat.setVisible(true);
-                passed = false;
-            }
-
-            if (passed) {
-                this.equationDetails.setNumOfEquations(numOfEquations);
-                this.formatDetails.setTitle(titleInput.getText().trim());
-                this.formatDetails.setEquationFormat(equationFormat);
-                this.formatDetails.setNumColumns(numOfColumns);
-                this.formatDetails.setNumRows(numOfRows);
-
-                new CustomizeScreen(equationDetails, formatDetails);
-            }
+            nextHelper();
         }
         else if (e.getSource() == topicScreenBackButton) {
             new OptionScreen();
@@ -248,5 +261,22 @@ public class TopicScreen extends Screen implements MouseListener {
         else if (e.getSource() == topicScreenBackButton) {
             defaultButton(topicScreenBackButton);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+            nextHelper();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }

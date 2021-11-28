@@ -6,6 +6,8 @@ import equation_parameters.WholeNumEquationDetails;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -20,7 +22,7 @@ import java.util.Map;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
-public class CustomizeScreen extends Screen implements MouseListener {
+public class CustomizeScreen extends Screen implements MouseListener, KeyListener {
 
     // Create buttons
     JButton generateWorksheetButton = new JButton("Generate Worksheet");
@@ -115,6 +117,12 @@ public class CustomizeScreen extends Screen implements MouseListener {
 
         updateTextFields(textFields);
 
+        // Add Key Listener for the JTextFields
+        op1MIN.addKeyListener(this);
+        op1MAX.addKeyListener(this);
+        op2MIN.addKeyListener(this);
+        op2MAX.addKeyListener(this);
+
         // Add all components to the panel
         customizePanel.add(equationDetailsTitle);
         customizePanel.add(equationDetailsShadow);
@@ -136,73 +144,75 @@ public class CustomizeScreen extends Screen implements MouseListener {
 
         changePanel(customizePanel);
     }
+    public void generateWorksheetHelper(){
+        boolean passed = true;
+
+        // Create temporary equation details and format details variables
+        int op1MinTemp, op1MaxTemp, op2MinTemp, op2MaxTemp;
+        op1MinTemp = op1MaxTemp = op2MinTemp = op2MaxTemp = -1;
+
+        // Check if any operand range cannot be parsed (invalid input)
+        if (tryToParse(op1MIN.getText().trim()) == null || tryToParse(op1MAX.getText().trim()) == null ||
+                tryToParse(op2MIN.getText().trim()) == null || tryToParse(op2MAX.getText().trim()) == null) {
+            operatorWarning.setText("Operand's must be positive numbers");
+            operatorWarning.setVisible(true);
+            passed = false;
+        }
+        else {
+            // Each operand value can be parsed (is an integer)
+            op1MinTemp = Integer.parseInt(op1MIN.getText().trim());
+            op1MaxTemp = Integer.parseInt(op1MAX.getText().trim());
+            op2MinTemp = Integer.parseInt(op2MIN.getText().trim());
+            op2MaxTemp = Integer.parseInt(op2MAX.getText().trim());
+        }
+
+        // Check to see if all operand range are greater than zero and max > min
+        if (op1MinTemp >= 0 && op1MaxTemp >= 0 && op2MinTemp >= 0 && op2MaxTemp >= 0
+                && op1MaxTemp >= op1MinTemp && op2MaxTemp >= op2MinTemp) {
+            operandRange1 = new int[]{op1MinTemp, op1MaxTemp};      // Set the operand 1 range to inputted values
+            operandRange2 = new int[]{op2MinTemp, op2MaxTemp};      // Set the operand 2 range to inputted values
+        }
+        else if (op1MaxTemp < op1MinTemp || op2MaxTemp < op2MinTemp){
+            operatorWarning.setText("Operand's' minimum must be lower than the maximum");
+            operatorWarning.setVisible(true);
+            passed = false;
+        }
+        else {
+            operatorWarning.setText("Operand's must be positive numbers");
+            operatorWarning.setVisible(true);
+        }
+
+        // Get selection for checkbox, question format, and title
+        negAllowed = negAllowedBox.isSelected();
+
+        // If all inputs check out, add to the equation details and formatting details maps
+        if (passed) {
+
+            this.equationDetails.setNegAllowed(negAllowed);
+
+            //TODO: need different casting for different equation details, make if statements
+            ((WholeNumEquationDetails) this.equationDetails).setOperandRange1(operandRange1);
+            ((WholeNumEquationDetails) this.equationDetails).setOperandRange2(operandRange2);
+
+            // Find the exact date/time the user created the worksheet
+            dateAndTime = LocalDateTime.now().toString();
+
+            // Create the unique worksheet history details
+            worksheetHistoryDetails.put("worksheetKey", dateAndTime);
+            worksheetHistoryDetails.put("equationDetails", this.equationDetails);
+            worksheetHistoryDetails.put("formatDetails", this.formatDetails);
+
+            try {
+                new WorksheetViewerScreen(worksheetHistoryDetails);
+            } catch (IOException ex) {
+                operatorWarning.setVisible(true);
+            }
+        }
+    }
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
-
-            boolean passed = true;
-
-            // Create temporary equation details and format details variables
-            int op1MinTemp, op1MaxTemp, op2MinTemp, op2MaxTemp;
-            op1MinTemp = op1MaxTemp = op2MinTemp = op2MaxTemp = -1;
-
-            // Check if any operand range cannot be parsed (invalid input)
-            if (tryToParse(op1MIN.getText().trim()) == null || tryToParse(op1MAX.getText().trim()) == null ||
-                    tryToParse(op2MIN.getText().trim()) == null || tryToParse(op2MAX.getText().trim()) == null) {
-                operatorWarning.setText("Operand's must be positive numbers");
-                operatorWarning.setVisible(true);
-                passed = false;
-            }
-            else {
-                // Each operand value can be parsed (is an integer)
-                op1MinTemp = Integer.parseInt(op1MIN.getText().trim());
-                op1MaxTemp = Integer.parseInt(op1MAX.getText().trim());
-                op2MinTemp = Integer.parseInt(op2MIN.getText().trim());
-                op2MaxTemp = Integer.parseInt(op2MAX.getText().trim());
-            }
-
-            // Check to see if all operand range are greater than zero and max > min
-            if (op1MinTemp >= 0 && op1MaxTemp >= 0 && op2MinTemp >= 0 && op2MaxTemp >= 0
-                    && op1MaxTemp >= op1MinTemp && op2MaxTemp >= op2MinTemp) {
-                operandRange1 = new int[]{op1MinTemp, op1MaxTemp};      // Set the operand 1 range to inputted values
-                operandRange2 = new int[]{op2MinTemp, op2MaxTemp};      // Set the operand 2 range to inputted values
-            }
-            else if (op1MaxTemp < op1MinTemp || op2MaxTemp < op2MinTemp){
-                operatorWarning.setText("Operand's' minimum must be lower than the maximum");
-                operatorWarning.setVisible(true);
-                passed = false;
-            }
-            else {
-                operatorWarning.setText("Operand's must be positive numbers");
-                operatorWarning.setVisible(true);
-            }
-
-            // Get selection for checkbox, question format, and title
-            negAllowed = negAllowedBox.isSelected();
-
-            // If all inputs check out, add to the equation details and formatting details maps
-            if (passed) {
-
-                this.equationDetails.setNegAllowed(negAllowed);
-
-                //TODO: need different casting for different equation details, make if statements
-                ((WholeNumEquationDetails) this.equationDetails).setOperandRange1(operandRange1);
-                ((WholeNumEquationDetails) this.equationDetails).setOperandRange2(operandRange2);
-
-                // Find the exact date/time the user created the worksheet
-                dateAndTime = LocalDateTime.now().toString();
-
-                // Create the unique worksheet history details
-                worksheetHistoryDetails.put("worksheetKey", dateAndTime);
-                worksheetHistoryDetails.put("equationDetails", this.equationDetails);
-                worksheetHistoryDetails.put("formatDetails", this.formatDetails);
-
-                try {
-                    new WorksheetViewerScreen(worksheetHistoryDetails);
-                } catch (IOException ex) {
-                    operatorWarning.setVisible(true);
-                }
-            }
+            generateWorksheetHelper();
         }
         else if (e.getSource() == customizeBackButton) {
             new TopicScreen();
@@ -225,5 +235,22 @@ public class CustomizeScreen extends Screen implements MouseListener {
         else if (e.getSource() == customizeBackButton) {
             defaultButton(customizeBackButton);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+            generateWorksheetHelper();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }

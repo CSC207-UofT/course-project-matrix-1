@@ -156,7 +156,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         updateScoreButton.addMouseListener(this);
         regenerateButton.addMouseListener(this);
 
-        // Add Key Listener for the newScore TextField
+        // Add Key Listener for the newScore JTextField
         newScore.addKeyListener(this);
 
         scrollPane.setBounds(convert(0.2, 'w'), convert(0.26,'h'), convert(0.6, 'w'),
