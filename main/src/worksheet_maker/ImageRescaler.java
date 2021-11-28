@@ -1,6 +1,5 @@
 package worksheet_maker;
 
-import constants.PDFDimensions;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import static constants.PDFDimensions.*;

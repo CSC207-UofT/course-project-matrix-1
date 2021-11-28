@@ -74,7 +74,6 @@ public class StandardEquationDirectorFractionTest {
             randomSeed = new Random().nextInt(100000);
             director.constructEquation(fractionMultiDivEquationDetails, randomSeed);
             System.out.println(director.getEquation().equationToHashMap());
-            String firstOperand = director.getEquation().getEquationParts()[0].toString();
         }
     }
     public int[] generateRange(int min, int max) {

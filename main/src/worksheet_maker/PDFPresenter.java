@@ -6,7 +6,6 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * Generates a PDF through the WorksheetOutput interface.

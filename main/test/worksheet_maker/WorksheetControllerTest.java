@@ -4,18 +4,16 @@ import equation_parameters.FormatDetails;
 import equation_parameters.FractionAddSubEquationDetails;
 import equation_parameters.WholeNumEquationDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 
 public class WorksheetControllerTest {
-    private FormatDetails myFormatDetails = new FormatDetails();
+    private final FormatDetails myFormatDetails = new FormatDetails();
     @Before
     public void init() {
         myFormatDetails.setEquationFormat("Horizontal");

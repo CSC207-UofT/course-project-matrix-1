@@ -1,6 +1,5 @@
 package worksheet_maker;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ interface WorksheetOutput {
      *
      * @return a list of each equation as a Hashmap<String, String>.
      */
-    public List<Map<String, String>> worksheetToHashMapList();
+    List<Map<String, String>> worksheetToHashMapList();
 
     /**
      * Returns the number of questions in the Worksheet.
