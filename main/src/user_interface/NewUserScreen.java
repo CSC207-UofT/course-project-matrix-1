@@ -29,6 +29,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
     JTextField newUsernameInput = new JTextField(1);
     JTextField nameInput = new JTextField(1);
     JTextField ageInput = new JTextField(1);
+    JTextField [] newUserTextFields = {newUsernameInput, nameInput, ageInput};
 
     // Create combo box for user role
     String[] roleOptions = {"Student", "Teacher"};
@@ -75,6 +76,8 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
                 convert(0.05, 'h'));
         ageInput.setBounds(convert(0.5, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
+
+        updateTextFields(newUserTextFields);
 
         // Update the location of each button
         updateButtonLocation(createUserButton, 0.4, 0.8, 0.2, 0.1);

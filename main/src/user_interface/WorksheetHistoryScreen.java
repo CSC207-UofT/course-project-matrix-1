@@ -87,7 +87,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                 currentWorksheetArray.add(tempName);
 
                 // Add topic to ArrayList
-                char tempOperator = tempMapEquationDetails.getOperator();
+                String tempOperator = tempMapEquationDetails.getOperator();
                 currentWorksheetArray.add(getOperator(tempOperator));
 
                 // Add number of equations to ArrayList
@@ -183,17 +183,17 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
      *
      * @param operatorInputted the operator inputted as a character
      */
-    public String getOperator(char operatorInputted) {
-        if (operatorInputted == '+') {
+    public String getOperator(String operatorInputted) {
+        if (Objects.equals(operatorInputted, "+")) {
             return "Addition";
         }
-        else if (operatorInputted == '-') {
+        else if (Objects.equals(operatorInputted, "-")) {
             return "Subtraction";
         }
-        else if (operatorInputted == '*') {
+        else if (Objects.equals(operatorInputted, "*")) {
             return "Multiplication";
         }
-        else if (operatorInputted == '/') {
+        else if (Objects.equals(operatorInputted, "/")) {
             return "Division";
         }
         return null;

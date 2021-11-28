@@ -179,16 +179,16 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     private void checkValidDetails(){
         String topic = (String) topicChose.getSelectedItem();
         if (Objects.equals(topic, "Addition")) {
-            this.equationDetails.setOperator('+');
+            this.equationDetails.setOperator("+");
         }
         else if (Objects.equals(topic, "Subtraction")) {
-            this.equationDetails.setOperator('-');
+            this.equationDetails.setOperator("-");
         }
         else if (Objects.equals(topic, "Multiplication")) {
-            this.equationDetails.setOperator('*');
+            this.equationDetails.setOperator("*");
         }
         else if (Objects.equals(topic, "Division")) {
-            this.equationDetails.setOperator('/');
+            this.equationDetails.setOperator("/");
         }
 
         boolean passed = true;
