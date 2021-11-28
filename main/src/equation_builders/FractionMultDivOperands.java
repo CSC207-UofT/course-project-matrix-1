@@ -1,5 +1,6 @@
 package equation_builders;
 
+import equation_entities.Value;
 import equation_parameters.EquationDetails;
 import equation_parameters.FractionMultiDivEquationDetails;
 import utilities.FactorFinder;
@@ -8,12 +9,45 @@ import utilities.Randomizer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FractionMultDivOperands {
+/**
+ * Contains helper methods used by both fraction multiplication and division of operands.
+ *
+ * @author Sean Jeong
+ * @version 1.0
+ * @since 2021-11-28
+ */
+
+public abstract class FractionMultDivOperands {
     protected Randomizer randomizer;
     // Arbitrary prime numbers that are used to add complexity to a fraction.
     int[] PRIMES = {2, 3, 5, 7, 11};
+    /**
+     * Uses the maximum value of the answer, answers' denominator range, and complexity to get reasonable operands for
+     * fraction multiplication.
+     *
+     * @param fractionEquationDetails the parameters for fraction equation generation.
+     * @param randomizer              Randomizer instance used to perform random number generation.
+     * @return an array of first operand and second operand values.
+     */
+    public Value[] buildOperands(EquationDetails fractionEquationDetails, Randomizer randomizer) {
+        this.randomizer = randomizer;
+        FractionMultiDivEquationDetails fracMultiDivEqnDetails =
+                (FractionMultiDivEquationDetails) fractionEquationDetails;
+        int unreducedAnsD = randomizer.randomize(fracMultiDivEqnDetails.getAnsDenominatorRange());
+        int unreducedAnsN = randomizer.randomize(0, unreducedAnsD) + unreducedAnsD *
+                (fracMultiDivEqnDetails.getMaxAnsValue() - 1);
+        List<Integer> unreducedAnsDFactors = FactorFinder.primeFactorize(unreducedAnsD);
+        List<Integer> unreducedAnsNFactors = FactorFinder.primeFactorize(unreducedAnsN);
+        addComplexity(fracMultiDivEqnDetails.getComplexity(), unreducedAnsDFactors, unreducedAnsNFactors);
+        int[] operandsN = splitFactorsIntoTwoOperands(unreducedAnsNFactors);
+        int[] operandsD = splitFactorsIntoTwoOperands(unreducedAnsDFactors);
+        makeOperandsNegative(fracMultiDivEqnDetails.isNegAllowed(), operandsN);
+        return assignNumeratorDenominator(operandsN, operandsD);
+    }
 
     /**
+     * If negative is allowed, the operands have a 50% chance of becoming negative.
+     *
      * @param isNegAllowed whether negatives are allowed for this equation.
      * @param operandsN    the numerator of the operands as a list of 2 ints.
      */
@@ -62,11 +96,13 @@ public class FractionMultDivOperands {
     /**
      * Randomly add more complexity by adding a random (prime) factor to the numerator and denominator of the answer.
      *
-     * @param complexity           how many additional factors will be added to the numerator adn denominator to make the fraction more complex.
+     * @param complexity           how many additional factors will be added to the numerator adn denominator to make
+     *                             the fraction more complex.
      * @param unreducedAnsDFactors a list of all the factors in the numerator of the answer.
      * @param unreducedAnsNFactors a list of all the factors in the denominator of the answer.
      */
-    protected void addComplexity(int complexity, List<Integer> unreducedAnsDFactors, List<Integer> unreducedAnsNFactors) {
+    protected void addComplexity(int complexity, List<Integer> unreducedAnsDFactors,
+                                 List<Integer> unreducedAnsNFactors) {
         for (int i = 0; i < complexity; i++) {
             int prime = biasedSelectNumber(PRIMES);
             unreducedAnsDFactors.add(prime);
@@ -77,8 +113,8 @@ public class FractionMultDivOperands {
     /**
      * Randomly select a number from a given set of numbers. Be biased towards the ones on the left of the list.
      *
-     * @param numbers the possible number values to choose from
-     * @return a randomly selected number (biased towards smaller ones)
+     * @param numbers the possible number values to choose from.
+     * @return a randomly selected number (biased towards smaller ones).
      */
     private int biasedSelectNumber(int[] numbers) {
         for (int number : numbers) {
@@ -90,17 +126,14 @@ public class FractionMultDivOperands {
         return numbers[numbers.length - 1];
     }
 
-    public int[][] buildOperandParts(EquationDetails fractionEquationDetails, Randomizer randomizer) {
-        this.randomizer = randomizer;
-        FractionMultiDivEquationDetails fracMultiDivEqnDetails = (FractionMultiDivEquationDetails) fractionEquationDetails;
-        int unreducedAnsD = randomizer.randomize(fracMultiDivEqnDetails.getAnsDenominatorRange());
-        int unreducedAnsN = randomizer.randomize(0, unreducedAnsD) + unreducedAnsD * (fracMultiDivEqnDetails.getMaxAnsValue() - 1);
-        List<Integer> unreducedAnsDFactors = FactorFinder.primeFactorize(unreducedAnsD);
-        List<Integer> unreducedAnsNFactors = FactorFinder.primeFactorize(unreducedAnsN);
-        addComplexity(fracMultiDivEqnDetails.getComplexity(), unreducedAnsDFactors, unreducedAnsNFactors);
-        int[] operandsN = splitFactorsIntoTwoOperands(unreducedAnsNFactors);
-        int[] operandsD = splitFactorsIntoTwoOperands(unreducedAnsDFactors);
-        makeOperandsNegative(fracMultiDivEqnDetails.isNegAllowed(), operandsN);
-        return new int[][]{operandsN, operandsD};
-    }
+
+    /**
+     * Assigns the numerator and denominator to the fractions. If this is multiplication, they will be assigned
+     * normally. Otherwise, they will be flipped.
+     *
+     * @param operandsN the numerator operands as [numerator1, numerator2].
+     * @param operandsD the denominator operands as [denominator1, denominator2].
+     * @return the fractions as a list of [fraction1, fraction2].
+     */
+    public abstract Value[] assignNumeratorDenominator(int[] operandsN, int[] operandsD);
 }

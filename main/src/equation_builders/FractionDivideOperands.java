@@ -2,13 +2,6 @@ package equation_builders;
 
 import equation_entities.Fraction;
 import equation_entities.Value;
-import equation_parameters.EquationDetails;
-import equation_parameters.FractionMultiDivEquationDetails;
-import utilities.FactorFinder;
-import utilities.Randomizer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -20,17 +13,14 @@ import java.util.List;
  */
 public class FractionDivideOperands extends FractionMultDivOperands implements OperandConstructorInterface {
     /**
-     * Uses the maximum value of the answer, answers' denominator range, and complexity to get reasonable operands for
-     * fraction multiplication.
+     * Assigns the numerator and denominator to the fractions, where the second fraction has the numerator and
+     * denominator flipped.
      *
-     * @param fractionEquationDetails the parameters for fraction equation generation.
-     * @param randomizer              Randomizer instance used to perform random number generation.
-     * @return array of first operand and second operand values
+     * @param operandsN the numerator operands as [numerator1, numerator2].
+     * @param operandsD the denominator operands as [denominator1, denominator2].
+     * @return the fractions as a list of [fraction1, fraction2].
      */
-    @Override
-    public Value[] buildOperands(EquationDetails fractionEquationDetails, Randomizer randomizer) {
-        int[][] allOperandParts = buildOperandParts(fractionEquationDetails, randomizer);
-        return new Value[]{new Fraction(allOperandParts[0][0], allOperandParts[1][0]), new Fraction(allOperandParts[1][1], allOperandParts[0][1])};
+    public Value[] assignNumeratorDenominator(int[] operandsN, int[] operandsD) {
+        return new Value[]{new Fraction(operandsN[0], operandsD[0]), new Fraction(operandsD[1], operandsN[1])};
     }
-
 }
