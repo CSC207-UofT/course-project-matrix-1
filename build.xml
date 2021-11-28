@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!-- Set the project name, basedir and default target to be executed-->
+<project name="Project-Matrix-Test" default="mainTarget" basedir=".">
+  <!-- Sets the properties here-->
+  <property name="src.dir" location="main/src" />
+  <property name="test.dir" location="main/test" />
+  <property name="lib" location="libraries" />
+
+  <property name="build.dir" location="bin" />
+  <property name="build.test.dir" location="bin/test" />
+  <property name="test.report.dir" location="testreport" />
+
+  <!-- Define the classpath for libraries -->
+  <path id="libraries.classpath">
+         <pathelement location="${build.dir}" />
+         <fileset dir="${lib}">
+                <include name="**/*.jar" />
+         </fileset>
+  </path>
+
+  <!-- Define the classpath which includes the junit.jar and the classes after compiling-->
+	<path id="junit.class.path">
+		<pathelement location="lib/junit-4.13.2.jar" />
+		<pathelement location="lib/hamcrest-core-1.3.jar" />
+		<pathelement location="${build.dir}" />
+	</path>
+
+
+  <!-- Target for deleting the existing directories-->
+  <target name="clean">
+    <delete dir="${build.dir}" />
+		<delete dir="${test.report.dir}" />
+  </target>
+
+  <!-- Target for creating the new directories-->
+  <target name="makedir">
+    <mkdir dir="${build.dir}" />
+    <mkdir dir="${build.test.dir}" />
+		<mkdir dir="${test.report.dir}" />
+  </target>
+
+  <!-- Target for compiling the java code-->
+  <target name="compile" depends="clean, makedir">
+    <!-- Compile libraries -->
+    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" debug="true" debuglevel="lines,vars,source">
+        <classpath refid="libraries.classpath" />
+    </javac>
+
+    <!-- Compile source directory -->
+    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
+			<classpath refid="junit.class.path" />
+		</javac>
+
+    <!-- Compile test directory -->
+		<javac srcdir="${test.dir}" destdir="${build.test.dir}" includeantruntime="false">
+			<classpath refid="junit.class.path" />
+		</javac>
+  </target>
+
+  <!-- Run the JUnit Tests -->
+	<!-- Output is XML-->
+	<target name="junit" depends="compile">
+		<junit printsummary="on" fork="true" haltonfailure="yes">
+			<classpath refid="junit.class.path" />
+			<classpath>
+			    <pathelement location="${build.test.dir}"/>
+			  </classpath>
+			<formatter type="xml" />
+			<batchtest todir="${test.report.dir}">
+				<fileset dir="${test.dir}">
+					<include name="**/*Test*.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+  <!-- Default target to run all targets-->
+  <target name="mainTarget" depends="compile">
+    <description>Main target</description>
+  </target>
+
+</project>

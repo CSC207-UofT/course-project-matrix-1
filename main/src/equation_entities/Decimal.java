@@ -1,5 +1,8 @@
 package equation_entities;
 
+import exceptions.NotImplementedException;
+
+
 /**
  * Stores a decimal represented as a double.
  *
@@ -72,7 +75,7 @@ public class Decimal extends Value {
      * @return the result of raising this value to the power of the otherValue
      */
     @Override
-    public Value exponentiate(Value otherValue){
+    public Value exponentiate(Value otherValue) {
         return new WholeNum((int) Math.pow(this.decimalValue, ((WholeNum) otherValue).getValue()));
     }
 
@@ -84,6 +87,22 @@ public class Decimal extends Value {
     @Override
     public Value gcd(Value otherValue) {
         return null;
+    }
+
+    /**
+     * Decimal LCM is not implemented! Throw an exception if called.
+     */
+    @Override
+    public Value lcm(Value otherValue) {
+        throw new NotImplementedException();
+    }
+
+    /**
+     * Decimal GCD is not implemented! Throw an exception if called.
+     */
+    @Override
+    public Value gcd(Value otherValue) {
+        throw new NotImplementedException();
     }
 
     /**

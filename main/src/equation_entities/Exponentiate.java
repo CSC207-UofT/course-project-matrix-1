@@ -1,4 +1,5 @@
 package equation_entities;
+
 /**
  * Raises the first Value to the power of the second Value and returns the string representation of this operator.
  *
