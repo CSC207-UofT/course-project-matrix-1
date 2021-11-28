@@ -116,6 +116,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         // Create JTable including info
         table = new JTable(data, columnNames);
 
+        // Make JTable not editable
+        table.setDefaultEditor(Object.class, null);
 
         // Create JLabel and JButton for the Worksheet History Screen
         JLabel previewTitle = new JLabel("Worksheet History", SwingConstants.CENTER);
