@@ -2,8 +2,9 @@ package worksheet_maker;
 
 import org.scilab.forge.jlatexmath.TeXFormula;
 
-import java.util.Arrays;
 import java.util.Map;
+
+import static constants.EquationFormats.*;
 
 /**
  * Converts an Equation as a String into a TexFormula.
@@ -16,7 +17,7 @@ public class EquationStringToLatex {
     /**
      * Converts a list of String representation of an equation into a TexFormula.
      *
-     * @param equationStringMap The String representation of an equation. Each operator and value is a new element.
+     * @param equationStringMap  A Map containing the operands, operator and answer of an equation as Strings.
      * @param equationFormat     The format an equation should be displayed in. Horizontal, Vertical or Division
      *                           bracket.
      * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
@@ -26,13 +27,13 @@ public class EquationStringToLatex {
         String latexString;
         //DO NOT UPDATE THIS FOR HIGHER VERSIONS OF JAVA
         switch (equationFormat) {
-            case "Horizontal":
+            case HORIZONTAL:
                 latexString = createHorizontalLatex(equationStringMap, withAnswer);
                 break;
-            case "Vertical":
+            case VERTICAL:
                 latexString = createVerticalLatex(equationStringMap, withAnswer);
                 break;
-            case "Division bracket":
+            case DIVISION_BRACKET:
                 latexString = createDivisionBracketLatex(equationStringMap, withAnswer);
                 break;
             default:
@@ -47,7 +48,7 @@ public class EquationStringToLatex {
      * Converts a list of String representation of an equation into a latex String in a Horizontal format.
      * Ex. 4 \div 2 = 2
      *
-     * @param equationStringMap
+     * @param equationStringMap A Map containing the operands, operator and answer of an equation as Strings.
      * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
      * @return Horizontal format of a latex equation as a string.
      */
@@ -57,15 +58,6 @@ public class EquationStringToLatex {
         }else{
             return equationStringMap.get("operand1") + equationStringMap.get("operator") + equationStringMap.get("operand2") + "=";
         }
-//      StringBuilder latexStringBuilder = new StringBuilder();
-//        for (int i = 0; !equationStringMap[i].equals("="); i++) {
-//            latexStringBuilder.append(equationStringMap[i]);
-//        }
-//        latexStringBuilder.append("=");
-//        if (withAnswer) {
-//            latexStringBuilder.append(equationStringMap[equationStringMap.length - 1]);
-//        }
-//        return String.valueOf(latexStringBuilder);
     }
 
     /**
@@ -76,7 +68,7 @@ public class EquationStringToLatex {
      * _____
      * 2
      *
-     * @param equationStringMap
+     * @param equationStringMap A Map containing the operands, operator and answer of an equation as Strings.
      * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
      * @return Vertical format of a latex equation as a string.
      */
@@ -88,7 +80,7 @@ public class EquationStringToLatex {
      * Converts a list of String representation of an equation into a latex String in a division bracket format.
      * Ex. 2)4 (with an overline above the 4)
      *
-     * @param equationStringMap
+     * @param equationStringMap A Map containing the operands, operator and answer of an equation as Strings.
      * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
      * @return Division bracket format of a latex equation as a string.
      */
