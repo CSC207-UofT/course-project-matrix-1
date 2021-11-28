@@ -35,7 +35,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     JButton viewerBackButton = new JButton("Back");
     JButton nextPreviewPage = new JButton("<");
     JButton previousPreviewPage = new JButton(">");
-    JButton[] viewerButtons = {downloadButton, printPageButton, historyButton, mainMenuButton, viewerBackButton,
+    JButton[] viewerButtons = {printPageButton, historyButton, mainMenuButton, viewerBackButton,
             nextPreviewPage, previousPreviewPage};
 
     // Create invalid path JLabel
@@ -105,8 +105,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
             images.add(new JSeparator());
         }
         JScrollPane scrollPane = new JScrollPane(images);
-        scrollPane.setBounds(convert(0.35, 'w'), convert(0.245,'h'), convert(0.3, 'w'),
-                convert(0.46, 'h'));
+        scrollPane.setBounds(convert(0.35, 'w'), convert(0.25,'h'), convert(0.3, 'w'),
+                convert(0.45, 'h'));
 
         // Create JLabels
         JLabel previewTitle = new JLabel("Preview", SwingConstants.CENTER);
@@ -114,8 +114,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         JLabel downloadLbl = new JLabel("Download to file path:", SwingConstants.CENTER);
 
         // Update the location of the labels
-        updateLabel(previewTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(previewTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'w');
+        updateLabel(previewTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
+        updateLabel(previewTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
         updateLabel(downloadLbl, 0.1, 0.7, 0.6, 0.1, 0.02, 'd');
         updateLabel(invalidPathLbl, 0.4, 0.78, 0.2, 0.05, 0.0125, 'w');
         updateLabel(downloadSuccess, 0.2, 0.78, 0.6, 0.05, 0.0125, 'w');
@@ -131,6 +131,10 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         // Update the location of the text fields
         downloadPathInput.setBounds(convert(0.55, 'w'), convert(0.725, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
+        downloadPathInput.setOpaque(true);
+        downloadPathInput.setBackground(new Color(220, 220, 220));
+        downloadPathInput.setBorder(BorderFactory.createMatteBorder(2, 2, 2,
+                2, Color.DARK_GRAY));
 
         // Update the location of each button
         updateButtonLocation(downloadButton, 0.4, 0.845, 0.2, 0.1);
@@ -141,10 +145,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
         // Update the settings of each button
         defaultButton(viewerButtons);
-
-        downloadButton.setOpaque(true);
-        downloadButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
-                4, new Color(142, 202, 234, 255)));
+        defaultButton(downloadButton, 'b');
 
         // Add MouseListener for hover and clicking features
         downloadButton.addMouseListener(this);
@@ -196,33 +197,29 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == downloadButton) {
-            highlightButton(downloadButton);
-            downloadButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
-                    4, new Color(142, 202, 234, 255)));
+            highlightButton(downloadButton, 'b');
         } else if (e.getSource() == printPageButton) {
-            highlightButton(printPageButton);
+            highlightButton(printPageButton, 'd');
         } else if (e.getSource() == historyButton) {
-            highlightButton(historyButton);
+            highlightButton(historyButton, 'd');
         } else if (e.getSource() == mainMenuButton) {
-            highlightButton(mainMenuButton);
+            highlightButton(mainMenuButton, 'd');
         } else if (e.getSource() == viewerBackButton) {
-            highlightButton(viewerBackButton);
+            highlightButton(viewerBackButton, 'd');
         }
     }
 
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == downloadButton) {
-            defaultButton(downloadButton);
-            downloadButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
-                    4, new Color(142, 202, 234, 255)));
+            defaultButton(downloadButton, 'b');
         } else if (e.getSource() == printPageButton) {
-            defaultButton(printPageButton);
+            defaultButton(printPageButton, 'd');
         } else if (e.getSource() == historyButton) {
-            defaultButton(historyButton);
+            defaultButton(historyButton, 'd');
         } else if (e.getSource() == mainMenuButton) {
-            defaultButton(mainMenuButton);
+            defaultButton(mainMenuButton, 'd');
         } else if (e.getSource() == viewerBackButton) {
-            defaultButton(viewerBackButton);
+            defaultButton(viewerBackButton, 'd');
         }
     }
 

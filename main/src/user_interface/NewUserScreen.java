@@ -49,8 +49,8 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         JLabel roleLBL = new JLabel("Role");
 
         // Update the labels
-        updateLabel(newUserTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(newUserTitleShadow, 0.2, 0.1625, 0.6, 0.1, 0.03075, 'w');
+        updateLabel(newUserTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
+        updateLabel(newUserTitleShadow, 0.2, 0.1625, 0.6, 0.1, 0.03075, 'd');
         updateLabel(usernameLbl, 0.325, 0.275, 0.6, 0.1, 0.025, 'd');
         updateLabel(nameLbl, 0.325, 0.4, 0.6, 0.1, 0.025, 'd');
         updateLabel(ageLbl, 0.325, 0.525, 0.6, 0.1, 0.025, 'd');
@@ -79,8 +79,8 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         // Update the location of each button
         updateButtonLocation(createUserButton, 0.4, 0.8, 0.2, 0.1);
         updateButtonLocation(newUserBackButton, 0.145, 0.8, 0.125, 0.05);
-        defaultButton(createUserButton);
-        defaultButton(newUserBackButton);
+        defaultButton(createUserButton, 'b');
+        defaultButton(newUserBackButton, 'd');
 
         // Add MouseListener for the hover and clicking features
         createUserButton.addMouseListener(this);
@@ -90,7 +90,6 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         newUsernameInput.addKeyListener(this);
         nameInput.addKeyListener(this);
         ageInput.addKeyListener(this);
-
 
         // Add all components to the panel
         newUserPanel.add(newUserTitle);
@@ -110,7 +109,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         changePanel(newUserPanel);
     }
 
-    public void createUserHelper(){
+    private void createUser(){
         String currUsername = newUsernameInput.getText();
         String currName = nameInput.getText();
 
@@ -137,7 +136,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
     public void mouseClicked(MouseEvent e) {
 
         if (e.getSource() == createUserButton) {
-            createUserHelper();
+            createUser();
         }
         else if (e.getSource() == newUserBackButton){
             new LoginScreen();
@@ -145,18 +144,18 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
     }
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == createUserButton) {
-            highlightButton(createUserButton);
+            highlightButton(createUserButton, 'b');
         }
         else if (e.getSource() == newUserBackButton) {
-            highlightButton(newUserBackButton);
+            highlightButton(newUserBackButton, 'd');
         }
     }
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == createUserButton) {
-            defaultButton(createUserButton);
+            defaultButton(createUserButton, 'b');
         }
         else if (e.getSource() == newUserBackButton) {
-            defaultButton(newUserBackButton);
+            defaultButton(newUserBackButton, 'd');
         }
     }
 
@@ -168,7 +167,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-            createUserHelper();
+            createUser();
         }
     }
 

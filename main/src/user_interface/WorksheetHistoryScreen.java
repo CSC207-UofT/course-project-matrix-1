@@ -124,8 +124,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         JLabel previewTitleShadow = new JLabel("Worksheet History", SwingConstants.CENTER);
 
         // Update the Settings of the JLabels
-        updateLabel(previewTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(previewTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'w');
+        updateLabel(previewTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
+        updateLabel(previewTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
         updateLabel(noWorksheets, 0.2, 0.15, 0.3, 0.05, 0.015, 'r');
         updateLabel(invalidScore, 0.625, 0.67, 0.15, 0.05, 0.013, 'w');
         invalidScore.setOpaque(true);
@@ -137,10 +137,10 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         updateButtonLocation(removeButton, 0.2, 0.725, 0.15, 0.05);
         updateButtonLocation(updateScoreButton, 0.6, 0.79, 0.2, 0.05);
         updateButtonLocation(regenerateButton, 0.375, 0.725, 0.2, 0.05);
-        defaultButton(customizeBackButton);
-        defaultButton(removeButton);
-        defaultButton(updateScoreButton);
-        defaultButton(regenerateButton);
+        defaultButton(customizeBackButton, 'd');
+        defaultButton(removeButton, 'd');
+        defaultButton(updateScoreButton, 'b');
+        defaultButton(regenerateButton, 'd');
         updateScoreButton.setOpaque(true);
         updateScoreButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
                 4, new Color(142, 202, 234, 255)));
@@ -273,35 +273,31 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
 
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == customizeBackButton) {
-            highlightButton(customizeBackButton);
+            highlightButton(customizeBackButton, 'd');
         }
         else if (e.getSource() == removeButton) {
-            highlightButton(removeButton);
+            highlightButton(removeButton, 'd');
         }
         else if (e.getSource() == updateScoreButton) {
-            highlightButton(updateScoreButton);
-            updateScoreButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
-                    4, new Color(142, 202, 234, 255)));
+            highlightButton(updateScoreButton, 'b');
         }
         else if (e.getSource() == regenerateButton) {
-            highlightButton(regenerateButton);
+            highlightButton(regenerateButton, 'd');
         }
     }
 
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == customizeBackButton) {
-            defaultButton(customizeBackButton);
+            defaultButton(customizeBackButton, 'd');
         }
         else if (e.getSource() == removeButton) {
-            defaultButton(removeButton);
+            defaultButton(removeButton, 'd');
         }
         else if (e.getSource() == updateScoreButton) {
-            defaultButton(updateScoreButton);
-            updateScoreButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
-                    4, new Color(142, 202, 234, 255)));
+            defaultButton(updateScoreButton, 'b');
         }
         else if (e.getSource() == regenerateButton) {
-            defaultButton(regenerateButton);
+            defaultButton(regenerateButton, 'd');
         }
     }
 

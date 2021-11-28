@@ -21,7 +21,6 @@ public class UserProfileScreen extends Screen implements MouseListener {
     // Create a map of the user's details
     Map<String, Object> userDetails = userController.getUserDetails();
 
-
     public UserProfileScreen() {
 
         updatePanel(userProfilePanel);
@@ -31,13 +30,13 @@ public class UserProfileScreen extends Screen implements MouseListener {
         JLabel userProfileTitleShadow = new JLabel("User Profile", SwingConstants.CENTER);
 
         // Create the label's displaying the user's profile information
-        JLabel nameProfileLbl = new JLabel("Name:\t\t" + userDetails.get("name"));
-        JLabel ageProfileLbl = new JLabel("Age:\t\t" + userDetails.get("age"));
-        JLabel roleProfileLBL = new JLabel("Role:\t\t" + userDetails.get("role"));
+        JLabel nameProfileLbl = new JLabel("Name:\t" + userDetails.get("name"));
+        JLabel ageProfileLbl = new JLabel("Age:\t" + userDetails.get("age"));
+        JLabel roleProfileLBL = new JLabel("Role:\t" + userDetails.get("role"));
 
         // Update the location of the labels
-        updateLabel(userProfileTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(userProfileTitleShadow, 0.2, 0.1625, 0.6, 0.1, 0.03075, 'w');
+        updateLabel(userProfileTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
+        updateLabel(userProfileTitleShadow, 0.2, 0.1625, 0.6, 0.1, 0.03075, 'd');
         updateLabel(nameProfileLbl, 0.325, 0.275, 0.6, 0.1, 0.025, 'd');
         updateLabel(ageProfileLbl, 0.325, 0.4, 0.6, 0.1, 0.025, 'd');
         updateLabel(roleProfileLBL, 0.325, 0.525, 0.6, 0.1, 0.025, 'd');
@@ -45,8 +44,8 @@ public class UserProfileScreen extends Screen implements MouseListener {
         // Update the location of each button
         updateButtonLocation(userProfileBackButton, 0.145, 0.8, 0.125, 0.05);
         updateButtonLocation(deleteUserButton, 0.65, 0.8, 0.225, 0.05);
-        defaultButton(userProfileBackButton);
-        defaultButton(deleteUserButton);
+        defaultButton(userProfileBackButton, 'd');
+        defaultButton(deleteUserButton, 'd');
         deleteUserButton.setOpaque(true);
         deleteUserButton.setBackground(new Color(199, 63, 63));
 
@@ -87,20 +86,20 @@ public class UserProfileScreen extends Screen implements MouseListener {
 
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
-            highlightButton(userProfileBackButton);
+            highlightButton(userProfileBackButton, 'd');
         }
         else if (e.getSource() == deleteUserButton) {
-            highlightButton(deleteUserButton);
+            highlightButton(deleteUserButton, 'd');
             deleteUserButton.setBackground(new Color(199, 63, 63));
         }
     }
 
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
-            defaultButton(userProfileBackButton);
+            defaultButton(userProfileBackButton, 'd');
         }
         else if (e.getSource() == deleteUserButton) {
-            defaultButton(deleteUserButton);
+            defaultButton(deleteUserButton, 'd');
             deleteUserButton.setBackground(new Color(199, 63, 63));
         }
     }

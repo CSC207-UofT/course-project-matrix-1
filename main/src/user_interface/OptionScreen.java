@@ -5,6 +5,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Objects;
 
 /**
  * Option Screen class for the User Interface. The screen that contains options to generate worksheet,
@@ -35,6 +36,14 @@ public class OptionScreen extends Screen implements MouseListener {
         JLabel historyImageLbl = new JLabel("", SwingConstants.CENTER);
         updateLabel(historyImageLbl, 0.825, 0.32, 0.2, 0.2, 0, 'd');
 
+        ImageIcon profileIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userProfileIcon.png")));
+        Image profileImage = profileIconImage.getImage();
+        Image profileScaledImage = profileImage.getScaledInstance(150,150, Image.SCALE_SMOOTH);
+
+        ImageIcon historyIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userHistoryIcon.png")));
+        Image historyImage = historyIconImage.getImage();
+        Image historyScaledImage = historyImage.getScaledInstance(67,67, Image.SCALE_SMOOTH);
+
         // Resize and create JLabels for the images
         profileIconImage = new ImageIcon(profileScaledImage);
         profileImageLbl.setIcon(profileIconImage);
@@ -45,7 +54,7 @@ public class OptionScreen extends Screen implements MouseListener {
 
         // Update the location of each button and make the user profile and user history button's circles
         updateButtonLocation(createWSButton, 0.35, 0.375, 0.3, 0.1);
-        defaultButton(createWSButton);
+        defaultButton(createWSButton, 'd');
 
         updateButtonLocation(userProfileButton, 0.8795, 0.16, 0.14, 0.15);
         userProfileButton.setBorder(new RoundedBorder(convert(0.051, 'w') + convert(0.051, 'h')));
@@ -89,13 +98,13 @@ public class OptionScreen extends Screen implements MouseListener {
 
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == createWSButton) {
-            highlightButton(createWSButton);
+            highlightButton(createWSButton, 'd');
         }
     }
 
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == createWSButton) {
-            defaultButton(createWSButton);
+            defaultButton(createWSButton, 'd');
         }
     }
     /**

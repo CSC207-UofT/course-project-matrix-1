@@ -30,7 +30,6 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     public LoginScreen() {
 
         loginPanel.setLayout(null);
-        loginPanel.setBackground(new Color(177, 203, 187));
         loginPanel.setBorder(BorderFactory.createMatteBorder(convert(0.35, 'h'), 2, 2,
                 2, new Color(142, 202, 234, 255)));
 
@@ -39,33 +38,27 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         JLabel matrixTitleShadow = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
         JLabel username = new JLabel("Username", SwingConstants.CENTER);
 
-        // Update the location and settings of each Button
+        // Update the location of each button
         updateButtonLocation(loginButton, 0.4125, 0.62, 0.175, 0.08);
-        updateButtonLocation(createUserButton, 0.425, 0.72, 0.15, 0.075);
-        defaultButton(loginButton);
-        defaultButton(createUserButton);
-        loginButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
-                4, new Color(142, 202, 234, 255)));
-        loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
-        createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.015)));
+        updateButtonLocation(createUserButton, 0.4125, 0.72, 0.175, 0.08);
+
+        // Update the settings of each button
+        defaultButton(loginButton, 'b');
+        defaultButton(createUserButton, 'd');
 
         // Add Mouse Listener for hover and clicking features
         loginButton.addMouseListener(this);
         createUserButton.addMouseListener(this);
 
-        // Add Key Listener for the username TextField
-        usernameInput.addKeyListener(this);
-
-        // Update the settings of each Label
-        updateLabel(matrixTitle, 0.2, 0.14, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(matrixTitleShadow, 0.2025, 0.1425, 0.6, 0.1, 0.03075, 'd');
+        // Update the settings of each label
+        updateLabel(matrixTitle, 0.15, 0.14, 0.7, 0.1, 0.03, 'd');
+        updateLabel(matrixTitleShadow, 0.1525, 0.1425, 0.7, 0.1, 0.03, 'w');
         updateLabel(username, 0.25, 0.475, 0.3, 0.1,0.025, 'd');
         updateLabel(invalidUsernameError, 0.4125,0.559,0.175,0.045,0.014, 'w');
 
+        // Create the settings of the invalid label and initially set it to not visible
         invalidUsernameError.setOpaque(true);
         invalidUsernameError.setBackground(new Color(217, 207, 131, 252));
-
-        // Initially set the invalid username error to not visible
         invalidUsernameError.setVisible(false);
 
         // Set the location of the text field
@@ -73,6 +66,11 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
                 convert(0.05, 'h'));
         usernameInput.setBorder(BorderFactory.createMatteBorder(2, 2, 2,
                 2, Color.DARK_GRAY));
+        usernameInput.setOpaque(true);
+        usernameInput.setBackground(new Color(220, 220, 220));
+
+        // Add Key Listener for the username TextField
+        usernameInput.addKeyListener(this);
 
         // Add each component to the panel
         loginPanel.add(matrixTitle);
@@ -83,7 +81,23 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         loginPanel.add(usernameInput);
         loginPanel.add(invalidUsernameError);
 
+        // Change the panel to the login screen
         changePanel(loginPanel);
+    }
+
+    /**
+     * Attempt to log in the user with the username inputted. If the username is not
+     * registered, the invalid input error will appear.
+     *
+     */
+    private void userLogin() {
+        try {
+            username = usernameInput.getText();
+            userController.login(username);
+            new OptionScreen();
+        } catch (UserDoesNotExistException u) {
+            invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist
+        }
     }
 
     /**
@@ -93,14 +107,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
      */
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == loginButton) {
-            // Attempt to log in the user with the username entered
-            try {
-                username = usernameInput.getText();
-                userController.login(username);
-                new OptionScreen();
-            } catch (UserDoesNotExistException u) {
-                invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist
-            }
+            userLogin();
         }
         // Move to create new user screen
         else if (e.getSource() == createUserButton) {
@@ -115,14 +122,10 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
      */
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == loginButton) {
-            highlightButton(loginButton);
-            loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.025)));
-            loginButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
-                    4, new Color(142, 202, 234, 255)));
+            highlightButton(loginButton, 'b');
         }
         else if (e.getSource() == createUserButton) {
-            highlightButton(createUserButton);
-            createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0175)));
+            highlightButton(createUserButton, 'd');
         }
     }
 
@@ -133,20 +136,15 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
      */
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == loginButton) {
-            defaultButton(loginButton);
-            loginButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
-            loginButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
-                    4, new Color(142, 202, 234, 255)));
+            defaultButton(loginButton, 'b');
         }
         else if (e.getSource() == createUserButton) {
-            defaultButton(createUserButton);
-            createUserButton.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.015)));
+            defaultButton(createUserButton, 'd');
         }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     /**
@@ -157,13 +155,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     public void keyPressed(KeyEvent e){
         // Attempt to log in the user with the username entered
         if (e.getKeyCode()==KeyEvent.VK_ENTER){
-            try {
-                username = usernameInput.getText();
-                userController.login(username);
-                new OptionScreen();
-            } catch (UserDoesNotExistException u) {
-            invalidUsernameError.setVisible(true);  // Display an error message of the username doesn't exist
-            }
+            userLogin();
         }
     }
 

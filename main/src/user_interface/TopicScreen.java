@@ -24,7 +24,6 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
     JButton topicNextButton = new JButton("Next");
     JButton topicScreenBackButton = new JButton("Back");
-    JButton[] topicButtons = {topicNextButton, topicScreenBackButton};
 
     String[] numTypeOptions = {"Integers"};
     JComboBox<String> numOptions = new JComboBox<>(numTypeOptions);
@@ -52,7 +51,6 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     JLabel invalidFormat = new JLabel("Please enter valid input(s)", SwingConstants.CENTER);
     JLabel invalidQuestionType = new JLabel("LCM not supported for fractions", SwingConstants.CENTER);
 
-
     String equationFormat = " ";
     String worksheetTitle = " ";
     int numOfRows = -1;
@@ -74,10 +72,10 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         JLabel numTypes = new JLabel("Number Types");
 
         // Update the settings of each JLabel
-        updateLabel(topicTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(topicTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'w');
-        updateLabel(formatTitle, 0.2, 0.39, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(formatTitleShadow, 0.2025, 0.3925, 0.6, 0.1, 0.03075, 'w');
+        updateLabel(topicTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
+        updateLabel(topicTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(formatTitle, 0.2, 0.39, 0.6, 0.1, 0.03075, 'b');
+        updateLabel(formatTitleShadow, 0.2025, 0.3925, 0.6, 0.1, 0.03075, 'd');
 
         updateLabel(numTypes, 0.325, 0.3, 0.25, 0.1, 0.02, 'd');
         updateLabel(topic, 0.325, 0.225, 0.25, 0.1, 0.02, 'd');
@@ -125,7 +123,8 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         updateButtonLocation(topicScreenBackButton, 0.145, 0.85, 0.15, 0.05);
 
         // Update the settings of each button
-        defaultButton(topicButtons);
+        defaultButton(topicNextButton, 'b');
+        defaultButton(topicScreenBackButton, 'd');
 
         // Add Mouse Listener for hover and clicking features
         topicNextButton.addMouseListener(this);
@@ -145,6 +144,8 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         topicChose.setBounds(convert(0.525, 'w'), convert(0.25, 'h'), convert(0.15, 'w'),
                 convert(0.05, 'h'));
         topicChose.setSelectedIndex(0);
+
+        updateTextFields(textFields);
 
         // Add each component to the panel
         topicPanel.add(numOptions);
@@ -173,11 +174,9 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
         changePanel(topicPanel);
 
-        updateTextFields(textFields);
-
     }
 
-    public void nextHelper(){
+    private void checkValidDetails(){
         String topic = (String) topicChose.getSelectedItem();
         if (Objects.equals(topic, "Addition")) {
             this.equationDetails.setOperator('+');
@@ -238,7 +237,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == topicNextButton) {
-            nextHelper();
+            checkValidDetails();
         }
         else if (e.getSource() == topicScreenBackButton) {
             new OptionScreen();
@@ -247,19 +246,19 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == topicNextButton) {
-            highlightButton(topicNextButton);
+            highlightButton(topicNextButton, 'b');
         }
         else if (e.getSource() == topicScreenBackButton) {
-            highlightButton(topicScreenBackButton);
+            highlightButton(topicScreenBackButton, 'd');
         }
     }
 
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == topicNextButton) {
-            defaultButton(topicNextButton);
+            defaultButton(topicNextButton, 'b');
         }
         else if (e.getSource() == topicScreenBackButton) {
-            defaultButton(topicScreenBackButton);
+            defaultButton(topicScreenBackButton, 'd');
         }
     }
 
@@ -271,7 +270,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-            nextHelper();
+            checkValidDetails();
         }
     }
 

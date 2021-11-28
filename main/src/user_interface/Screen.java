@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Objects;
 
 /**
  * Screen class for the User Interface. Superclass that stores panels and each method to update buttons and labels.
@@ -33,21 +32,14 @@ public class Screen extends JFrame implements MouseListener {
     JPanel historyPanel = new JPanel();
     JPanel newUserPanel = new JPanel();
     JPanel userProfilePanel = new JPanel();
-    JPanel loadingScreen = new JPanel();
 
     // Create a user controller and worksheet controller instance
     static UserController userController;
     static WorksheetController worksheetController;
 
-    ImageIcon profileIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userProfileIcon.png")));
-    Image profileImage = profileIconImage.getImage();
-    Image profileScaledImage = profileImage.getScaledInstance(150,150, Image.SCALE_SMOOTH);
-
-    ImageIcon historyIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userHistoryIcon.png")));
-    Image historyImage = historyIconImage.getImage();
-    Image historyScaledImage = historyImage.getScaledInstance(67,67, Image.SCALE_SMOOTH);
-
     static String username;
+
+    Font titleFont = new Font("Monospaced", Font.BOLD, convert(0.03, 'w'));
 
     public Screen() {
     }
@@ -60,14 +52,13 @@ public class Screen extends JFrame implements MouseListener {
 
     public void updatePanel(JPanel panel) {
         panel.setLayout(null);
-        panel.setBackground(new Color(177, 203, 187));
         panel.setBorder(BorderFactory.createMatteBorder(convert(0.15, 'h'), 2, 2,
                 2, new Color(142, 202, 234, 255)));
 
         JLabel matrixTitle = new JLabel("Matrix", SwingConstants.CENTER);
         JLabel matrixTitleShadow = new JLabel("Matrix", SwingConstants.CENTER);
-        updateLabel(matrixTitle, 0.35, 0.03, 0.3, 0.1, 0.04, 'r');
-        updateLabel(matrixTitleShadow, 0.3525, 0.0325, 0.3, 0.1, 0.04, 'd');
+        updateLabel(matrixTitle, 0.35, 0.03, 0.3, 0.1, 0.04, 'd');
+        updateLabel(matrixTitleShadow, 0.3525, 0.0325, 0.3, 0.1, 0.04, 'w');
         panel.add(matrixTitle);
         panel.add(matrixTitleShadow);
     }
@@ -100,36 +91,24 @@ public class Screen extends JFrame implements MouseListener {
      * @param w the constant multiplied by the screen width to get the label width
      * @param h the constant multiplied by the screen height to get the label height
      * @param textSize the constant used to get the text size for the label
-     * @param r the color of the font (r being red, anything else being dark gray)
+     * @param fontColor the color of the font (r being red, anything else being dark gray)
      */
-    public void updateLabel(JLabel l, double x, double y, double w, double h, double textSize, char r) {
-        l.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * textSize)));
+    public void updateLabel(JLabel l, double x, double y, double w, double h, double textSize, char fontColor) {
+        l.setFont(new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * textSize)));
         l.setBounds(convert(x, 'w'), convert(y, 'h'), convert(w, 'w'),
                 convert(h, 'h'));
-        if (r == 'r') {
-            l.setForeground(new Color(255, 55, 51));
-        }
-        else if (r == 'd'){
+        if (fontColor == 'd'){
             l.setForeground(Color.DARK_GRAY);
         }
-        else if (r == 'w'){
+        else if (fontColor == 'w'){
             l.setForeground(Color.WHITE);
         }
-    }
-
-    /**
-     * Update the location of each scroll panel.
-     * Precondition:
-     * - Each parameter is less than 1
-     *
-     * @param x the constant multiplied by the screen width to get the starting x-location of the scroll panel
-     * @param y the constant multiplied by the screen height to get the starting y-location of the scroll panel
-     * @param w the constant multiplied by the screen width to get the scroll panel width
-     * @param h the constant multiplied by the screen height to get the scroll panel height
-     */
-    public void updateList(JScrollPane l, double x, double y, double w, double h) {
-        l.setBounds(convert(x, 'w'), convert(y, 'h'), convert(w, 'w'),
-                convert(h, 'h'));
+        else if (fontColor == 'g') {
+            l.setForeground(new Color(177, 203, 187));
+        }
+        else if (fontColor == 'b') {
+            l.setForeground(new Color(142, 202, 234, 255));
+        }
     }
 
     /**
@@ -139,12 +118,12 @@ public class Screen extends JFrame implements MouseListener {
      */
     public void defaultButton(JButton[] buttons) {
         for (JButton button: buttons) {
-            button.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
+            button.setFont(new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
             button.setOpaque(true);
             button.setForeground(Color.DARK_GRAY);
             button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
                     4, Color.DARK_GRAY));
-            button.setBackground(new Color(220, 220, 220, 255));
+            button.setBackground(new Color(220, 220, 220));
         }
     }
 
@@ -157,6 +136,8 @@ public class Screen extends JFrame implements MouseListener {
         for (JTextField textField: textFields) {
             textField.setBorder(BorderFactory.createMatteBorder(2, 2, 2,
                     2, Color.DARK_GRAY));
+            textField.setOpaque(true);
+            textField.setBackground(new Color(220, 220, 220));
         }
     }
 
@@ -166,13 +147,21 @@ public class Screen extends JFrame implements MouseListener {
      *
      * @param button a JButton that will be updated to the default settings
      */
-    public void defaultButton(JButton button) {
+    public void defaultButton(JButton button, char borderColor) {
         button.setOpaque(true);
-        button.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
+        button.setFont(new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
         button.setForeground(Color.DARK_GRAY);
-        button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
-                4, Color.DARK_GRAY));
-        button.setBackground(new Color(220, 220, 220, 255));
+        button.setBackground(new Color(220, 220, 220));
+
+        if (borderColor == 'd') {
+            button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                    4, Color.DARK_GRAY));
+        }
+        else if (borderColor == 'b') {
+            button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                    4, new Color(142, 202, 234, 255)));
+        }
+
     }
 
     /**
@@ -180,9 +169,20 @@ public class Screen extends JFrame implements MouseListener {
      *
      * @param button a JButton that will be highlighted
      */
-    public void highlightButton(JButton button) {
-        button.setForeground(new Color(255,55,51));
-        button.setFont(new Font("Copperplate", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
+    public void highlightButton(JButton button, char borderColor) {
+        button.setForeground(new Color(142, 202, 234, 255));
+        button.setOpaque(true);
+        button.setFont(new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225)));
+
+        if (borderColor == 'd') {
+            button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                    4, Color.DARK_GRAY));
+        }
+        else if (borderColor == 'b') {
+            button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
+                    4, new Color(142, 202, 234, 255)));
+        }
+
     }
 
     /**

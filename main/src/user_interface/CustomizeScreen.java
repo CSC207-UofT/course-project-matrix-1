@@ -27,7 +27,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     // Create buttons
     JButton generateWorksheetButton = new JButton("Generate Worksheet");
     JButton customizeBackButton = new JButton("Back");
-    JButton [] generateWSButtons = {generateWorksheetButton, customizeBackButton};
 
     // Invalid input JLabel
     JLabel operatorWarning = new JLabel("Operand's' minimum must be lower than the maximum", SwingConstants.CENTER);
@@ -76,8 +75,8 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         JLabel negAllowed = new JLabel("Negative are Allowed?");
 
         // Update the labels for the equation customization
-        updateLabel(equationDetailsTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(equationDetailsShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'w');
+        updateLabel(equationDetailsTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
+        updateLabel(equationDetailsShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
         updateLabel(operatorWarning, 0.3, 0.525, 0.4, 0.07, 0.0125, 'w');
         updateLabel(op1Range, 0.25, 0.24, 0.6, 0.1, 0.02, 'd');
         updateLabel(dash, 0.645, 0.24, 0.05, 0.1, 0.025, 'd');
@@ -109,7 +108,8 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         updateButtonLocation(customizeBackButton, 0.145, 0.8, 0.15, 0.05);
 
         // Update the settings of each button
-        defaultButton(generateWSButtons);
+        defaultButton(generateWorksheetButton, 'b');
+        defaultButton(customizeBackButton, 'd');
 
         // Add Mouse Listener for hover and clicking features
         generateWorksheetButton.addMouseListener(this);
@@ -144,7 +144,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
         changePanel(customizePanel);
     }
-    public void generateWorksheetHelper(){
+    private void generateWorksheet(){
         boolean passed = true;
 
         // Create temporary equation details and format details variables
@@ -212,7 +212,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
-            generateWorksheetHelper();
+            generateWorksheet();
         }
         else if (e.getSource() == customizeBackButton) {
             new TopicScreen();
@@ -221,19 +221,19 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
-            highlightButton(generateWorksheetButton);
+            highlightButton(generateWorksheetButton, 'b');
         }
         else if (e.getSource() == customizeBackButton) {
-            highlightButton(customizeBackButton);
+            highlightButton(customizeBackButton, 'd');
         }
     }
 
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
-            defaultButton(generateWorksheetButton);
+            defaultButton(generateWorksheetButton, 'b');
         }
         else if (e.getSource() == customizeBackButton) {
-            defaultButton(customizeBackButton);
+            defaultButton(customizeBackButton, 'd');
         }
     }
 
@@ -245,7 +245,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-            generateWorksheetHelper();
+            generateWorksheet();
         }
     }
 
