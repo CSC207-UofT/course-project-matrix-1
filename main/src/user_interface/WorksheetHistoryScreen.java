@@ -71,12 +71,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
             // Run through each Worksheet
             for (Map <String, Object> map : userHistoryList) {
 
-                // CHANGE
-                // Crete temporary maps for the format, and equation details
+                // Store FormatDetails and EquationDetails for each Worksheet
                 FormatDetails tempMapFormatDetails = (FormatDetails) map.get("formatDetails");
                 EquationDetails tempMapEquationDetails = (EquationDetails) map.get("equationDetails");
-                //Map <String, Object> tempMapFormatDetails = (Map<String, Object>) map.get("formatDetails");
-                //Map <String, Object>  tempMapEquationDetails = (Map <String, Object>) map.get("equationDetails");
 
                 // ArrayList that stores data for the current worksheet
                 ArrayList<String> currentWorksheetArray = new ArrayList<>();
@@ -318,7 +315,8 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
      */
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-            updateScore();}
+            updateScore();
+        }
     }
 
     @Override
