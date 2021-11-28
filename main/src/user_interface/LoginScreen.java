@@ -105,7 +105,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
      *
      * @param e keeps track of which button was clicked
      */
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if (e.getSource() == loginButton) {
             userLogin();
         }

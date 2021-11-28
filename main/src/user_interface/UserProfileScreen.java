@@ -65,7 +65,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
         changePanel(userProfilePanel);
     }
 
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
             new OptionScreen();
         }
@@ -90,7 +90,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
         }
         else if (e.getSource() == deleteUserButton) {
             highlightButton(deleteUserButton, 'd');
-            deleteUserButton.setBackground(new Color(199, 63, 63));
+            deleteUserButton.setBackground(new Color(196, 67, 67));
         }
     }
 
@@ -100,7 +100,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
         }
         else if (e.getSource() == deleteUserButton) {
             defaultButton(deleteUserButton, 'd');
-            deleteUserButton.setBackground(new Color(199, 63, 63));
+            deleteUserButton.setBackground(new Color(196, 67, 67));
         }
     }
 }

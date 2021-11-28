@@ -210,7 +210,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         }
     }
 
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
             generateWorksheet();
         }

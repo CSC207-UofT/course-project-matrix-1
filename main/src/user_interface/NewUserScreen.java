@@ -133,7 +133,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
             }
         }
     }
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
 
         if (e.getSource() == createUserButton) {
             createUser();

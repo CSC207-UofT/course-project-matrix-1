@@ -235,7 +235,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         }
     }
 
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if (e.getSource() == topicNextButton) {
             checkValidDetails();
         }

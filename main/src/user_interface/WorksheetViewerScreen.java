@@ -169,7 +169,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         changePanel(previewPanel);
     }
 
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if (e.getSource() == downloadButton) {
             // Attempt to save the generated worksheet's questions and answers to user's download path
             downloadDocument();
@@ -185,6 +185,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         try {
             documents[0].save(downloadPathInput.getText() + "/" + documentTitle + "_questions.pdf");
             documents[1].save(downloadPathInput.getText() + "/" + documentTitle + "_answers.pdf");
+            documents[0].close();
+            documents[1].close();
             downloadSuccess.setText("The Worksheet has been downloaded to " + downloadPathInput.getText());
             invalidPathLbl.setVisible(false);
             downloadSuccess.setVisible(true);

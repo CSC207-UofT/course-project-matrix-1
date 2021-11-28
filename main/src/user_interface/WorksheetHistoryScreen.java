@@ -199,7 +199,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         return null;
     }
 
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if (e.getSource() == customizeBackButton) {
             new OptionScreen();
         }
