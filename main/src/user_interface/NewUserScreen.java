@@ -4,6 +4,8 @@ import exceptions.UsernameTakenException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -14,7 +16,7 @@ import java.awt.event.MouseListener;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
-public class NewUserScreen extends Screen implements MouseListener {
+public class NewUserScreen extends Screen implements MouseListener, KeyListener {
 
     // Create buttons
     JButton createUserButton = new JButton("Create User");
@@ -84,6 +86,12 @@ public class NewUserScreen extends Screen implements MouseListener {
         createUserButton.addMouseListener(this);
         newUserBackButton.addMouseListener(this);
 
+        // Add Key Listener for the JTextFields
+        newUsernameInput.addKeyListener(this);
+        nameInput.addKeyListener(this);
+        ageInput.addKeyListener(this);
+
+
         // Add all components to the panel
         newUserPanel.add(newUserTitle);
         newUserPanel.add(newUserTitleShadow);
@@ -102,32 +110,34 @@ public class NewUserScreen extends Screen implements MouseListener {
         changePanel(newUserPanel);
     }
 
+    public void createUserHelper(){
+        String currUsername = newUsernameInput.getText();
+        String currName = nameInput.getText();
+
+        // Check if any input is empty or cannot be parsed
+        if (tryToParse(ageInput.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
+            newUserInvalidInput.setText("Invalid Input(s)");
+            newUserInvalidInput.setVisible(true);              // Set invalid input to visible
+        }
+        else {
+            int currAge = Integer.parseInt(ageInput.getText());   // Parse the age, which is a valid integer
+            String currRole = (String) role.getSelectedItem();  // Get the selected role of the user
+
+            // Attempt to register the user
+            try {
+                userController.registerUser(currUsername, currName, currAge, currRole);
+                username = currUsername;
+                new OptionScreen();                         // Successful registration
+            } catch (UsernameTakenException u) {
+                newUserInvalidInput.setText("Username taken");
+                newUserInvalidInput.setVisible(true);              // Show invalid username label if the username is taken
+            }
+        }
+    }
     public void mouseClicked(MouseEvent e) {
 
         if (e.getSource() == createUserButton) {
-
-            String currUsername = newUsernameInput.getText();
-            String currName = nameInput.getText();
-
-            // Check if any input is empty or cannot be parsed
-            if (tryToParse(ageInput.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
-                newUserInvalidInput.setText("Invalid Input(s)");
-                newUserInvalidInput.setVisible(true);              // Set invalid input to visible
-            }
-            else {
-                int currAge = Integer.parseInt(ageInput.getText());   // Parse the age, which is a valid integer
-                String currRole = (String) role.getSelectedItem();  // Get the selected role of the user
-
-                // Attempt to register the user
-                try {
-                    userController.registerUser(currUsername, currName, currAge, currRole);
-                    username = currUsername;
-                    new OptionScreen();                         // Successful registration
-                } catch (UsernameTakenException u) {
-                    newUserInvalidInput.setText("Username taken");
-                    newUserInvalidInput.setVisible(true);              // Show invalid username label if the username is taken
-                }
-            }
+            createUserHelper();
         }
         else if (e.getSource() == newUserBackButton){
             new LoginScreen();
@@ -148,5 +158,22 @@ public class NewUserScreen extends Screen implements MouseListener {
         else if (e.getSource() == newUserBackButton) {
             defaultButton(newUserBackButton);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+            createUserHelper();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }
