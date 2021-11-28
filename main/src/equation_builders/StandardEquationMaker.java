@@ -1,9 +1,11 @@
 package equation_builders;
 
 import equation_entities.*;
+import static constants.OperatorRep.*;
 import equation_parameters.EquationDetails;
 import exceptions.InvalidInputException;
 import utilities.Randomizer;
+import static constants.EquationType.*;
 
 /**
  * An equation maker for all types of standard equations.
@@ -22,18 +24,6 @@ public class StandardEquationMaker {
     protected OperandConstructorInterface operandConstructor;
     protected String currentOperator;
 
-    protected final String ADD = "+";
-    protected final String SUBTRACT = "-";
-    protected final String MULTIPLY = "*";
-    protected final String DIVIDE = "/";
-    protected final String EXPONENTIATE = "^";
-    protected final String LCM = "LCM";
-    protected final String GCD = "GCD";
-
-    protected final String wholeNumber = "Whole Number";
-    protected final String decimal = "Decimal";
-    protected final String fraction = "Fraction";
-
     /**
      * Instantiates the proper OperandConstructor strategy based on input, and stores current equation operand.
      *
@@ -42,35 +32,34 @@ public class StandardEquationMaker {
      */
     protected StandardEquationMaker(String operator, String operandType) {
         this.currentOperator = operator;
-        if (operandType.equals(wholeNumber)) {
+        if (operandType.equals(WHOLE_NUMBER)) {
             switch (operator) {
                 case ADD:
-                    //Proceeds to case multiply
-                case MULTIPLY:
-                    this.operandConstructor = new WholeNumAddMultOperands();
+                    //Proceeds to case multiply. Uses WholeNumIncreaseOperands();
+                case MULT:
+                    //Proceeds to case exponentiate. Uses WholeNumIncreaseOperands();
+                case EXP:
+                    this.operandConstructor = new WholeNumIncreaseOperands();
                     break;
-                case EXPONENTIATE:
-                    //TODO: Implement
-                    break;
-                case SUBTRACT:
+                case SUB:
                     this.operandConstructor = new WholeNumSubOperands();
                     break;
-                case DIVIDE:
+                case DIV:
                     this.operandConstructor = new WholeNumDivideOperands();
                     break;
             }
-        } else if (operandType.equals(fraction)) {
+        } else if (operandType.equals(FRACTION)) {
             switch (operator) {
                 case ADD:
                     this.operandConstructor = new FractionAddOperands();
                     break;
-                case SUBTRACT:
+                case SUB:
                     this.operandConstructor = new FractionSubOperands();
                     break;
-                case MULTIPLY:
+                case MULT:
                     this.operandConstructor = new FractionMultiplyOperands();
                     break;
-                case DIVIDE:
+                case DIV:
                     this.operandConstructor = new FractionDivideOperands();
                     break;
             }
@@ -83,6 +72,7 @@ public class StandardEquationMaker {
 
     /**
      * Returns the instance of the standard equation.
+     *
      * @return the StandardEquation stored in this maker.
      */
     protected StandardEquation getStandardEquation() {
@@ -105,22 +95,22 @@ public class StandardEquationMaker {
             case ADD:
                 standardEquation.setOperator(new Add());
                 break;
-            case SUBTRACT:
+            case SUB:
                 standardEquation.setOperator(new Subtract());
                 break;
-            case MULTIPLY:
+            case MULT:
                 standardEquation.setOperator(new Multiply());
                 break;
-            case DIVIDE:
+            case DIV:
                 standardEquation.setOperator(new Divide());
                 break;
-            case EXPONENTIATE:
+            case EXP:
                 standardEquation.setOperator(new Exponentiate());
                 break;
             case LCM:
                 standardEquation.setOperator(new LCM());
                 break;
-            case GCD:
+            case GCF:
                 standardEquation.setOperator(new GCD());
                 break;
         }

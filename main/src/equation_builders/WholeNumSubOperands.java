@@ -28,7 +28,6 @@ class WholeNumSubOperands implements OperandConstructorInterface {
      */
     public Value[] buildOperands(EquationDetails equationDetails, Randomizer randomizer) {
         WholeNumEquationDetails wholeEquationDetails = (WholeNumEquationDetails) equationDetails;
-        //TODO: Fix bad inputs (ex. operand2 range is greater than operand1)
         int operand1 = randomizer.randomize(wholeEquationDetails.getOperandRange1());
         int operand2;
         if (equationDetails.isNegAllowed()) {

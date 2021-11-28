@@ -8,11 +8,11 @@ package constants;
  * @since 2021-11-24.
  */
 public class OperatorRep {
-    public final static char ADD = '+';
-    public final static char SUB = '-';
-    public final static char MULT = '*';
-    public final static char DIV = '/';
-    public final static char EXP = '^';
-    public final static char GCF = 'G';
-    public final static char LCM = 'L';
+    public final static String ADD = "+";
+    public final static String SUB = "-";
+    public final static String MULT = "*";
+    public final static String DIV = "/";
+    public final static String EXP = "^";
+    public final static String GCF = "GCF";
+    public final static String LCM = "LCM";
 }

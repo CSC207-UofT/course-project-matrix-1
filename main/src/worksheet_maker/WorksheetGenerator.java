@@ -3,6 +3,7 @@ package worksheet_maker;
 import equation_builders.StandardEquationDirector;
 import equation_builders.EquationDirector;
 import equation_parameters.*;
+import static constants.EquationType.*;
 
 /**
  * Generates a worksheet through the WorksheetInput interface.
@@ -39,13 +40,13 @@ public class WorksheetGenerator {
         //TODO: fix this to not be null
         //Create and assign the appropriate builder to a director.
         if (equationDetails instanceof WholeNumEquationDetails) {
-            equationDirector = new StandardEquationDirector("Whole Number", equationDetails);
+            equationDirector = new StandardEquationDirector(WHOLE_NUMBER, equationDetails);
         } else if (equationDetails instanceof FractionAddSubEquationDetails || equationDetails instanceof FractionMultiDivEquationDetails) {
-            equationDirector = new StandardEquationDirector("Fraction", equationDetails);
+            equationDirector = new StandardEquationDirector(FRACTION, equationDetails);
         } else if (equationDetails instanceof DecimalEquationDetails) {
             // TODO: Not yet implemented
             throw new RuntimeException("Decimal Standard Equations Not Implemented!");
-//            equationDirector = new StandardEquationDirector("Decimal");
+//            equationDirector = new StandardEquationDirector(DECIMAL);
         }
         assert equationDirector != null;
 
