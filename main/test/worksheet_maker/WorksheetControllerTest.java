@@ -48,7 +48,7 @@ public class WorksheetControllerTest {
     public void FracAddVisualTest() throws IOException {
         FractionAddSubEquationDetails fractionAddSubEquationDetails = new FractionAddSubEquationDetails();
         fractionAddSubEquationDetails.setNumOfEquations(97);
-        fractionAddSubEquationDetails.setOperator('+');
+        fractionAddSubEquationDetails.setOperator("+");
         fractionAddSubEquationDetails.setOperand1DenomRange(new int[] {10,30});
         fractionAddSubEquationDetails.setMaxOperand2AndAnswerDenom(50);
         fractionAddSubEquationDetails.setMaxOperandValue(2);
