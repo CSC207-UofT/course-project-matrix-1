@@ -21,7 +21,7 @@ import java.util.List;
 public class FractionDivideOperands extends FractionMultDivOperands implements OperandConstructorInterface {
     /**
      * Uses the maximum value of the answer, answers' denominator range, and complexity to get reasonable operands for
-     * fraction multiplication.
+     * fraction division.
      *
      * @param fractionEquationDetails the parameters for fraction equation generation.
      * @param randomizer              Randomizer instance used to perform random number generation.
@@ -29,7 +29,10 @@ public class FractionDivideOperands extends FractionMultDivOperands implements O
      */
     @Override
     public Value[] buildOperands(EquationDetails fractionEquationDetails, Randomizer randomizer) {
+        // Construct all operands as if it was a multiplication question.
         int[][] allOperandParts = buildOperandParts(fractionEquationDetails, randomizer);
+        // Assign the appropriate numerators and denominators to create operand 1. But, for operand 2, flip the
+        // assignment for the numerator and denominator.
         return new Value[]{new Fraction(allOperandParts[0][0], allOperandParts[1][0]), new Fraction(allOperandParts[1][1], allOperandParts[0][1])};
     }
 
