@@ -6,12 +6,54 @@ import utilities.FactorFinder;
 import utilities.Randomizer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FractionMultDivOperands {
     protected Randomizer randomizer;
     // Arbitrary prime numbers that are used to add complexity to a fraction.
     int[] PRIMES = {2, 3, 5, 7, 11};
+
+    /**
+     * Uses the maximum value of the answer, answers' denominator range, and complexity to get reasonable operands for
+     * fraction multiplication.
+     *
+     * @param fractionEquationDetails the parameters for fraction equation generation.
+     * @param randomizer the randomizer for a given equation
+     */
+    public int[][] buildOperandParts(EquationDetails fractionEquationDetails, Randomizer randomizer) {
+        this.randomizer = randomizer;
+        FractionMultiDivEquationDetails fracMultiDivEqnDetails = (FractionMultiDivEquationDetails) fractionEquationDetails;
+
+        // Create a random answer's numerator and denominator by using the answer's denominator range and maximum value.
+        // Ex. 15/10
+        int unreducedAnsD = randomizer.randomize(fracMultiDivEqnDetails.getAnsDenominatorRange());
+        int unreducedAnsN = randomizer.randomize(0, unreducedAnsD) + unreducedAnsD * (fracMultiDivEqnDetails.getMaxAnsValue() - 1);
+
+        // Split the answer's numerator and denominator into factors
+        // Ex. (5*3)/(5*2)
+        List<Integer> unreducedAnsDFactors = FactorFinder.primeFactorize(unreducedAnsD);
+        List<Integer> unreducedAnsNFactors = FactorFinder.primeFactorize(unreducedAnsN);
+
+        // Add complexity to the answer by multiplying the numerator and denominator by a random prime factor a certain
+        // number of time. This can be useful for practicing cross multiplication skills, while not changing the
+        // answer's value.
+        // Ex. (5*3*3)/(5*2*3)
+        addComplexity(fracMultiDivEqnDetails.getComplexity(), unreducedAnsDFactors, unreducedAnsNFactors);
+
+        // Randomly segregate the answer's factors into two operands and multiply them together. operandsN[0] is the
+        // numerator for operand1, operandsN[1] is the numerator for operand2. Same thing for denominator.
+        // Ex. (5)/(2*3) * (3*3)/(5) --> 5/6 * 9/5
+        int[] operandsN = splitFactorsIntoTwoOperands(unreducedAnsNFactors);
+        int[] operandsD = splitFactorsIntoTwoOperands(unreducedAnsDFactors);
+
+        // Randomly make operands negative by changing the sign of the numerator (if negatives are allowed).
+        // Ex. (-5)/6 * 9/5
+        makeOperandsNegative(fracMultiDivEqnDetails.isNegAllowed(), operandsN);
+
+        // Return operand 1 and 2's numerator and denominator to create a Fraction.
+        return new int[][]{operandsN, operandsD};
+    }
 
     /**
      * @param isNegAllowed whether negatives are allowed for this equation.
@@ -35,11 +77,17 @@ public class FractionMultDivOperands {
         List<Integer> operand2Factors = new ArrayList<>();
         operand1Factors.add(1);
         operand2Factors.add(1);
+        Collections.sort(factors);
+        if (factors.size() >= 3){
+            operand1Factors.add(factors.remove(0));
+            operand1Factors.add(factors.remove(0));
+            operand2Factors.add(factors.remove(factors.size() -1));
+        }
         while (!factors.isEmpty()) {
             if (factors.size() % 2 == 0) {
-                operand1Factors.add(factors.remove(randomizer.randomize(0, factors.size() - 1)));
+                operand1Factors.add(factors.remove(0));
             } else {
-                operand2Factors.add(factors.remove(randomizer.randomize(0, factors.size() - 1)));
+                operand2Factors.add(factors.remove(0));
             }
         }
         return new int[]{multiplyFactors(operand1Factors), multiplyFactors(operand2Factors)};
@@ -90,44 +138,5 @@ public class FractionMultDivOperands {
         return numbers[numbers.length - 1];
     }
 
-    /**
-     * Uses the maximum value of the answer, answers' denominator range, and complexity to get reasonable operands for
-     * fraction multiplication.
-     *
-     * @param fractionEquationDetails the parameters for fraction equation generation.
-     * @param randomizer the randomizer for a given equation
-     */
-    public int[][] buildOperandParts(EquationDetails fractionEquationDetails, Randomizer randomizer) {
-        this.randomizer = randomizer;
-        FractionMultiDivEquationDetails fracMultiDivEqnDetails = (FractionMultiDivEquationDetails) fractionEquationDetails;
 
-        // Create a random answer's numerator and denominator by using the answer's denominator range and maximum value.
-        // Ex. 15/10
-        int unreducedAnsD = randomizer.randomize(fracMultiDivEqnDetails.getAnsDenominatorRange());
-        int unreducedAnsN = randomizer.randomize(0, unreducedAnsD) + unreducedAnsD * (fracMultiDivEqnDetails.getMaxAnsValue() - 1);
-
-        // Split the answer's numerator and denominator into factors
-        // Ex. (5*3)/(5*2)
-        List<Integer> unreducedAnsDFactors = FactorFinder.primeFactorize(unreducedAnsD);
-        List<Integer> unreducedAnsNFactors = FactorFinder.primeFactorize(unreducedAnsN);
-
-        // Add complexity to the answer by multiplying the numerator and denominator by a random prime factor a certain
-        // number of time. This can be useful for practicing be cross multiplied skills, while not changing the
-        // answer's value.
-        // Ex. (5*3*3)/(5*2*3)
-        addComplexity(fracMultiDivEqnDetails.getComplexity(), unreducedAnsDFactors, unreducedAnsNFactors);
-
-        // Randomly segregate the answer's factors into two operands and multiply them together. operandsN[0] is the
-        // numerator for operand1, operandsN[1] is the numerator for operand2. Same thing for denominator.
-        // Ex. (5)/(2*3) * (3*3)/(5) --> 5/6 * 9/5
-        int[] operandsN = splitFactorsIntoTwoOperands(unreducedAnsNFactors);
-        int[] operandsD = splitFactorsIntoTwoOperands(unreducedAnsDFactors);
-
-        // Randomly make operands negative by changigng the sign of the numerator (if negatives are allowed).
-        // Ex. (-5)/6 * 9/5
-        makeOperandsNegative(fracMultiDivEqnDetails.isNegAllowed(), operandsN);
-
-        // Return operand 1 and 2's numerator and denominator to create a Fraction.
-        return new int[][]{operandsN, operandsD};
-    }
 }

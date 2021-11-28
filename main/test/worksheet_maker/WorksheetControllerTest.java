@@ -2,6 +2,7 @@ package worksheet_maker;
 
 import equation_parameters.FormatDetails;
 import equation_parameters.FractionAddSubEquationDetails;
+import equation_parameters.FractionMultiDivEquationDetails;
 import equation_parameters.WholeNumEquationDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Before;
@@ -60,6 +61,49 @@ public class WorksheetControllerTest {
         pdf[0].save(path + "/frac_add_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/frac_add_answers.pdf");
+        pdf[1].close();
+        assertEquals(2, pdf.length);
+    }
+    @Test
+    public void FracDivVisualTest() throws IOException {
+        FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
+        fractionMultiDivEquationDetails.setNumOfEquations(97);
+        fractionMultiDivEquationDetails.setOperator("/");
+        fractionMultiDivEquationDetails.setAnsDenominatorRange(new int[] {10, 20});
+        fractionMultiDivEquationDetails.setComplexity(1);
+        fractionMultiDivEquationDetails.setMaxAnsValue(2);
+        fractionMultiDivEquationDetails.setNegAllowed(true);
+
+        WorksheetController wc = new WorksheetController();
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, new Random().nextInt(100000));
+        //String path = "out/production/course-project-matrix-1/user_package/user_package.users_data/";
+        //TODO: Change it back - sean
+        String path = "C:\\Users\\seand\\OneDrive - University of Toronto\\Documents\\School\\Year Three\\CSC207\\Project\\Temp";
+        pdf[0].save(path + "/frac_div_questions.pdf");
+        pdf[0].close();
+        pdf[1].save(path + "/frac_div_answers.pdf");
+        pdf[1].close();
+        assertEquals(2, pdf.length);
+    }
+
+    @Test
+    public void FracMultiVisualTest() throws IOException {
+        FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
+        fractionMultiDivEquationDetails.setNumOfEquations(10);
+        fractionMultiDivEquationDetails.setOperator("*");
+        fractionMultiDivEquationDetails.setAnsDenominatorRange(new int[] {10, 20});
+        fractionMultiDivEquationDetails.setComplexity(1);
+        fractionMultiDivEquationDetails.setMaxAnsValue(2);
+        fractionMultiDivEquationDetails.setNegAllowed(true);
+
+        WorksheetController wc = new WorksheetController();
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, new Random().nextInt(100000));
+        //String path = "out/production/course-project-matrix-1/user_package/user_package.users_data/";
+        //TODO: Change it back - sean
+        String path = "C:\\Users\\seand\\OneDrive - University of Toronto\\Documents\\School\\Year Three\\CSC207\\Project\\Temp";
+        pdf[0].save(path + "/frac_multi_questions.pdf");
+        pdf[0].close();
+        pdf[1].save(path + "/frac_multi_answers.pdf");
         pdf[1].close();
         assertEquals(2, pdf.length);
     }

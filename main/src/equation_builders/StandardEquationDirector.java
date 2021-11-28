@@ -2,6 +2,7 @@ package equation_builders;
 
 import equation_entities.StandardEquation;
 import equation_parameters.EquationDetails;
+import equation_parameters.FractionAddSubEquationDetails;
 import utilities.DistributionCalculator;
 
 /**
@@ -24,8 +25,8 @@ public class StandardEquationDirector extends EquationDirector {
      */
     public StandardEquationDirector(String operandType, EquationDetails equationDetails) {
         this.standardEquationMaker = new StandardEquationMaker(equationDetails.getOperator(), operandType);
-        if (operandType.equals("Fraction")) {
-            //If the equation is a fraction, reweight numbers so that primes are less likely.
+        if (operandType.equals("Fraction") && equationDetails instanceof FractionAddSubEquationDetails) {
+            //If the equation is an addition or subtraction fraction, reweight numbers so that primes are less likely.
             DistributionCalculator.assignProbability(equationDetails);
         }
     }
