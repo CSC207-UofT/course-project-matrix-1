@@ -48,8 +48,12 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
     // Create the map's to store the temporary equation and format details
     EquationDetails equationDetails;
     FormatDetails formatDetails;
+    Map<String, Object> worksheetDetails;
+
 
     public WorksheetViewerScreen(Map<String, Object> worksheetDetails) throws IOException {
+        this.worksheetDetails = worksheetDetails;
+
         equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
         formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
 
@@ -147,7 +151,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener {
         } else if (e.getSource() == viewerBackButton) {
             frame.setVisible(false);
             viewerPanel.setVisible(false);
-            new CustomizeScreen(equationDetails);
+            new CustomizeScreen(worksheetDetails);
         }
 
     }

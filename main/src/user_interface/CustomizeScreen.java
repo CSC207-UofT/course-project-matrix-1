@@ -1,5 +1,6 @@
 package user_interface;
 
+import equation_entities.WholeNum;
 import equation_parameters.EquationDetails;
 import equation_parameters.FormatDetails;
 import equation_parameters.WholeNumEquationDetails;
@@ -32,18 +33,18 @@ public class CustomizeScreen extends Screen implements MouseListener {
     JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField title_tf = new JTextField(1);
-    JTextField numQuestions_tf = new JTextField(1);
-    JTextField numRows_tf = new JTextField(1);
-    JTextField numColumn_tf = new JTextField(1);
+    JTextField title_tf;
+    JTextField numQuestions_tf;
+    JTextField numRows_tf;
+    JTextField numColumn_tf;
 
-    JTextField op1MIN = new JTextField(1);
-    JTextField op1MAX = new JTextField(1);
-    JTextField op2MIN = new JTextField(1);
-    JTextField op2MAX = new JTextField(1);
+    JTextField op1MIN;
+    JTextField op1MAX;
+    JTextField op2MIN;
+    JTextField op2MAX;
 
     // Create checkbox
-    JCheckBox negAllowedBox = new JCheckBox("");
+    JCheckBox negAllowedBox;
 
     // Create combo box for question format
     String[] options2 = {"Horizontal"};
@@ -63,22 +64,78 @@ public class CustomizeScreen extends Screen implements MouseListener {
     String dateAndTime;
 
     // Create the temporary map's to be passed into worksheet viewer screen
-//    Map <String, Object> equations_details_customizeScreen = new HashMap<>();
-//    Map <String, Object> format_details_customizeScreen = new HashMap<>();
-
     EquationDetails equationDetails;
-    FormatDetails formatDetails = new FormatDetails();
+    FormatDetails formatDetails;
 
-    Map <String, Object> worksheetHistoryDetails = new HashMap<>();
+    Map <String, Object> worksheetHistoryDetails;
 
     public CustomizeScreen(EquationDetails equationDetails) {
+        // Change cardPanel to the custom worksheet screen
+        cardLayout.show(cardPanel, "CustomizeScreen");
 
+        // Initialize text fields
+        title_tf = new JTextField(1);
+        numQuestions_tf = new JTextField(1);
+        numRows_tf = new JTextField(1);
+        numColumn_tf = new JTextField(1);
+
+        op1MIN = new JTextField(1);
+        op1MAX = new JTextField(1);
+        op2MIN = new JTextField(1);
+        op2MAX = new JTextField(1);
+
+        // Initial check boxes
+        negAllowedBox = new JCheckBox("");
+
+        // Gets the chosen operator/equationDetail type from the previous screen
+        this.equationDetails = equationDetails;
+        this.formatDetails = new FormatDetails();
+        this.worksheetHistoryDetails = new HashMap<>();
+        fillScreen();
+    }
+
+    /**
+     * Overloaded constructor method. Used to persist previous user input.
+     *
+     * @param worksheetDetails contains worksheet details that user inputted in this screen previously
+     */
+    public CustomizeScreen(Map <String, Object> worksheetDetails) {
         // Change cardPanel to the custom worksheet screen
         cardLayout.show(cardPanel, "CustomizeScreen");
 
         // Gets the chosen operator/equationDetail type from the previous screen
-        this.equationDetails = equationDetails;
+        this.equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
+        this.formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
+        this.worksheetHistoryDetails = worksheetDetails;
 
+        // Initialize format details with previous input
+        title_tf = new JTextField(formatDetails.getTitle(), 1);
+        numQuestions_tf = new JTextField(Integer.toString(equationDetails.getNumOfEquations()),1);
+        numRows_tf = new JTextField(Integer.toString(formatDetails.getNumRows()), 1);
+        numColumn_tf = new JTextField(Integer.toString(formatDetails.getNumColumns()), 1);
+
+        questionFormat.setSelectedItem(formatDetails.getEquationFormat());
+
+        // Initialize equation details with previous input
+        if (equationDetails instanceof WholeNumEquationDetails) {
+            operandRange1 = ((WholeNumEquationDetails) equationDetails).getOperandRange1();
+            operandRange2 = ((WholeNumEquationDetails) equationDetails).getOperandRange2();
+
+            op1MIN = new JTextField(Integer.toString(operandRange1[0]), 1);
+            op1MAX = new JTextField(Integer.toString(operandRange1[1]),1);
+            op2MIN = new JTextField(Integer.toString(operandRange2[0]),1);
+            op2MAX = new JTextField(Integer.toString(operandRange2[1]),1);
+        }
+        // TODO: Add previous user input for fractions
+        negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
+
+        fillScreen();
+    }
+
+    /**
+     * Adds all necessary parts of CustomizeScreen.
+     */
+    private void fillScreen() {
         // Create Equation Details and Formatting JLabels and its shadow
         JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
         JLabel equationDetailsShadow = new JLabel("Equation Details", SwingConstants.CENTER);

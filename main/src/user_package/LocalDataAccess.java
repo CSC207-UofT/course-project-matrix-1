@@ -60,7 +60,6 @@ public class LocalDataAccess implements DataAccessInterface {
             usersIn.close();
             return existingUsers;
         } catch (FileNotFoundException i) {
-            i.printStackTrace();
             return new HashMap<>();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
