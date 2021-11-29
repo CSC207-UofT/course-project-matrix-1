@@ -1,10 +1,13 @@
 package equation_builders;
 
 import equation_entities.*;
+
 import static constants.OperatorRep.*;
+
 import equation_parameters.EquationDetails;
 import exceptions.InvalidInputException;
 import utilities.Randomizer;
+
 import static constants.EquationType.*;
 
 /**
@@ -20,17 +23,20 @@ import static constants.EquationType.*;
  */
 public class StandardEquationMaker {
     protected StandardEquation standardEquation;
-    protected Randomizer randomizer;
     protected OperandConstructorInterface operandConstructor;
-    protected String currentOperator;
+    protected final Randomizer randomizer;
+    protected final String currentOperator;
+
 
     /**
      * Instantiates the proper OperandConstructor strategy based on input, and stores current equation operand.
      *
      * @param operandType specifies whether operand is a whole number, decimal or fraction.
+     * @param randomizer  the instance of randomizer that randomizes the questions generated.
      * @param operator    the char that determines which builder this director will use.
      */
-    protected StandardEquationMaker(String operator, String operandType) {
+    protected StandardEquationMaker(String operator, Randomizer randomizer, String operandType) {
+        this.randomizer = randomizer;
         this.currentOperator = operator;
         if (operandType.equals(WHOLE_NUMBER)) {
             switch (operator) {
@@ -84,7 +90,6 @@ public class StandardEquationMaker {
      */
     protected void createNewStandardEquationProduct() {
         standardEquation = new StandardEquation();
-        randomizer = new Randomizer();
     }
 
     /**
@@ -118,15 +123,10 @@ public class StandardEquationMaker {
 
     /**
      * Builds the operands (first and second) for the standardEquation using operand constructor.
-     * <p>
-     * RANDOM SEED (for fixing random number generation):
-     * First random operation uses the random seed. Succeeding operations increment the random seed by 5.
      *
      * @param equationDetails contains necessary parameters for equation generation.
-     * @param seed            random seed to fix random generation of operands
      */
-    public void buildOperands(EquationDetails equationDetails, int seed) {
-        this.randomizer.setSeed(seed);
+    public void buildOperands(EquationDetails equationDetails) {
         Value[] operands = this.operandConstructor.buildOperands(equationDetails, randomizer);
         standardEquation.setOperand1(operands[0]);
         standardEquation.setOperand2(operands[1]);

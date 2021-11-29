@@ -3,6 +3,8 @@ package worksheet_maker;
 import equation_builders.StandardEquationDirector;
 import equation_builders.EquationDirector;
 import equation_parameters.*;
+import utilities.Randomizer;
+
 import static constants.EquationType.*;
 
 /**
@@ -14,7 +16,7 @@ import static constants.EquationType.*;
  */
 public class WorksheetGenerator {
     private final WorksheetInput worksheet;
-    private final int seed;
+    private final Randomizer randomizer;
 
     /**
      * @param worksheet Worksheet input
@@ -22,7 +24,7 @@ public class WorksheetGenerator {
      */
     public WorksheetGenerator(WorksheetInput worksheet, int seed) {
         this.worksheet = worksheet;
-        this.seed = seed;
+        randomizer = new Randomizer(seed);
     }
 
     /**
@@ -40,23 +42,18 @@ public class WorksheetGenerator {
         //TODO: fix this to not be null
         //Create and assign the appropriate builder to a director.
         if (equationDetails instanceof WholeNumEquationDetails) {
-            equationDirector = new StandardEquationDirector(WHOLE_NUMBER, equationDetails);
+            equationDirector = new StandardEquationDirector(randomizer, equationDetails, WHOLE_NUMBER);
         } else if (equationDetails instanceof FractionAddSubEquationDetails || equationDetails instanceof FractionMultiDivEquationDetails) {
-            equationDirector = new StandardEquationDirector(FRACTION, equationDetails);
+            equationDirector = new StandardEquationDirector(randomizer, equationDetails, FRACTION);
         } else if (equationDetails instanceof DecimalEquationDetails) {
             // TODO: Not yet implemented
             throw new RuntimeException("Decimal Standard Equations Not Implemented!");
 //            equationDirector = new StandardEquationDirector(DECIMAL);
         }
         assert equationDirector != null;
-
-        // Update worksheet random seed per question.
-        int currentSeed = this.seed;
-
         for (int i = 0; i < equationDetails.getNumOfEquations(); i++) {
-            equationDirector.constructEquation(equationDetails, currentSeed);
+            equationDirector.constructEquation();
             this.worksheet.addEquation(equationDirector.getEquation());
-            currentSeed += 100;
         }
     }
 }

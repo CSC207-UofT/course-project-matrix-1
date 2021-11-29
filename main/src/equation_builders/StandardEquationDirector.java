@@ -4,6 +4,7 @@ import equation_entities.StandardEquation;
 import equation_parameters.EquationDetails;
 import equation_parameters.FractionAddSubEquationDetails;
 import utilities.DistributionCalculator;
+import utilities.Randomizer;
 
 /**
  * Directs the construction of standard equations, starting from the operator, then the operands,
@@ -20,11 +21,13 @@ public class StandardEquationDirector extends EquationDirector {
     /**
      * Creates an instance of StandardEquationDirector and its associated StandardEquationMaker.
      *
-     * @param operandType     specifies whether operand is a whole number, decimal or fraction.
+     * @param randomizer the instance of randomizer that randomizes the questions generated.
      * @param equationDetails the details of the equation necessary to create the corresponding StandardEquationMaker.
+     * @param operandType     specifies whether operand is a whole number, decimal or fraction.
      */
-    public StandardEquationDirector(String operandType, EquationDetails equationDetails) {
-        this.standardEquationMaker = new StandardEquationMaker(equationDetails.getOperator(), operandType);
+    public StandardEquationDirector(Randomizer randomizer, EquationDetails equationDetails, String operandType) {
+        super(equationDetails, randomizer);
+        this.standardEquationMaker = new StandardEquationMaker(equationDetails.getOperator(), randomizer, operandType);
         if (operandType.equals("Fraction") && (equationDetails instanceof FractionAddSubEquationDetails)) {
             //If the equation is a fraction, reweight numbers so that primes are less likely.
             DistributionCalculator.assignProbability(equationDetails);
@@ -34,14 +37,12 @@ public class StandardEquationDirector extends EquationDirector {
     /**
      * Construct a standard equation given the following parameters.
      *
-     * @param equationDetails the parameters for whole number equation generation.
-     * @param seed            random seed to fix random generation of operands.
      */
     @Override
-    public void constructEquation(EquationDetails equationDetails, int seed) {
+    public void constructEquation() {
         standardEquationMaker.createNewStandardEquationProduct();
         standardEquationMaker.buildOperator();
-        standardEquationMaker.buildOperands(equationDetails, seed);
+        standardEquationMaker.buildOperands(equationDetails);
         standardEquationMaker.buildAnswer();
     }
 
