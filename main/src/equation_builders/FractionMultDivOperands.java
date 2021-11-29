@@ -75,6 +75,7 @@ public abstract class FractionMultDivOperands {
         if (isNegAllowed) {
             operandsN[0] = randomizer.makeNegativeRandom(operandsN[0]);
             operandsN[1] = randomizer.makeNegativeRandom(operandsN[1]);
+            //TODO: may need to change since the denominator can't be negative (since this is flipped in the division version)
         }
     }
 

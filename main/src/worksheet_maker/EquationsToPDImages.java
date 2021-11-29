@@ -39,10 +39,10 @@ public class EquationsToPDImages {
         PDImageXObject[][] qAndAImages = new PDImageXObject[2][equations.size()];
         for (int i = 0; i < equations.size(); i++) {
             for (int ans = 0; ans < 2; ans++) { //If ans = 1, add it to the answer. Otherwise, add it to question.
-                TeXFormula questionFormula = equationStringToLatex.convertEquationStringToLatex(equations.get(i),
+                TeXFormula latexEquation = equationStringToLatex.convertEquationStringToLatex(equations.get(i),
                         formatDetails.getEquationFormat(), ans == 1);
-                qAndAImages[ans][i] = latexToImage.convertLatexToImage((new TeXFormula((i + 1) + ")\\;\\;\\;")).
-                        add(questionFormula), worksheetPDFs[ans]);
+                TeXFormula latexEquationWithNumber = new TeXFormula((i + 1) + ")\\;\\;\\;").add(latexEquation);
+                qAndAImages[ans][i] = latexToImage.convertLatexToImage(latexEquationWithNumber, worksheetPDFs[ans]);
             }
         }
         return qAndAImages;

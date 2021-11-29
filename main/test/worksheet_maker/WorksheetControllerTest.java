@@ -11,24 +11,69 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.Random;
 
+import static constants.EquationFormats.*;
 import static org.junit.Assert.assertEquals;
 
 public class WorksheetControllerTest {
     private final FormatDetails myFormatDetails = new FormatDetails();
     @Before
     public void init() {
-        myFormatDetails.setEquationFormat("Horizontal");
+        myFormatDetails.setEquationFormat(HORIZONTAL);
         myFormatDetails.setTitle("Test Worksheet");
         myFormatDetails.setNumRows(2);
         myFormatDetails.setNumColumns(2);
     }
     @Test
-    public void WholeNumVisualTest() throws IOException {
+    public void WholeNumHorizontalVisualTest() throws IOException {
         WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
-        wholeNumEquationDetails.setNumOfEquations(97);
+        wholeNumEquationDetails.setNumOfEquations(30);
         wholeNumEquationDetails.setOperator("/");
-        wholeNumEquationDetails.setOperandRange1(new int[]{1, 100});
-        wholeNumEquationDetails.setOperandRange2(new int[]{5, 9});
+        wholeNumEquationDetails.setOperandRange1(new int[]{50, 100});
+        wholeNumEquationDetails.setOperandRange2(new int[]{5, 15});
+        wholeNumEquationDetails.setNegAllowed(true);
+
+        WorksheetController wc = new WorksheetController();
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
+        //String path = "out/production/course-project-matrix-1/user_package/user_package.users_data/";
+        //TODO: Change it back - sean
+        String path = "C:\\Users\\seand\\OneDrive - University of Toronto\\Documents\\School\\Year Three\\CSC207\\Project\\Temp";
+        pdf[0].save(path + "/whole_num_questions.pdf");
+        pdf[0].close();
+        pdf[1].save(path + "/whole_num_answers.pdf");
+        pdf[1].close();
+        assertEquals(2, pdf.length);
+    }
+
+    @Test
+    public void WholeNumVerticalTest() throws IOException {
+        myFormatDetails.setEquationFormat(VERTICAL);
+        WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
+        wholeNumEquationDetails.setNumOfEquations(30);
+        wholeNumEquationDetails.setOperator("/");
+        wholeNumEquationDetails.setOperandRange1(new int[]{50, 100});
+        wholeNumEquationDetails.setOperandRange2(new int[]{5, 15});
+        wholeNumEquationDetails.setNegAllowed(true);
+
+        WorksheetController wc = new WorksheetController();
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
+        //String path = "out/production/course-project-matrix-1/user_package/user_package.users_data/";
+        //TODO: Change it back - sean
+        String path = "C:\\Users\\seand\\OneDrive - University of Toronto\\Documents\\School\\Year Three\\CSC207\\Project\\Temp";
+        pdf[0].save(path + "/whole_num_questions.pdf");
+        pdf[0].close();
+        pdf[1].save(path + "/whole_num_answers.pdf");
+        pdf[1].close();
+        assertEquals(2, pdf.length);
+    }
+
+    @Test
+    public void WholeNumDivisionBracketTest() throws IOException {
+        myFormatDetails.setEquationFormat(DIVISION_BRACKET);
+        WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
+        wholeNumEquationDetails.setNumOfEquations(30);
+        wholeNumEquationDetails.setOperator("/");
+        wholeNumEquationDetails.setOperandRange1(new int[]{50, 100});
+        wholeNumEquationDetails.setOperandRange2(new int[]{5, 15});
         wholeNumEquationDetails.setNegAllowed(true);
 
         WorksheetController wc = new WorksheetController();
@@ -46,7 +91,7 @@ public class WorksheetControllerTest {
     @Test
     public void FracAddVisualTest() throws IOException {
         FractionAddSubEquationDetails fractionAddSubEquationDetails = new FractionAddSubEquationDetails();
-        fractionAddSubEquationDetails.setNumOfEquations(97);
+        fractionAddSubEquationDetails.setNumOfEquations(30);
         fractionAddSubEquationDetails.setOperator("+");
         fractionAddSubEquationDetails.setOperand1DenomRange(new int[] {10,30});
         fractionAddSubEquationDetails.setMaxOperand2AndAnswerDenom(50);
@@ -67,7 +112,7 @@ public class WorksheetControllerTest {
     @Test
     public void FracDivVisualTest() throws IOException {
         FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
-        fractionMultiDivEquationDetails.setNumOfEquations(97);
+        fractionMultiDivEquationDetails.setNumOfEquations(30);
         fractionMultiDivEquationDetails.setOperator("/");
         fractionMultiDivEquationDetails.setAnsDenominatorRange(new int[] {10, 20});
         fractionMultiDivEquationDetails.setComplexity(1);
@@ -89,7 +134,7 @@ public class WorksheetControllerTest {
     @Test
     public void FracMultiVisualTest() throws IOException {
         FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
-        fractionMultiDivEquationDetails.setNumOfEquations(10);
+        fractionMultiDivEquationDetails.setNumOfEquations(30);
         fractionMultiDivEquationDetails.setOperator("*");
         fractionMultiDivEquationDetails.setAnsDenominatorRange(new int[] {10, 20});
         fractionMultiDivEquationDetails.setComplexity(1);

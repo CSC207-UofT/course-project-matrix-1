@@ -120,6 +120,7 @@ public class WholeNum extends Value {
      * @return the string representation of the int wholeNumber stored in this string.
      */
     @Override
+
     public String toString() {
         return String.valueOf(wholeNumber);
     }
