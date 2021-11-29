@@ -6,6 +6,8 @@ import java.util.Map;
 
 import static constants.EquationFormats.*;
 
+import static constants.EquationParts.*;
+
 /**
  * Converts an Equation as a String into a TexFormula.
  *
@@ -53,11 +55,11 @@ public class EquationStringToLatex {
      * @return Horizontal format of a latex equation as a string.
      */
     private String createHorizontalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
-        if (withAnswer){
-            return equationStringMap.get("operand1") + equationStringMap.get("operator") + equationStringMap.get("operand2") + "=" + equationStringMap.get("answer");
-        }else{
-            return equationStringMap.get("operand1") + equationStringMap.get("operator") + equationStringMap.get("operand2") + "=";
+        String horizontalLatex = equationStringMap.get(OPERAND1) + equationStringMap.get(OPERATOR) + equationStringMap.get(OPERAND2) + "=";
+        if (withAnswer) {
+            horizontalLatex += equationStringMap.get(ANSWER);
         }
+        return horizontalLatex;
     }
 
     /**
@@ -74,11 +76,11 @@ public class EquationStringToLatex {
      */
     private String createVerticalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
         String verticalLatex = "\\begin{array}{r@{\\,}r@{\\,}}";
-        verticalLatex += "&" + equationStringMap.get("operand1") + "\\\\";
-        verticalLatex += equationStringMap.get("operator") +"&" + equationStringMap.get("operand2")+ "\\\\";
+        verticalLatex += "&" + equationStringMap.get(OPERAND1) + "\\\\";
+        verticalLatex += equationStringMap.get(OPERATOR) +"&" + equationStringMap.get(OPERAND2)+ "\\\\";
         verticalLatex += "\\hline";
         if (withAnswer){
-            verticalLatex += "&" + equationStringMap.get("answer") + "\\\\";
+            verticalLatex += "&" + equationStringMap.get(ANSWER) + "\\\\";
         }
         verticalLatex += "\\end{array}";
         return verticalLatex;
@@ -95,9 +97,9 @@ public class EquationStringToLatex {
     private String createDivisionBracketLatex(Map<String, String> equationStringMap, boolean withAnswer) {
         String divisionBracketLatex = "\\begin{array}{r}";
         if (withAnswer){
-            divisionBracketLatex += equationStringMap.get("answer") + "\\\\";
+            divisionBracketLatex += equationStringMap.get(ANSWER) + "\\\\";
         }
-        divisionBracketLatex += equationStringMap.get("operand2") + "\\overline{)" + equationStringMap.get("operand1") + "}\\\\";
+        divisionBracketLatex += equationStringMap.get(OPERAND2) + "\\overline{)" + equationStringMap.get(OPERAND1) + "}\\\\";
         divisionBracketLatex += "\\end{array}";
         return divisionBracketLatex;
     }

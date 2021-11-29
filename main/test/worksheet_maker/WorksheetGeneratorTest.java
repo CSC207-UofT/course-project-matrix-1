@@ -4,15 +4,14 @@ import equation_parameters.WholeNumEquationDetails;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class WorksheetGeneratorTest {
     private WorksheetGenerator wg;
     private Worksheet ws;
-    private WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
+    private final WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
 
     @Before
     public void init() {
