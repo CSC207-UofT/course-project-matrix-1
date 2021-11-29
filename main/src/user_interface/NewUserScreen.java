@@ -1,7 +1,11 @@
 package user_interface;
 
 import exceptions.UsernameTakenException;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -12,19 +16,20 @@ import java.awt.event.MouseListener;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
-public class NewUserScreen extends Screen implements MouseListener {
+public class NewUserScreen extends Screen implements MouseListener, KeyListener {
 
     // Create buttons
     JButton createUserButton = new JButton("Create User");
     JButton newUserBackButton = new JButton("Back");
 
     // Create Invalid Input JLabel
-    JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
+    JLabel newUserInvalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField username_tf = new JTextField(1);
-    JTextField name_tf = new JTextField(1);
-    JTextField age_tf = new JTextField(1);
+    JTextField newUsernameInput = new JTextField(1);
+    JTextField nameInput = new JTextField(1);
+    JTextField ageInput = new JTextField(1);
+    JTextField [] newUserTextFields = {newUsernameInput, nameInput, ageInput};
 
     // Create combo box for user role
     String[] roleOptions = {"Student", "Teacher"};
@@ -32,8 +37,7 @@ public class NewUserScreen extends Screen implements MouseListener {
 
     public NewUserScreen() {
 
-        // Set the Panel to the new user screen
-        cardLayout.show(cardPanel, "NewUserScreen");
+        updatePanel(newUserPanel);
 
         // Create the title
         JLabel newUserTitle = new JLabel("Create New User", SwingConstants.CENTER);
@@ -46,46 +50,56 @@ public class NewUserScreen extends Screen implements MouseListener {
         JLabel roleLBL = new JLabel("Role");
 
         // Update the labels
-        updateLabel(newUserTitle, 0.2, 0.01, 0.6, 0.1, 0.03075, 'r');
-        updateLabel(newUserTitleShadow, 0.2, 0.0125, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(usernameLbl, 0.325, 0.15, 0.6, 0.1, 0.025, 'd');
-        updateLabel(nameLbl, 0.325, 0.275, 0.6, 0.1, 0.025, 'd');
-        updateLabel(ageLbl, 0.325, 0.4, 0.6, 0.1, 0.025, 'd');
-        updateLabel(roleLBL, 0.325, 0.525, 0.6, 0.1, 0.025, 'd');
-        updateLabel(invalidInput, 0.4, 0.74, 0.2, 0.05, 0.015, 'r');
+        updateLabel(newUserTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
+        updateLabel(newUserTitleShadow, 0.2, 0.1625, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(usernameLbl, 0.325, 0.275, 0.6, 0.1, 0.025, 'd');
+        updateLabel(nameLbl, 0.325, 0.4, 0.6, 0.1, 0.025, 'd');
+        updateLabel(ageLbl, 0.325, 0.525, 0.6, 0.1, 0.025, 'd');
+        updateLabel(roleLBL, 0.325, 0.65, 0.6, 0.1, 0.025, 'd');
+        updateLabel(newUserInvalidInput, 0.425, 0.74, 0.15, 0.05, 0.014, 'w');
+
+        newUserInvalidInput.setOpaque(true);
+        newUserInvalidInput.setBackground(new Color(217, 207, 131, 252));
 
         // Initially set the invalid input to not visible
-        invalidInput.setVisible(false);
+        newUserInvalidInput.setVisible(false);
 
         // Update the location of the combobox
-        role.setBounds(convert(0.5, 'w'), convert(0.53, 'h'), convert(0.175, 'w'),
+        role.setBounds(convert(0.5, 'w'), convert(0.655, 'h'), convert(0.175, 'w'),
                 convert(0.1, 'h'));
         role.setSelectedIndex(0);
 
         // Update the location of the text fields
-        username_tf.setBounds(convert(0.5, 'w'), convert(0.175, 'h'), convert(0.175, 'w'),
+        newUsernameInput.setBounds(convert(0.5, 'w'), convert(0.3, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
-        name_tf.setBounds(convert(0.5, 'w'), convert(0.3, 'h'), convert(0.175, 'w'),
+        nameInput.setBounds(convert(0.5, 'w'), convert(0.425, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
-        age_tf.setBounds(convert(0.5, 'w'), convert(0.425, 'h'), convert(0.175, 'w'),
+        ageInput.setBounds(convert(0.5, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
                 convert(0.05, 'h'));
+
+        updateTextFields(newUserTextFields);
 
         // Update the location of each button
         updateButtonLocation(createUserButton, 0.4, 0.8, 0.2, 0.1);
         updateButtonLocation(newUserBackButton, 0.145, 0.8, 0.125, 0.05);
-        defaultButton(createUserButton);
-        defaultButton(newUserBackButton);
+        defaultButton(createUserButton, 'b');
+        defaultButton(newUserBackButton, 'd');
 
         // Add MouseListener for the hover and clicking features
         createUserButton.addMouseListener(this);
         newUserBackButton.addMouseListener(this);
 
+        // Add Key Listener for the JTextFields
+        newUsernameInput.addKeyListener(this);
+        nameInput.addKeyListener(this);
+        ageInput.addKeyListener(this);
+
         // Add all components to the panel
         newUserPanel.add(newUserTitle);
         newUserPanel.add(newUserTitleShadow);
-        newUserPanel.add(username_tf);
-        newUserPanel.add(name_tf);
-        newUserPanel.add(age_tf);
+        newUserPanel.add(newUsernameInput);
+        newUserPanel.add(nameInput);
+        newUserPanel.add(ageInput);
         newUserPanel.add(role);
         newUserPanel.add(usernameLbl);
         newUserPanel.add(nameLbl);
@@ -93,57 +107,75 @@ public class NewUserScreen extends Screen implements MouseListener {
         newUserPanel.add(roleLBL);
         newUserPanel.add(createUserButton);
         newUserPanel.add(newUserBackButton);
-        newUserPanel.add(invalidInput);
+        newUserPanel.add(newUserInvalidInput);
+
+        changePanel(newUserPanel);
     }
 
-    public void mouseClicked(MouseEvent e) {
+    private void createUser(){
+        String currUsername = newUsernameInput.getText();
+        String currName = nameInput.getText();
 
-        if (e.getSource() == createUserButton) {
+        // Check if any input is empty or cannot be parsed
+        if (tryToParse(ageInput.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
+            newUserInvalidInput.setText("Invalid Input(s)");
+            newUserInvalidInput.setVisible(true);              // Set invalid input to visible
+        }
+        else {
+            int currAge = Integer.parseInt(ageInput.getText());   // Parse the age, which is a valid integer
+            String currRole = (String) role.getSelectedItem();  // Get the selected role of the user
 
-            String currUsername = username_tf.getText();
-            String currName = name_tf.getText();
-
-            // Check if any input is empty or cannot be parsed
-            if (tryToParse(age_tf.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
-                invalidInput.setText("Invalid Input(s)");
-                invalidInput.setVisible(true);              // Set invalid input to visible
-            }
-            else {
-                int currAge = Integer.parseInt(age_tf.getText());   // Parse the age, which is a valid integer
-                String currRole = (String) role.getSelectedItem();  // Get the selected role of the user
-
-                // Attempt to register the user
-                try {
-                    userController.registerUser(currUsername, currName, currAge, currRole);
-                    frame.setVisible(false);
-                    newUserPanel.setVisible(false);
-                    new OptionScreen();                         // Successful registration
-                } catch (UsernameTakenException u) {
-                    invalidInput.setText("Invalid username");
-                    invalidInput.setVisible(true);              // Show invalid username label if the username is taken
-                }
+            // Attempt to register the user
+            try {
+                userController.registerUser(currUsername, currName, currAge, currRole);
+                username = currUsername;
+                new OptionScreen();                         // Successful registration
+            } catch (UsernameTakenException u) {
+                newUserInvalidInput.setText("Username taken");
+                newUserInvalidInput.setVisible(true);              // Show invalid username label if the username is taken
             }
         }
+    }
+    public void mousePressed(MouseEvent e) {
+
+        if (e.getSource() == createUserButton) {
+            createUser();
+        }
         else if (e.getSource() == newUserBackButton){
-            frame.setVisible(false);
-            newUserPanel.setVisible(false);
             new LoginScreen();
         }
     }
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == createUserButton) {
-            highlightButton(createUserButton);
+            highlightButton(createUserButton, 'b');
         }
         else if (e.getSource() == newUserBackButton) {
-            highlightButton(newUserBackButton);
+            highlightButton(newUserBackButton, 'd');
         }
     }
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == createUserButton) {
-            defaultButton(createUserButton);
+            defaultButton(createUserButton, 'b');
         }
         else if (e.getSource() == newUserBackButton) {
-            defaultButton(newUserBackButton);
+            defaultButton(newUserBackButton, 'd');
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+            createUser();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }

@@ -28,6 +28,6 @@ jobs:
       uses: actions/upload-artifact@v2.2.4
       with:
         name: Artifact
-        path: build/jar
+        path: bin/
         error: Fail the action with an error message
         retention-days: 30
