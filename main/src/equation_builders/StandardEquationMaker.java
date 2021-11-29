@@ -115,7 +115,7 @@ public class StandardEquationMaker {
             case LCM:
                 standardEquation.setOperator(new LCM());
                 break;
-            case GCF:
+            case GCD:
                 standardEquation.setOperator(new GCD());
                 break;
         }
