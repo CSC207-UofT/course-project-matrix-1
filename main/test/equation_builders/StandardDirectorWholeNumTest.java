@@ -42,18 +42,20 @@ public class StandardDirectorWholeNumTest {
 
     @Test
     public void testAddNeg() {
-        wholeNumEquationDetails.setOperator("+");
-        director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
-        wholeNumEquationDetails.setNegAllowed(true);
-        director.constructEquation(wholeNumEquationDetails, seed + 10);
-        Symbol[] equation = director.getEquation().getEquationParts();
-        int operand1 = ((WholeNum) equation[0]).getValue();
-        int operand2 = ((WholeNum) equation[2]).getValue();
-        int answer = ((WholeNum) equation[3]).getValue();
-        assertTrue(-10 <= operand1 && operand1 <= 10);
-        assertTrue(-10 <= operand2 && operand2 <= 10);
-        assertEquals(operand1 + operand2, answer);
-        System.out.println(director.getEquation().equationToHashMap());
+        for (int i=0;i<100;i++) {
+            wholeNumEquationDetails.setOperator("+");
+            director = new StandardEquationDirector("Whole Number", wholeNumEquationDetails);
+            wholeNumEquationDetails.setNegAllowed(true);
+            director.constructEquation(wholeNumEquationDetails, seed + 10*i);
+            Symbol[] equation = director.getEquation().getEquationParts();
+            int operand1 = ((WholeNum) equation[0]).getValue();
+            int operand2 = ((WholeNum) equation[2]).getValue();
+            int answer = ((WholeNum) equation[3]).getValue();
+            assertTrue(-10 <= operand1 && operand1 <= 10);
+            assertTrue(-10 <= operand2 && operand2 <= 10);
+            assertEquals(operand1 + operand2, answer);
+            System.out.println(director.getEquation().equationToHashMap());
+        }
     }
 
     @Test
