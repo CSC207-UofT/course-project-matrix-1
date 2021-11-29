@@ -40,6 +40,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     Map<String, Object> worksheetHistoryDetailsTemp = new HashMap<>();
 
     // Create List containing a Map that will take output from getUserHistory method in userController
+    // TODO: extract getUserHistory to UserPresenter
     List<Map<String, Object>> userHistoryList;
 
     // Create JTable and Arrays affiliated with it (rows and columns)
@@ -260,6 +261,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                     String tempKey = (String) userHistoryList.get(index).get("worksheetKey");
                     userController.storeUserScore(tempKey, score);
                     invalidScore.setVisible(false);
+                    // TODO: Change it to UserPresenter
                     userHistoryList = userController.getUserHistory();
                     new WorksheetHistoryScreen();
                 }
