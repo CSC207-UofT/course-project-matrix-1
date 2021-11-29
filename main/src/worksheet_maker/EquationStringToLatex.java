@@ -15,7 +15,7 @@ import static constants.EquationFormats.*;
  */
 public class EquationStringToLatex {
     /**
-     * Converts a list of String representation of an equation into a TexFormula.
+     * Converts a Map of String representation of an equation into a TexFormula.
      *
      * @param equationStringMap  A Map containing the operands, operator and answer of an equation as Strings.
      * @param equationFormat     The format an equation should be displayed in. Horizontal, Vertical or Division
@@ -73,7 +73,15 @@ public class EquationStringToLatex {
      * @return Vertical format of a latex equation as a string.
      */
     private String createVerticalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
-        return "";
+        String verticalLatex = "\\begin{array}{r@{\\,}r@{\\,}}";
+        verticalLatex += "&" + equationStringMap.get("operand1") + "\\\\";
+        verticalLatex += equationStringMap.get("operator") +"&" + equationStringMap.get("operand2")+ "\\\\";
+        verticalLatex += "\\hline";
+        if (withAnswer){
+            verticalLatex += "&" + equationStringMap.get("answer") + "\\\\";
+        }
+        verticalLatex += "\\end{array}";
+        return verticalLatex;
     }
 
     /**
@@ -85,6 +93,12 @@ public class EquationStringToLatex {
      * @return Division bracket format of a latex equation as a string.
      */
     private String createDivisionBracketLatex(Map<String, String> equationStringMap, boolean withAnswer) {
-        return "";
+        String divisionBracketLatex = "\\begin{array}{r}";
+        if (withAnswer){
+            divisionBracketLatex += equationStringMap.get("answer") + "\\\\";
+        }
+        divisionBracketLatex += equationStringMap.get("operand2") + "\\overline{)" + equationStringMap.get("operand1") + "}\\\\";
+        divisionBracketLatex += "\\end{array}";
+        return divisionBracketLatex;
     }
 }
