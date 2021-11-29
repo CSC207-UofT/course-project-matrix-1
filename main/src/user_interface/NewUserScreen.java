@@ -3,7 +3,6 @@ package user_interface;
 import exceptions.UsernameTakenException;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -58,10 +57,9 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         updateLabel(roleLBL, 0.325, 0.65, 0.6, 0.1, 0.025, 'd');
         updateLabel(newUserInvalidInput, 0.425, 0.74, 0.15, 0.05, 0.014, 'w');
 
-        newUserInvalidInput.setOpaque(true);
-        newUserInvalidInput.setBackground(new Color(217, 207, 131, 252));
-
         // Initially set the invalid input to not visible
+        newUserInvalidInput.setOpaque(true);
+        newUserInvalidInput.setBackground(lightYellow);
         newUserInvalidInput.setVisible(false);
 
         // Update the location of the combobox
@@ -70,12 +68,9 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         role.setSelectedIndex(0);
 
         // Update the location of the text fields
-        newUsernameInput.setBounds(convert(0.5, 'w'), convert(0.3, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        nameInput.setBounds(convert(0.5, 'w'), convert(0.425, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        ageInput.setBounds(convert(0.5, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
+        updateTextFieldLocation(newUsernameInput, 0.5, 0.3, 0.175, 0.05);
+        updateTextFieldLocation(nameInput, 0.5, 0.425, 0.175, 0.05);
+        updateTextFieldLocation(ageInput, 0.5, 0.55, 0.175, 0.05);
 
         updateTextFields(newUserTextFields);
 
@@ -162,20 +157,9 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==KeyEvent.VK_ENTER) {
             createUser();
         }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 }

@@ -1,7 +1,6 @@
 package user_interface;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Map;
@@ -46,8 +45,9 @@ public class UserProfileScreen extends Screen implements MouseListener {
         updateButtonLocation(deleteUserButton, 0.65, 0.8, 0.225, 0.05);
         defaultButton(userProfileBackButton, 'd');
         defaultButton(deleteUserButton, 'd');
+
         deleteUserButton.setOpaque(true);
-        deleteUserButton.setBackground(new Color(199, 63, 63));
+        deleteUserButton.setBackground(red);
 
         // Add MouseListener for the hover and clicking features
         userProfileBackButton.addMouseListener(this);
@@ -71,14 +71,12 @@ public class UserProfileScreen extends Screen implements MouseListener {
         }
         else if (e.getSource() == deleteUserButton) {
 
-            int option = JOptionPane.showConfirmDialog(frame, "Confirm deletion of " + username + "'s account?", "Delete Account", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            int option = JOptionPane.showConfirmDialog(frame, "Confirm deletion of " + username + "'s account?",
+                    "Delete Account", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (option == JOptionPane.YES_OPTION) {
                 userController.deleteAccount(username);
-                JOptionPane.showMessageDialog(frame,
-                        "Account Successfully Deleted",
-                        "",
-                        JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Account Successfully Deleted", "", JOptionPane.PLAIN_MESSAGE);
                 new LoginScreen();
             }
         }
@@ -90,7 +88,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
         }
         else if (e.getSource() == deleteUserButton) {
             highlightButton(deleteUserButton, 'd');
-            deleteUserButton.setBackground(new Color(196, 67, 67));
+            deleteUserButton.setBackground(red);
         }
     }
 
@@ -100,7 +98,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
         }
         else if (e.getSource() == deleteUserButton) {
             defaultButton(deleteUserButton, 'd');
-            deleteUserButton.setBackground(new Color(196, 67, 67));
+            deleteUserButton.setBackground(red);
         }
     }
 }

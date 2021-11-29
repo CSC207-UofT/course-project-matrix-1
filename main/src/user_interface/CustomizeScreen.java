@@ -85,18 +85,14 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         updateLabel(negAllowed, 0.25, 0.43, 0.6, 0.1, 0.02, 'd');
 
         operatorWarning.setOpaque(true);
-        operatorWarning.setBackground(new Color(217, 207, 131, 252));
+        operatorWarning.setBackground(lightYellow);
         operatorWarning.setVisible(false);
 
         // Minimum and maximum text fields
-        op1MIN.setBounds(convert(0.525, 'w'), convert(0.265, 'h'), convert(0.1, 'w'),
-                convert(0.05, 'h'));
-        op1MAX.setBounds(convert(0.675, 'w'), convert(0.265, 'h'), convert(0.1, 'w'),
-                convert(0.05, 'h'));
-        op2MIN.setBounds(convert(0.525, 'w'), convert(0.36, 'h'), convert(0.1, 'w'),
-                convert(0.05, 'h'));
-        op2MAX.setBounds(convert(0.675, 'w'), convert(0.36, 'h'), convert(0.1, 'w'),
-                convert(0.05, 'h'));
+        updateTextFieldLocation(op1MIN, 0.525, 0.265, 0.1, 0.05);
+        updateTextFieldLocation(op1MAX, 0.675, 0.265, 0.1, 0.05);
+        updateTextFieldLocation(op2MIN, 0.525, 0.36, 0.1, 0.05);
+        updateTextFieldLocation(op2MAX, 0.675, 0.36, 0.1, 0.05);
 
         // Update checkbox location
         negAllowedBox.setBounds(convert(0.565, 'w'), convert(0.455, 'h'), convert(0.5, 'w'),

@@ -74,7 +74,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
         // Store the worksheet information to the user's history
         userController.storeUserRecord(worksheetDetails);
-//        //TODO: this method call sends in a map containing EquationDetails and FormatDetails, currently does not work
+        //TODO: this method call sends in a map containing EquationDetails and FormatDetails, currently does not work
 
         // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
         documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, (int) worksheetDetails.get("seed"));
@@ -104,6 +104,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
             images.add(labels.get(i));
             images.add(new JSeparator());
         }
+
         JScrollPane scrollPane = new JScrollPane(images);
         scrollPane.setBounds(convert(0.35, 'w'), convert(0.25,'h'), convert(0.3, 'w'),
                 convert(0.45, 'h'));
@@ -122,19 +123,17 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
         // Initially set the invalid file path label to not visible
         invalidPathLbl.setOpaque(true);
-        invalidPathLbl.setBackground(new Color(217, 207, 131, 252));
+        invalidPathLbl.setBackground(lightYellow);
         invalidPathLbl.setVisible(false);
         downloadSuccess.setOpaque(true);
-        downloadSuccess.setBackground(new Color(217, 207, 131, 252));
+        downloadSuccess.setBackground(lightYellow);
         downloadSuccess.setVisible(false);
 
         // Update the location of the text fields
-        downloadPathInput.setBounds(convert(0.55, 'w'), convert(0.725, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
+        updateTextFieldLocation(downloadPathInput, 0.55, 0.725, 0.175, 0.05);
         downloadPathInput.setOpaque(true);
-        downloadPathInput.setBackground(new Color(220, 220, 220));
-        downloadPathInput.setBorder(BorderFactory.createMatteBorder(2, 2, 2,
-                2, Color.DARK_GRAY));
+        downloadPathInput.setBackground(lightGray);
+        downloadPathInput.setBorder(textFieldBorder);
 
         // Update the location of each button
         updateButtonLocation(downloadButton, 0.4, 0.845, 0.2, 0.1);
@@ -225,18 +224,9 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
     public void keyPressed(KeyEvent e) {
         // Attempt to save the generated worksheet's questions and answers to user's download path
         downloadDocument();
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
     }
 }
 

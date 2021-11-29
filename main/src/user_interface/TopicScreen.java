@@ -5,7 +5,6 @@ import equation_parameters.FormatDetails;
 import equation_parameters.WholeNumEquationDetails;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -81,11 +80,11 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         updateLabel(topic, 0.325, 0.225, 0.25, 0.1, 0.02, 'd');
 
         invalidFormat.setOpaque(true);
-        invalidFormat.setBackground(new Color(217, 207, 131, 252));
+        invalidFormat.setBackground(lightYellow);
         invalidFormat.setVisible(false);
 
         invalidQuestionType.setOpaque(true);
-        invalidQuestionType.setBackground(new Color(217, 207, 131, 252));
+        invalidQuestionType.setBackground(lightYellow);
         invalidQuestionType.setVisible(false);
 
         // Create formatting questions labels
@@ -101,14 +100,10 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         questionFormat.setSelectedIndex(0);
 
         // Update the location of each text field
-        titleInput.setBounds(convert(0.525, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        numQuestionsInput.setBounds(convert(0.525, 'w'), convert(0.625, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        numRowsInput.setBounds(convert(0.525, 'w'), convert(0.7, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        numColumnInput.setBounds(convert(0.525, 'w'), convert(0.775, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
+        updateTextFieldLocation(titleInput, 0.525, 0.55, 0.175, 0.05);
+        updateTextFieldLocation(numQuestionsInput, 0.525, 0.625, 0.175, 0.05);
+        updateTextFieldLocation(numRowsInput, 0.525, 0.7, 0.175, 0.05);
+        updateTextFieldLocation(numColumnInput, 0.525, 0.775, 0.175, 0.05);
 
         // Update the labels for formatting
         updateLabel(qFormat, 0.25, 0.45, 0.6, 0.1, 0.02, 'd');
@@ -262,20 +257,10 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==KeyEvent.VK_ENTER) {
             checkValidDetails();
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
 }

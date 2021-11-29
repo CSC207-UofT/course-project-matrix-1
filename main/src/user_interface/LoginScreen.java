@@ -3,7 +3,6 @@ package user_interface;
 import exceptions.UserDoesNotExistException;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -30,8 +29,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     public LoginScreen() {
 
         loginPanel.setLayout(null);
-        loginPanel.setBorder(BorderFactory.createMatteBorder(convert(0.35, 'h'), 2, 2,
-                2, new Color(142, 202, 234, 255)));
+        loginPanel.setBorder(loginPanelBorder);
 
         // Create Title labels and its shadow
         JLabel matrixTitle = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
@@ -58,16 +56,14 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
 
         // Create the settings of the invalid label and initially set it to not visible
         invalidUsernameError.setOpaque(true);
-        invalidUsernameError.setBackground(new Color(217, 207, 131, 252));
+        invalidUsernameError.setBackground(lightYellow);
         invalidUsernameError.setVisible(false);
 
         // Set the location of the text field
-        usernameInput.setBounds(convert(0.5, 'w'), convert(0.5, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        usernameInput.setBorder(BorderFactory.createMatteBorder(2, 2, 2,
-                2, Color.DARK_GRAY));
+        updateTextFieldLocation(usernameInput, 0.5, 0.5, 0.175, 0.05);
+        usernameInput.setBorder(textFieldBorder);
         usernameInput.setOpaque(true);
-        usernameInput.setBackground(new Color(220, 220, 220));
+        usernameInput.setBackground(lightGray);
 
         // Add Key Listener for the username TextField
         usernameInput.addKeyListener(this);
@@ -143,10 +139,6 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
     /**
      * key Pressed feature when each key is being pressed
      *
@@ -157,10 +149,5 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         if (e.getKeyCode()==KeyEvent.VK_ENTER){
             userLogin();
         }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 }

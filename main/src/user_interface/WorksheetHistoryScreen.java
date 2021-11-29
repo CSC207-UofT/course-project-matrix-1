@@ -4,7 +4,6 @@ import equation_parameters.EquationDetails;
 import equation_parameters.FormatDetails;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -35,7 +34,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     JButton regenerateButton = new JButton("Regenerate");
 
     // Create JTextField for New Score Option
-    JTextField newScore = new JTextField(1);
+    JTextField scoreInput = new JTextField(1);
 
     // Create the Temporary Maps that will be passed into Worksheet Viewer Screen
     Map<String, Object> worksheetHistoryDetailsTemp = new HashMap<>();
@@ -129,7 +128,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         updateLabel(noWorksheets, 0.2, 0.15, 0.3, 0.05, 0.015, 'r');
         updateLabel(invalidScore, 0.625, 0.67, 0.15, 0.05, 0.013, 'w');
         invalidScore.setOpaque(true);
-        invalidScore.setBackground(new Color(217, 207, 131, 252));
+        invalidScore.setBackground(lightYellow);
         invalidScore.setVisible(false);
 
         // Update the Location and Settings of each Button
@@ -141,13 +140,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         defaultButton(removeButton, 'd');
         defaultButton(updateScoreButton, 'b');
         defaultButton(regenerateButton, 'd');
-        updateScoreButton.setOpaque(true);
-        updateScoreButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
-                4, new Color(142, 202, 234, 255)));
 
         // Update the Location of each Text Field
-        newScore.setBounds(convert(0.6, 'w'), convert(0.725, 'h'), convert(0.2, 'w'),
-                convert(0.05, 'h'));
+        updateTextFieldLocation(scoreInput, 0.6, 0.725, 0.2, 0.05);
 
         // Add Mouse Listener to each Button
         customizeBackButton.addMouseListener(this);
@@ -156,7 +151,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         regenerateButton.addMouseListener(this);
 
         // Add Key Listener for the newScore JTextField
-        newScore.addKeyListener(this);
+        scoreInput.addKeyListener(this);
 
         scrollPane.setBounds(convert(0.2, 'w'), convert(0.26,'h'), convert(0.6, 'w'),
                 convert(0.4, 'h'));
@@ -172,7 +167,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         historyPanel.add(updateScoreButton);
         historyPanel.add(regenerateButton);
         historyPanel.add(scrollPane);
-        historyPanel.add(newScore);
+        historyPanel.add(scoreInput);
 
         changePanel(historyPanel);
     }
@@ -247,12 +242,12 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     }
 
     private void updateScore() {
-        if (tryToParse(newScore.getText()) == null) {
+        if (tryToParse(scoreInput.getText()) == null) {
             invalidScore.setVisible(true);
         } else {
             int index = table.getSelectedRow();
             if (index != -1) {
-                int score = Integer.parseInt(newScore.getText());
+                int score = Integer.parseInt(scoreInput.getText());
                 EquationDetails tempMapEquationDetails = (EquationDetails) userHistoryList.get(index).get("equationDetails");
                 int maxScore = tempMapEquationDetails.getNumOfEquations();
                 // Check if score is illegal option and return message if true
@@ -301,11 +296,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
     /**
      * key Pressed feature when each key is being pressed
      *
@@ -315,10 +305,5 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         if (e.getKeyCode()==KeyEvent.VK_ENTER) {
             updateScore();
         }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 }
