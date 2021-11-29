@@ -22,7 +22,7 @@ import java.util.Map;
 public class UserController {
     private final UserManager userManager;
     private final HistoryManager historyManager;
-    private String currentUsername = null;
+    private final String[] currentUsername = new String[1];
 
     public UserController() throws Exception {
         DataAccessInterface dataSource = new LocalDataAccess();
@@ -34,7 +34,7 @@ public class UserController {
      * @return true if a user is logged in.
      */
     public Boolean isLoggedIn() {
-        return currentUsername != null;
+        return currentUsername[0] != null;
     }
 
     /**
@@ -48,7 +48,7 @@ public class UserController {
     public void registerUser(String username, String name, Integer age, String role) throws UsernameTakenException {
         userManager.createUser(username, name, age, role);
         historyManager.beginUserHistory(username);
-        this.currentUsername = username;
+        this.currentUsername[0] = username;
     }
 
     /**
@@ -59,7 +59,7 @@ public class UserController {
      */
     public void login(String username) throws UserDoesNotExistException {
         if (userManager.verifyUsername(username)) {
-            this.currentUsername = username;
+            this.currentUsername[0] = username;
         } else {
             throw new UserDoesNotExistException();
         }
@@ -72,7 +72,7 @@ public class UserController {
 
     public Map<String, Object> getUserDetails() throws NotLoggedInException {
         if (isLoggedIn()) {
-            return userManager.getUserDetails(currentUsername);
+            return userManager.getUserDetails(currentUsername[0]);
         }
         throw new NotLoggedInException();
     }
@@ -85,7 +85,7 @@ public class UserController {
      */
     public List<Map<String, Object>> getUserHistory() throws NotLoggedInException {
         if (isLoggedIn()) {
-            return historyManager.getUserHistoryRaw(currentUsername);
+            return historyManager.getUserHistoryRaw(currentUsername[0]);
         }
         throw new NotLoggedInException();
     }
@@ -100,7 +100,7 @@ public class UserController {
      */
     public void storeUserScore(String worksheetKey, Integer score) throws RecordDoesNotExistException, NotLoggedInException {
         if (isLoggedIn()) {
-            historyManager.setUserScoreForRecord(currentUsername, worksheetKey, score);
+            historyManager.setUserScoreForRecord(currentUsername[0], worksheetKey, score);
         } else {
             throw new NotLoggedInException();
         }
@@ -114,7 +114,7 @@ public class UserController {
      */
     public void storeUserRecord(Map<String, Object> worksheetDetails) throws NotLoggedInException {
         if (isLoggedIn()) {
-            historyManager.storeUserRecord(currentUsername, worksheetDetails);
+            historyManager.storeUserRecord(currentUsername[0], worksheetDetails);
         } else {
             throw new NotLoggedInException();
         }
@@ -128,7 +128,7 @@ public class UserController {
      */
     public void removeUserRecord(String worksheetKey) throws RecordDoesNotExistException, NotLoggedInException {
         if (isLoggedIn()) {
-            historyManager.removeUserRecord(currentUsername, worksheetKey);
+            historyManager.removeUserRecord(currentUsername[0], worksheetKey);
         } else {
             throw new NotLoggedInException();
         }

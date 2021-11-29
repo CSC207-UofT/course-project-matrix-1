@@ -66,6 +66,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
 
         // Store necessary info for each element in the JTable
         try {
+            // TODO: Change all the getters like this to presenters
             userHistoryList = userController.getUserHistory();
             // Run through each Worksheet
             for (Map <String, Object> map : userHistoryList) {
