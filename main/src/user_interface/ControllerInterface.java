@@ -30,8 +30,11 @@ public class ControllerInterface {
     public UserController getUserController(){
         return userController;
     }
-    WorksheetController makeWorksheetController(){
+
+    public WorksheetController makeWorksheetController(){
         // Create an instance of worksheet controller to generate the worksheet
         return new WorksheetController();
     }
+
+    public UserPresenter getUserPresenter(){return userPresenter;}
 }

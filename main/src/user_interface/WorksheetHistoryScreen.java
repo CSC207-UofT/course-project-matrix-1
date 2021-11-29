@@ -73,10 +73,16 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
 
         // Store necessary info for each element in the JTable
         try {
-            // TODO: Explain what happens here!
+            // This class is a part of the View in the Model-View-Presenter architecture.
+            // Thus, this class will ask the UserPresenter to takeover for the user requests.
+            // Therefore, we need a UserPresenter instance, as seen below.
+
             controllerInterface = new ControllerInterface();
-            controllerInterface.makeUserController();
+            controllerInterface.makeUserController();  // creates both User Presenter Controller
+            userPresenter = controllerInterface.getUserPresenter();
+            userController = controllerInterface.getUserController();
             userHistoryList = userPresenter.getUserHistory();
+
             // Run through each Worksheet
             for (Map <String, Object> map : userHistoryList) {
 

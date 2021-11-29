@@ -1,6 +1,5 @@
 package user_interface;
 import user_package.UserController;
-import user_package.UserPresenter;
 import worksheet_maker.WorksheetController;
 
 /**
@@ -14,8 +13,6 @@ class StartUserInterface {
 
     static ControllerInterface controllerInterface;
     static UserController userController;
-    // Todo: Delete the user presenter
-    static UserPresenter userPresenter;
     static WorksheetController worksheetController;
 
     public static void main(String[] args){
