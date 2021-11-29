@@ -26,7 +26,7 @@ import java.util.List;
 public class WorksheetHistoryScreen extends Screen implements MouseListener, KeyListener {
 
     //
-    static ControllerInterface controllerInterface;
+    static UserAccessInterface userAccessInterface;
     static UserController userController;
     static UserPresenter userPresenter;
 
@@ -77,10 +77,10 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
             // Thus, this class will ask the UserPresenter to takeover for the user requests.
             // Therefore, we need a UserPresenter instance, as seen below.
 
-            controllerInterface = new ControllerInterface();
-            controllerInterface.makeUserController();  // creates both User Presenter Controller
-            userPresenter = controllerInterface.getUserPresenter();
-            userController = controllerInterface.getUserController();
+            userAccessInterface = new UserAccessInterface();
+            userAccessInterface.makeControllerAndPresenter();  // creates both User Presenter Controller
+            userPresenter = userAccessInterface.getUserPresenter();
+            userController = userAccessInterface.getUserController();
             userHistoryList = userPresenter.getUserHistory();
 
             // Run through each Worksheet

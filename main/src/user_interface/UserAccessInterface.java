@@ -9,15 +9,15 @@ import worksheet_maker.WorksheetController;
  * @since 2021-11-29
  */
 
-public class ControllerInterface {
-    // TODO: Rename this class
+public class UserAccessInterface {
+    // TODO: Document it!
     static UserController userController;
     static UserPresenter userPresenter;
 
-    public ControllerInterface(){}
-    public void makeUserController(){
-        // TODO: Rename this method
+    public UserAccessInterface(){}
+    public void makeControllerAndPresenter(){
         // Create an instance of user controller to keep track of the user's information
+        // Create an instance of user presenter to display user's information
         try {
              userController = new UserController();
              userPresenter = new UserPresenter(userController.getUserManager(), userController.getHistoryManager(),

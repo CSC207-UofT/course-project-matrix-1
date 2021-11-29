@@ -11,13 +11,13 @@ import worksheet_maker.WorksheetController;
  */
 class StartUserInterface {
 
-    static ControllerInterface controllerInterface;
+    static UserAccessInterface userAccessInterface;
     static UserController userController;
     static WorksheetController worksheetController;
 
     public static void main(String[] args){
-        controllerInterface = new ControllerInterface();
-        controllerInterface.makeUserController();
+        userAccessInterface = new UserAccessInterface();
+        userAccessInterface.makeControllerAndPresenter();
         // Create an instance of user controller to keep track of the user's information and instance of User Presenter
         // to display the user's information
 
@@ -27,11 +27,11 @@ class StartUserInterface {
             e.printStackTrace();
         }
 
-        userController = controllerInterface.getUserController();
+        userController = userAccessInterface.getUserController();
 
         // Create an instance of worksheet controller to generate the worksheet
         worksheetController = new WorksheetController();
-        worksheetController = controllerInterface.makeWorksheetController();
+        worksheetController = userAccessInterface.makeWorksheetController();
 
         Screen.userController = userController;
         Screen.worksheetController = worksheetController;
