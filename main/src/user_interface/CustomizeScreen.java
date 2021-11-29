@@ -1,6 +1,5 @@
 package user_interface;
 
-import equation_entities.WholeNum;
 import equation_parameters.EquationDetails;
 import equation_parameters.FormatDetails;
 import equation_parameters.WholeNumEquationDetails;
@@ -31,7 +30,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
     // Invalid input JLabel
     JLabel operatorWarning = new JLabel("Operand's' minimum must be lower than the maximum", SwingConstants.CENTER);
-    JLabel invalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
 
     // Create text fields
     JTextField title_tf;
@@ -106,7 +104,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         numRows_tf = new JTextField(Integer.toString(formatDetails.getNumRows()), 1);
         numColumn_tf = new JTextField(Integer.toString(formatDetails.getNumColumns()), 1);
 
-        questionFormat.setSelectedItem(formatDetails.getEquationFormat());
+//        questionFormat.setSelectedItem(formatDetails.getEquationFormat());
 
         // Initialize equation details with previous input
         if (equationDetails instanceof WholeNumEquationDetails) {
