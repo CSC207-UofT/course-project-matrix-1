@@ -8,7 +8,7 @@ import java.util.Map;
 public class UserPresenter {
     private final UserManager userManager;
     private final HistoryManager historyManager;
-    private final String[] currentUsername;
+    private final String[] currentUsername;  // it is an alias of the currentUsername from UserController
 
     public UserPresenter(UserManager userManager, HistoryManager historyManager, String[] currentUsername)
             throws Exception {
@@ -43,9 +43,6 @@ public class UserPresenter {
         }
         throw new NotLoggedInException();
     }
-
-
-
 
 
 }
