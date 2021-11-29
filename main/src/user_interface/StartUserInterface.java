@@ -1,5 +1,6 @@
 package user_interface;
 import user_package.UserController;
+import user_package.UserPresenter;
 import worksheet_maker.WorksheetController;
 
 /**
@@ -13,12 +14,15 @@ class StartUserInterface {
 
     static ControllerInterface controllerInterface;
     static UserController userController;
+    // Todo: Delete this
+    static UserPresenter userPresenter;
     static WorksheetController worksheetController;
 
     public static void main(String[] args){
         controllerInterface = new ControllerInterface();
         controllerInterface.makeUserController();
-        // Create an instance of user controller to keep track of the user's information
+        // Create an instance of user controller to keep track of the user's information and instance of User Presenter
+        // to display the user's information
 
         try {
             userController = new UserController();

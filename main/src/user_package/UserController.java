@@ -51,6 +51,18 @@ public class UserController {
         this.currentUsername[0] = username;
     }
 
+    public String[] getCurrentUsername() {
+        return currentUsername;
+    }
+
+    public HistoryManager getHistoryManager() {
+        return historyManager;
+    }
+
+    public UserManager getUserManager() {
+        return userManager;
+    }
+
     /**
      * Verifies whether the user is in the system or not.
      * Throws an UserDoesNotExistException if the username does not match a user in the system.
