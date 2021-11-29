@@ -33,8 +33,8 @@ public class PDFArranger {
      */
     public void arrangeOnPDFs(PDImageXObject[][] qAndAPDImage, PDDocument[] worksheetPDFs, FormatDetails
             formatArrangeDetails) throws IOException {
-        double rescaleFactor = imageRescaler.findRescaleFactor(qAndAPDImage[1], (int) formatArrangeDetails.getNumRows(),
-                (int) formatArrangeDetails.getNumColumns());
+        double rescaleFactor = imageRescaler.findRescaleFactor(qAndAPDImage[1], formatArrangeDetails.getNumRows(),
+                formatArrangeDetails.getNumColumns());
         for (int i = 0; i < 2; i++) {
             populatePages(qAndAPDImage[i], worksheetPDFs[i], formatArrangeDetails, rescaleFactor);
         }
@@ -77,8 +77,8 @@ public class PDFArranger {
     private int addQuestions(PDImageXObject[] equationImages, double rescaleFactor, int qNumber,
                              FormatDetails formatArrangeDetails, PDPageContentStream contentStream)
             throws IOException {
-        int numColumns = (int) formatArrangeDetails.getNumColumns();
-        int numRows = (int) formatArrangeDetails.getNumRows();
+        int numColumns = formatArrangeDetails.getNumColumns();
+        int numRows = formatArrangeDetails.getNumRows();
         for (int x = 0; x < numColumns; x++) {
             for (int y = numRows; y > 0; y--) {
                 if (qNumber < equationImages.length) {

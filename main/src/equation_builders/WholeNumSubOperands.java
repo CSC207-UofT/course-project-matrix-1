@@ -18,9 +18,6 @@ class WholeNumSubOperands implements OperandConstructorInterface {
     /**
      * Creates operands (first and second) in the subtraction standard equation's question. If not negAllowed, prevent
      * operand 2 from being greater than operand 1.
-     * <p>
-     * RANDOM SEED (for fixing random number generation): First random operation uses the random seed. Succeeding
-     * operations increment the random seed by 5.
      *
      * @param equationDetails contains the necessary parameters for equation generation.
      * @param randomizer      Randomizer instance used to perform random number generation.

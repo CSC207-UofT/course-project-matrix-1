@@ -23,38 +23,48 @@ public class OptionScreen extends Screen implements MouseListener {
 
     public OptionScreen() {
 
-        // Set the panel to the option screen
-        cardLayout.show(cardPanel, "OptionScreen");
+        updatePanel(optionPanel);
 
         JLabel userProfileLbl = new JLabel("Profile", SwingConstants.CENTER);
         JLabel userHistoryLbl = new JLabel("History", SwingConstants.CENTER);
 
-        updateLabel(userProfileLbl, 0.72, 0.115, 0.2, 0.2, 0.015, 'd');
-        updateLabel(userHistoryLbl, 0.72, 0.2875, 0.2, 0.2, 0.015, 'd');
+        updateLabel(userProfileLbl, 0.82, 0.215, 0.2, 0.2, 0.015, 'd');
+        updateLabel(userHistoryLbl, 0.82, 0.405, 0.2, 0.2, 0.015, 'd');
 
-        // Resize and create JLabels for the images
+        JLabel profileImageLbl = new JLabel("", SwingConstants.CENTER);
+        updateLabel(profileImageLbl, 0.82, 0.1225, 0.2, 0.2, 0, 'd');
+        JLabel historyImageLbl = new JLabel("", SwingConstants.CENTER);
+        updateLabel(historyImageLbl, 0.825, 0.32, 0.2, 0.2, 0, 'd');
+
         ImageIcon profileIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userProfileIcon.png")));
         Image profileImage = profileIconImage.getImage();
         Image profileScaledImage = profileImage.getScaledInstance(150,150, Image.SCALE_SMOOTH);
-        profileIconImage = new ImageIcon(profileScaledImage);
-        JLabel profileImageLbl = new JLabel(profileIconImage, SwingConstants.CENTER);
-        updateLabel(profileImageLbl, 0.72, 0.015, 0.2, 0.2, 0, 'd');
 
         ImageIcon historyIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userHistoryIcon.png")));
         Image historyImage = historyIconImage.getImage();
         Image historyScaledImage = historyImage.getScaledInstance(67,67, Image.SCALE_SMOOTH);
+
+        // Resize and create JLabels for the images
+        profileIconImage = new ImageIcon(profileScaledImage);
+        profileImageLbl.setIcon(profileIconImage);
+
         historyIconImage = new ImageIcon(historyScaledImage);
-        JLabel historyImageLbl = new JLabel(historyIconImage, SwingConstants.CENTER);
-        updateLabel(historyImageLbl, 0.725, 0.21, 0.2, 0.2, 0, 'd');
+        historyImageLbl.setIcon(historyIconImage);
+
 
         // Update the location of each button and make the user profile and user history button's circles
         updateButtonLocation(createWSButton, 0.35, 0.375, 0.3, 0.1);
-        defaultButton(createWSButton);
+        defaultButton(createWSButton, 'd');
 
-        updateButtonLocation(userProfileButton, 0.775, 0.05, 0.15, 0.15);
-        userProfileButton.setBorder(new RoundedBorder(convert(0.055, 'w') + convert(0.055, 'h')));
-        updateButtonLocation(userHistoryButton, 0.7825, 0.25, 0.15, 0.15);
-        userHistoryButton.setBorder(new RoundedBorder(convert(0.045, 'w') + convert(0.045, 'h')));
+        updateButtonLocation(userProfileButton, 0.8795, 0.16, 0.14, 0.15);
+        userProfileButton.setBorder(new RoundedBorder(convert(0.051, 'w') + convert(0.051, 'h')));
+        userProfileButton.setOpaque(false);
+        userProfileButton.setContentAreaFilled(false);
+
+        updateButtonLocation(userHistoryButton, 0.8795, 0.3525, 0.14, 0.15);
+        userHistoryButton.setBorder(new RoundedBorder(convert(0.05, 'w') + convert(0.05, 'h')));
+        userHistoryButton.setOpaque(false);
+        userHistoryButton.setContentAreaFilled(false);
 
         // Add Mouse Listener for hover and clicking features
         createWSButton.addMouseListener(this);
@@ -69,35 +79,32 @@ public class OptionScreen extends Screen implements MouseListener {
         optionPanel.add(userHistoryLbl);
         optionPanel.add(profileImageLbl);
         optionPanel.add(historyImageLbl);
+
+        changePanel(optionPanel);
+
     }
 
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if (e.getSource() == createWSButton) {
-            frame.setVisible(false);
-            optionPanel.setVisible(false);
             new TopicScreen();
         }
         else if (e.getSource() == userProfileButton) {
-            frame.setVisible(false);
-            optionPanel.setVisible(false);
             new UserProfileScreen();
         }
         else if (e.getSource() == userHistoryButton) {
-            frame.setVisible(false);
-            optionPanel.setVisible(false);
             new WorksheetHistoryScreen();
         }
     }
 
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == createWSButton) {
-            highlightButton(createWSButton);
+            highlightButton(createWSButton, 'd');
         }
     }
 
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == createWSButton) {
-            defaultButton(createWSButton);
+            defaultButton(createWSButton, 'd');
         }
     }
     /**
