@@ -1,12 +1,9 @@
 package utilities;
 
-import equation_builders.BedmasEquationDirector;
 import equation_parameters.FractionAddSubEquationDetails;
 import org.junit.Test;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class DistributionCalculatorTest {
     @Test

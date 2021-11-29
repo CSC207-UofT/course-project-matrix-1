@@ -4,15 +4,14 @@ import equation_parameters.WholeNumEquationDetails;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class WorksheetGeneratorTest {
     private WorksheetGenerator wg;
     private Worksheet ws;
-    private WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
+    private final WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
 
     @Before
     public void init() {
@@ -37,8 +36,8 @@ public class WorksheetGeneratorTest {
     public void testWorksheetHasQuestionAndAnswer() {
         wg.populateWorksheet(wholeNumEquationDetails);
         for (int i = 0; i < ws.getEquations().size(); i++) {
-            //Test if each equation has a question and an answer (greater than length of 2 list)
-            assertTrue(ws.getEquations().get(i).getEquation().size()>2);
+            //Test if each equation has all the parts of an equation (should be 4)
+            assertEquals(ws.getEquations().get(i).equationToHashMap().size(), 4);
         }
     }
 

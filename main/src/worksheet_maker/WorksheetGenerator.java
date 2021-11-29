@@ -1,8 +1,11 @@
 package worksheet_maker;
 
-import equation_builders.BedmasEquationDirector;
+import equation_builders.StandardEquationDirector;
 import equation_builders.EquationDirector;
 import equation_parameters.*;
+import utilities.Randomizer;
+
+import static constants.EquationType.*;
 
 /**
  * Generates a worksheet through the WorksheetInput interface.
@@ -13,7 +16,7 @@ import equation_parameters.*;
  */
 public class WorksheetGenerator {
     private final WorksheetInput worksheet;
-    private final int seed;
+    private final Randomizer randomizer;
 
     /**
      * @param worksheet Worksheet input
@@ -21,7 +24,7 @@ public class WorksheetGenerator {
      */
     public WorksheetGenerator(WorksheetInput worksheet, int seed) {
         this.worksheet = worksheet;
-        this.seed = seed;
+        randomizer = new Randomizer(seed);
     }
 
     /**
@@ -39,29 +42,18 @@ public class WorksheetGenerator {
         //TODO: fix this to not be null
         //Create and assign the appropriate builder to a director.
         if (equationDetails instanceof WholeNumEquationDetails) {
-            equationDirector = new BedmasEquationDirector("Whole Number");
+            equationDirector = new StandardEquationDirector(randomizer, equationDetails, WHOLE_NUMBER);
         } else if (equationDetails instanceof FractionAddSubEquationDetails || equationDetails instanceof FractionMultiDivEquationDetails) {
-            equationDirector = new BedmasEquationDirector("Fraction");
+            equationDirector = new StandardEquationDirector(randomizer, equationDetails, FRACTION);
         } else if (equationDetails instanceof DecimalEquationDetails) {
             // TODO: Not yet implemented
-            throw new RuntimeException("Decimal Bedmas Equations Not Implemented!");
-//            equationDirector = new BedmasEquationDirector("Decimal");
+            throw new RuntimeException("Decimal Standard Equations Not Implemented!");
+//            equationDirector = new StandardEquationDirector(DECIMAL);
         }
         assert equationDirector != null;
-        equationDirector.setEquationBuilder(equationDetails.getOperator());
-
-        // Update worksheet random seed per question.
-        int currentSeed = this.seed;
-
         for (int i = 0; i < equationDetails.getNumOfEquations(); i++) {
-//            if (equationDetails instanceof WholeNumEquationDetails){
-//                equationDirector.constructBedmasEquation(((WholeNumEquationDetails) equationDetails).getOperandRange1(),
-//                        ((WholeNumEquationDetails) equationDetails).getOperandRange2(), equationDetails.isNegAllowed(),
-//                        currentSeed);
-//            }
-            equationDirector.constructEquation(equationDetails, currentSeed);
+            equationDirector.constructEquation();
             this.worksheet.addEquation(equationDirector.getEquation());
-            currentSeed += 100;
         }
     }
 }
