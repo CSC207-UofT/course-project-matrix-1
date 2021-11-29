@@ -14,7 +14,7 @@ class StartUserInterface {
 
     static ControllerInterface controllerInterface;
     static UserController userController;
-    // Todo: Delete this
+    // Todo: Delete the user presenter
     static UserPresenter userPresenter;
     static WorksheetController worksheetController;
 

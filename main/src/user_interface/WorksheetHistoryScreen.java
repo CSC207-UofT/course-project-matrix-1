@@ -2,6 +2,8 @@ package user_interface;
 
 import equation_parameters.EquationDetails;
 import equation_parameters.FormatDetails;
+import user_package.UserController;
+import user_package.UserPresenter;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -22,6 +24,11 @@ import java.util.List;
  * @since 2021-11-14
  */
 public class WorksheetHistoryScreen extends Screen implements MouseListener, KeyListener {
+
+    //
+    static ControllerInterface controllerInterface;
+    static UserController userController;
+    static UserPresenter userPresenter;
 
     // Create JLabels
     JLabel noWorksheets = new JLabel("No Worksheets Available", SwingConstants.CENTER);
@@ -66,8 +73,10 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
 
         // Store necessary info for each element in the JTable
         try {
-            // TODO: Change all the getters like this to presenters
-            userHistoryList = userController.getUserHistory();
+            // TODO: Explain what happens here!
+            controllerInterface = new ControllerInterface();
+            controllerInterface.makeUserController();
+            userHistoryList = userPresenter.getUserHistory();
             // Run through each Worksheet
             for (Map <String, Object> map : userHistoryList) {
 
@@ -260,8 +269,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                     String tempKey = (String) userHistoryList.get(index).get("worksheetKey");
                     userController.storeUserScore(tempKey, score);
                     invalidScore.setVisible(false);
-                    // TODO: Change it to UserPresenter
-                    userHistoryList = userController.getUserHistory();
+                    userHistoryList = userPresenter.getUserHistory();
                     new WorksheetHistoryScreen();
                 }
             }
