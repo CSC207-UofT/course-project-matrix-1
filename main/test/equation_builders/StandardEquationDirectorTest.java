@@ -41,7 +41,7 @@ public class StandardEquationDirectorTest {
         initializeWholeNum();
         eqnDetails.setOperator(operator);
         eqnDetails.setNegAllowed(isNegative);
-        ((WholeNumEquationDetails) eqnDetails).setOperandRange1(generateRange(1, 40));
+        ((WholeNumEquationDetails) eqnDetails).setOperandRange1(generateRange(0, 40));
         ((WholeNumEquationDetails) eqnDetails).setOperandRange2(generateRange(1, 40));
         director = new StandardEquationDirector(randomizer, eqnDetails, WHOLE_NUMBER);
         director.constructEquation();
@@ -206,8 +206,47 @@ public class StandardEquationDirectorTest {
             director.constructEquation();
         }
     }
-    //TODO: LCM, GCD tests
 
+    @Test
+    public void testLCMPos() {
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(LCM, false);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= 0));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= 0));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
+    }
+    @Test
+    public void testLCMNeg() {
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(LCM, true);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
+    }
+    @Test
+    public void testGCDPos() {
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(GCD, false);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= 0));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= 0));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
+    }
+    @Test
+    public void testGCDNeg() {
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(GCD, true);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
+    }
     //Fraction tests
 
 

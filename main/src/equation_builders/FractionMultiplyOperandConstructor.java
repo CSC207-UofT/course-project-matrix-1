@@ -11,7 +11,7 @@ import equation_entities.Value;
  * @version 1.0
  * @since 2021-11-22
  */
-public class FractionMultiplyOperands extends FractionMultDivOperands implements OperandConstructorInterface {
+public class FractionMultiplyOperandConstructor extends FractionMultDivOperandConstructor implements OperandConstructorInterface {
     /**
      * Assigns the numerator and denominator to the fractions normally.
      *
