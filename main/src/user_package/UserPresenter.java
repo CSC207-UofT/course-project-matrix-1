@@ -5,6 +5,13 @@ import exceptions.NotLoggedInException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Presenter class. Acts as the presenter in the Model-View-Presenter architecture.
+ * The view classes in the user interface access this class as the Presenter.
+ * @author Kerim Saltoglu
+ * @since 2021-11-29
+ */
+
 public class UserPresenter {
     private final UserManager userManager;
     private final HistoryManager historyManager;

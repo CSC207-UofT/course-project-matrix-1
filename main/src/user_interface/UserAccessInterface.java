@@ -10,7 +10,8 @@ import worksheet_maker.WorksheetController;
  */
 
 public class UserAccessInterface {
-    // TODO: Document it!
+    // This class creates an instance of UserController and UserPresenter
+    // The view classes such as the WorkSheetViewerScreen use the UserPresenter as a Presenter in the MVP architecture.
     static UserController userController;
     static UserPresenter userPresenter;
 
@@ -21,7 +22,7 @@ public class UserAccessInterface {
         try {
              userController = new UserController();
              userPresenter = new UserPresenter(userController.getUserManager(), userController.getHistoryManager(),
-                     userController.getCurrentUsername());
+                     userController.getCurrentUsername());  // current UserName is aliased
         } catch (Exception e) {
             e.printStackTrace();
         }
