@@ -34,7 +34,12 @@ public class LocalDataAccess implements DataAccessInterface {
      */
     public void storeHistories(Map<String, History> existingHistories) {
         try {
-            FileOutputStream historiesOut = new FileOutputStream("main/src/user_package/user_package.users_data/history.ser");
+            // Check if parent directory exists
+            String dataFolder = "main/src/user_package/user_package.users_data";
+            makeParentDirectory(dataFolder);
+
+            // Attempt to read from file
+            FileOutputStream historiesOut = new FileOutputStream(dataFolder + "/history.ser");
             ObjectOutputStream out = new ObjectOutputStream(historiesOut);
             out.writeObject(existingHistories);
             out.close();
@@ -52,8 +57,12 @@ public class LocalDataAccess implements DataAccessInterface {
     @SuppressWarnings("unchecked")
     public Map<String, User> getUsers() throws Exception {
         try {
+            // Check if parent directory exists
+            String dataFolder = "main/src/user_package/user_package.users_data";
+            makeParentDirectory(dataFolder);
+
             // Attempt to read from file
-            FileInputStream usersIn = new FileInputStream("main/src/user_package/user_package.users_data/users.ser");
+            FileInputStream usersIn = new FileInputStream(dataFolder + "/users.ser");
             ObjectInputStream in = new ObjectInputStream(usersIn);
             Map<String, User> existingUsers = (HashMap<String, User>) in.readObject();
             in.close();
@@ -90,4 +99,20 @@ public class LocalDataAccess implements DataAccessInterface {
         }
     }
 
+
+    /**
+     * Helper method to create parent directory, where user data will be stored.
+     *
+     * @param path where to store user and history data
+     * @throws FileNotFoundException when folder could not be made successfully
+     */
+    public void makeParentDirectory(String path) throws FileNotFoundException {
+        File file = new File(path);
+        if (!(file.exists() && file.isDirectory())){
+            boolean fileMade = file.mkdir();
+            if (!fileMade) {
+                throw new FileNotFoundException("users_data directory could not be made!");
+            }
+        }
+    }
 }
