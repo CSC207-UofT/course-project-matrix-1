@@ -32,17 +32,12 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     JLabel operatorWarning = new JLabel("Operand's' minimum must be lower than the maximum", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField title_tf;
-    JTextField numQuestions_tf;
-    JTextField numRows_tf;
-    JTextField numColumn_tf;
-
     JTextField op1MIN;
     JTextField op1MAX;
     JTextField op2MIN;
     JTextField op2MAX;
 
-    JTextField[] textFields = {op1MIN, op1MAX, op2MIN, op2MAX};
+    JTextField[] textFields;
 
     // Create checkbox
     JCheckBox negAllowedBox;
@@ -65,15 +60,12 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         updatePanel(customizePanel);
 
         // Initialize text fields
-        title_tf = new JTextField(1);
-        numQuestions_tf = new JTextField(1);
-        numRows_tf = new JTextField(1);
-        numColumn_tf = new JTextField(1);
-
         op1MIN = new JTextField(1);
         op1MAX = new JTextField(1);
         op2MIN = new JTextField(1);
         op2MAX = new JTextField(1);
+
+        textFields = new JTextField[]{op1MIN, op1MAX, op2MIN, op2MAX};
 
         // Initial check boxes
         negAllowedBox = new JCheckBox("");
@@ -82,6 +74,8 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         this.equationDetails = equationDetails;
         this.formatDetails = formatDetails;
         this.worksheetHistoryDetails = new HashMap<>();
+        worksheetHistoryDetails.put("equationDetails", this.equationDetails);
+        worksheetHistoryDetails.put("formatDetails", this.formatDetails);
 
         fillScreen();
     }
@@ -98,14 +92,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         this.formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
         this.worksheetHistoryDetails = worksheetDetails;
 
-        // Initialize format details with previous input
-        title_tf = new JTextField(formatDetails.getTitle(), 1);
-        numQuestions_tf = new JTextField(Integer.toString(equationDetails.getNumOfEquations()),1);
-        numRows_tf = new JTextField(Integer.toString(formatDetails.getNumRows()), 1);
-        numColumn_tf = new JTextField(Integer.toString(formatDetails.getNumColumns()), 1);
-
-//        questionFormat.setSelectedItem(formatDetails.getEquationFormat());
-
         // Initialize equation details with previous input
         if (equationDetails instanceof WholeNumEquationDetails) {
             operandRange1 = ((WholeNumEquationDetails) equationDetails).getOperandRange1();
@@ -117,11 +103,12 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             op2MAX = new JTextField(Integer.toString(operandRange2[1]),1);
         }
         // TODO: Add previous user input for fractions
+        textFields = new JTextField[]{op1MIN, op1MAX, op2MIN, op2MAX};
+
         negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
 
         fillScreen();
     }
-
 
     /**
      * Adds all necessary parts of CustomizeScreen.
@@ -279,7 +266,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             generateWorksheet();
         }
         else if (e.getSource() == customizeBackButton) {
-            new TopicScreen();
+            new TopicScreen(worksheetHistoryDetails);
         }
     }
 
