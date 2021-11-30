@@ -14,22 +14,22 @@
   <path id="libraries.classpath">
          <pathelement location="${build.dir}" />
          <fileset dir="${lib}">
-                <include name="**/*.jar" />
+                <include name="*.jar" />
          </fileset>
   </path>
 
   <!-- Define the classpath which includes the junit.jar and the classes after compiling-->
-	<path id="junit.class.path">
-		<pathelement location="lib/junit-4.13.2.jar" />
-		<pathelement location="lib/hamcrest-core-1.3.jar" />
-		<pathelement location="${build.dir}" />
-	</path>
+<!--	<path id="junit.class.path">-->
+<!--		<pathelement location="lib/junit-4.13.2.jar" />-->
+<!--		<pathelement location="lib/hamcrest-core-1.3.jar" />-->
+<!--		<pathelement location="${build.dir}" />-->
+<!--	</path>-->
 
 
   <!-- Target for deleting the existing directories-->
   <target name="clean">
     <delete dir="${build.dir}" />
-		<delete dir="${test.report.dir}" />
+    <delete dir="${test.report.dir}" />
   </target>
 
   <!-- Target for creating the new directories-->
@@ -47,21 +47,21 @@
     </javac>
 
     <!-- Compile source directory -->
-    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
-			<classpath refid="junit.class.path" />
-		</javac>
+    <javac srcdir="${src.dir}" destdir="${build.dir}">
+			<classpath refid="libraries.classpath" />
+    </javac>
 
     <!-- Compile test directory -->
-		<javac srcdir="${test.dir}" destdir="${build.test.dir}" includeantruntime="false">
-			<classpath refid="junit.class.path" />
-		</javac>
+    <javac srcdir="${test.dir}" destdir="${build.test.dir}">
+        <classpath refid="libraries.classpath" />
+    </javac>
   </target>
 
   <!-- Run the JUnit Tests -->
 	<!-- Output is XML-->
 	<target name="junit" depends="compile">
 		<junit printsummary="on" fork="true" haltonfailure="yes">
-			<classpath refid="junit.class.path" />
+			<classpath refid="libraries.classpath" />
 			<classpath>
 			    <pathelement location="${build.test.dir}"/>
 			  </classpath>
