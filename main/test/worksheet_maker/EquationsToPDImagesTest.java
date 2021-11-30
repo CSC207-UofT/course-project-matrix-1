@@ -7,13 +7,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
 public class EquationsToPDImagesTest {
     FormatDetails formatDetails = new FormatDetails();
-    String[][] equations = {{"5", "+", "4", "=", "9"}, {"5", "+", "3", "=", "8"}};
+    List<Map<String, String>> equations =  new ArrayList<>();
+//    String[][] equations = {{"5", "+", "4", "=", "9"}, {"5", "+", "3", "=", "8"}};
     PDDocument[] worksheetPDFs = new PDDocument[2];
     EquationsToPDImages equationsToPDImages = new EquationsToPDImages();
 
@@ -26,6 +30,18 @@ public class EquationsToPDImagesTest {
 
         worksheetPDFs[0] = new PDDocument();
         worksheetPDFs[1] = new PDDocument();
+        Map<String, String> q1 = new HashMap<>();
+        q1.put("operator", "+");
+        q1.put("operand1", "5");
+        q1.put("operand2", "4");
+        q1.put("answer", "9");
+        equations.add(q1);
+        Map<String, String> q2 = new HashMap<>();
+        q2.put("operator", "+");
+        q2.put("operand1", "5");
+        q2.put("operand2", "3");
+        q2.put("answer", "8");
+        equations.add(q2);
     }
     @Test
     public void test2PDFsExist() throws IOException {

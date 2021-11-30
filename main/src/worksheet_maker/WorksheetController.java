@@ -5,7 +5,6 @@ import equation_parameters.FormatDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * Generate and present the worksheet based on inputs from the UserInterface.

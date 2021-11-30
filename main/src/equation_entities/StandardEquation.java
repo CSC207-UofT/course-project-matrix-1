@@ -1,17 +1,20 @@
 package equation_entities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import static constants.EquationParts.*;
 
 /**
- * Refers to an equation with any number of operands that use BEDMAS operators. An example is 5 + 3 = 8. The question
- * will be stored as a binary expression tree, while the answer will be a string.
+ * Refers to an equation with any number of operands that use standard operators (BEDMAS + LCM + GCF). An example is
+ * 5 + 3 = 8. The question will be stored as a binary expression tree, while the answer will be a string.
  *
  * @author Sean Jeong
  * @version 2.0
  * @since 2021-10-12
  */
-public class BedmasEquation implements Equation {
+public class StandardEquation implements Equation {
     private BinaryExpressionTree question;
     private Value answer;
 
@@ -43,16 +46,19 @@ public class BedmasEquation implements Equation {
     }
 
     /**
-     * Returns the array representation of the equation.
+     * Returns a Hashmap of String representation of an Equation. Key is operator, operand1, operand2, and answer.
+     * Values are a String representation of each of those for a given equation.
      *
-     * @return a List representation of the equation, where every symbol is a separate item in the array.
+     * @return Hashmap of String representation of a Worksheet.
+     * Ex. {"operator"="\div",operand1="10", "operand2"="5", "answer"="2" }
      */
-    @Override
-    public List<String> getEquation() {
-        List<String> equationList = new ArrayList<>(question.toStringArrayList());
-        equationList.add("=");
-        equationList.add(answer.toString());
-        return equationList;
+    public Map<String, String> equationToHashMap(){
+        Map<String, String> equationHashMap = new HashMap<>();
+        equationHashMap.put(OPERATOR, question.getRoot().getSymbol().toString());
+        equationHashMap.put(OPERAND1, question.getRoot().getLeftNode().getSymbol().toString());
+        equationHashMap.put(OPERAND2, question.getRoot().getRightNode().getSymbol().toString());
+        equationHashMap.put(ANSWER, answer.toString());
+        return equationHashMap;
     }
 
     /**

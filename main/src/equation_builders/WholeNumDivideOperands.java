@@ -17,9 +17,9 @@ import java.util.List;
  * @version 1.0
  * @since 2021-10-30
  */
-class WholeNumDivideOperandConstructor implements OperandConstructorInterface {
+class WholeNumDivideOperands implements OperandConstructorInterface {
     /**
-     * Creates operands (first and second) in the division bedmas equation's question. Operand 1 must be divisible by
+     * Creates operands (first and second) in the division standard equation's question. Operand 1 must be divisible by
      * operand 2 to yield a negative answer.
      *
      * @param equationDetails contains the necessary parameters for equation generation.
