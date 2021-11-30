@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,7 +17,7 @@ import java.awt.event.MouseListener;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-09
  */
-public class Screen extends JFrame implements MouseListener {
+public class Screen extends JFrame implements MouseListener, KeyListener {
 
     // Screen size Dimensions are set to full screen
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -39,18 +40,21 @@ public class Screen extends JFrame implements MouseListener {
     static UserController userController;
     static WorksheetController worksheetController;
 
+    // Keep track of the username inputted
     static String username;
 
+    // Create the fonts
     Font defaultButtonFont = new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02));
     Font highlightButtonFont = new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225));
 
-    // Initialize the Colors
+    // Create the Colors
     Color lightBlue = new Color(142, 202, 234, 255);
     Color lightGray = new Color(220, 220, 220);
     Color lightYellow = new Color(217, 207, 131, 252);
     Color red = new Color(196, 67, 67);
     Color darkGray = Color.DARK_GRAY;
 
+    // Create the borders to be used (panels, buttons, and text fields)
     MatteBorder panelBorder = new MatteBorder(convert(0.15, 'h'),2,2,2, lightBlue);
     MatteBorder loginPanelBorder = new MatteBorder(convert(0.35, 'h'),2,2,2, lightBlue);
     MatteBorder defaultButtonBorder = new MatteBorder(4, 4, 4, 4, darkGray);
@@ -60,12 +64,22 @@ public class Screen extends JFrame implements MouseListener {
     public Screen() {
     }
 
+    /**
+     * Remove the previous panel and make the current panel visible
+     *
+     * @param panel the panel to be shown
+     */
     public void changePanel(JPanel panel) {
         frame.getContentPane().removeAll();
         frame.add(panel);
         frame.revalidate();
     }
 
+    /**
+     * Update the panel to include the default title and background color
+     *
+     * @param panel the panel to be updated to the default settings
+     */
     public void updatePanel(JPanel panel) {
         panel.setLayout(null);
         panel.setBorder(panelBorder);
@@ -108,7 +122,7 @@ public class Screen extends JFrame implements MouseListener {
     }
 
     /**
-     * Update the settings of each text field
+     * Update the settings of each text field (border and color)
      *
      * @param textFields an array list of JTextFields that will be updated to the default settings
      */
@@ -174,7 +188,7 @@ public class Screen extends JFrame implements MouseListener {
     }
 
     /**
-     * Update the button to be highlighted red and a bigger font.
+     * Update the button to be highlighted with a bigger font.
      *
      * @param button a JButton that will be highlighted
      */
@@ -264,6 +278,7 @@ public class Screen extends JFrame implements MouseListener {
     }
 
     public static void main(String[] args) {
+        // Set the frame to the maximum width and height of the screen and make it visible
         frame.setSize(width, height);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -22,7 +22,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
     JButton newUserBackButton = new JButton("Back");
 
     // Create Invalid Input JLabel
-    JLabel newUserInvalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
+    JLabel newUserInvalidInput = new JLabel("", SwingConstants.CENTER);
 
     // Create text fields
     JTextField newUsernameInput = new JTextField(1);
@@ -84,7 +84,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         createUserButton.addMouseListener(this);
         newUserBackButton.addMouseListener(this);
 
-        // Add Key Listener for the JTextFields
+        // Add KeyListener for rach text field
         newUsernameInput.addKeyListener(this);
         nameInput.addKeyListener(this);
         ageInput.addKeyListener(this);
@@ -104,10 +104,17 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         newUserPanel.add(newUserBackButton);
         newUserPanel.add(newUserInvalidInput);
 
+        // Change the panel to the new user screen panel
         changePanel(newUserPanel);
     }
 
+    /**
+     * Attempt to create the new user. If the user information is not valid,
+     * invalid input(s) or taken username will appear.
+     */
     private void createUser(){
+
+        // Initialize the current username and name to be checked for valid inputs
         String currUsername = newUsernameInput.getText();
         String currName = nameInput.getText();
 

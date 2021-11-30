@@ -16,10 +16,9 @@ class StartUserInterface {
     static WorksheetController worksheetController;
 
     public static void main(String[] args){
+
         userAccessInterface = new UserAccessInterface();
         userAccessInterface.makeControllerAndPresenter();
-        // Create an instance of user controller to keep track of the user's information and instance of User Presenter
-        // to display the user's information
 
         try {
             userController = new UserController();
