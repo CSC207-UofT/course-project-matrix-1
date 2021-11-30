@@ -1,8 +1,6 @@
 package user_interface;
 
-import equation_parameters.EquationDetails;
-import equation_parameters.FormatDetails;
-import equation_parameters.WholeNumEquationDetails;
+import equation_parameters.*;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -26,7 +24,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     JButton topicNextButton = new JButton("Next");
     JButton topicScreenBackButton = new JButton("Back");
 
-    String[] numTypeOptions = {"Integers"};
+    String[] numTypeOptions = {"Integers", "Fractions"};
     JComboBox<String> numOptions = new JComboBox<>(numTypeOptions);
 
     String[] topicOptions = {"Addition", "Subtraction", "Multiplication", "Division"};
@@ -92,7 +90,9 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         if (equationDetails instanceof WholeNumEquationDetails){
             numOptions.setSelectedItem("Integers");
         }
-        // TODO: Do the same for Fractions
+        else if (equationDetails instanceof FractionAddSubEquationDetails || equationDetails instanceof FractionMultiDivEquationDetails) {
+            numOptions.setSelectedItem("Fractions");
+        }
 
         switch (equationDetails.getOperator()) {
             case "+":
@@ -235,18 +235,35 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     }
 
     private void checkValidDetails(){
-        String topic = (String) topicChose.getSelectedItem();
-        if (Objects.equals(topic, "Addition")) {
-            this.equationDetails.setOperator("+");
+        String type = (String) numOptions.getSelectedItem();
+        if (Objects.equals(type, "Fractions")) {
+            String topic = (String) topicChose.getSelectedItem();
+            if (Objects.equals(topic, "Addition")) {
+                equationDetails = new FractionAddSubEquationDetails();
+                this.equationDetails.setOperator("+");
+            } else if (Objects.equals(topic, "Subtraction")) {
+                equationDetails = new FractionAddSubEquationDetails();
+                this.equationDetails.setOperator("-");
+            } else if (Objects.equals(topic, "Multiplication")) {
+                equationDetails = new FractionMultiDivEquationDetails();
+                this.equationDetails.setOperator("*");
+            } else if (Objects.equals(topic, "Division")) {
+                equationDetails = new FractionMultiDivEquationDetails();
+                this.equationDetails.setOperator("/");
+            }
         }
-        else if (Objects.equals(topic, "Subtraction")) {
-            this.equationDetails.setOperator("-");
-        }
-        else if (Objects.equals(topic, "Multiplication")) {
-            this.equationDetails.setOperator("*");
-        }
-        else if (Objects.equals(topic, "Division")) {
-            this.equationDetails.setOperator("/");
+        else if (Objects.equals(type, "Integers")) {
+            String topic = (String) topicChose.getSelectedItem();
+            equationDetails = new WholeNumEquationDetails();
+            if (Objects.equals(topic, "Addition")) {
+                this.equationDetails.setOperator("+");
+            } else if (Objects.equals(topic, "Subtraction")) {
+                this.equationDetails.setOperator("-");
+            } else if (Objects.equals(topic, "Multiplication")) {
+                this.equationDetails.setOperator("*");
+            } else if (Objects.equals(topic, "Division")) {
+                this.equationDetails.setOperator("/");
+            }
         }
 
         boolean passed = true;
