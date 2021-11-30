@@ -54,10 +54,13 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
     EquationDetails equationDetails;
     FormatDetails formatDetails;
+    Map<String, Object> worksheetDetails;
+
 
     public WorksheetViewerScreen(Map<String, Object> worksheetDetails) throws IOException {
-
         updatePanel(previewPanel);
+
+        this.worksheetDetails = worksheetDetails;
 
         equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
         formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
@@ -176,7 +179,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         } else if (e.getSource() == mainMenuButton) {
             new OptionScreen();
         } else if (e.getSource() == viewerBackButton) {
-            new CustomizeScreen(equationDetails, formatDetails);
+            new CustomizeScreen(worksheetDetails);
         }
 
     }
