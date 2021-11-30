@@ -20,6 +20,7 @@ public class OptionScreen extends Screen implements MouseListener {
     JButton createWSButton = new JButton("Generate Worksheet");
     JButton userHistoryButton = new JButton();
     JButton userProfileButton = new JButton();
+    JButton logoutButton = new JButton("Logout");
 
     public OptionScreen() {
 
@@ -32,13 +33,13 @@ public class OptionScreen extends Screen implements MouseListener {
         updateLabel(userHistoryLbl, 0.82, 0.405, 0.2, 0.2, 0.015, 'd');
 
         JLabel profileImageLbl = new JLabel("", SwingConstants.CENTER);
-        updateLabel(profileImageLbl, 0.82, 0.1225, 0.2, 0.2, 0, 'd');
+        updateLabel(profileImageLbl, 0.82, 0.12, 0.2, 0.2, 0, 'd');
         JLabel historyImageLbl = new JLabel("", SwingConstants.CENTER);
         updateLabel(historyImageLbl, 0.825, 0.32, 0.2, 0.2, 0, 'd');
 
         ImageIcon profileIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userProfileIcon.png")));
         Image profileImage = profileIconImage.getImage();
-        Image profileScaledImage = profileImage.getScaledInstance(150,150, Image.SCALE_SMOOTH);
+        Image profileScaledImage = profileImage.getScaledInstance(155,150, Image.SCALE_SMOOTH);
 
         ImageIcon historyIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userHistoryIcon.png")));
         Image historyImage = historyIconImage.getImage();
@@ -50,6 +51,12 @@ public class OptionScreen extends Screen implements MouseListener {
 
         historyIconImage = new ImageIcon(historyScaledImage);
         historyImageLbl.setIcon(historyIconImage);
+
+        updateButtonLocation(logoutButton, 0.8575, 0.5525, 0.125, 0.06);
+        defaultButton(logoutButton, 'd');
+        logoutButton.setBackground(red);
+
+        logoutButton.addMouseListener(this);
 
 
         // Update the location of each button and make the user profile and user history button's circles
@@ -75,6 +82,7 @@ public class OptionScreen extends Screen implements MouseListener {
         optionPanel.add(createWSButton);
         optionPanel.add(userProfileButton);
         optionPanel.add(userHistoryButton);
+        optionPanel.add(logoutButton);
         optionPanel.add(userProfileLbl);
         optionPanel.add(userHistoryLbl);
         optionPanel.add(profileImageLbl);
@@ -94,17 +102,33 @@ public class OptionScreen extends Screen implements MouseListener {
         else if (e.getSource() == userHistoryButton) {
             new WorksheetHistoryScreen();
         }
+        else if (e.getSource() == logoutButton) {
+            int option = JOptionPane.showConfirmDialog(frame, "Would you like to logout?",
+                    "Logout", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (option == JOptionPane.YES_OPTION) {
+                new LoginScreen();
+            }
+        }
     }
 
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == createWSButton) {
             highlightButton(createWSButton, 'd');
         }
+        else if (e.getSource() == logoutButton) {
+            highlightButton(logoutButton, 'd');
+            logoutButton.setBackground(red);
+        }
     }
 
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == createWSButton) {
             defaultButton(createWSButton, 'd');
+        }
+        else if (e.getSource() == logoutButton) {
+            defaultButton(logoutButton, 'd');
+            logoutButton.setBackground(red);
         }
     }
     /**
