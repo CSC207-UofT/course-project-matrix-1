@@ -18,7 +18,7 @@ import java.util.Map;
 public class StandardEquationDirectorTest {
     private StandardEquationDirector director;
     private EquationDetails eqnDetails;
-    private final Randomizer randomizer = new Randomizer(1000);
+    private Randomizer randomizer = new Randomizer(1000);
 
     // Instantiate equation details
     public void initializeFractionAddSub() {
@@ -59,119 +59,152 @@ public class StandardEquationDirectorTest {
 
     @Test
     public void testAddNeg() {
-        setupBasicWholeNum(ADD, true);
-        Map<String, String> eqn = director.getEquation().equationToHashMap();
-        assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
-        assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
-        assertTrue((Integer.parseInt(eqn.get(ANSWER)) <= 80) && (Integer.parseInt(eqn.get(ANSWER)) >= -80));
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(ADD, true);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
+            assertTrue((Integer.parseInt(eqn.get(ANSWER)) <= 80) && (Integer.parseInt(eqn.get(ANSWER)) >= -80));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
     }
 
     @Test
     public void testSubPos() {
-        setupBasicWholeNum(SUB, false);
-        Map<String, String> eqn = director.getEquation().equationToHashMap();
-        assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= 1));
-        assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= Integer.parseInt(eqn.get(OPERAND1))) && (Integer.parseInt(eqn.get(OPERAND2)) >= 1));
-        assertTrue((Integer.parseInt(eqn.get(ANSWER)) <= 40) && (Integer.parseInt(eqn.get(ANSWER)) >= 1));
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(SUB, false);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            System.out.println(director.getEquation().equationToHashMap());
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= 1));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= Integer.parseInt(eqn.get(OPERAND1))) && (Integer.parseInt(eqn.get(OPERAND2)) >= 1));
+            assertTrue((Integer.parseInt(eqn.get(ANSWER)) <= 40) && (Integer.parseInt(eqn.get(ANSWER)) >= 0));
+        }
     }
 
     @Test
     public void testSubNeg() {
-        setupBasicWholeNum(SUB, true);
-        Map<String, String> eqn = director.getEquation().equationToHashMap();
-        assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
-        assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
-        assertTrue((Integer.parseInt(eqn.get(ANSWER)) <= 80) && (Integer.parseInt(eqn.get(ANSWER)) >= -80));
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(SUB, true);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
+            assertTrue((Integer.parseInt(eqn.get(ANSWER)) <= 80) && (Integer.parseInt(eqn.get(ANSWER)) >= -80));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
     }
 
     @Test
     public void testMultPos() {
-        setupBasicWholeNum(MULT, false);
-        Map<String, String> eqn = director.getEquation().equationToHashMap();
-        assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= 1));
-        assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= 1));
-        assertTrue((Integer.parseInt(eqn.get(ANSWER)) <= 1600) && (Integer.parseInt(eqn.get(ANSWER)) >= 1));
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(MULT, false);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= 1));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= 1));
+            assertTrue((Integer.parseInt(eqn.get(ANSWER)) <= 1600) && (Integer.parseInt(eqn.get(ANSWER)) >= 1));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
     }
 
     @Test
     public void testMultNeg() {
-        setupBasicWholeNum(MULT, true);
-        Map<String, String> eqn = director.getEquation().equationToHashMap();
-        assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
-        assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
-        assertTrue((Integer.parseInt(eqn.get(ANSWER)) <= 1600) && (Integer.parseInt(eqn.get(ANSWER)) >= -1600));
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(MULT, true);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
+            assertTrue((Integer.parseInt(eqn.get(ANSWER)) <= 1600) && (Integer.parseInt(eqn.get(ANSWER)) >= -1600));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
     }
 
 
     @Test
     public void testExpPos() {
-        setupBasicWholeNum(EXP, false);
-        Map<String, String> eqn = director.getEquation().equationToHashMap();
-        assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= 1));
-        assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= 1));
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(EXP, false);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= 1));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= 1));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
     }
 
     @Test
     public void testExpNeg() {
-        setupBasicWholeNum(EXP, true);
-        Map<String, String> eqn = director.getEquation().equationToHashMap();
-        assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
-        assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(EXP, true);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
     }
 
 
     @Test
     public void testDivPos() {
-        setupBasicWholeNum(DIV, false);
-        Map<String, String> eqn = director.getEquation().equationToHashMap();
-        assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= 1));
-        assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= 1));
-        assertEquals(0, Integer.parseInt(eqn.get(OPERAND1)) % Integer.parseInt(eqn.get(OPERAND2)));
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(DIV, false);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= 1));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= 1));
+            assertEquals(0, Integer.parseInt(eqn.get(OPERAND1)) % Integer.parseInt(eqn.get(OPERAND2)));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
     }
 
     @Test
     public void testDivNeg() {
-        setupBasicWholeNum(DIV, false);
-        Map<String, String> eqn = director.getEquation().equationToHashMap();
-        assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
-        assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
-        assertEquals(0, Integer.parseInt(eqn.get(OPERAND1)) % Integer.parseInt(eqn.get(OPERAND2)));
+        for (int i = 0; i < 100; i++) {
+            setupBasicWholeNum(DIV, true);
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= -40));
+            assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= -40));
+            assertEquals(0, Integer.parseInt(eqn.get(OPERAND1)) % Integer.parseInt(eqn.get(OPERAND2)));
+            System.out.println(director.getEquation().equationToHashMap());
+        }
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIndivisibleDiv() {
-        initializeWholeNum();
-        eqnDetails.setOperator(DIV);
-        eqnDetails.setNegAllowed(false);
-        ((WholeNumEquationDetails) eqnDetails).setOperandRange1(generateRange(10, 10));
-        ((WholeNumEquationDetails) eqnDetails).setOperandRange2(generateRange(6, 7));
-        director = new StandardEquationDirector(randomizer, eqnDetails, WHOLE_NUMBER);
-        director.constructEquation();
+        for (int i = 0; i < 100; i++) {
+            initializeWholeNum();
+            eqnDetails.setOperator(DIV);
+            eqnDetails.setNegAllowed(false);
+            ((WholeNumEquationDetails) eqnDetails).setOperandRange1(generateRange(10, 10));
+            ((WholeNumEquationDetails) eqnDetails).setOperandRange2(generateRange(6, 7));
+            director = new StandardEquationDirector(randomizer, eqnDetails, WHOLE_NUMBER);
+            director.constructEquation();
+        }
     }
 
     @Test
     public void testOneAnswerDiv() {
-        initializeWholeNum();
-        eqnDetails.setOperator(DIV);
-        eqnDetails.setNegAllowed(false);
-        ((WholeNumEquationDetails) eqnDetails).setOperandRange1(generateRange(10, 10));
-        ((WholeNumEquationDetails) eqnDetails).setOperandRange2(generateRange(5, 6));
-        director = new StandardEquationDirector(randomizer, eqnDetails, WHOLE_NUMBER);
-        director.constructEquation();
-        Map<String, String> eqn = director.getEquation().equationToHashMap();
-        assertEquals(5, Integer.parseInt(eqn.get(OPERAND2)));
-        assertEquals(2, Integer.parseInt(eqn.get(ANSWER)));
+        for (int i = 0; i < 100; i++) {
+            initializeWholeNum();
+            eqnDetails.setOperator(DIV);
+            eqnDetails.setNegAllowed(false);
+            ((WholeNumEquationDetails) eqnDetails).setOperandRange1(generateRange(10, 10));
+            ((WholeNumEquationDetails) eqnDetails).setOperandRange2(generateRange(5, 6));
+            director = new StandardEquationDirector(randomizer, eqnDetails, WHOLE_NUMBER);
+            director.constructEquation();
+            Map<String, String> eqn = director.getEquation().equationToHashMap();
+            assertEquals(5, Integer.parseInt(eqn.get(OPERAND2)));
+            assertEquals(2, Integer.parseInt(eqn.get(ANSWER)));
+        }
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testBadRangeDiv() {
-        initializeWholeNum();
-        eqnDetails.setOperator(DIV);
-        eqnDetails.setNegAllowed(false);
-        ((WholeNumEquationDetails) eqnDetails).setOperandRange1(generateRange(0, 5));
-        ((WholeNumEquationDetails) eqnDetails).setOperandRange2(generateRange(6, 10));
-        director = new StandardEquationDirector(randomizer, eqnDetails, WHOLE_NUMBER);
-        director.constructEquation();
+        for (int i = 0; i < 100; i++) {
+            initializeWholeNum();
+            eqnDetails.setOperator(DIV);
+            eqnDetails.setNegAllowed(false);
+            ((WholeNumEquationDetails) eqnDetails).setOperandRange1(generateRange(0, 5));
+            ((WholeNumEquationDetails) eqnDetails).setOperandRange2(generateRange(6, 10));
+            director = new StandardEquationDirector(randomizer, eqnDetails, WHOLE_NUMBER);
+            director.constructEquation();
+        }
     }
     //TODO: LCM, GCD tests
 
