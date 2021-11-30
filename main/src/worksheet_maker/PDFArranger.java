@@ -7,7 +7,8 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import java.io.IOException;
-import java.util.Map;
+
+import static constants.PDFDimensions.*;
 
 /**
  * Arranges a list of images onto a PDF.
@@ -81,8 +82,8 @@ public class PDFArranger {
         for (int x = 0; x < numColumns; x++) {
             for (int y = numRows; y > 0; y--) {
                 if (qNumber < equationImages.length) {
-                    int xCoord = PDFDimensions.PRINT_WIDTH * x / numColumns + PDFDimensions.W_MARGIN;
-                    int yCoord = (int) (PDFDimensions.PRINT_HEIGHT * y / numRows + PDFDimensions.H_MARGIN - Math.round(equationImages[qNumber].getHeight() * rescaleFactor));
+                    int xCoord = PRINT_WIDTH * x / numColumns + W_MARGIN;
+                    int yCoord = (int) (PRINT_HEIGHT * y / numRows + H_MARGIN - Math.round(equationImages[qNumber].getHeight() * rescaleFactor));
                     contentStream.drawImage(equationImages[qNumber], xCoord, yCoord,
                             Math.round(equationImages[qNumber].getWidth() * rescaleFactor),
                             Math.round(equationImages[qNumber].getHeight() * rescaleFactor));
@@ -103,8 +104,8 @@ public class PDFArranger {
      */
     private void addTitle(PDPageContentStream contentStream, String title) throws IOException {
         contentStream.beginText();
-        contentStream.newLineAtOffset((float) (PDFDimensions.W_MARGIN),
-                (float) (PDFDimensions.PRINT_HEIGHT + PDFDimensions.H_MARGIN + PDFDimensions.TITLE_BUFFER));
+        contentStream.newLineAtOffset((float) (W_MARGIN),
+                (float) (PRINT_HEIGHT + H_MARGIN + TITLE_BUFFER));
         contentStream.setFont(PDType1Font.TIMES_ROMAN, 28);
         contentStream.showText(title);
         contentStream.endText();

@@ -6,7 +6,6 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * Generates a PDF through the WorksheetOutput interface.
@@ -39,7 +38,7 @@ public class PDFPresenter {
         PDDocument[] worksheetPDFs = instantiatePDFs(formatDetails.getNumRows(),
                 formatDetails.getNumColumns(), worksheet.getQuestionNumber());
         PDImageXObject[][] equationImages = equationsToPD.createResizedImages(formatDetails,
-                worksheet.equationsToStringArray(), worksheetPDFs);
+                worksheet.worksheetToHashMapList(), worksheetPDFs);
         pdfArranger.arrangeOnPDFs(equationImages, worksheetPDFs, formatDetails);
         return worksheetPDFs;
     }

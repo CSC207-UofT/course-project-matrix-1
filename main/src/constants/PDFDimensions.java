@@ -1,4 +1,4 @@
-package worksheet_maker;
+package constants;
 
 /**
  * Constants for PDF dimensions.

@@ -92,14 +92,11 @@ public class Fraction extends Value {
     }
 
     /**
-     * As this operation is not relevant to fractions, this method will not be available for fractions.
-     *
-     * @param otherValue the power with which to raise the current value
-     * @return the result of raising this value to the power of the otherValue
+     * Fraction exponentiate is not implemented! Throw exception if called.
      */
     @Override
     public Value exponentiate(Value otherValue) {
-        return null;
+        throw new NotImplementedException();
     }
 
     /**
@@ -167,7 +164,7 @@ public class Fraction extends Value {
     @Override
     public String toString() {
         if (fractionParts[0] != 0) {
-            return (fractionParts[0] + "/" + fractionParts[1]);
+            return ("\\frac{" + fractionParts[0] + "}{" + fractionParts[1] + "}");
         } else {
             return ("0");
         }
