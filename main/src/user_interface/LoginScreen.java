@@ -90,7 +90,6 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     /**
      * Attempt to log in the user with the username inputted. If the username is not
      * registered, the invalid input error will appear.
-     *
      */
     private void userLogin() {
         try {
@@ -157,7 +156,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     }
 
     /**
-     * key Pressed feature when each key is being pressed
+     * key Pressed feature when the enter key is pressed
      *
      * @param e keeps track of which key is being pressed
      */

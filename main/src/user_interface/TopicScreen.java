@@ -1,8 +1,11 @@
 package user_interface;
 
-import equation_parameters.EquationDetails;
-import equation_parameters.FormatDetails;
-import equation_parameters.WholeNumEquationDetails;
+import equation_entities.Fraction;
+import equation_parameters.*;
+
+import static constants.EquationType.*;
+import static constants.EquationFormats.*;
+import static constants.OperatorRep.*;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -26,10 +29,10 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     JButton topicNextButton = new JButton("Next");
     JButton topicScreenBackButton = new JButton("Back");
 
-    String[] numTypeOptions = {"Integers"};
+    String[] numTypeOptions = {WHOLE_NUMBER, FRACTION};
     JComboBox<String> numOptions = new JComboBox<>(numTypeOptions);
 
-    String[] topicOptions = {"Addition", "Subtraction", "Multiplication", "Division"};
+    String[] topicOptions = {"Addition", "Subtraction", "Multiplication", "Division", "Exponentiation"};
     JComboBox<String> topicChose = new JComboBox<>(topicOptions);
 
     // Create text fields
@@ -41,7 +44,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     JTextField[] textFields;
 
     // Create combo box for question format
-    String[] questionFormatOptions = {"Horizontal"};
+    String[] questionFormatOptions = {HORIZONTAL, VERTICAL, DIVISION_BRACKET};
     JComboBox<String> questionFormat = new JComboBox<>(questionFormatOptions);
 
     //TODO: add input for other types (ex. fraction, decimal) and change the equation detail here accordingly.
@@ -89,10 +92,13 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         this.formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
 
         // Initialize equation details with previous input
-        if (equationDetails instanceof WholeNumEquationDetails){
-            numOptions.setSelectedItem("Integers");
+        if (equationDetails instanceof WholeNumEquationDetails) {
+            numOptions.setSelectedItem(WHOLE_NUMBER);
         }
-        // TODO: Do the same for Fractions
+        else if (equationDetails instanceof FractionAddSubEquationDetails ||
+                equationDetails instanceof FractionMultiDivEquationDetails) {
+            numOptions.setSelectedItem(FRACTION);
+        }
 
         switch (equationDetails.getOperator()) {
             case "+":
@@ -107,6 +113,8 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
             case "*":
                 topicChose.setSelectedItem("Multiplication");
                 break;
+            case "^":
+                topicChose.setSelectedItem("Exponentiation");
         }
 
         // Initialize format details with previous input
@@ -237,16 +245,19 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     private void checkValidDetails(){
         String topic = (String) topicChose.getSelectedItem();
         if (Objects.equals(topic, "Addition")) {
-            this.equationDetails.setOperator("+");
+            this.equationDetails.setOperator(ADD);
         }
         else if (Objects.equals(topic, "Subtraction")) {
-            this.equationDetails.setOperator("-");
+            this.equationDetails.setOperator(SUB);
         }
         else if (Objects.equals(topic, "Multiplication")) {
-            this.equationDetails.setOperator("*");
+            this.equationDetails.setOperator(MULT);
         }
         else if (Objects.equals(topic, "Division")) {
-            this.equationDetails.setOperator("/");
+            this.equationDetails.setOperator(DIV);
+        }
+        else if (Objects.equals(topic, "Exponentiation")) {
+            this.equationDetails.setOperator(EXP);
         }
 
         boolean passed = true;

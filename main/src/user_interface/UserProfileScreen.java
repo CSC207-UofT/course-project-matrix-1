@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class UserProfileScreen extends Screen implements MouseListener {
 
-    // Create back button
+    // Create buttons
     JButton userProfileBackButton = new JButton("Back");
     JButton deleteUserButton = new JButton("Delete Account");
 
@@ -46,6 +46,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
         defaultButton(userProfileBackButton, 'd');
         defaultButton(deleteUserButton, 'd');
 
+        // Customize the unique settings of the "delete user" button
         deleteUserButton.setOpaque(true);
         deleteUserButton.setBackground(red);
 
@@ -62,6 +63,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
         userProfilePanel.add(userProfileBackButton);
         userProfilePanel.add(deleteUserButton);
 
+        // Change the panel to the user profile panel
         changePanel(userProfilePanel);
     }
 
@@ -71,10 +73,13 @@ public class UserProfileScreen extends Screen implements MouseListener {
         }
         else if (e.getSource() == deleteUserButton) {
 
+            // Create an option pane confirming the user would like to delete their account
             int option = JOptionPane.showConfirmDialog(frame, "Confirm deletion of " + username + "'s account?",
                     "Delete Account", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (option == JOptionPane.YES_OPTION) {
+
+                // Delete the account and display a pane showing the account was deleted
                 userController.deleteAccount(username);
                 JOptionPane.showMessageDialog(frame, "Account Successfully Deleted", "", JOptionPane.PLAIN_MESSAGE);
                 new LoginScreen();
