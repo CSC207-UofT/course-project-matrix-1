@@ -9,6 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Map;
 import java.util.Objects;
+import static constants.EquationFormats.*;
+import static constants.EquationType.*;
 
 /**
  * Topic Screen class for the User Interface. The topic screen prompts the user for their desired
@@ -24,10 +26,10 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     JButton topicNextButton = new JButton("Next");
     JButton topicScreenBackButton = new JButton("Back");
 
-    String[] numTypeOptions = {"Integers", "Fractions"};
+    String[] numTypeOptions = {WHOLE_NUMBER, FRACTION};
     JComboBox<String> numOptions = new JComboBox<>(numTypeOptions);
 
-    String[] topicOptions = {"Addition", "Subtraction", "Multiplication", "Division"};
+    String[] topicOptions = {"Addition", "Subtraction", "Multiplication", "Division", "Exponentiation"};
     JComboBox<String> topicChose = new JComboBox<>(topicOptions);
 
     // Create text fields
@@ -39,7 +41,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     JTextField[] textFields;
 
     // Create combo box for question format
-    String[] questionFormatOptions = {"Horizontal"};
+    String[] questionFormatOptions = {HORIZONTAL, VERTICAL, DIVISION_BRACKET};
     JComboBox<String> questionFormat = new JComboBox<>(questionFormatOptions);
 
     //TODO: add input for other types (ex. fraction, decimal) and change the equation detail here accordingly.
@@ -72,6 +74,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         // Set JComboBox
         topicChose.setSelectedIndex(0);
         numOptions.setSelectedIndex(0);
+        questionFormat.setSelectedIndex(0);
         fillScreen();
     }
 
@@ -88,10 +91,11 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
         // Initialize equation details with previous input
         if (equationDetails instanceof WholeNumEquationDetails){
-            numOptions.setSelectedItem("Integers");
+            numOptions.setSelectedItem(WHOLE_NUMBER);
+
         }
         else if (equationDetails instanceof FractionAddSubEquationDetails || equationDetails instanceof FractionMultiDivEquationDetails) {
-            numOptions.setSelectedItem("Fractions");
+            numOptions.setSelectedItem(FRACTION);
         }
 
         switch (equationDetails.getOperator()) {
@@ -107,6 +111,8 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
             case "*":
                 topicChose.setSelectedItem("Multiplication");
                 break;
+            case "^":
+                topicChose.setSelectedItem("Exponentiation");
         }
 
         // Initialize format details with previous input
@@ -163,7 +169,6 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         // Update location of the combobox for the question format
         questionFormat.setBounds(convert(0.535, 'w'), convert(0.48, 'h'), convert(0.15, 'w'),
                 convert(0.05, 'h'));
-        questionFormat.setSelectedIndex(0);
 
         // Update the location of each text field
         updateTextFieldLocation(titleInput, 0.525, 0.55, 0.175, 0.05);
@@ -236,7 +241,8 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
     private void checkValidDetails(){
         String type = (String) numOptions.getSelectedItem();
-        if (Objects.equals(type, "Fractions")) {
+
+        if (Objects.equals(type, FRACTION)) {
             String topic = (String) topicChose.getSelectedItem();
             if (Objects.equals(topic, "Addition")) {
                 equationDetails = new FractionAddSubEquationDetails();
@@ -252,7 +258,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
                 this.equationDetails.setOperator("/");
             }
         }
-        else if (Objects.equals(type, "Integers")) {
+        else if (Objects.equals(type, WHOLE_NUMBER)) {
             String topic = (String) topicChose.getSelectedItem();
             equationDetails = new WholeNumEquationDetails();
             if (Objects.equals(topic, "Addition")) {
@@ -263,6 +269,8 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
                 this.equationDetails.setOperator("*");
             } else if (Objects.equals(topic, "Division")) {
                 this.equationDetails.setOperator("/");
+            } else if (Objects.equals(topic, "Exponentiation")) {
+                this.equationDetails.setOperator("^");
             }
         }
 
