@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Customize Screen class for the User Interface. The "customize worksheet screen" prompts the user for their desired
@@ -295,6 +296,52 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             op2MinTemp = Integer.parseInt(op2MIN.getText().trim());
             op2MaxTemp = Integer.parseInt(op2MAX.getText().trim());
         }
+        if (Objects.equals(equationDetails.getOperator(), "/")) {
+            boolean checkNotDiv = true;
+            boolean noZeroOrNeg = true;
+            for (int i = op1MinTemp; i <= op1MaxTemp; i++) {
+                for (int j = op2MinTemp; j <= op2MaxTemp; j++) {
+                    if (j <= 0){
+                        noZeroOrNeg = false;
+                        break;
+                    }
+                    if (i % j == 0) {
+                        checkNotDiv = false;
+                        break;
+                    }
+                }
+            }
+            if (!noZeroOrNeg){
+                operatorWarning.setText("Operand 2 cannot include 0 or negatives");
+                operatorWarning.setVisible(true);
+                passed = false;
+            }
+            else if (checkNotDiv) {
+                // TODO change so you can see full text
+                operatorWarning.setText("Operand 2 range must contain a number divisible by a number in Operand 1 range");
+                operatorWarning.setVisible(true);
+                passed = false;
+            }
+        }
+        if (Objects.equals(equationDetails.getOperator(), "-")) {
+            boolean allNeg = true;
+            if (!negAllowed){
+                for (int i = op1MinTemp; i <= op1MaxTemp; i++) {
+                    for (int j = op2MinTemp; j <= op2MaxTemp; j++) {
+                        if((i - j)>=0){
+                            allNeg = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (allNeg){
+                // TODO change so you can see full text
+                operatorWarning.setText("Operand 2 must contain number less than a number in Operand 1");
+                operatorWarning.setVisible(true);
+                passed = false;
+            }
+        }
 
         // Check to see if all operand range are greater than zero and max > min
         if (op1MinTemp >= 0 && op1MaxTemp >= 0 && op2MinTemp >= 0 && op2MaxTemp >= 0
@@ -310,6 +357,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         else {
             operatorWarning.setText("Operand's must be positive numbers");
             operatorWarning.setVisible(true);
+            passed = false;
         }
 
         // Get selection for checkbox, question format, and title
