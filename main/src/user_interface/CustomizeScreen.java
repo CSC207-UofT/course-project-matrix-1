@@ -287,90 +287,86 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
         boolean passed = true;
 
-        // Create temporary equation details and format details variables
-        int op1MinTemp, op1MaxTemp, op2MinTemp, op2MaxTemp;
-        op1MinTemp = op1MaxTemp = op2MinTemp = op2MaxTemp = -1;
+            // Create temporary equation details and format details variables
+            int op1MinTemp, op1MaxTemp, op2MinTemp, op2MaxTemp;
+            op1MinTemp = op1MaxTemp = op2MinTemp = op2MaxTemp = -1;
 
-        // Check if any operand range cannot be parsed (invalid input)
-        if (tryToParse(op1MIN.getText().trim()) == null || tryToParse(op1MAX.getText().trim()) == null ||
-                tryToParse(op2MIN.getText().trim()) == null || tryToParse(op2MAX.getText().trim()) == null) {
-            operatorWarning.setText("Operand's must be positive numbers");
-            operatorWarning.setVisible(true);
-            passed = false;
-        }
-        else {
-            // Each operand value can be parsed (is an integer)
-            op1MinTemp = Integer.parseInt(op1MIN.getText().trim());
-            op1MaxTemp = Integer.parseInt(op1MAX.getText().trim());
-            op2MinTemp = Integer.parseInt(op2MIN.getText().trim());
-            op2MaxTemp = Integer.parseInt(op2MAX.getText().trim());
-        }
-        if (Objects.equals(equationDetails.getOperator(), "/")) {
-            boolean checkNotDiv = true;
-            boolean noZeroOrNeg = true;
-            for (int i = op1MinTemp; i <= op1MaxTemp; i++) {
-                for (int j = op2MinTemp; j <= op2MaxTemp; j++) {
-                    if (j <= 0){
-                        noZeroOrNeg = false;
-                        break;
-                    }
-                    if (i % j == 0) {
-                        checkNotDiv = false;
-                        break;
-                    }
-                }
-            }
-            if (!noZeroOrNeg){
-                operatorWarning.setText("Operand 2 cannot include 0 or negatives");
+            // Check if any operand range cannot be parsed (invalid input)
+            if (tryToParse(op1MIN.getText().trim()) == null || tryToParse(op1MAX.getText().trim()) == null ||
+                    tryToParse(op2MIN.getText().trim()) == null || tryToParse(op2MAX.getText().trim()) == null) {
+                operatorWarning.setText("Operand's must be positive numbers");
                 operatorWarning.setVisible(true);
                 passed = false;
+            } else {
+                // Each operand value can be parsed (is an integer)
+                op1MinTemp = Integer.parseInt(op1MIN.getText().trim());
+                op1MaxTemp = Integer.parseInt(op1MAX.getText().trim());
+                op2MinTemp = Integer.parseInt(op2MIN.getText().trim());
+                op2MaxTemp = Integer.parseInt(op2MAX.getText().trim());
             }
-            else if (checkNotDiv) {
-                operatorWarning.setText("Operand 2 range must have a number divisible by a number in Operand 1 range");
-                operatorWarning.setVisible(true);
-                passed = false;
-            }
-        }
-
-        // Get selection for checkbox, question format, and title
-        negAllowed = negAllowedBox.isSelected();
-
-        if (Objects.equals(equationDetails.getOperator(), "-")) {
-                boolean allNeg = false;
-            if (!negAllowed){
-                allNeg = true;
+            if (Objects.equals(equationDetails.getOperator(), "/")) {
+                boolean checkNotDiv = true;
+                boolean noZeroOrNeg = true;
                 for (int i = op1MinTemp; i <= op1MaxTemp; i++) {
                     for (int j = op2MinTemp; j <= op2MaxTemp; j++) {
-                        if((i - j)>=0){
-                            allNeg = false;
+                        if (j <= 0) {
+                            noZeroOrNeg = false;
+                            break;
+                        }
+                        if (i % j == 0) {
+                            checkNotDiv = false;
                             break;
                         }
                     }
                 }
+                if (!noZeroOrNeg) {
+                    operatorWarning.setText("Operand 2 cannot include 0 or negatives");
+                    operatorWarning.setVisible(true);
+                    passed = false;
+                } else if (checkNotDiv) {
+                    operatorWarning.setText("Operand 2 range must have a number divisible by a number in Operand 1 range");
+                    operatorWarning.setVisible(true);
+                    passed = false;
+                }
             }
-            if (allNeg){
-                operatorWarning.setText("Operand 2 must have a number less than a number in Operand 1");
+
+            // Get selection for checkbox, question format, and title
+            negAllowed = negAllowedBox.isSelected();
+
+            if (Objects.equals(equationDetails.getOperator(), "-")) {
+                boolean allNeg = false;
+                if (!negAllowed) {
+                    allNeg = true;
+                    for (int i = op1MinTemp; i <= op1MaxTemp; i++) {
+                        for (int j = op2MinTemp; j <= op2MaxTemp; j++) {
+                            if ((i - j) >= 0) {
+                                allNeg = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (allNeg) {
+                    operatorWarning.setText("Operand 2 must have a number less than a number in Operand 1");
+                    operatorWarning.setVisible(true);
+                    passed = false;
+                }
+            }
+
+            // Check to see if all operand range are greater than zero and max > min
+            if (op1MinTemp >= 0 && op1MaxTemp >= 0 && op2MinTemp >= 0 && op2MaxTemp >= 0
+                    && op1MaxTemp >= op1MinTemp && op2MaxTemp >= op2MinTemp) {
+                operandRange1 = new int[]{op1MinTemp, op1MaxTemp};      // Set the operand 1 range to inputted values
+                operandRange2 = new int[]{op2MinTemp, op2MaxTemp};      // Set the operand 2 range to inputted values
+            } else if (op1MaxTemp < op1MinTemp || op2MaxTemp < op2MinTemp) {
+                operatorWarning.setText("Operand's' minimum must be lower than the maximum");
+                operatorWarning.setVisible(true);
+                passed = false;
+            } else {
+                operatorWarning.setText("Operand's must be positive numbers");
                 operatorWarning.setVisible(true);
                 passed = false;
             }
-        }
-
-        // Check to see if all operand range are greater than zero and max > min
-        if (op1MinTemp >= 0 && op1MaxTemp >= 0 && op2MinTemp >= 0 && op2MaxTemp >= 0
-                && op1MaxTemp >= op1MinTemp && op2MaxTemp >= op2MinTemp) {
-            operandRange1 = new int[]{op1MinTemp, op1MaxTemp};      // Set the operand 1 range to inputted values
-            operandRange2 = new int[]{op2MinTemp, op2MaxTemp};      // Set the operand 2 range to inputted values
-        }
-        else if (op1MaxTemp < op1MinTemp || op2MaxTemp < op2MinTemp){
-            operatorWarning.setText("Operand's' minimum must be lower than the maximum");
-            operatorWarning.setVisible(true);
-            passed = false;
-        }
-        else {
-            operatorWarning.setText("Operand's must be positive numbers");
-            operatorWarning.setVisible(true);
-            passed = false;
-        }
 
         // If all inputs check out, add to the equation details and formatting details maps
         if (passed) {
@@ -387,40 +383,71 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
         boolean passed = true;
 
+
         // Create temporary equation details and format details variables
         int denMINTemp, denMAXTemp, secondFieldInputTemp, maxValTemp;
-        denMINTemp = denMAXTemp = secondFieldInputTemp = maxValTemp = -1;
+       // denMINTemp = denMAXTemp = secondFieldInputTemp = maxValTemp = -1;
 
         // Check if any operand range cannot be parsed (invalid input)
         if (tryToParse(denMIN.getText().trim()) == null || tryToParse(denMAX.getText().trim()) == null ||
                 tryToParse(secondFieldInput.getText().trim()) == null || tryToParse(maxVal.getText().trim()) == null) {
-            operatorWarning.setText("Please enter positive numbers");
+            operatorWarning.setText("Please enter positive numbers (greater than 0)");
             operatorWarning.setVisible(true);
             passed = false;
         }
+
         else {
             // Each operand value can be parsed (is an integer)
             denMINTemp = Integer.parseInt(denMIN.getText().trim());
             denMAXTemp = Integer.parseInt(denMAX.getText().trim());
             secondFieldInputTemp = Integer.parseInt(secondFieldInput.getText().trim());
             maxValTemp = Integer.parseInt(maxVal.getText().trim());
-        }
 
-        // Check to see if all operand range are greater than zero and max > min
-        if (denMINTemp > 0 && denMAXTemp> 0 && secondFieldInputTemp >= 0 && maxValTemp > 0
-                && denMAXTemp >= denMINTemp) {
-            denRange = new int[]{denMINTemp, denMAXTemp};      // Set the denominator range to inputted values
-            secondField = secondFieldInputTemp;
-            maxNumVal = maxValTemp;
-        }
-        else if (denMAXTemp < denMINTemp){
-            operatorWarning.setText("Denominator's minimum must be lower than the maximum");
-            operatorWarning.setVisible(true);
-            passed = false;
-        }
-        else {
-            operatorWarning.setText("Please enter positive numbers");
-            operatorWarning.setVisible(true);
+            if (equationDetails instanceof FractionMultiDivEquationDetails) {
+            // Check to see if all operand range are greater than zero and max > min and if complexity is in range of 1-3
+            if (denMINTemp > 0 && denMAXTemp > 0 && maxValTemp > denMAXTemp && denMAXTemp >= denMINTemp &&
+                    (secondFieldInputTemp <= 3 && secondFieldInputTemp >= 1)) {
+                denRange = new int[]{denMINTemp, denMAXTemp};      // Set the denominator range to inputted values
+                secondField = secondFieldInputTemp;
+                maxNumVal = maxValTemp;
+            } else if (denMAXTemp < denMINTemp) {
+                operatorWarning.setText("Denominator's minimum must be lower than the maximum");
+                operatorWarning.setVisible(true);
+                passed = false;
+            } else if (secondFieldInputTemp > 3 || secondFieldInputTemp < 1) {
+                    operatorWarning.setText("Please choose complexity to be in range of 1-3");
+                    operatorWarning.setVisible(true);
+                    passed = false;
+                } else if (maxValTemp <= denMAXTemp) {
+                operatorWarning.setText("Max answer must be greater than operand 1 denominator range");
+                operatorWarning.setVisible(true);
+                passed = false;
+            } else {
+                operatorWarning.setText("Please enter positive numbers (greater than 0)");
+                operatorWarning.setVisible(true);
+                passed = false;
+            }
+            }else if (equationDetails instanceof FractionAddSubEquationDetails) {
+                // Check to see if all operand range are greater than zero and max > min
+                if (denMINTemp > 0 && denMAXTemp > 0 && secondFieldInputTemp > denMAXTemp && maxValTemp > 0
+                        && denMAXTemp >= denMINTemp) {
+                    denRange = new int[]{denMINTemp, denMAXTemp};      // Set the denominator range to inputted values
+                    secondField = secondFieldInputTemp;
+                    maxNumVal = maxValTemp;
+                } else if (denMAXTemp < denMINTemp) {
+                    operatorWarning.setText("Denominator's minimum must be lower than the maximum");
+                    operatorWarning.setVisible(true);
+                    passed = false;
+                } else if (secondFieldInputTemp <= denMAXTemp) {
+                    operatorWarning.setText("Max answer denominator must be greater than operand 1 denominator range");
+                    operatorWarning.setVisible(true);
+                    passed = false;
+                } else {
+                    operatorWarning.setText("Please enter positive numbers (greater than 0)");
+                    operatorWarning.setVisible(true);
+                    passed = false;
+                }
+            }
         }
 
         // Get selection for checkbox, question format, and title
