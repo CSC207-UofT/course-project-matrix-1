@@ -34,14 +34,14 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     JTextField op1MAX;
     JTextField op2MIN;
     JTextField op2MAX;
+
     JTextField denMIN;
     JTextField denMAX;
-    JTextField ansMIN;
-    JTextField ansMAX;
-    JTextField valMIN;
-    JTextField valMAX;
-    JTextField complex;
+    JTextField secondFieldInput;
+    JTextField maxVal;
 
+    String[] formatOptions = {"Mixed", "Improper"};
+    JComboBox<String> formatComboBox;
 
     JTextField[] textFields;
 
@@ -65,6 +65,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     public CustomizeScreen(EquationDetails equationDetails, FormatDetails formatDetails) {
         updatePanel(customizePanel);
 
+        // Add common panel features
+        addPanelFeatures();
+
         // Gets the chosen operator/equationDetail type from the previous screen
         this.equationDetails = equationDetails;
         this.formatDetails = formatDetails;
@@ -85,32 +88,21 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
             fillScreen();
         }
-        else if (equationDetails instanceof FractionAddSubEquationDetails) {
+        else if (equationDetails instanceof FractionAddSubEquationDetails ||
+                equationDetails instanceof FractionMultiDivEquationDetails) {
             // Initialize text fields
             denMIN = new JTextField(1);
             denMAX = new JTextField(1);
-            ansMIN = new JTextField(1);
-            ansMAX = new JTextField(1);
-            valMIN = new JTextField(1);
-            valMAX = new JTextField(1);
-            textFields = new JTextField[]{denMIN, denMAX, ansMIN, ansMAX, valMIN, valMAX};
+            secondFieldInput = new JTextField(1);
+            maxVal = new JTextField(1);
+            textFields = new JTextField[]{denMIN, denMAX, secondFieldInput, maxVal};
 
             // Initial check boxes
             negAllowedBox = new JCheckBox("");
-            fillFractionAddSubScreen();
-        }
-        else if (equationDetails instanceof FractionMultiDivEquationDetails){
-            // Initialize text fields
-            denMIN = new JTextField(1);
-            denMAX = new JTextField(1);
-            complex = new JTextField(1);
-            ansMIN = new JTextField(1);
-            ansMAX = new JTextField(1);
-            textFields = new JTextField[]{denMIN, denMAX, complex, ansMIN, ansMAX};
 
-            // Initial check boxes
-            negAllowedBox = new JCheckBox("");
-            fillFractionMultiDivScreenScreen();
+            formatComboBox = new JComboBox<>(formatOptions);
+
+            fillFractionScreen();
         }
 
         }
@@ -121,6 +113,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
      */
     public CustomizeScreen(Map <String, Object> worksheetDetails) {
         updatePanel(customizePanel);
+
+        // Add common panel features
+        addPanelFeatures();
 
         // Gets the chosen operator/equationDetail type from the previous screen
         this.equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
@@ -140,17 +135,13 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
             fillScreen();
         }
-        else if (equationDetails instanceof FractionAddSubEquationDetails) {
+        else if (equationDetails instanceof FractionAddSubEquationDetails ||
+                equationDetails instanceof FractionMultiDivEquationDetails) {
             // TODO not finished
-            textFields = new JTextField[]{denMIN, denMAX, ansMIN, ansMAX, valMIN, valMAX};
+            textFields = new JTextField[]{denMIN, denMAX, secondFieldInput, maxVal};
             negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
-            fillFractionAddSubScreen();
-        }
-        else if (equationDetails instanceof FractionMultiDivEquationDetails){
-            // TODO not finished
-            textFields = new JTextField[]{denMIN, denMAX, complex, ansMIN, ansMAX};
-            negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
-            fillFractionMultiDivScreenScreen();
+            formatComboBox = new JComboBox<>(formatOptions);
+            fillFractionScreen();
         }
     }
 
@@ -158,9 +149,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
      * Adds all necessary parts of CustomizeScreen.
      */
     private void fillScreen() {
-        // Create Equation Details and Formatting JLabels and its shadow
-        JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
-        JLabel equationDetailsShadow = new JLabel("Equation Details", SwingConstants.CENTER);
 
         // Create equation questions labels
         JLabel op1Range = new JLabel("Operand 1 Range");
@@ -170,8 +158,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         JLabel negAllowed = new JLabel("Negative are Allowed?");
 
         // Update the labels for the equation customization
-        updateLabel(equationDetailsTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
-        updateLabel(equationDetailsShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
         updateLabel(operatorWarning, 0.3, 0.525, 0.4, 0.07, 0.0125, 'w');
         updateLabel(op1Range, 0.25, 0.24, 0.6, 0.1, 0.02, 'd');
         updateLabel(dash, 0.645, 0.24, 0.05, 0.1, 0.025, 'd');
@@ -194,18 +180,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 convert(0.5, 'h'));
         negAllowedBox.setSize(new Dimension(40, 40));
 
-        // Update the location of each button
-        updateButtonLocation(generateWorksheetButton, 0.35, 0.8, 0.3, 0.1);
-        updateButtonLocation(customizeBackButton, 0.145, 0.8, 0.15, 0.05);
-
-        // Update the settings of each button
-        defaultButton(generateWorksheetButton, 'b');
-        defaultButton(customizeBackButton, 'd');
-
-        // Add Mouse Listener for hover and clicking features
-        generateWorksheetButton.addMouseListener(this);
-        customizeBackButton.addMouseListener(this);
-
         updateTextFields(textFields);
 
         // Add Key Listener for the JTextFields
@@ -213,13 +187,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         op1MAX.addKeyListener(this);
         op2MIN.addKeyListener(this);
         op2MAX.addKeyListener(this);
-
-        // Add all components to the panel
-        customizePanel.add(equationDetailsTitle);
-        customizePanel.add(equationDetailsShadow);
-
-        customizePanel.add(generateWorksheetButton);
-        customizePanel.add(customizeBackButton);
 
         customizePanel.add(op1Range);
         customizePanel.add(op1MIN);
@@ -232,35 +199,37 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         customizePanel.add(negAllowed);
         customizePanel.add(negAllowedBox);
         customizePanel.add(operatorWarning);
-
-        changePanel(customizePanel);
     }
 
-    public void fillFractionAddSubScreen(){
-        // Create Equation Details and Formatting JLabels and its shadow
-        JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
-        JLabel equationDetailsShadow = new JLabel("Equation Details", SwingConstants.CENTER);
+    public void fillFractionScreen(){
 
+        JLabel denRange = new JLabel();
+        JLabel maxAns = new JLabel();
+        JLabel maxValLbl = new JLabel();
         // Create equation questions labels
-        JLabel denRange = new JLabel("Operand 1's Denominator Range");
-        JLabel dash = new JLabel("-");
-        JLabel maxAns = new JLabel("Max Answer Denominator");
-        JLabel dash2 = new JLabel("-");
-        JLabel maxVal = new JLabel("Max Operand Value");
-        JLabel dash3 = new JLabel("-");
-        JLabel negAllowed = new JLabel("Negative are Allowed?");
 
-        // Update the labels for the equation customization
-        updateLabel(equationDetailsTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
-        updateLabel(equationDetailsShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
+        if (equationDetails instanceof FractionAddSubEquationDetails) {
+            denRange.setText("Operand 1's Denominator Range");
+            maxAns.setText("Max Answer Denominator");
+            maxValLbl.setText("Max Operand Value");
+        }
+        else if (equationDetails instanceof FractionMultiDivEquationDetails) {
+            denRange.setText("Answer's Denominator Range");
+            maxAns.setText("Complexity");
+            maxValLbl.setText("Max Answer Value");
+        }
+
+        JLabel dash = new JLabel("-");
+        JLabel negAllowed = new JLabel("Negative are Allowed?");
+        JLabel format = new JLabel("Format");
+
         updateLabel(operatorWarning, 0.3, 0.725, 0.4, 0.07, 0.0125, 'w');
-        updateLabel(denRange, 0.25, 0.24, 0.6, 0.1, 0.013, 'd');
+        updateLabel(denRange, 0.225, 0.24, 0.6, 0.1, 0.015, 'd');
         updateLabel(dash, 0.645, 0.24, 0.05, 0.1, 0.025, 'd');
-        updateLabel(maxAns, 0.25, 0.335, 0.6, 0.1, 0.02, 'd');
-        updateLabel(dash2, 0.645, 0.335, 0.1, 0.1, 0.025, 'd');
-        updateLabel(maxVal, 0.25, 0.43, 0.6, 0.1, 0.02, 'd');
-        updateLabel(dash3, 0.645, 0.43, 0.1, 0.1, 0.025, 'd');
-        updateLabel(negAllowed, 0.25, 0.63, 0.6, 0.1, 0.02, 'd');
+        updateLabel(maxAns, 0.225, 0.335, 0.6, 0.1, 0.015, 'd');
+        updateLabel(maxValLbl, 0.225, 0.43, 0.6, 0.1, 0.015, 'd');
+        updateLabel(negAllowed, 0.225, 0.525, 0.6, 0.1, 0.015, 'd');
+        updateLabel(format, 0.225, 0.62, 0.6, 0.1,0.015, 'd');
 
         // TODO add proper warnings
         operatorWarning.setOpaque(true);
@@ -268,152 +237,44 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         operatorWarning.setVisible(false);
 
         // Minimum and maximum text fields
-        updateTextFieldLocation(denMIN, 0.525, 0.265, 0.1, 0.05);
-        updateTextFieldLocation(denMAX, 0.675, 0.265, 0.1, 0.05);
-        updateTextFieldLocation(ansMIN, 0.525, 0.36, 0.1, 0.05);
-        updateTextFieldLocation(ansMAX, 0.675, 0.36, 0.1, 0.05);
-        updateTextFieldLocation(valMIN, 0.525, 0.455, 0.1, 0.05);
-        updateTextFieldLocation(valMAX, 0.675, 0.455, 0.1, 0.05);
+        updateTextFieldLocation(denMIN, 0.53, 0.265, 0.1, 0.05);
+        updateTextFieldLocation(denMAX, 0.68, 0.265, 0.1, 0.05);
+        updateTextFieldLocation(secondFieldInput, 0.53, 0.36, 0.1, 0.05);
+        updateTextFieldLocation(maxVal, 0.53, 0.455, 0.1, 0.05);
 
         // Update checkbox location
-        negAllowedBox.setBounds(convert(0.565, 'w'), convert(0.655, 'h'), convert(0.5, 'w'),
+        negAllowedBox.setBounds(convert(0.575, 'w'), convert(0.56, 'h'), convert(0.5, 'w'),
                 convert(0.5, 'h'));
         negAllowedBox.setSize(new Dimension(40, 40));
 
-        // Update the location of each button
-        updateButtonLocation(generateWorksheetButton, 0.35, 0.8, 0.3, 0.1);
-        updateButtonLocation(customizeBackButton, 0.145, 0.8, 0.15, 0.05);
-
-        // Update the settings of each button
-        defaultButton(generateWorksheetButton, 'b');
-        defaultButton(customizeBackButton, 'd');
-
-        // Add Mouse Listener for hover and clicking features
-        generateWorksheetButton.addMouseListener(this);
-        customizeBackButton.addMouseListener(this);
+        formatComboBox.setBounds(convert(0.53, 'w'), convert(0.64, 'h'), convert(0.1, 'w'),
+                convert(0.05, 'h'));
 
         updateTextFields(textFields);
 
         // Add Key Listener for the JTextFields
         denMIN.addKeyListener(this);
         denMAX.addKeyListener(this);
-        ansMIN.addKeyListener(this);
-        ansMAX.addKeyListener(this);
-        valMIN.addKeyListener(this);
-        valMAX.addKeyListener(this);
-
-        // Add all components to the panel
-        customizePanel.add(equationDetailsTitle);
-        customizePanel.add(equationDetailsShadow);
-
-        customizePanel.add(generateWorksheetButton);
-        customizePanel.add(customizeBackButton);
+        secondFieldInput.addKeyListener(this);
+        maxVal.addKeyListener(this);
 
         customizePanel.add(denRange);
         customizePanel.add(denMIN);
         customizePanel.add(dash);
         customizePanel.add(denMAX);
         customizePanel.add(maxAns);
-        customizePanel.add(ansMIN);
-        customizePanel.add(dash2);
-        customizePanel.add(ansMAX);
+        customizePanel.add(secondFieldInput);
+        customizePanel.add(maxValLbl);
         customizePanel.add(maxVal);
-        customizePanel.add(valMIN);
-        customizePanel.add(dash3);
-        customizePanel.add(valMAX);
         customizePanel.add(negAllowed);
         customizePanel.add(negAllowedBox);
         customizePanel.add(operatorWarning);
-
-        changePanel(customizePanel);
+        customizePanel.add(format);
+        customizePanel.add(formatComboBox);
     }
 
-    public void fillFractionMultiDivScreenScreen(){
-        // Create Equation Details and Formatting JLabels and its shadow
-        JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
-        JLabel equationDetailsShadow = new JLabel("Equation Details", SwingConstants.CENTER);
+    private void generateWorksheet() {
 
-        // Create equation questions labels
-        JLabel denRange = new JLabel("Answer Denominator Range");
-        JLabel dash = new JLabel("-");
-        JLabel maxRange = new JLabel("Max Answer Value");
-        JLabel dash2 = new JLabel("-");
-        JLabel complexity = new JLabel("Complexity");
-        JLabel negAllowed = new JLabel("Negative are Allowed?");
-
-        // Update the labels for the equation customization
-        updateLabel(equationDetailsTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
-        updateLabel(equationDetailsShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(operatorWarning, 0.3, 0.725, 0.4, 0.07, 0.0125, 'w');
-        updateLabel(denRange, 0.25, 0.24, 0.6, 0.1, 0.015, 'd');
-        updateLabel(dash, 0.645, 0.24, 0.05, 0.1, 0.025, 'd');
-        updateLabel(maxRange, 0.25, 0.335, 0.6, 0.1, 0.02, 'd');
-        updateLabel(dash2, 0.645, 0.335, 0.1, 0.1, 0.025, 'd');
-        updateLabel(complexity, 0.25, 0.43, 0.6, 0.1, 0.02, 'd');
-        updateLabel(negAllowed, 0.25, 0.63, 0.6, 0.1, 0.02, 'd');
-
-        // TODO add proper warnings
-        operatorWarning.setOpaque(true);
-        operatorWarning.setBackground(lightYellow);
-        operatorWarning.setVisible(false);
-
-        // Minimum and maximum text fields
-        updateTextFieldLocation(denMIN, 0.525, 0.265, 0.1, 0.05);
-        updateTextFieldLocation(denMAX, 0.675, 0.265, 0.1, 0.05);
-        updateTextFieldLocation(ansMIN, 0.525, 0.36, 0.1, 0.05);
-        updateTextFieldLocation(ansMAX, 0.675, 0.36, 0.1, 0.05);
-        updateTextFieldLocation(complex, 0.525, 0.455, 0.2, 0.05);
-
-        // Update checkbox location
-        negAllowedBox.setBounds(convert(0.565, 'w'), convert(0.655, 'h'), convert(0.5, 'w'),
-                convert(0.5, 'h'));
-        negAllowedBox.setSize(new Dimension(40, 40));
-
-        // Update the location of each button
-        updateButtonLocation(generateWorksheetButton, 0.35, 0.8, 0.3, 0.1);
-        updateButtonLocation(customizeBackButton, 0.145, 0.8, 0.15, 0.05);
-
-        // Update the settings of each button
-        defaultButton(generateWorksheetButton, 'b');
-        defaultButton(customizeBackButton, 'd');
-
-        // Add Mouse Listener for hover and clicking features
-        generateWorksheetButton.addMouseListener(this);
-        customizeBackButton.addMouseListener(this);
-
-        updateTextFields(textFields);
-
-        // Add Key Listener for the JTextFields
-        denMIN.addKeyListener(this);
-        denMAX.addKeyListener(this);
-        ansMIN.addKeyListener(this);
-        ansMAX.addKeyListener(this);
-        complex.addKeyListener(this);
-
-        // Add all components to the panel
-        customizePanel.add(equationDetailsTitle);
-        customizePanel.add(equationDetailsShadow);
-
-        customizePanel.add(generateWorksheetButton);
-        customizePanel.add(customizeBackButton);
-
-        customizePanel.add(denRange);
-        customizePanel.add(denMIN);
-        customizePanel.add(dash);
-        customizePanel.add(denMAX);
-        customizePanel.add(maxRange);
-        customizePanel.add(ansMIN);
-        customizePanel.add(dash2);
-        customizePanel.add(ansMAX);
-        customizePanel.add(complexity);
-        customizePanel.add(complex);
-        customizePanel.add(negAllowed);
-        customizePanel.add(negAllowedBox);
-        customizePanel.add(operatorWarning);
-
-        changePanel(customizePanel);
-    }
-    private void generateWorksheet(){
         boolean passed = true;
 
         // Create temporary equation details and format details variables
@@ -477,6 +338,38 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 operatorWarning.setVisible(true);
             }
         }
+    }
+
+    public void addPanelFeatures() {
+
+        // Create Equation Details and Formatting JLabels and its shadow
+        JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
+        JLabel equationDetailsShadow = new JLabel("Equation Details", SwingConstants.CENTER);
+
+        // Update the labels for the equation customization
+        updateLabel(equationDetailsTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
+        updateLabel(equationDetailsShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
+
+        // Update the location of each button
+        updateButtonLocation(generateWorksheetButton, 0.35, 0.8, 0.3, 0.1);
+        updateButtonLocation(customizeBackButton, 0.145, 0.8, 0.15, 0.05);
+
+        // Update the settings of each button
+        defaultButton(generateWorksheetButton, 'b');
+        defaultButton(customizeBackButton, 'd');
+
+        // Add Mouse Listener for hover and clicking features
+        generateWorksheetButton.addMouseListener(this);
+        customizeBackButton.addMouseListener(this);
+
+        // Add all components to the panel
+        customizePanel.add(equationDetailsTitle);
+        customizePanel.add(equationDetailsShadow);
+
+        customizePanel.add(generateWorksheetButton);
+        customizePanel.add(customizeBackButton);
+
+        changePanel(customizePanel);
     }
 
     public void mousePressed(MouseEvent e) {

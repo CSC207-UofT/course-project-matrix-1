@@ -180,7 +180,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         updateLabel(invalidFormat, 0.35, 0.831, 0.3,0.03,0.0125, 'w');
         updateLabel(invalidQuestionType, 0.35, 0.3775, 0.3,0.03,0.0125, 'w');
 
-        updateButtonLocation(topicNextButton, 0.4, 0.87, 0.2, 0.09);
+        updateButtonLocation(topicNextButton, 0.4, 0.87, 0.17, 0.09);
         updateButtonLocation(topicScreenBackButton, 0.145, 0.85, 0.15, 0.05);
 
         // Update the settings of each button
@@ -197,7 +197,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         numRowsInput.addKeyListener(this);
         numColumnInput.addKeyListener(this);
 
-        // Create comboBox for number types (for now, just integers is available)
+        // Create comboBox for number types
         numOptions.setBounds(convert(0.525, 'w'), convert(0.325, 'h'), convert(0.15, 'w'),
                 convert(0.05, 'h'));
 
