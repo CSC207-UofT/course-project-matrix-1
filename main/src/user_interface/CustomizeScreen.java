@@ -64,10 +64,11 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     // Create the formatting details variables with initial invalid values
     String dateAndTime;
 
-    // Create the temporary map's to be passed into worksheet viewer screen
+    // Create the equation and format details
     EquationDetails equationDetails;
     FormatDetails formatDetails;
 
+    // Create the temporary map's to be passed into worksheet viewer screen
     Map <String, Object> worksheetHistoryDetails;
 
     public CustomizeScreen(EquationDetails equationDetails, FormatDetails formatDetails) {
@@ -111,8 +112,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             fillFractionScreen();
         }
         updateTextFields(textFields);
-
-        }
+    }
     /**
      * Overloaded constructor method. Used to persist previous user input.
      *
@@ -142,31 +142,16 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
             fillScreen();
         }
-        else if (equationDetails instanceof FractionAddSubEquationDetails) {
-            denRange = ((FractionAddSubEquationDetails) equationDetails).getOperand1DenomRange();
-            secondField = ((FractionAddSubEquationDetails) equationDetails).getMaxOperand2AndAnswerDenom();
-            maxNumVal = ((FractionAddSubEquationDetails) equationDetails).getMaxOperandValue();
-
-            denMIN = new JTextField(Integer.toString(denRange[0]), 1);
-            denMAX = new JTextField(Integer.toString(denRange[1]), 1);
-            secondFieldInput = new JTextField(Integer.toString(secondField), 1);
-            maxVal = new JTextField(Integer.toString(maxNumVal), 1);
-
-            textFields = new JTextField[]{denMIN, denMAX, secondFieldInput, maxVal};
-            negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
-
-            fillFractionScreen();
-            formatComboBox.setVisible(true);
-        }
-        else if (equationDetails instanceof FractionMultiDivEquationDetails) {
-            denRange = ((FractionMultiDivEquationDetails) equationDetails).getAnsDenominatorRange();
-            secondField = ((FractionMultiDivEquationDetails) equationDetails).getComplexity();
-            maxNumVal = ((FractionMultiDivEquationDetails) equationDetails).getMaxAnsValue();
-
-            denMIN = new JTextField(Integer.toString(denRange[0]), 1);
-            denMAX = new JTextField(Integer.toString(denRange[1]), 1);
-            secondFieldInput = new JTextField(Integer.toString(secondField), 1);
-            maxVal = new JTextField(Integer.toString(maxNumVal), 1);
+        else {
+            if (equationDetails instanceof FractionAddSubEquationDetails) {
+                denRange = ((FractionAddSubEquationDetails) equationDetails).getOperand1DenomRange();
+                secondField = ((FractionAddSubEquationDetails) equationDetails).getMaxOperand2AndAnswerDenom();
+                maxNumVal = ((FractionAddSubEquationDetails) equationDetails).getMaxOperandValue();
+            } else if (equationDetails instanceof FractionMultiDivEquationDetails) {
+                denRange = ((FractionMultiDivEquationDetails) equationDetails).getAnsDenominatorRange();
+                secondField = ((FractionMultiDivEquationDetails) equationDetails).getComplexity();
+                maxNumVal = ((FractionMultiDivEquationDetails) equationDetails).getMaxAnsValue();
+            }
 
             textFields = new JTextField[]{denMIN, denMAX, secondFieldInput, maxVal};
             negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
@@ -181,7 +166,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
      * Adds all necessary parts of CustomizeScreen.
      */
     private void fillScreen() {
-
         // Create equation questions labels
         JLabel op1Range = new JLabel("Operand 1 Range");
         JLabel dash = new JLabel("-");
@@ -206,8 +190,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         negAllowedBox.setBounds(convert(0.565, 'w'), convert(0.455, 'h'), convert(0.05, 'w'),
                 convert(0.05, 'h'));
 
-        updateTextFields(textFields);
-
         // Add Key Listener for the JTextFields
         op1MIN.addKeyListener(this);
         op1MAX.addKeyListener(this);
@@ -226,11 +208,14 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         customizePanel.add(negAllowedBox);
     }
 
-    public void fillFractionScreen(){
-
+    private void fillFractionScreen(){
+        // Create labels
         JLabel denRange = new JLabel();
         JLabel maxAns = new JLabel();
         JLabel maxValLbl = new JLabel();
+        JLabel dash = new JLabel("-");
+        JLabel negAllowed = new JLabel("Negative are Allowed?");
+        JLabel format = new JLabel("Format");
 
         if (equationDetails instanceof FractionAddSubEquationDetails) {
             denRange.setText("Operand 1's Denominator Range");
@@ -241,12 +226,11 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             denRange.setText("Answer's Denominator Range");
             maxAns.setText("Complexity");
             maxValLbl.setText("Max Answer Value");
+            JLabel complexityRecommendation = new JLabel("(Recommended values: 1-3)");
+            updateLabel(complexityRecommendation, 0.645, 0.335, 0.3, 0.1, 0.0125, 'd');
+            customizePanel.add(complexityRecommendation);
         }
-
-        JLabel dash = new JLabel("-");
-        JLabel negAllowed = new JLabel("Negative are Allowed?");
-        JLabel format = new JLabel("Format");
-
+        // Update the labels
         updateLabel(denRange, 0.225, 0.24, 0.6, 0.1, 0.015, 'd');
         updateLabel(dash, 0.645, 0.24, 0.05, 0.1, 0.025, 'd');
         updateLabel(maxAns, 0.225, 0.335, 0.6, 0.1, 0.015, 'd');
@@ -283,7 +267,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         customizePanel.add(format);
     }
 
-    public void generateIntegerWorksheet() {
+    private void generateIntegerWorksheet() {
 
         boolean passed = true;
 
@@ -330,9 +314,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 }
             }
 
-            // Get selection for checkbox, question format, and title
-            negAllowed = negAllowedBox.isSelected();
-
             if (Objects.equals(equationDetails.getOperator(), "-")) {
                 boolean allNeg = false;
                 if (!negAllowed) {
@@ -353,6 +334,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 }
             }
 
+            // Get selection for checkbox, question format, and title
+            negAllowed = negAllowedBox.isSelected();
+
             // Check to see if all operand range are greater than zero and max > min
             if (op1MinTemp >= 0 && op1MaxTemp >= 0 && op2MinTemp >= 0 && op2MaxTemp >= 0
                     && op1MaxTemp >= op1MinTemp && op2MaxTemp >= op2MinTemp) {
@@ -370,7 +354,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
         // If all inputs check out, add to the equation details and formatting details maps
         if (passed) {
-
             this.equationDetails.setNegAllowed(negAllowed);
             ((WholeNumEquationDetails) this.equationDetails).setOperandRange1(operandRange1);
             ((WholeNumEquationDetails) this.equationDetails).setOperandRange2(operandRange2);
@@ -379,10 +362,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
     }
 
-    public void generateFractionWorksheet() {
+    private void generateFractionWorksheet() {
 
         boolean passed = true;
-
 
         // Create temporary equation details and format details variables
         int denMINTemp, denMAXTemp, secondFieldInputTemp, maxValTemp;
@@ -403,10 +385,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             secondFieldInputTemp = Integer.parseInt(secondFieldInput.getText().trim());
             maxValTemp = Integer.parseInt(maxVal.getText().trim());
 
-            if (equationDetails instanceof FractionMultiDivEquationDetails) {
-            // Check to see if all operand range are greater than zero and max > min and if complexity is in range of 1-3
-            if (denMINTemp > 0 && denMAXTemp > 0 && maxValTemp > denMAXTemp && denMAXTemp >= denMINTemp &&
-                    (secondFieldInputTemp <= 3 && secondFieldInputTemp >= 1)) {
+            // Check to see if all operand range are greater than zero and max > min
+            if (denMINTemp > 0 && denMAXTemp > 0 && maxValTemp > 0 && denMAXTemp >= denMINTemp &&
+                    (secondFieldInputTemp > 0)) {
                 denRange = new int[]{denMINTemp, denMAXTemp};      // Set the denominator range to inputted values
                 secondField = secondFieldInputTemp;
                 maxNumVal = maxValTemp;
@@ -414,11 +395,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 operatorWarning.setText("Denominator's minimum must be lower than the maximum");
                 operatorWarning.setVisible(true);
                 passed = false;
-            } else if (secondFieldInputTemp > 3 || secondFieldInputTemp < 1) {
-                    operatorWarning.setText("Please choose complexity to be in range of 1-3");
-                    operatorWarning.setVisible(true);
-                    passed = false;
-                } else if (maxValTemp <= denMAXTemp) {
+            } else if (equationDetails instanceof FractionAddSubEquationDetails && maxValTemp <= denMAXTemp) {
                 operatorWarning.setText("Max answer must be greater than operand 1 denominator range");
                 operatorWarning.setVisible(true);
                 passed = false;
@@ -426,27 +403,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 operatorWarning.setText("Please enter positive numbers (greater than 0)");
                 operatorWarning.setVisible(true);
                 passed = false;
-            }
-            }else if (equationDetails instanceof FractionAddSubEquationDetails) {
-                // Check to see if all operand range are greater than zero and max > min
-                if (denMINTemp > 0 && denMAXTemp > 0 && secondFieldInputTemp > denMAXTemp && maxValTemp > 0
-                        && denMAXTemp >= denMINTemp) {
-                    denRange = new int[]{denMINTemp, denMAXTemp};      // Set the denominator range to inputted values
-                    secondField = secondFieldInputTemp;
-                    maxNumVal = maxValTemp;
-                } else if (denMAXTemp < denMINTemp) {
-                    operatorWarning.setText("Denominator's minimum must be lower than the maximum");
-                    operatorWarning.setVisible(true);
-                    passed = false;
-                } else if (secondFieldInputTemp <= denMAXTemp) {
-                    operatorWarning.setText("Max answer denominator must be greater than operand 1 denominator range");
-                    operatorWarning.setVisible(true);
-                    passed = false;
-                } else {
-                    operatorWarning.setText("Please enter positive numbers (greater than 0)");
-                    operatorWarning.setVisible(true);
-                    passed = false;
-                }
             }
         }
 
@@ -471,10 +427,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             }
             createWorksheetDetails();
         }
-
     }
 
-    public void addPanelFeatures() {
+    private void addPanelFeatures() {
 
         // Create Equation Details and Formatting JLabels and its shadow
         JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
@@ -489,15 +444,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         operatorWarning.setBackground(lightYellow);
         operatorWarning.setVisible(false);
 
-        // Update the location of each button
+        // Update the location and settings of each button
         updateButtonLocation(generateWorksheetButton, 0.35, 0.8, 0.3, 0.1);
         updateButtonLocation(customizeBackButton, 0.145, 0.8, 0.15, 0.05);
-
-        formatComboBox.setBounds(convert(0.53, 'w'), convert(0.64, 'h'), convert(0.1, 'w'),
-                convert(0.05, 'h'));
-        formatComboBox.setVisible(false);
-
-        // Update the settings of each button
         defaultButton(generateWorksheetButton, 'b');
         defaultButton(customizeBackButton, 'd');
 
@@ -505,10 +454,13 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         generateWorksheetButton.addMouseListener(this);
         customizeBackButton.addMouseListener(this);
 
+        formatComboBox.setBounds(convert(0.53, 'w'), convert(0.64, 'h'), convert(0.1, 'w'),
+                convert(0.05, 'h'));
+        formatComboBox.setVisible(false);
+
         // Add all components to the panel
         customizePanel.add(equationDetailsTitle);
         customizePanel.add(equationDetailsShadow);
-
         customizePanel.add(generateWorksheetButton);
         customizePanel.add(customizeBackButton);
         customizePanel.add(formatComboBox);
@@ -517,7 +469,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         changePanel(customizePanel);
     }
 
-    public void createWorksheetDetails() {
+    private void createWorksheetDetails() {
         // Find the exact date/time the user created the worksheet
         dateAndTime = LocalDateTime.now().toString();
 

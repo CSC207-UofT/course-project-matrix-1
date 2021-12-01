@@ -44,13 +44,12 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     String[] questionFormatOptions = {HORIZONTAL, VERTICAL, DIVISION_BRACKET};
     JComboBox<String> questionFormat = new JComboBox<>(questionFormatOptions);
 
-    //TODO: add input for other types (ex. fraction, decimal) and change the equation detail here accordingly.
     EquationDetails equationDetails;
     FormatDetails formatDetails;
 
     // Invalid input JLabel
-    JLabel invalidFormat = new JLabel("Please enter valid input(s)", SwingConstants.CENTER);
-    JLabel invalidQuestionType = new JLabel("LCM not supported for fractions", SwingConstants.CENTER);
+    JLabel invalidFormat = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
+    JLabel invalidQuestionType = new JLabel("Invalid Combination", SwingConstants.CENTER);
 
     String equationFormat = " ";
     String worksheetTitle = " ";
@@ -127,68 +126,59 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         fillScreen();
     }
 
-
     /**
      * Adds all necessary parts of TopicScreen.
      */
     private void fillScreen() {
-        // Create JLabels
+
+        // Create topic JLabels
         JLabel topicTitle = new JLabel("Choose Topic", SwingConstants.CENTER);
         JLabel topicTitleShadow = new JLabel("Choose Topic", SwingConstants.CENTER);
-
-        JLabel formatTitle = new JLabel("Formatting", SwingConstants.CENTER);
-        JLabel formatTitleShadow = new JLabel("Formatting", SwingConstants.CENTER);
-
         JLabel topic = new JLabel("Operator");
         JLabel numTypes = new JLabel("Number Types");
 
-        // Update the settings of each JLabel
-        updateLabel(topicTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
-        updateLabel(topicTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(formatTitle, 0.2, 0.39, 0.6, 0.1, 0.03075, 'b');
-        updateLabel(formatTitleShadow, 0.2025, 0.3925, 0.6, 0.1, 0.03075, 'd');
-
-        updateLabel(numTypes, 0.325, 0.3, 0.25, 0.1, 0.02, 'd');
-        updateLabel(topic, 0.325, 0.225, 0.25, 0.1, 0.02, 'd');
-
-        invalidFormat.setOpaque(true);
-        invalidFormat.setBackground(lightYellow);
-        invalidFormat.setVisible(false);
-
-        invalidQuestionType.setOpaque(true);
-        invalidQuestionType.setBackground(lightYellow);
-        invalidQuestionType.setVisible(false);
-
         // Create formatting questions labels
+        JLabel formatTitle = new JLabel("Formatting", SwingConstants.CENTER);
+        JLabel formatTitleShadow = new JLabel("Formatting", SwingConstants.CENTER);
         JLabel qFormat = new JLabel("Question Format");
         JLabel titleLabel = new JLabel("Title");
         JLabel numQuestions = new JLabel("Number of Questions");
         JLabel numRows = new JLabel("Number of Rows");
         JLabel numColumns = new JLabel("Number of Columns");
 
-        // Update location of the combobox for the question format
-        questionFormat.setBounds(convert(0.535, 'w'), convert(0.48, 'h'), convert(0.15, 'w'),
-                convert(0.05, 'h'));
-
-        // Update the location of each text field
-        updateTextFieldLocation(titleInput, 0.525, 0.55, 0.175, 0.05);
-        updateTextFieldLocation(numQuestionsInput, 0.525, 0.625, 0.175, 0.05);
-        updateTextFieldLocation(numRowsInput, 0.525, 0.7, 0.175, 0.05);
-        updateTextFieldLocation(numColumnInput, 0.525, 0.775, 0.175, 0.05);
-
-        // Update the labels for formatting
+        // Update the settings of each JLabel
+        updateLabel(topicTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
+        updateLabel(topicTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(formatTitle, 0.2, 0.39, 0.6, 0.1, 0.03075, 'b');
+        updateLabel(formatTitleShadow, 0.2025, 0.3925, 0.6, 0.1, 0.03075, 'd');
+        updateLabel(numTypes, 0.325, 0.3, 0.25, 0.1, 0.02, 'd');
+        updateLabel(topic, 0.325, 0.225, 0.25, 0.1, 0.02, 'd');
         updateLabel(qFormat, 0.25, 0.45, 0.6, 0.1, 0.02, 'd');
         updateLabel(titleLabel, 0.25, 0.525, 0.6, 0.1, 0.02, 'd');
         updateLabel(numQuestions, 0.25, 0.6, 0.6, 0.1, 0.02, 'd');
         updateLabel(numRows, 0.25, 0.675, 0.6, 0.1, 0.02, 'd');
         updateLabel(numColumns, 0.25, 0.75, 0.6, 0.1, 0.02, 'd');
         updateLabel(invalidFormat, 0.35, 0.831, 0.3,0.03,0.0125, 'w');
-        updateLabel(invalidQuestionType, 0.35, 0.3775, 0.3,0.03,0.0125, 'w');
+        updateLabel(invalidQuestionType, 0.3, 0.3775, 0.4,0.03,0.012, 'w');
 
+        // Create the settings of the invalid input warnings
+        invalidFormat.setOpaque(true);
+        invalidFormat.setBackground(lightYellow);
+        invalidFormat.setVisible(false);
+        invalidQuestionType.setOpaque(true);
+        invalidQuestionType.setBackground(lightYellow);
+        invalidQuestionType.setVisible(false);
+
+        // Update the location and settings of each text field
+        updateTextFieldLocation(titleInput, 0.525, 0.55, 0.175, 0.05);
+        updateTextFieldLocation(numQuestionsInput, 0.525, 0.625, 0.175, 0.05);
+        updateTextFieldLocation(numRowsInput, 0.525, 0.7, 0.175, 0.05);
+        updateTextFieldLocation(numColumnInput, 0.525, 0.775, 0.175, 0.05);
+        updateTextFields(textFields);
+
+        // Update the settings and location of the buttons
         updateButtonLocation(topicNextButton, 0.4, 0.87, 0.17, 0.09);
         updateButtonLocation(topicScreenBackButton, 0.145, 0.85, 0.15, 0.05);
-
-        // Update the settings of each button
         defaultButton(topicNextButton, 'b');
         defaultButton(topicScreenBackButton, 'd');
 
@@ -205,11 +195,10 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         // Create comboBox for number types
         numOptions.setBounds(convert(0.525, 'w'), convert(0.325, 'h'), convert(0.15, 'w'),
                 convert(0.05, 'h'));
-
         topicChose.setBounds(convert(0.525, 'w'), convert(0.25, 'h'), convert(0.15, 'w'),
                 convert(0.05, 'h'));
-
-        updateTextFields(textFields);
+        questionFormat.setBounds(convert(0.535, 'w'), convert(0.48, 'h'), convert(0.15, 'w'),
+                convert(0.05, 'h'));
 
         // Add each component to the panel
         topicPanel.add(numOptions);
@@ -236,6 +225,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         topicPanel.add(invalidFormat);
         topicPanel.add(invalidQuestionType);
 
+        // Change the panel to the topic panel
         changePanel(topicPanel);
     }
 
@@ -280,7 +270,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         int numOfEquationsTemp, numOfRowsTemp, numOfColumnsTemp;
         numOfEquationsTemp = numOfRowsTemp = numOfColumnsTemp= -1;
 
-        equationFormat = Objects.requireNonNull(questionFormat.getSelectedItem()).toString();
+        equationFormat = (String) questionFormat.getSelectedItem();
         worksheetTitle = titleInput.getText();
 
         // Check if any formatting text fields are empty
@@ -304,6 +294,17 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         }
         else {
             invalidFormat.setVisible(true);
+            passed = false;
+        }
+
+        // Check invalid combinations
+        if ((String) topicChose.getSelectedItem() == "Exponentiation" && (String) numOptions.getSelectedItem() == FRACTION) {
+            invalidQuestionType.setText("Invalid Operator & Question Format Combination");
+            invalidQuestionType.setVisible(true);
+            passed = false;
+        } else if ((String) topicChose.getSelectedItem() != "Division" && equationFormat == DIVISION_BRACKET) {
+            invalidQuestionType.setText("Invalid Operator & Question Type Combination");
+            invalidQuestionType.setVisible(true);
             passed = false;
         }
 
@@ -350,5 +351,4 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
             checkValidDetails();
         }
     }
-
 }
