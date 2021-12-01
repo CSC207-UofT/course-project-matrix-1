@@ -16,7 +16,7 @@ import static constants.FractionFormats.MIXED;
  * @version 1.0
  * @since 2021-11-22
  */
-public class FractionDivideOperands extends FractionMultDivOperands implements OperandConstructorInterface {
+public class FractionDivideOperandConstructor extends FractionMultDivOperandConstructor implements OperandConstructorInterface {
     /**
      * Assigns the numerator and denominator to the fractions, where the second fraction has the numerator and
      * denominator flipped.

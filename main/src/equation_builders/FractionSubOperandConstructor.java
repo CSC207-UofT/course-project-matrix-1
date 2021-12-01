@@ -9,7 +9,7 @@ import equation_parameters.FractionAddSubEquationDetails;
  * @version 1.0
  * @since 2021-11-22
  */
-public class FractionSubOperands extends FractionAddSubOperands implements OperandConstructorInterface {
+public class FractionSubOperandConstructor extends FractionAddSubOperandConstructor implements OperandConstructorInterface {
 
     /**
      * Generates the second operand numerator. If negative is not allowed, then it must be smaller than the first

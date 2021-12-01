@@ -41,32 +41,37 @@ public class StandardEquationMaker {
         if (operandType.equals(WHOLE_NUMBER)) {
             switch (operator) {
                 case ADD:
-                    //Proceeds to case multiply. Uses WholeNumIncreaseOperands();
+                    //Proceeds to case multiply. Uses WholeNumIncreaseOperandConstructor();
                 case MULT:
-                    //Proceeds to case exponentiate. Uses WholeNumIncreaseOperands();
+                    //Proceeds to case exponentiate. Uses WholeNumIncreaseOperandConstructor();
                 case EXP:
-                    this.operandConstructor = new WholeNumIncreaseOperands();
+                    this.operandConstructor = new WholeNumIncreaseOperandConstructor();
                     break;
                 case SUB:
-                    this.operandConstructor = new WholeNumSubOperands();
+                    this.operandConstructor = new WholeNumSubOperandConstructor();
                     break;
                 case DIV:
-                    this.operandConstructor = new WholeNumDivideOperands();
+                    this.operandConstructor = new WholeNumDivideOperandConstructor();
+                    break;
+                case LCM:
+                    //Proceeds to case GCD. Uses WholeNumLCMGCFOperandConstructor();
+                case GCD:
+                    this.operandConstructor = new WholeNumLCMGCFOperandConstructor();
                     break;
             }
         } else if (operandType.equals(FRACTION)) {
             switch (operator) {
                 case ADD:
-                    this.operandConstructor = new FractionAddOperands();
+                    this.operandConstructor = new FractionAddOperandConstructor();
                     break;
                 case SUB:
-                    this.operandConstructor = new FractionSubOperands();
+                    this.operandConstructor = new FractionSubOperandConstructor();
                     break;
                 case MULT:
-                    this.operandConstructor = new FractionMultiplyOperands();
+                    this.operandConstructor = new FractionMultiplyOperandConstructor();
                     break;
                 case DIV:
-                    this.operandConstructor = new FractionDivideOperands();
+                    this.operandConstructor = new FractionDivideOperandConstructor();
                     break;
             }
         }

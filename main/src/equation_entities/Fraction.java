@@ -1,5 +1,6 @@
 package equation_entities;
 
+import exceptions.IllegalOperatorForOperandTypeException;
 import exceptions.NotImplementedException;
 
 /**
@@ -75,27 +76,27 @@ public class Fraction extends Value {
     }
 
     /**
-     * Fraction exponentiate is not implemented! Throw exception if called.
+     * Fraction exponentiate is not implemented since it's not a good question!
      */
     @Override
     public Value exponentiate(Value otherValue) {
-        throw new NotImplementedException();
+        throw new IllegalOperatorForOperandTypeException();
     }
 
     /**
-     * Fraction LCM is not implemented! Throw exception if called.
+     * Fraction LCM is not implemented since it's not a good question!
      */
     @Override
     public Value lcm(Value otherValue) {
-        throw new NotImplementedException();
+        throw new IllegalOperatorForOperandTypeException();
     }
 
     /**
-     * Fraction GCD is not implemented! Throw exception if called.
+     * Fraction GCD is not implemented since it's not a good question!
      */
     @Override
     public Value gcd(Value otherValue) {
-        throw new NotImplementedException();
+        throw new IllegalOperatorForOperandTypeException();
     }
 
     /**

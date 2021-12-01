@@ -18,7 +18,7 @@ import java.util.List;
  * @since 2021-11-28
  */
 
-public abstract class FractionMultDivOperands {
+public abstract class FractionMultDivOperandConstructor {
     protected Randomizer randomizer;
     // Arbitrary prime numbers that are used to add complexity to a fraction.
     int[] PRIMES = {2, 3, 5, 7, 11};

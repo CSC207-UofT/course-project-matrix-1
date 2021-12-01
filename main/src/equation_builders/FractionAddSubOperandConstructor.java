@@ -21,7 +21,7 @@ import static constants.FractionFormats.MIXED;
  * @since 2021-11-28
  */
 
-public abstract class FractionAddSubOperands {
+public abstract class FractionAddSubOperandConstructor {
     protected Randomizer randomizer;
 
     /**
