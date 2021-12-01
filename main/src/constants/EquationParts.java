@@ -6,7 +6,7 @@ package constants;
  * @version 1.0
  * @since 2021-11-24.
  */
-public class EquationParts {
+public final class EquationParts {
     public final static String OPERAND1 = "operand1";
     public final static String OPERAND2 =  "operand2";
     public final static String OPERATOR = "operator";

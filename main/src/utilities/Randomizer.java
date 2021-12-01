@@ -33,7 +33,7 @@ public class Randomizer {
     }
 
     /**
-     * Increment current random seed by 5.
+     * Increment current random seed by 500.
      */
     public void incrementSeed() {
         this.seed += 500;
