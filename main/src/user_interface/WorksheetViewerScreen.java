@@ -52,44 +52,55 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     // Create a variable to hold he title of the document
     String documentTitle;
 
-    // Initialize the equation, format, and worksheet details
     EquationDetails equationDetails;
     FormatDetails formatDetails;
     Map<String, Object> worksheetDetails;
 
 
-    public WorksheetViewerScreen(Map<String, Object> worksheetDetails) throws IOException {
-
-        // Update the panel to the default settings
+    public WorksheetViewerScreen(Map<String, Object> worksheetDetails, Boolean regenerateExact) throws IOException {
         updatePanel(previewPanel);
 
-        // Set worksheet details to the parameter that was passed in
         this.worksheetDetails = worksheetDetails;
-
         equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
         formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
 
-        // Generate worksheet random seed, and store for later regeneration.
-        Random r = new Random();
-        int randomSeed = r.nextInt(1000000000);
-        worksheetDetails.put("seed", randomSeed);
+        // Set the document title
+        documentTitle = formatDetails.getTitle();
+
+        // Generate worksheet random seed if new worksheet, and store for later regeneration.
+        if (!this.worksheetDetails.containsKey("seed") | !regenerateExact) {
+            this.worksheetDetails.put("seed", new Random().nextInt(1000000000));
+        }
 
         // Store the worksheet information to the user's history
         userController.storeUserRecord(worksheetDetails);
-        //TODO: this method call sends in a map containing EquationDetails and FormatDetails, currently does not work
 
-        // Generate the documents worksheets
-        documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, (int) worksheetDetails.get("seed"));
-
-        // Get the number of document pages and create an Arraylist of labels to store the pages in
+        // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
+        documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, (int) this.worksheetDetails.get("seed"));
         int numPages = documents[0].getNumberOfPages();
-        ArrayList<JLabel> labels = new ArrayList<>();
 
-        // Create an image of each document's pages and store it inside the ArrayList
+        fillScreen(numPages);
+    }
+
+    /**
+     * Overloaded constructor allows later specifying if worksheet should be generated exactly or identically.
+     */
+    public WorksheetViewerScreen(Map<String, Object> worksheetDetails) throws IOException {
+        new WorksheetViewerScreen(worksheetDetails, false);
+    }
+
+    /**
+     * Adds all necessary parts of WorksheetViewerScreen and displays worksheet.
+     *
+     * @param numPages number of pages
+     * @throws IOException if unable to find files for generated worksheet
+     */
+    private void fillScreen(int numPages) throws IOException {
+        ArrayList<JLabel> labels = new ArrayList<>();
+        // Create an image of the documents first page to preview
         try {
             PDFRenderer pdfRenderer = new PDFRenderer(documents[0]);                    // Get the questions sheet
 
-            // Iterate through all the pages and scale each page, then add it to the ArrayList of labels
             for (int i = 0; i < numPages; i++) {
                 bim = pdfRenderer.renderImageWithDPI(i, 400, ImageType.RGB);
                 ImageIcon wsImage = new ImageIcon(bim);
@@ -103,22 +114,14 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
-        // Close the document
         documents[0].close();
-
-        // Create a new JPanel to store the images and scroll panel in
-        JPanel imagesPanel = new JPanel();
-        imagesPanel.setLayout(new BoxLayout(imagesPanel, BoxLayout.Y_AXIS));
-
-        // Add the pages to the panel
+        JPanel images = new JPanel();
+        images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
         for (int i = 0; i < labels.toArray().length; i++) {
-            imagesPanel.add(labels.get(i));
-            imagesPanel.add(new JSeparator());
+            images.add(labels.get(i));
+            images.add(new JSeparator());
         }
-
-        // Add the scroll pane to the images panel
-        JScrollPane scrollPane = new JScrollPane(imagesPanel);
+        JScrollPane scrollPane = new JScrollPane(images);
         scrollPane.setBounds(convert(0.35, 'w'), convert(0.25,'h'), convert(0.3, 'w'),
                 convert(0.45, 'h'));
 
@@ -136,17 +139,19 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
         // Initially set the invalid file path label to not visible
         invalidPathLbl.setOpaque(true);
-        invalidPathLbl.setBackground(lightYellow);
+        invalidPathLbl.setBackground(new Color(217, 207, 131, 252));
         invalidPathLbl.setVisible(false);
         downloadSuccess.setOpaque(true);
-        downloadSuccess.setBackground(lightYellow);
+        downloadSuccess.setBackground(new Color(217, 207, 131, 252));
         downloadSuccess.setVisible(false);
 
-        // Update the location of the text field
-        updateTextFieldLocation(downloadPathInput, 0.55, 0.725, 0.175, 0.05);
+        // Update the location of the text fields
+        downloadPathInput.setBounds(convert(0.55, 'w'), convert(0.725, 'h'), convert(0.175, 'w'),
+                convert(0.05, 'h'));
         downloadPathInput.setOpaque(true);
-        downloadPathInput.setBackground(lightGray);
-        downloadPathInput.setBorder(textFieldBorder);
+        downloadPathInput.setBackground(new Color(220, 220, 220));
+        downloadPathInput.setBorder(BorderFactory.createMatteBorder(2, 2, 2,
+                2, Color.DARK_GRAY));
 
         // Update the location of each button
         updateButtonLocation(downloadButton, 0.4, 0.845, 0.2, 0.1);
@@ -178,42 +183,33 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         previewPanel.add(downloadSuccess);
         previewPanel.add(scrollPane);
 
-        // Change the panel to the preview panel
         changePanel(previewPanel);
-    }
-
-    /**
-     * Attempt to download the questions and answers pdfs to the file path inputted. If
-     * the file path is invalid, "invalid file paths" will appear.
-     */
-    public void downloadDocument() {
-        try {
-            // Set the document title
-            documentTitle = formatDetails.getTitle();
-
-            // Attempt to save the questions and answers to the file path inputted
-            documents[0].save(downloadPathInput.getText() + "/" + documentTitle + "_questions.pdf");
-            documents[1].save(downloadPathInput.getText() + "/" + documentTitle + "_answers.pdf");
-            documents[0].close();
-            documents[1].close();
-
-            // Display to user that the download was a success
-            downloadSuccess.setText("The Worksheet has been downloaded to " + downloadPathInput.getText());
-            invalidPathLbl.setVisible(false);
-            downloadSuccess.setVisible(true);
-        } catch (IOException ex) {
-            downloadSuccess.setVisible(false);
-            invalidPathLbl.setVisible(true);        // invalid file path/cannot download document
-        }
     }
 
     public void mousePressed(MouseEvent e) {
         if (e.getSource() == downloadButton) {
+            // Attempt to save the generated worksheet's questions and answers to user's download path
             downloadDocument();
         } else if (e.getSource() == mainMenuButton) {
             new OptionScreen();
         } else if (e.getSource() == viewerBackButton) {
             new CustomizeScreen(worksheetDetails);
+        }
+
+    }
+
+    private void downloadDocument() {
+        try {
+            documents[0].save(downloadPathInput.getText() + "/" + documentTitle + "_questions.pdf");
+            documents[1].save(downloadPathInput.getText() + "/" + documentTitle + "_answers.pdf");
+            documents[0].close();
+            documents[1].close();
+            downloadSuccess.setText("The Worksheet has been downloaded to " + downloadPathInput.getText());
+            invalidPathLbl.setVisible(false);
+            downloadSuccess.setVisible(true);
+        } catch (IOException ex) {
+            downloadSuccess.setVisible(false);
+            invalidPathLbl.setVisible(true);
         }
 
     }
@@ -246,8 +242,18 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         }
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
     public void keyPressed(KeyEvent e) {
+        // Attempt to save the generated worksheet's questions and answers to user's download path
         downloadDocument();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 }
 
