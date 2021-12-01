@@ -3,7 +3,6 @@ package user_interface;
 import equation_parameters.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -332,9 +331,14 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 passed = false;
             }
         }
+
+        // Get selection for checkbox, question format, and title
+        negAllowed = negAllowedBox.isSelected();
+
         if (Objects.equals(equationDetails.getOperator(), "-")) {
-            boolean allNeg = true;
+                boolean allNeg = false;
             if (!negAllowed){
+                allNeg = true;
                 for (int i = op1MinTemp; i <= op1MaxTemp; i++) {
                     for (int j = op2MinTemp; j <= op2MaxTemp; j++) {
                         if((i - j)>=0){
@@ -367,9 +371,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             operatorWarning.setVisible(true);
             passed = false;
         }
-
-        // Get selection for checkbox, question format, and title
-        negAllowed = negAllowedBox.isSelected();
 
         // If all inputs check out, add to the equation details and formatting details maps
         if (passed) {
