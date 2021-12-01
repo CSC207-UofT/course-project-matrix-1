@@ -11,29 +11,12 @@ import exceptions.NotImplementedException;
  */
 public class Fraction extends Value {
     // Represents the fraction as an improper fraction consisting of [numerator, denominator]. If the numerator is
-    //negative, the enitre fraction is considered to be negative.
-    private final int[] fractionParts = new int[2];
-
-
-    /**
-     * Constructs the fraction, adding the value associated with the wholeNumber to the numerator.
-     *
-     * @param numerator   represents the top half of the fraction. Must be positive.
-     * @param denominator represents the bottom half of the fraction. Cannot be 0, must be positive.
-     * @param negative    if true, the number is negative.
-     * @param wholeNumber represents the whole number associated with the fraction.
-     */
-    public Fraction(int numerator, int denominator, boolean negative, int wholeNumber) {
-        fractionParts[0] = wholeNumber * denominator + numerator;
-        if (negative) {
-            fractionParts[0] = -1 * fractionParts[0];
-        }
-        fractionParts[1] = denominator;
-    }
-
+    //negative, the entire fraction is considered to be negative.
+    protected final int[] fractionParts = new int[2];
 
     /**
-     * Constructs the fraction. If the numerator is negative, the entire fraction is assumed to be negative.
+     * Constructs the fraction. If the numerator or denominator is negative (cannot both be negative), the entire
+     * fraction is assumed to be negative.
      *
      * @param numerator   an int that represents the top half of the fraction. Can be negative or positive.
      * @param denominator an int that represents the bottom half of the fraction. Cannot be 0, must be positive.
@@ -51,7 +34,7 @@ public class Fraction extends Value {
      */
     @Override
     public Value add(Value otherValue) {
-        int[] otherParts = ((Fraction) otherValue).getImproperFraction();
+        int[] otherParts = ((Fraction) otherValue).getFraction();
         return createReducedFraction(fractionParts[0] * otherParts[1] + fractionParts[1] * otherParts[0], fractionParts[1] * otherParts[1]);
     }
 
@@ -63,7 +46,7 @@ public class Fraction extends Value {
      */
     @Override
     public Value subtract(Value otherValue) {
-        int[] otherParts = ((Fraction) otherValue).getImproperFraction();
+        int[] otherParts = ((Fraction) otherValue).getFraction();
         return createReducedFraction(fractionParts[0] * otherParts[1] - fractionParts[1] * otherParts[0], fractionParts[1] * otherParts[1]);
     }
 
@@ -75,7 +58,7 @@ public class Fraction extends Value {
      */
     @Override
     public Value divide(Value otherValue) {
-        int[] otherParts = ((Fraction) otherValue).getImproperFraction();
+        int[] otherParts = ((Fraction) otherValue).getFraction();
         return createReducedFraction(fractionParts[0] * otherParts[1], fractionParts[1] * otherParts[0]);
     }
 
@@ -87,7 +70,7 @@ public class Fraction extends Value {
      */
     @Override
     public Value multiply(Value otherValue) {
-        int[] otherParts = ((Fraction) otherValue).getImproperFraction();
+        int[] otherParts = ((Fraction) otherValue).getFraction();
         return createReducedFraction(fractionParts[0] * otherParts[0], fractionParts[1] * otherParts[1]);
     }
 
@@ -143,7 +126,7 @@ public class Fraction extends Value {
      *
      * @return the list of fraction parts, as [numerator, denominator]
      */
-    public int[] getImproperFraction() {
+    public int[] getFraction() {
         return fractionParts;
     }
 
@@ -161,12 +144,23 @@ public class Fraction extends Value {
         }
     }
 
-    @Override
-    public String toString() {
-        if (fractionParts[0] != 0) {
-            return ("\\frac{" + fractionParts[0] + "}{" + fractionParts[1] + "}");
-        } else {
-            return ("0");
+    /**
+     * Modify a fraction so that the numerator and denominator don't contain negatives. If they do, remove the negative
+     * and return True.
+     *
+     * @return if the fraction contains any negative values.
+     */
+    protected boolean isFractionNegative() {
+        boolean fractionIsNegative = false;
+        if (fractionParts[0] < 0){
+            fractionIsNegative = true;
+            fractionParts[0] = -fractionParts[0];
+        } else if (fractionParts[1] < 0){
+            fractionIsNegative = true;
+            fractionParts[1] = -fractionParts[1];
         }
+        return fractionIsNegative;
     }
+
+
 }

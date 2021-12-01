@@ -28,7 +28,7 @@ public abstract class FractionMultDivOperands {
      * fraction multiplication.
      *
      * @param fractionEquationDetails the parameters for fraction equation generation.
-     * @param randomizer the randomizer for a given equation
+     * @param randomizer              the randomizer for a given equation
      * @return an array of first operand and second operand values.
      */
     public Value[] buildOperands(EquationDetails fractionEquationDetails, Randomizer randomizer) {
@@ -61,8 +61,8 @@ public abstract class FractionMultDivOperands {
         // Ex. (-5)/6 * 9/5
         makeOperandsNegative(fracMultiDivEqnDetails.isNegAllowed(), operandsN);
 
-        // Return operand 1 and 2's numerator and denominator to create a Fraction.
-        return assignNumeratorDenominator(operandsN, operandsD);
+        // Use operand 1 and 2's numerator and denominator to create a Fraction.
+        return createFractions(operandsN, operandsD, ((FractionMultiDivEquationDetails) fractionEquationDetails).getFractionFormat());
     }
 
     /**
@@ -75,7 +75,6 @@ public abstract class FractionMultDivOperands {
         if (isNegAllowed) {
             operandsN[0] = randomizer.makeNegativeRandom(operandsN[0]);
             operandsN[1] = randomizer.makeNegativeRandom(operandsN[1]);
-            //TODO: may need to change since the denominator can't be negative (since this is flipped in the division version)
         }
     }
 
@@ -91,10 +90,10 @@ public abstract class FractionMultDivOperands {
         operand1Factors.add(1);
         operand2Factors.add(1);
         Collections.sort(factors);
-        if (factors.size() >= 3){
+        if (factors.size() >= 3) {
             operand1Factors.add(factors.remove(0));
             operand1Factors.add(factors.remove(0));
-            operand2Factors.add(factors.remove(factors.size() -1));
+            operand2Factors.add(factors.remove(factors.size() - 1));
         }
         while (!factors.isEmpty()) {
             if (factors.size() % 2 == 0) {
@@ -158,9 +157,11 @@ public abstract class FractionMultDivOperands {
      * Assigns the numerator and denominator to the fractions. If this is multiplication, they will be assigned
      * normally. Otherwise, they will be flipped.
      *
-     * @param operandsN the numerator operands as [numerator1, numerator2].
-     * @param operandsD the denominator operands as [denominator1, denominator2].
+     * @param operandsN      the numerator operands as [numerator1, numerator2].
+     * @param operandsD      the denominator operands as [denominator1, denominator2].
+     * @param fractionFormat the fraction format for the operand. Mixed or improper (note: they only differ in how they
+     *                       are represented, they have the exact same functionality otherwise)
      * @return the fractions as a list of [fraction1, fraction2].
      */
-    public abstract Value[] assignNumeratorDenominator(int[] operandsN, int[] operandsD);
+    public abstract Value[] createFractions(int[] operandsN, int[] operandsD, String fractionFormat);
 }

@@ -1,12 +1,17 @@
 package equation_builders;
 
-import equation_entities.Fraction;
+import equation_entities.ImproperFraction;
+import equation_entities.MixedFraction;
 import equation_entities.Value;
 import equation_parameters.EquationDetails;
 import equation_parameters.FractionAddSubEquationDetails;
+import exceptions.NotImplementedException;
 import utilities.DistributionCalculator;
 import utilities.FractionCalculator;
 import utilities.Randomizer;
+
+import static constants.FractionFormats.IMPROPER;
+import static constants.FractionFormats.MIXED;
 
 /**
  * Contains helper methods used by both fraction addition and subtraction of operands.
@@ -23,19 +28,37 @@ public abstract class FractionAddSubOperands {
      * Uses the denominator distribution and the maximum possible denominator to get reasonable operands for fraction
      * addition/subtraction.
      *
-     * @param fracEqnDetails the parameters for fraction equation generation.
+     * @param fractionEquationDetails the parameters for fraction equation generation.
      * @param randomizer     Randomizer instance used to perform random number generation.
-     * @return array of first operand and second operand values
+     * @return array of first operand and second operand values as Fractions.
      */
-    public Value[] buildOperands(EquationDetails fracEqnDetails, Randomizer randomizer) {
+    public Value[] buildOperands(EquationDetails fractionEquationDetails, Randomizer randomizer) {
         this.randomizer = randomizer;
         int[] operandsN = new int[2];
         int[] operandsD = new int[2];
-        FractionAddSubEquationDetails fracAddSubEqnDetails = (FractionAddSubEquationDetails) fracEqnDetails;
+        FractionAddSubEquationDetails fracAddSubEqnDetails = (FractionAddSubEquationDetails) fractionEquationDetails;
         generateMostOperands(operandsN, operandsD, fracAddSubEqnDetails);
         generateOperand2Numerator(operandsN, operandsD, fracAddSubEqnDetails);
         makeOperandsNegative(fracAddSubEqnDetails.isNegAllowed(), operandsN);
-        return new Value[]{new Fraction(operandsN[0], operandsD[0]), new Fraction(operandsN[1], operandsD[1])};
+        return createFractions(operandsN, operandsD, ((FractionAddSubEquationDetails) fractionEquationDetails).getFractionFormat());
+    }
+
+    /**
+     * Create a different type of fraction depending on the fraction format.
+     * @param operandsN the numerator operands as [numerator1, numerator2].
+     * @param operandsD the denominator operands as [denominator1, denominator2].
+     * @param fractionFormat the fraction format for the operand. Mixed or improper (note: they only differ in how they
+     *                       are represented, they have the exact same functionality otherwise)
+     * @return array of first operand and second operand values as Fractions.
+     */
+    private Value[] createFractions(int[] operandsN, int[] operandsD, String fractionFormat) {
+        if (fractionFormat.equals(IMPROPER)){
+            return new Value[]{new ImproperFraction(operandsN[0], operandsD[0]), new ImproperFraction(operandsN[1], operandsD[1])};
+        } else if (fractionFormat.equals(MIXED)){
+            return new Value[]{new MixedFraction(operandsN[0], operandsD[0]), new MixedFraction(operandsN[1], operandsD[1])};
+        } else{
+            throw new NotImplementedException();
+        }
     }
 
     /**

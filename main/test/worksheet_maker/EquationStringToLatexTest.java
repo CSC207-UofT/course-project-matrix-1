@@ -20,4 +20,5 @@ public class EquationStringToLatexTest {
         TeXFormula latexEquation = equationStringToLatex.convertEquationStringToLatex(equationStringList, "Horizontal", true);
         assertNotNull(latexEquation);
     }
+
 }

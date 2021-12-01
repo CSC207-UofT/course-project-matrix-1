@@ -11,6 +11,9 @@ public class FractionMultiDivEquationDetails extends EquationDetails{
     //The maximum value of the answer. Ex. 2 means that the answer could be 11/7, 1/2, 39/20.
     private int maxAnsValue;
 
+    // The format of a fraction. Either an improper or proper fraction.
+    private String fractionFormat;
+
     public int[] getAnsDenominatorRange() {
         return ansDenominatorRange;
     }
@@ -33,5 +36,13 @@ public class FractionMultiDivEquationDetails extends EquationDetails{
 
     public void setMaxAnsValue(int maxAnsValue) {
         this.maxAnsValue = maxAnsValue;
+    }
+
+    public String getFractionFormat() {
+        return fractionFormat;
+    }
+
+    public void setFractionFormat(String fractionFormat) {
+        this.fractionFormat = fractionFormat;
     }
 }
