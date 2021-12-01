@@ -3,6 +3,7 @@ package user_interface;
 import equation_parameters.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -326,8 +327,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 passed = false;
             }
             else if (checkNotDiv) {
-                // TODO change so you can see full text
-                operatorWarning.setText("Operand 2 range must contain a number divisible by a number in Operand 1 range");
+                operatorWarning.setText("Operand 2 range must have a number divisible by a number in Operand 1 range");
                 operatorWarning.setVisible(true);
                 passed = false;
             }
@@ -345,8 +345,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 }
             }
             if (allNeg){
-                // TODO change so you can see full text
-                operatorWarning.setText("Operand 2 must contain number less than a number in Operand 1");
+                operatorWarning.setText("Operand 2 must have a number less than a number in Operand 1");
                 operatorWarning.setVisible(true);
                 passed = false;
             }
@@ -378,8 +377,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             this.equationDetails.setNegAllowed(negAllowed);
             ((WholeNumEquationDetails) this.equationDetails).setOperandRange1(operandRange1);
             ((WholeNumEquationDetails) this.equationDetails).setOperandRange2(operandRange2);
+            createWorksheetDetails();
         }
-        createWorksheetDetails();
+
     }
 
     public void generateFractionWorksheet() {
@@ -441,8 +441,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 ((FractionMultiDivEquationDetails) this.equationDetails).setComplexity(secondField);
                 ((FractionMultiDivEquationDetails) this.equationDetails).setMaxAnsValue(maxNumVal);
             }
+            createWorksheetDetails();
         }
-        createWorksheetDetails();
+
     }
 
     public void addPanelFeatures() {
@@ -454,7 +455,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         // Update the labels for the equation customization
         updateLabel(equationDetailsTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
         updateLabel(equationDetailsShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(operatorWarning, 0.3, 0.72, 0.4, 0.07, 0.012, 'w');
+        updateLabel(operatorWarning, 0.25, 0.72, 0.5, 0.07, 0.01, 'w');
 
         operatorWarning.setOpaque(true);
         operatorWarning.setBackground(lightYellow);
