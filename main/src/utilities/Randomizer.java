@@ -23,14 +23,6 @@ public class Randomizer {
         rand.setSeed(seed);
     }
 
-    /**
-     * Manually set seed for randomizer.
-     *
-     * @param seed seed to fix randomness
-     */
-    public void setSeed(int seed) {
-        rand.setSeed(seed);
-    }
 
     /**
      * Increment current random seed by 500.

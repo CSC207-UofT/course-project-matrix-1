@@ -69,10 +69,8 @@ public class StandardEquationMaker {
                     this.operandConstructor = new FractionSubOperandConstructor();
                     break;
                 case MULT:
-                    this.operandConstructor = new FractionMultiplyOperandConstructor();
-                    break;
                 case DIV:
-                    this.operandConstructor = new FractionDivideOperandConstructor();
+                    this.operandConstructor = new FractionMultDivOperandConstructor();
                     break;
             }
         }
