@@ -93,9 +93,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
      * Adds all necessary parts of WorksheetViewerScreen and displays worksheet.
      *
      * @param numPages number of pages
-     * @throws IOException if unable to find files for generated worksheet
      */
-    private void fillScreen(int numPages) throws IOException {
+    private void fillScreen(int numPages) {
         ArrayList<JLabel> labels = new ArrayList<>();
         // Create an image of the documents first page to preview
         try {
@@ -114,7 +113,6 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        documents[0].close();
         JPanel images = new JPanel();
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
         for (int i = 0; i < labels.toArray().length; i++) {
@@ -208,6 +206,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
             invalidPathLbl.setVisible(false);
             downloadSuccess.setVisible(true);
         } catch (IOException ex) {
+            ex.printStackTrace();
             downloadSuccess.setVisible(false);
             invalidPathLbl.setVisible(true);
         }
