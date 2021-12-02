@@ -12,6 +12,9 @@ public class FractionAddSubEquationDetails extends EquationDetails {
     // x/x. If maxOperandValue = 2, the fraction cannot be greater than 2x/x. Must be greater than 0.
     private int maxOperandValue;
 
+    // The format of a fraction. Either an improper or proper fraction.
+    private String fractionFormat;
+
     public int[] getOperand1DenomRange() {
         return operand1DenomRange;
     }
@@ -28,12 +31,19 @@ public class FractionAddSubEquationDetails extends EquationDetails {
         this.maxOperand2AndAnswerDenom = maxOperand2AndAnswerDenom;
     }
 
-
     public int getMaxOperandValue() {
         return maxOperandValue;
     }
 
     public void setMaxOperandValue(int maxOperandValue) {
         this.maxOperandValue = maxOperandValue;
+    }
+
+    public String getFractionFormat() {
+        return fractionFormat;
+    }
+
+    public void setFractionFormat(String fractionFormat) {
+        this.fractionFormat = fractionFormat;
     }
 }

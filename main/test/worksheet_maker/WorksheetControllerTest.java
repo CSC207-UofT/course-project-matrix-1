@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import static constants.EquationFormats.*;
+import static constants.FractionFormats.MIXED;
 import static org.junit.Assert.assertEquals;
 
 public class WorksheetControllerTest {
@@ -97,6 +98,7 @@ public class WorksheetControllerTest {
         fractionAddSubEquationDetails.setMaxOperand2AndAnswerDenom(50);
         fractionAddSubEquationDetails.setMaxOperandValue(2);
         fractionAddSubEquationDetails.setNegAllowed(true);
+        fractionAddSubEquationDetails.setFractionFormat(MIXED);
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionAddSubEquationDetails, myFormatDetails, new Random().nextInt(100000));
@@ -118,6 +120,7 @@ public class WorksheetControllerTest {
         fractionMultiDivEquationDetails.setComplexity(1);
         fractionMultiDivEquationDetails.setMaxAnsValue(2);
         fractionMultiDivEquationDetails.setNegAllowed(true);
+        fractionMultiDivEquationDetails.setFractionFormat(MIXED);
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, new Random().nextInt(100000));
@@ -140,6 +143,7 @@ public class WorksheetControllerTest {
         fractionMultiDivEquationDetails.setComplexity(1);
         fractionMultiDivEquationDetails.setMaxAnsValue(2);
         fractionMultiDivEquationDetails.setNegAllowed(true);
+        fractionMultiDivEquationDetails.setFractionFormat(MIXED);
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, new Random().nextInt(100000));
