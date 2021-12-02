@@ -10,10 +10,13 @@ import utilities.Randomizer;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Random;
 
 import static constants.EquationParts.*;
 import static constants.EquationType.FRACTION;
 import static constants.EquationType.WHOLE_NUMBER;
+import static constants.FractionFormats.IMPROPER;
+import static constants.FractionFormats.MIXED;
 import static constants.OperatorRep.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -21,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 public class StandardEquationDirectorTest {
     private StandardEquationDirector director;
     private EquationDetails eqnDetails;
-    private Randomizer randomizer = new Randomizer(1000);
+    private Randomizer randomizer = new Randomizer(100000);
 
     // Instantiate equation details
     public void initializeFractionAddSub() {
@@ -44,7 +47,7 @@ public class StandardEquationDirectorTest {
         initializeWholeNum();
         eqnDetails.setOperator(operator);
         eqnDetails.setNegAllowed(isNegative);
-        ((WholeNumEquationDetails) eqnDetails).setOperandRange1(generateRange(0, 40));
+        ((WholeNumEquationDetails) eqnDetails).setOperandRange1(generateRange(1, 40));
         ((WholeNumEquationDetails) eqnDetails).setOperandRange2(generateRange(1, 40));
         director = new StandardEquationDirector(randomizer, eqnDetails, WHOLE_NUMBER);
         director.constructEquation();
@@ -101,10 +104,10 @@ public class StandardEquationDirectorTest {
         for (int i = 0; i < 100; i++) {
             setupBasicWholeNum(MULT, false);
             Map<String, String> eqn = director.getEquation().equationToHashMap();
+            System.out.println(director.getEquation().equationToHashMap());
             assertTrue((Integer.parseInt(eqn.get(OPERAND1)) <= 40) && (Integer.parseInt(eqn.get(OPERAND1)) >= 1));
             assertTrue((Integer.parseInt(eqn.get(OPERAND2)) <= 40) && (Integer.parseInt(eqn.get(OPERAND2)) >= 1));
             assertTrue((Integer.parseInt(eqn.get(ANSWER)) <= 1600) && (Integer.parseInt(eqn.get(ANSWER)) >= 1));
-            System.out.println(director.getEquation().equationToHashMap());
         }
     }
 
@@ -262,6 +265,7 @@ public class StandardEquationDirectorTest {
         ((FractionAddSubEquationDetails) eqnDetails).setMaxOperandValue(2);
         ((FractionAddSubEquationDetails) eqnDetails).setMaxOperand2AndAnswerDenom(20);
         ((FractionAddSubEquationDetails) eqnDetails).setOperand1DenomRange(generateRange(1, 20));
+        ((FractionAddSubEquationDetails) eqnDetails).setFractionFormat(IMPROPER);
         director = new StandardEquationDirector(randomizer, eqnDetails, FRACTION);
         director.constructEquation();
     }
@@ -274,6 +278,7 @@ public class StandardEquationDirectorTest {
         ((FractionMultiDivEquationDetails) eqnDetails).setComplexity(1);
         ((FractionMultiDivEquationDetails) eqnDetails).setAnsDenominatorRange(generateRange(5,20));
         ((FractionMultiDivEquationDetails) eqnDetails).setMaxAnsValue(2);
+        ((FractionMultiDivEquationDetails) eqnDetails).setFractionFormat(IMPROPER);
         director = new StandardEquationDirector(randomizer, eqnDetails, FRACTION);
         director.constructEquation();
     }
@@ -312,7 +317,6 @@ public class StandardEquationDirectorTest {
             System.out.println(Arrays.toString(director.getEquation().getEquationParts()));
         }
     }
-
     @Test
     public void testFracDiv() {
         for (int i = 0; i < 100; i++) {
