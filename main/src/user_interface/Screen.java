@@ -23,7 +23,10 @@ public class Screen extends JFrame implements MouseListener {
 
     // Create all Panels and Frames
     static JFrame frame = new JFrame();
-
+    // Create a user controller and worksheet controller instance
+    static UserController userController;
+    static WorksheetController worksheetController;
+    static String username;
     JPanel loginPanel = new JPanel();
     JPanel optionPanel = new JPanel();
     JPanel topicPanel = new JPanel();
@@ -32,16 +35,29 @@ public class Screen extends JFrame implements MouseListener {
     JPanel historyPanel = new JPanel();
     JPanel newUserPanel = new JPanel();
     JPanel userProfilePanel = new JPanel();
-
-    // Create a user controller and worksheet controller instance
-    static UserController userController;
-    static WorksheetController worksheetController;
-
-    static String username;
-
     Font titleFont = new Font("Monospaced", Font.BOLD, convert(0.03, 'w'));
 
     public Screen() {
+    }
+
+    /**
+     * Attempt to parse a String to an integer
+     *
+     * @param input the String input that will be parsed
+     */
+    public static Integer tryToParse(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public static void main(String[] args) {
+        frame.setSize(width, height);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        new LoginScreen();
     }
 
     public void changePanel(JPanel panel) {
@@ -68,9 +84,9 @@ public class Screen extends JFrame implements MouseListener {
      * Precondition:
      * - Each parameter is less than 1
      *
-     * @param x the constant multiplied by the screen width to get the starting x-location of the button
-     * @param y the constant multiplied by the screen height to get the starting y-location of the button
-     * @param width the constant multiplied by the screen width to get the button width
+     * @param x      the constant multiplied by the screen width to get the starting x-location of the button
+     * @param y      the constant multiplied by the screen height to get the starting y-location of the button
+     * @param width  the constant multiplied by the screen width to get the button width
      * @param height the constant multiplied by the screen height to get the button height
      */
     public void updateButtonLocation(JButton b, double x, double y, double width, double height) {
@@ -86,27 +102,24 @@ public class Screen extends JFrame implements MouseListener {
      * Precondition:
      * - Each parameter is less than 1
      *
-     * @param x the constant multiplied by the screen width to get the starting x-location of the label
-     * @param y the constant multiplied by the screen height to get the starting y-location of the label
-     * @param w the constant multiplied by the screen width to get the label width
-     * @param h the constant multiplied by the screen height to get the label height
-     * @param textSize the constant used to get the text size for the label
+     * @param x         the constant multiplied by the screen width to get the starting x-location of the label
+     * @param y         the constant multiplied by the screen height to get the starting y-location of the label
+     * @param w         the constant multiplied by the screen width to get the label width
+     * @param h         the constant multiplied by the screen height to get the label height
+     * @param textSize  the constant used to get the text size for the label
      * @param fontColor the color of the font (r being red, anything else being dark gray)
      */
     public void updateLabel(JLabel l, double x, double y, double w, double h, double textSize, char fontColor) {
         l.setFont(new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * textSize)));
         l.setBounds(convert(x, 'w'), convert(y, 'h'), convert(w, 'w'),
                 convert(h, 'h'));
-        if (fontColor == 'd'){
+        if (fontColor == 'd') {
             l.setForeground(Color.DARK_GRAY);
-        }
-        else if (fontColor == 'w'){
+        } else if (fontColor == 'w') {
             l.setForeground(Color.WHITE);
-        }
-        else if (fontColor == 'g') {
+        } else if (fontColor == 'g') {
             l.setForeground(new Color(177, 203, 187));
-        }
-        else if (fontColor == 'b') {
+        } else if (fontColor == 'b') {
             l.setForeground(new Color(142, 202, 234, 255));
         }
     }
@@ -117,7 +130,7 @@ public class Screen extends JFrame implements MouseListener {
      * @param buttons an array list of JButtons that will be updated to the default settings
      */
     public void defaultButton(JButton[] buttons) {
-        for (JButton button: buttons) {
+        for (JButton button : buttons) {
             button.setFont(new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02)));
             button.setOpaque(true);
             button.setForeground(Color.DARK_GRAY);
@@ -133,14 +146,13 @@ public class Screen extends JFrame implements MouseListener {
      * @param textFields an array list of JTextFields that will be updated to the default settings
      */
     public void updateTextFields(JTextField[] textFields) {
-        for (JTextField textField: textFields) {
+        for (JTextField textField : textFields) {
             textField.setBorder(BorderFactory.createMatteBorder(2, 2, 2,
                     2, Color.DARK_GRAY));
             textField.setOpaque(true);
             textField.setBackground(new Color(220, 220, 220));
         }
     }
-
 
     /**
      * Update the settings of the button to the default (font, color, and border). Overloaded method with one button.
@@ -156,8 +168,7 @@ public class Screen extends JFrame implements MouseListener {
         if (borderColor == 'd') {
             button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
                     4, Color.DARK_GRAY));
-        }
-        else if (borderColor == 'b') {
+        } else if (borderColor == 'b') {
             button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
                     4, new Color(142, 202, 234, 255)));
         }
@@ -177,8 +188,7 @@ public class Screen extends JFrame implements MouseListener {
         if (borderColor == 'd') {
             button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
                     4, Color.DARK_GRAY));
-        }
-        else if (borderColor == 'b') {
+        } else if (borderColor == 'b') {
             button.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
                     4, new Color(142, 202, 234, 255)));
         }
@@ -191,26 +201,13 @@ public class Screen extends JFrame implements MouseListener {
      * - num must be less than 1
      *
      * @param num the constant to be multiplied by the width or height
-     * @param c the width or height to be multiplied by num (w for width, h for height)
+     * @param c   the width or height to be multiplied by num (w for width, h for height)
      */
     public int convert(double num, char c) {
         if (c == 'w')
             return (int) Math.round(num * width);
         else {
             return (int) Math.round(num * height);
-        }
-    }
-
-    /**
-     * Attempt to parse a String to an integer
-     *
-     * @param input the String input that will be parsed
-     */
-    public static Integer tryToParse(String input) {
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            return null;
         }
     }
 
@@ -227,13 +224,6 @@ public class Screen extends JFrame implements MouseListener {
     }
 
     public void mouseReleased(MouseEvent e) {
-    }
-
-    public static void main(String[] args) {
-        frame.setSize(width, height);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        new LoginScreen();
     }
 }
 

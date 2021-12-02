@@ -15,16 +15,19 @@ import utilities.Randomizer;
 public abstract class EquationDirector {
     protected final EquationDetails equationDetails;
     protected final Randomizer randomizer;
-    public EquationDirector(EquationDetails equationDetails, Randomizer randomizer){
+
+    public EquationDirector(EquationDetails equationDetails, Randomizer randomizer) {
         this.equationDetails = equationDetails;
         this.randomizer = randomizer;
     }
+
     /**
      * Returns the equation held within the equation maker.
      *
      * @return the equation from the equation maker.
      */
     public abstract StandardEquation getEquation();
+
     /**
      * Construct a standard equation given the following parameters.
      */

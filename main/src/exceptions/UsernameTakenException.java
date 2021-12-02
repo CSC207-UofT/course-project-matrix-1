@@ -6,5 +6,7 @@ package exceptions;
  * @author Stanley Hua
  */
 public class UsernameTakenException extends RuntimeException {
-    public UsernameTakenException() {super("Username already taken!");}
+    public UsernameTakenException() {
+        super("Username already taken!");
+    }
 }

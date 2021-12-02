@@ -39,24 +39,6 @@ public class Node {
     }
 
     /**
-     * Sets the left Node.
-     *
-     * @param leftNode the left node, representing the left operand.
-     */
-    public void setLeftNode(Node leftNode) {
-        this.leftNode = leftNode;
-    }
-
-    /**
-     * Sets the right Node.
-     *
-     * @param rightNode the right node, representing the right operand.
-     */
-    public void setRightNode(Node rightNode) {
-        this.rightNode = rightNode;
-    }
-
-    /**
      * Returns the left Node.
      *
      * @return the left node, representing the left operand.
@@ -66,12 +48,30 @@ public class Node {
     }
 
     /**
+     * Sets the left Node.
+     *
+     * @param leftNode the left node, representing the left operand.
+     */
+    public void setLeftNode(Node leftNode) {
+        this.leftNode = leftNode;
+    }
+
+    /**
      * Returns the right Node.
      *
      * @return the right node, representing the left operand.
      */
     public Node getRightNode() {
         return rightNode;
+    }
+
+    /**
+     * Sets the right Node.
+     *
+     * @param rightNode the right node, representing the right operand.
+     */
+    public void setRightNode(Node rightNode) {
+        this.rightNode = rightNode;
     }
 
     /**

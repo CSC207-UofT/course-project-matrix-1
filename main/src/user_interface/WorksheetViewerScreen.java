@@ -97,7 +97,6 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        documents[0].close();
         JPanel images = new JPanel();
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
         for (int i = 0; i < labels.toArray().length; i++) {
@@ -105,7 +104,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
             images.add(new JSeparator());
         }
         JScrollPane scrollPane = new JScrollPane(images);
-        scrollPane.setBounds(convert(0.35, 'w'), convert(0.25,'h'), convert(0.3, 'w'),
+        scrollPane.setBounds(convert(0.35, 'w'), convert(0.25, 'h'), convert(0.3, 'w'),
                 convert(0.45, 'h'));
 
         // Create JLabels

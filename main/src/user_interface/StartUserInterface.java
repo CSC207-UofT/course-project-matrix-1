@@ -1,4 +1,5 @@
 package user_interface;
+
 import user_package.UserController;
 import worksheet_maker.WorksheetController;
 
@@ -15,7 +16,7 @@ class StartUserInterface {
     static UserController userController;
     static WorksheetController worksheetController;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         controllerInterface = new ControllerInterface();
         controllerInterface.makeUserController();
         // Create an instance of user controller to keep track of the user's information

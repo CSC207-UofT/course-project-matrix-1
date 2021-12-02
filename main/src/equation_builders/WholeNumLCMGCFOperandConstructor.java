@@ -10,7 +10,7 @@ import utilities.Randomizer;
 import java.util.Set;
 
 /**
- * Handles the construction of operands for the whole number LCM equations.
+ * Handles the construction of operands for the whole number LCM/GCF equations.
  *
  * @author Stanley Hua
  * @version 1.0
@@ -18,7 +18,7 @@ import java.util.Set;
  */
 class WholeNumLCMGCFOperandConstructor implements OperandConstructorInterface {
     /**
-     * Creates operands (first and second) in the LCM bedmas equation's question.
+     * Creates operands (first and second) in the LCM/GCF bedmas equation's question.
      * <p>
      * To avoid difficult LCM equations with numbers greater than 10, only allow operands with at least 1 common factor.
      *

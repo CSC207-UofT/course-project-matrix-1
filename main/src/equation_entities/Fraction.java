@@ -1,7 +1,6 @@
 package equation_entities;
 
 import exceptions.IllegalOperatorForOperandTypeException;
-import exceptions.NotImplementedException;
 
 /**
  * Stores a fraction that has a whole number, numerator, and denominator each represented by an integer.
@@ -127,16 +126,6 @@ public class Fraction extends Value {
         Fraction newFraction = new Fraction(numerator, denominator);
         newFraction.reduce();
         return newFraction;
-    }
-
-    /**
-     * Returns the fraction as a mixed fraction, where the numerator is smaller than the denominator.
-     *
-     * @return the list of fraction parts, as [numerator, denominator, wholeNumber, negative], where negative = -1
-     * if the fraction is negative, and +1 if the fraction is positive.
-     */
-    public int[] getMixedFraction() {
-        return null;
     }
 
     /**

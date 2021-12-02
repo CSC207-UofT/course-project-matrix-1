@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * User class. Holds information about an existing user.
- *      - User profile details cannot be updated currently.
+ * - User profile details cannot be updated currently.
  *
  * @author Stanley Hua, Kerim Saltoglu
  */

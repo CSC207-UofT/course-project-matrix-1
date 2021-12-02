@@ -7,8 +7,8 @@ import java.util.Map;
 /**
  * LocalDataAccess class. Implements local data retrieval and storage.
  *
- * @version 1.0
  * @author Stanley Hua
+ * @version 1.0
  */
 public class LocalDataAccess implements DataAccessInterface {
 

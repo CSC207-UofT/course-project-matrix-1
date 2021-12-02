@@ -1,4 +1,5 @@
 package constants;
+
 /**
  * Constants for possible equation types. Includes whole number, fraction, decimal.
  *
@@ -9,5 +10,5 @@ package constants;
 public final class EquationType {
     public final static String WHOLE_NUMBER = "Whole Number";
     public final static String DECIMAL = "Decimal";
-    public final static String FRACTION =  "Fraction";
+    public final static String FRACTION = "Fraction";
 }

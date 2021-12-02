@@ -1,11 +1,16 @@
 package worksheet_maker;
 
-import equation_builders.StandardEquationDirector;
 import equation_builders.EquationDirector;
-import equation_parameters.*;
+import equation_builders.StandardEquationDirector;
+import equation_parameters.EquationDetails;
+import equation_parameters.FractionAddSubEquationDetails;
+import equation_parameters.FractionMultiDivEquationDetails;
+import equation_parameters.WholeNumEquationDetails;
+import exceptions.InvalidInputException;
 import utilities.Randomizer;
 
-import static constants.EquationType.*;
+import static constants.EquationType.FRACTION;
+import static constants.EquationType.WHOLE_NUMBER;
 
 /**
  * Generates a worksheet through the WorksheetInput interface.
@@ -38,19 +43,15 @@ public class WorksheetGenerator {
      *                        operator, operandRange1, operandRange2, negAllowed.
      */
     public void populateWorksheet(EquationDetails equationDetails) {
-        EquationDirector equationDirector = null;
-        //TODO: fix this to not be null
+        EquationDirector equationDirector;
         //Create and assign the appropriate builder to a director.
         if (equationDetails instanceof WholeNumEquationDetails) {
             equationDirector = new StandardEquationDirector(randomizer, equationDetails, WHOLE_NUMBER);
         } else if (equationDetails instanceof FractionAddSubEquationDetails || equationDetails instanceof FractionMultiDivEquationDetails) {
             equationDirector = new StandardEquationDirector(randomizer, equationDetails, FRACTION);
-        } else if (equationDetails instanceof DecimalEquationDetails) {
-            // TODO: Not yet implemented
-            throw new RuntimeException("Decimal Standard Equations Not Implemented!");
-//            equationDirector = new StandardEquationDirector(DECIMAL);
+        } else {
+            throw new InvalidInputException();
         }
-        assert equationDirector != null;
         for (int i = 0; i < equationDetails.getNumOfEquations(); i++) {
             equationDirector.constructEquation();
             this.worksheet.addEquation(equationDirector.getEquation());

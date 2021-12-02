@@ -1,14 +1,15 @@
 package equation_builders;
 
+import equation_entities.GCD;
+import equation_entities.LCM;
 import equation_entities.*;
-
-import static constants.OperatorRep.*;
-
 import equation_parameters.EquationDetails;
 import exceptions.InvalidInputException;
 import utilities.Randomizer;
 
-import static constants.EquationType.*;
+import static constants.EquationType.FRACTION;
+import static constants.EquationType.WHOLE_NUMBER;
+import static constants.OperatorRep.*;
 
 /**
  * An equation maker for all types of standard equations.
@@ -22,10 +23,10 @@ import static constants.EquationType.*;
  * @since 2021-10-30
  */
 public class StandardEquationMaker {
-    protected StandardEquation standardEquation;
-    protected OperandConstructorInterface operandConstructor;
     protected final Randomizer randomizer;
     protected final String currentOperator;
+    protected StandardEquation standardEquation;
+    protected OperandConstructorInterface operandConstructor;
 
 
     /**

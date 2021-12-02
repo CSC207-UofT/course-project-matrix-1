@@ -26,10 +26,10 @@ public class EquationsToPDImages {
      * Creates images that are resized using the same proportions so that every image can fit on the page.
      *
      * @param formatDetails Contains details necessary for formatting equation images on a PDF. The keys are
-     *                              "equationFormat", "numRows", "numColumns".
-     * @param equations A list of maps containing the operands, operator and answer of each equation as Strings.
-     * @param worksheetPDFs         Two PDFs that equations will be added to. The first represents a PDF with questions
-     *                              only, the second represents a PDF with questions and answers.
+     *                      "equationFormat", "numRows", "numColumns".
+     * @param equations     A list of maps containing the operands, operator and answer of each equation as Strings.
+     * @param worksheetPDFs Two PDFs that equations will be added to. The first represents a PDF with questions
+     *                      only, the second represents a PDF with questions and answers.
      * @return A list of high resolution PD images. The first array represents the images for the questions, the second
      * array represents the images for the answers.
      * @throws IOException if the images cannot be added to the file properly.

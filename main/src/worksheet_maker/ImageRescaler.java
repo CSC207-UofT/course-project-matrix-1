@@ -2,7 +2,8 @@ package worksheet_maker;
 
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
-import static constants.PDFDimensions.*;
+import static constants.PDFDimensions.PRINT_HEIGHT;
+import static constants.PDFDimensions.PRINT_WIDTH;
 
 /**
  * Calculates by what factor images should be rescaled such that they will all fit within the specified number of

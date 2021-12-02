@@ -28,7 +28,7 @@ public abstract class FractionMultDivOperandConstructor {
      * fraction multiplication.
      *
      * @param fractionEquationDetails the parameters for fraction equation generation.
-     * @param randomizer the randomizer for a given equation
+     * @param randomizer              the randomizer for a given equation
      * @return an array of first operand and second operand values.
      */
     public Value[] buildOperands(EquationDetails fractionEquationDetails, Randomizer randomizer) {
@@ -91,10 +91,10 @@ public abstract class FractionMultDivOperandConstructor {
         operand1Factors.add(1);
         operand2Factors.add(1);
         Collections.sort(factors);
-        if (factors.size() >= 3){
+        if (factors.size() >= 3) {
             operand1Factors.add(factors.remove(0));
             operand1Factors.add(factors.remove(0));
-            operand2Factors.add(factors.remove(factors.size() -1));
+            operand2Factors.add(factors.remove(factors.size() - 1));
         }
         while (!factors.isEmpty()) {
             if (factors.size() % 2 == 0) {
