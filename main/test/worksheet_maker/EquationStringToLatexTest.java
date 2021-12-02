@@ -50,7 +50,7 @@ public class EquationStringToLatexTest {
 
     @Test
     public void testCreateDivisionBracketLatex() {
-        assertEquals("\\begin{array}{r}2\\\\3\\overline{)6}\\\\\\end{array}", equationStringToLatex.createVerticalLatex(wholeNumEquationMap, true));
+        assertEquals("\\begin{array}{r}2\\\\3\\overline{)6}\\\\\\end{array}", equationStringToLatex.createDivisionBracketLatex(wholeNumEquationMap, true));
     }
 
     @Test
