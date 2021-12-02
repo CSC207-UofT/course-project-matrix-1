@@ -25,7 +25,7 @@ public class WorksheetControllerTest {
         myFormatDetails.setNumColumns(2);
     }
     @Test
-    public void WholeNumHorizontalVisualTest() throws IOException {
+    public void testWholeNumHorizontalVisual() throws IOException {
         WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
         wholeNumEquationDetails.setNumOfEquations(30);
         wholeNumEquationDetails.setOperator("/");
@@ -44,7 +44,7 @@ public class WorksheetControllerTest {
     }
 
     @Test
-    public void WholeNumVerticalTest() throws IOException {
+    public void testWholeNumVertical() throws IOException {
         myFormatDetails.setEquationFormat(VERTICAL);
         WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
         wholeNumEquationDetails.setNumOfEquations(30);
@@ -64,7 +64,7 @@ public class WorksheetControllerTest {
     }
 
     @Test
-    public void WholeNumDivisionBracketTest() throws IOException {
+    public void testWholeNumDivisionBracket() throws IOException {
         myFormatDetails.setEquationFormat(DIVISION_BRACKET);
         WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
         wholeNumEquationDetails.setNumOfEquations(30);
@@ -84,7 +84,7 @@ public class WorksheetControllerTest {
     }
 
     @Test
-    public void FracAddVisualTest() throws IOException {
+    public void testFracAddVisual() throws IOException {
         FractionAddSubEquationDetails fractionAddSubEquationDetails = new FractionAddSubEquationDetails();
         fractionAddSubEquationDetails.setNumOfEquations(30);
         fractionAddSubEquationDetails.setOperator("+");
@@ -104,7 +104,7 @@ public class WorksheetControllerTest {
         assertEquals(2, pdf.length);
     }
     @Test
-    public void FracDivVisualTest() throws IOException {
+    public void testFracDivVisual() throws IOException {
         FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
         fractionMultiDivEquationDetails.setNumOfEquations(30);
         fractionMultiDivEquationDetails.setOperator("/");
@@ -125,7 +125,7 @@ public class WorksheetControllerTest {
     }
 
     @Test
-    public void FracMultiVisualTest() throws IOException {
+    public void testFracMultiVisual() throws IOException {
         FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
         fractionMultiDivEquationDetails.setNumOfEquations(30);
         fractionMultiDivEquationDetails.setOperator("*");
@@ -141,6 +141,25 @@ public class WorksheetControllerTest {
         pdf[0].save(path + "/frac_multi_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/frac_multi_answers.pdf");
+        pdf[1].close();
+        assertEquals(2, pdf.length);
+    }
+
+    @Test
+    public void testLCMHorizontalVisual() throws IOException {
+        WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
+        wholeNumEquationDetails.setNumOfEquations(30);
+        wholeNumEquationDetails.setOperator("LCM");
+        wholeNumEquationDetails.setOperandRange1(new int[]{1, 20});
+        wholeNumEquationDetails.setOperandRange2(new int[]{1, 20});
+        wholeNumEquationDetails.setNegAllowed(false);
+
+        WorksheetController wc = new WorksheetController();
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
+        String path = "out/production/course-project-matrix-1/user_package/users_data/";
+        pdf[0].save(path + "/whole_num_LCM_questions.pdf");
+        pdf[0].close();
+        pdf[1].save(path + "/whole_num_LCM_answers.pdf");
         pdf[1].close();
         assertEquals(2, pdf.length);
     }

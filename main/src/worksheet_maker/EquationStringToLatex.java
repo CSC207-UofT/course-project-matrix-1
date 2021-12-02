@@ -6,6 +6,8 @@ import java.util.Map;
 
 import static constants.EquationFormats.*;
 import static constants.EquationParts.*;
+import static constants.OperatorRep.LCM;
+import static constants.OperatorRep.GCD;
 
 /**
  * Converts an Equation as a String into a TexFormula.
@@ -49,14 +51,20 @@ public class EquationStringToLatex {
 
     /**
      * Converts a list of String representation of an equation into a latex String in a Horizontal format.
-     * Ex. 4 \div 2 = 2
+     * Ex. 4 \div 2 = 2, or LCM(2,20) =
      *
      * @param equationStringMap A Map containing the operands, operator and answer of an equation as Strings.
      * @param withAnswer        Determines if this equation should include the answer at the end of the Latex formula.
      * @return Horizontal format of a latex equation as a string.
      */
     public String createHorizontalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
-        String horizontalLatex = equationStringMap.get(OPERAND1) + equationStringMap.get(OPERATOR) + equationStringMap.get(OPERAND2) + "=";
+        String horizontalLatex;
+        if (equationStringMap.get(OPERATOR).equals(LCM) || equationStringMap.get(OPERATOR).equals(GCD)){
+            horizontalLatex = equationStringMap.get(OPERATOR) + "(" + equationStringMap.get(OPERAND1) + "," + equationStringMap.get(OPERAND2) + ")" + "=";
+        } else {
+            horizontalLatex = equationStringMap.get(OPERAND1) + equationStringMap.get(OPERATOR) + equationStringMap.get(OPERAND2) + "=";
+        }
+
         if (withAnswer) {
             horizontalLatex += equationStringMap.get(ANSWER);
         }

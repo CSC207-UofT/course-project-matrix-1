@@ -11,9 +11,9 @@ import static constants.EquationParts.*;
 import static org.junit.Assert.*;
 
 public class EquationStringToLatexTest {
-    private Map<String, String> wholeNumEquationMap = new HashMap<>();
-    private Map<String, String> fractionEquationMap = new HashMap<>();
-    private EquationStringToLatex equationStringToLatex = new EquationStringToLatex();
+    private final Map<String, String> wholeNumEquationMap = new HashMap<>();
+    private final Map<String, String> fractionEquationMap = new HashMap<>();
+    private final EquationStringToLatex equationStringToLatex = new EquationStringToLatex();
     @Before
     public void init() {
         wholeNumEquationMap.put(OPERATOR, "\\div");
@@ -43,9 +43,22 @@ public class EquationStringToLatexTest {
         assertEquals("-2\\frac{1}{2}\\times\\frac{3}{4}=-1\\frac{7}{8}", equationStringToLatex.createHorizontalLatex(fractionEquationMap, true));
     }
 
-    //TODO: finish the test cases
+    @Test
+    public void testCreateVerticalLatex() {
+        assertEquals("\\begin{array}{r@{\\,}r@{\\,}}&6\\\\\\div&3\\\\\\hline&2\\\\\\end{array}", equationStringToLatex.createVerticalLatex(wholeNumEquationMap, true));
+    }
 
+    @Test
+    public void testCreateDivisionBracketLatex() {
+        assertEquals("\\begin{array}{r}2\\\\3\\overline{)6}\\\\\\end{array}", equationStringToLatex.createVerticalLatex(wholeNumEquationMap, true));
+    }
 
-
-
+    @Test
+    public void testWholeNumLCMCreateHorizontalLatex() {
+        wholeNumEquationMap.put(OPERATOR, "LCM");
+        wholeNumEquationMap.put(OPERAND1, "6");
+        wholeNumEquationMap.put(OPERAND2, "8");
+        wholeNumEquationMap.put(ANSWER, "24");
+        assertEquals("LCM(6,8)=24", equationStringToLatex.createHorizontalLatex(wholeNumEquationMap, true));
+    }
 }
