@@ -27,8 +27,7 @@ public class WorksheetController {
      * @throws IOException if images cannot be added to the PDF.
      */
     public PDDocument[] generateWorksheetAndPDF(EquationDetails equationDetails, FormatDetails formatDetails,
-                                                int seed)
-            throws IOException {
+                                                int seed) throws IOException {
         Worksheet ws = new Worksheet();
         WorksheetGenerator worksheetGenerator = new WorksheetGenerator(ws, seed);
         PDFPresenter pdfPresenter = new PDFPresenter(ws);
