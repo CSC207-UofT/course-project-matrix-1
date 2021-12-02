@@ -76,9 +76,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
             // This class is a part of the View in the Model-View-Presenter architecture.
             // Thus, this class will ask the UserPresenter to takeover for the user requests.
             // Therefore, we need a UserPresenter instance, as seen below.
-
             userAccessInterface = new UserAccessInterface();
-            userAccessInterface.makeControllerAndPresenter();  // creates both User Presenter Controller
             userPresenter = userAccessInterface.getUserPresenter();
             userController = userAccessInterface.getUserController();
             userHistoryList = userPresenter.getUserHistory();
