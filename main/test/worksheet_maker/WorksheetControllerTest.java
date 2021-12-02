@@ -74,7 +74,9 @@ public class WorksheetControllerTest {
         wholeNumEquationDetails.setNegAllowed(true);
 
         WorksheetController wc = new WorksheetController();
-        PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
+        int num = new Random().nextInt(100000);
+        System.out.println(num);
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, num);
         String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/whole_num_questions.pdf");
         pdf[0].close();
@@ -95,7 +97,7 @@ public class WorksheetControllerTest {
         fractionAddSubEquationDetails.setFractionFormat(MIXED);
 
         WorksheetController wc = new WorksheetController();
-        PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionAddSubEquationDetails, myFormatDetails, new Random().nextInt(100000));
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionAddSubEquationDetails, myFormatDetails,5168);
         String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/frac_add_questions.pdf");
         pdf[0].close();
@@ -115,7 +117,9 @@ public class WorksheetControllerTest {
         fractionMultiDivEquationDetails.setFractionFormat(MIXED);
 
         WorksheetController wc = new WorksheetController();
-        PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, new Random().nextInt(100000));
+        int num = new Random().nextInt(100000);
+        System.out.println(num);
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, num);
         String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/frac_div_questions.pdf");
         pdf[0].close();
@@ -136,7 +140,9 @@ public class WorksheetControllerTest {
         fractionMultiDivEquationDetails.setFractionFormat(MIXED);
 
         WorksheetController wc = new WorksheetController();
-        PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, new Random().nextInt(100000));
+        int num = new Random().nextInt(100000);
+        System.out.println(num);
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, num);
         String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/frac_multi_questions.pdf");
         pdf[0].close();
