@@ -281,8 +281,8 @@ public class StandardEquationDirectorTest {
     public void testFracAdd() {
         for (int i = 0; i < 100; i++) {
             setupBasicFracAddSub(ADD, false);
-            int[] operand1 = ((Fraction) director.getEquation().getEquationParts()[0]).getImproperFraction();
-            int[] operand2 = ((Fraction) director.getEquation().getEquationParts()[2]).getImproperFraction();
+            int[] operand1 = ((Fraction) director.getEquation().getEquationParts()[0]).getFraction();
+            int[] operand2 = ((Fraction) director.getEquation().getEquationParts()[2]).getFraction();
             assertTrue(operand1[0] / operand1[1] <= 2);
             assertTrue(operand2[0] / operand2[1] <= 2);
             assertTrue(operand1[1] <= 20 && operand1[1] >= 1);
@@ -294,8 +294,8 @@ public class StandardEquationDirectorTest {
     public void testFracSub() {
         for (int i = 0; i < 100; i++) {
             setupBasicFracAddSub(SUB, true);
-            int[] operand1 = ((Fraction) director.getEquation().getEquationParts()[0]).getImproperFraction();
-            int[] operand2 = ((Fraction) director.getEquation().getEquationParts()[2]).getImproperFraction();
+            int[] operand1 = ((Fraction) director.getEquation().getEquationParts()[0]).getFraction();
+            int[] operand2 = ((Fraction) director.getEquation().getEquationParts()[2]).getFraction();
             assertTrue(Math.abs(operand1[0] / operand1[1]) <= 2);
             assertTrue(Math.abs(operand2[0] / operand2[1]) <= 2);
             assertTrue(operand1[1] <= 20 && operand1[1] >= 1);
@@ -306,7 +306,7 @@ public class StandardEquationDirectorTest {
     public void testFracMult() {
         for (int i = 0; i < 100; i++) {
             setupBasicFracMultDiv(MULT, false);
-            int[] answer = ((Fraction) director.getEquation().getEquationParts()[3]).getImproperFraction();
+            int[] answer = ((Fraction) director.getEquation().getEquationParts()[3]).getFraction();
             assertTrue(answer[0] / answer[1] <= 2);
             System.out.println(Arrays.toString(director.getEquation().getEquationParts()));
         }
@@ -316,7 +316,7 @@ public class StandardEquationDirectorTest {
     public void testFracDiv() {
         for (int i = 0; i < 100; i++) {
             setupBasicFracMultDiv(DIV, true);
-            int[] answer = ((Fraction) director.getEquation().getEquationParts()[3]).getImproperFraction();
+            int[] answer = ((Fraction) director.getEquation().getEquationParts()[3]).getFraction();
             assertTrue(Math.abs(answer[0] / answer[1]) <= 2);
             System.out.println(Arrays.toString(director.getEquation().getEquationParts()));
         }

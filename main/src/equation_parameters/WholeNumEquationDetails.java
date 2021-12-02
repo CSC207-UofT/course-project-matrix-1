@@ -1,5 +1,12 @@
 package equation_parameters;
 
+/**
+ * Holds equation details specific to whole number equations. This includes the range of operand1 and operand2.
+ *
+ * @author Sean Jeong
+ * @version 1.0
+ * @since 2021-12-2
+ */
 public final class WholeNumEquationDetails extends EquationDetails {
     private int[] operandRange1;
     private int[] operandRange2;
