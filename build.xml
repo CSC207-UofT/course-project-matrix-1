@@ -17,15 +17,7 @@
                 <include name="*.jar" />
          </fileset>
   </path>
-
-  <!-- Define the classpath which includes the junit.jar and the classes after compiling-->
-<!--	<path id="junit.class.path">-->
-<!--		<pathelement location="lib/junit-4.13.2.jar" />-->
-<!--		<pathelement location="lib/hamcrest-core-1.3.jar" />-->
-<!--		<pathelement location="${build.dir}" />-->
-<!--	</path>-->
-
-
+	
   <!-- Target for deleting the existing directories-->
   <target name="clean">
     <delete dir="${build.dir}" />
