@@ -1,4 +1,5 @@
 package constants;
+
 /**
  * Constants for possible equation formats.
  *
@@ -8,6 +9,6 @@ package constants;
  */
 public final class EquationFormats {
     public final static String VERTICAL = "Vertical";
-    public final static String HORIZONTAL =  "Horizontal";
+    public final static String HORIZONTAL = "Horizontal";
     public final static String DIVISION_BRACKET = "Division bracket";
 }

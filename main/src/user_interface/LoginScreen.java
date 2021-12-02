@@ -53,8 +53,8 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         // Update the settings of each label
         updateLabel(matrixTitle, 0.15, 0.14, 0.7, 0.1, 0.03, 'd');
         updateLabel(matrixTitleShadow, 0.1525, 0.1425, 0.7, 0.1, 0.03, 'w');
-        updateLabel(username, 0.25, 0.475, 0.3, 0.1,0.025, 'd');
-        updateLabel(invalidUsernameError, 0.4125,0.559,0.175,0.045,0.014, 'w');
+        updateLabel(username, 0.25, 0.475, 0.3, 0.1, 0.025, 'd');
+        updateLabel(invalidUsernameError, 0.4125, 0.559, 0.175, 0.045, 0.014, 'w');
 
         // Create the settings of the invalid label and initially set it to not visible
         invalidUsernameError.setOpaque(true);
@@ -88,7 +88,6 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     /**
      * Attempt to log in the user with the username inputted. If the username is not
      * registered, the invalid input error will appear.
-     *
      */
     private void userLogin() {
         try {
@@ -123,8 +122,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == loginButton) {
             highlightButton(loginButton, 'b');
-        }
-        else if (e.getSource() == createUserButton) {
+        } else if (e.getSource() == createUserButton) {
             highlightButton(createUserButton, 'd');
         }
     }
@@ -137,8 +135,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == loginButton) {
             defaultButton(loginButton, 'b');
-        }
-        else if (e.getSource() == createUserButton) {
+        } else if (e.getSource() == createUserButton) {
             defaultButton(createUserButton, 'd');
         }
     }
@@ -152,9 +149,9 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
      *
      * @param e keeps track of which key is being pressed
      */
-    public void keyPressed(KeyEvent e){
+    public void keyPressed(KeyEvent e) {
         // Attempt to log in the user with the username entered
-        if (e.getKeyCode()==KeyEvent.VK_ENTER){
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             userLogin();
         }
     }

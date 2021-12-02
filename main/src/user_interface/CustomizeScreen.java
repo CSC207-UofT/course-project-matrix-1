@@ -42,15 +42,15 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     JCheckBox negAllowedBox = new JCheckBox("");
 
     // Create the equation details variables with initial invalid values
-    int [] operandRange1 = {-1, -1};
-    int [] operandRange2 = {-1, -1};
+    int[] operandRange1 = {-1, -1};
+    int[] operandRange2 = {-1, -1};
     boolean negAllowed = false;
 
     // Create the formatting details variables with initial invalid values
     String dateAndTime;
 
     // Create the temporary map's to be passed into worksheet viewer screen
-    Map <String, Object> worksheetHistoryDetails = new HashMap<>();
+    Map<String, Object> worksheetHistoryDetails = new HashMap<>();
 
     EquationDetails equationDetails;
     FormatDetails formatDetails;
@@ -144,7 +144,8 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
         changePanel(customizePanel);
     }
-    private void generateWorksheet(){
+
+    private void generateWorksheet() {
         boolean passed = true;
 
         // Create temporary equation details and format details variables
@@ -157,8 +158,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             operatorWarning.setText("Operand's must be positive numbers");
             operatorWarning.setVisible(true);
             passed = false;
-        }
-        else {
+        } else {
             // Each operand value can be parsed (is an integer)
             op1MinTemp = Integer.parseInt(op1MIN.getText().trim());
             op1MaxTemp = Integer.parseInt(op1MAX.getText().trim());
@@ -171,13 +171,11 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 && op1MaxTemp >= op1MinTemp && op2MaxTemp >= op2MinTemp) {
             operandRange1 = new int[]{op1MinTemp, op1MaxTemp};      // Set the operand 1 range to inputted values
             operandRange2 = new int[]{op2MinTemp, op2MaxTemp};      // Set the operand 2 range to inputted values
-        }
-        else if (op1MaxTemp < op1MinTemp || op2MaxTemp < op2MinTemp){
+        } else if (op1MaxTemp < op1MinTemp || op2MaxTemp < op2MinTemp) {
             operatorWarning.setText("Operand's' minimum must be lower than the maximum");
             operatorWarning.setVisible(true);
             passed = false;
-        }
-        else {
+        } else {
             operatorWarning.setText("Operand's must be positive numbers");
             operatorWarning.setVisible(true);
         }
@@ -213,8 +211,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     public void mousePressed(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
             generateWorksheet();
-        }
-        else if (e.getSource() == customizeBackButton) {
+        } else if (e.getSource() == customizeBackButton) {
             new TopicScreen();
         }
     }
@@ -222,8 +219,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
             highlightButton(generateWorksheetButton, 'b');
-        }
-        else if (e.getSource() == customizeBackButton) {
+        } else if (e.getSource() == customizeBackButton) {
             highlightButton(customizeBackButton, 'd');
         }
     }
@@ -231,8 +227,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
             defaultButton(generateWorksheetButton, 'b');
-        }
-        else if (e.getSource() == customizeBackButton) {
+        } else if (e.getSource() == customizeBackButton) {
             defaultButton(customizeBackButton, 'd');
         }
     }
@@ -244,7 +239,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             generateWorksheet();
         }
     }

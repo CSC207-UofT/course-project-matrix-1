@@ -68,8 +68,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
     public void mousePressed(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
             new OptionScreen();
-        }
-        else if (e.getSource() == deleteUserButton) {
+        } else if (e.getSource() == deleteUserButton) {
 
             int option = JOptionPane.showConfirmDialog(frame, "Confirm deletion of " + username + "'s account?", "Delete Account", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
@@ -87,8 +86,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
             highlightButton(userProfileBackButton, 'd');
-        }
-        else if (e.getSource() == deleteUserButton) {
+        } else if (e.getSource() == deleteUserButton) {
             highlightButton(deleteUserButton, 'd');
             deleteUserButton.setBackground(new Color(196, 67, 67));
         }
@@ -97,8 +95,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
             defaultButton(userProfileBackButton, 'd');
-        }
-        else if (e.getSource() == deleteUserButton) {
+        } else if (e.getSource() == deleteUserButton) {
             defaultButton(deleteUserButton, 'd');
             deleteUserButton.setBackground(new Color(196, 67, 67));
         }

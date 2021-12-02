@@ -1,6 +1,6 @@
 package equation_parameters;
 
-public class FractionMultiDivEquationDetails extends EquationDetails{
+public class FractionMultiDivEquationDetails extends EquationDetails {
     //The range that answer's denominator can appear as. Must be greater than 0.
     private int[] ansDenominatorRange;
 

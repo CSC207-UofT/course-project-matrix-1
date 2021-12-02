@@ -9,7 +9,7 @@ public class EuclideanAlgorithm {
      * While the values are not equal, compute the remainder from dividing one number from the other, then use the
      * remainder to divide the divisor of the last operator, and repeat. In the end, the final remainder will be the
      * greatest common divisor.
-     *
+     * <p>
      * Implementation is based on Euclidean Algorithm's Wikipedia page.
      *
      * @param a first integer

@@ -20,8 +20,4 @@ public final class WholeNumEquationDetails extends EquationDetails {
         this.operandRange2 = operandRange2;
     }
 
-
-    //TODO: give this class more functionality. maybe move randomize operand here? would need to pass all of equation details down though (is this unnecessary parameters?)
-
-
 }

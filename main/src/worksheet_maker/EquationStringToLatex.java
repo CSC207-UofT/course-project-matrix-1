@@ -5,7 +5,6 @@ import org.scilab.forge.jlatexmath.TeXFormula;
 import java.util.Map;
 
 import static constants.EquationFormats.*;
-
 import static constants.EquationParts.*;
 
 /**
@@ -21,10 +20,10 @@ public class EquationStringToLatex {
     /**
      * Converts a Map of String representation of an equation into a TexFormula.
      *
-     * @param equationStringMap  A Map containing the operands, operator and answer of an equation as Strings.
-     * @param equationFormat     The format an equation should be displayed in. Horizontal, Vertical or Division
-     *                           bracket.
-     * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
+     * @param equationStringMap A Map containing the operands, operator and answer of an equation as Strings.
+     * @param equationFormat    The format an equation should be displayed in. Horizontal, Vertical or Division
+     *                          bracket.
+     * @param withAnswer        Determines if this equation should include the answer at the end of the Latex formula.
      * @return Latex formula of the equation.
      */
     public TeXFormula convertEquationStringToLatex(Map<String, String> equationStringMap, String equationFormat, boolean withAnswer) {
@@ -53,7 +52,7 @@ public class EquationStringToLatex {
      * Ex. 4 \div 2 = 2
      *
      * @param equationStringMap A Map containing the operands, operator and answer of an equation as Strings.
-     * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
+     * @param withAnswer        Determines if this equation should include the answer at the end of the Latex formula.
      * @return Horizontal format of a latex equation as a string.
      */
     public String createHorizontalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
@@ -73,15 +72,15 @@ public class EquationStringToLatex {
      * 2
      *
      * @param equationStringMap A Map containing the operands, operator and answer of an equation as Strings.
-     * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
+     * @param withAnswer        Determines if this equation should include the answer at the end of the Latex formula.
      * @return Vertical format of a latex equation as a string.
      */
     public String createVerticalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
         String verticalLatex = "\\begin{array}{r@{\\,}r@{\\,}}";
         verticalLatex += "&" + equationStringMap.get(OPERAND1) + "\\\\";
-        verticalLatex += equationStringMap.get(OPERATOR) +"&" + equationStringMap.get(OPERAND2)+ "\\\\";
+        verticalLatex += equationStringMap.get(OPERATOR) + "&" + equationStringMap.get(OPERAND2) + "\\\\";
         verticalLatex += "\\hline";
-        if (withAnswer){
+        if (withAnswer) {
             verticalLatex += "&" + equationStringMap.get(ANSWER) + "\\\\";
         }
         verticalLatex += "\\end{array}";
@@ -93,12 +92,12 @@ public class EquationStringToLatex {
      * Ex. 2)4 (with an overline above the 4)
      *
      * @param equationStringMap A Map containing the operands, operator and answer of an equation as Strings.
-     * @param withAnswer         Determines if this equation should include the answer at the end of the Latex formula.
+     * @param withAnswer        Determines if this equation should include the answer at the end of the Latex formula.
      * @return Division bracket format of a latex equation as a string.
      */
     public String createDivisionBracketLatex(Map<String, String> equationStringMap, boolean withAnswer) {
         String divisionBracketLatex = "\\begin{array}{r}";
-        if (withAnswer){
+        if (withAnswer) {
             divisionBracketLatex += equationStringMap.get(ANSWER) + "\\\\";
         }
         divisionBracketLatex += equationStringMap.get(OPERAND2) + "\\overline{)" + equationStringMap.get(OPERAND1) + "}\\\\";

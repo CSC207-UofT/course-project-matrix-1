@@ -8,8 +8,8 @@ import java.util.Map;
 /**
  * UserManager class. Handles User entities.
  *
- * @version 2.0
  * @author Kerim, Stanley
+ * @version 2.0
  */
 public class UserManager {
     private final Map<String, User> users;

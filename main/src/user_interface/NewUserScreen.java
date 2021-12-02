@@ -29,7 +29,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
     JTextField newUsernameInput = new JTextField(1);
     JTextField nameInput = new JTextField(1);
     JTextField ageInput = new JTextField(1);
-    JTextField [] newUserTextFields = {newUsernameInput, nameInput, ageInput};
+    JTextField[] newUserTextFields = {newUsernameInput, nameInput, ageInput};
 
     // Create combo box for user role
     String[] roleOptions = {"Student", "Teacher"};
@@ -112,7 +112,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         changePanel(newUserPanel);
     }
 
-    private void createUser(){
+    private void createUser() {
         String currUsername = newUsernameInput.getText();
         String currName = nameInput.getText();
 
@@ -120,8 +120,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         if (tryToParse(ageInput.getText()) == null || currName.length() == 0 || currUsername.length() == 0) {
             newUserInvalidInput.setText("Invalid Input(s)");
             newUserInvalidInput.setVisible(true);              // Set invalid input to visible
-        }
-        else {
+        } else {
             int currAge = Integer.parseInt(ageInput.getText());   // Parse the age, which is a valid integer
             String currRole = (String) role.getSelectedItem();  // Get the selected role of the user
 
@@ -136,28 +135,28 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
             }
         }
     }
+
     public void mousePressed(MouseEvent e) {
 
         if (e.getSource() == createUserButton) {
             createUser();
-        }
-        else if (e.getSource() == newUserBackButton){
+        } else if (e.getSource() == newUserBackButton) {
             new LoginScreen();
         }
     }
+
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == createUserButton) {
             highlightButton(createUserButton, 'b');
-        }
-        else if (e.getSource() == newUserBackButton) {
+        } else if (e.getSource() == newUserBackButton) {
             highlightButton(newUserBackButton, 'd');
         }
     }
+
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == createUserButton) {
             defaultButton(createUserButton, 'b');
-        }
-        else if (e.getSource() == newUserBackButton) {
+        } else if (e.getSource() == newUserBackButton) {
             defaultButton(newUserBackButton, 'd');
         }
     }
@@ -169,7 +168,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             createUser();
         }
     }

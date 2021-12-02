@@ -1,9 +1,8 @@
 package equation_entities;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
 import static constants.EquationParts.*;
 
 /**
@@ -52,7 +51,7 @@ public class StandardEquation implements Equation {
      * @return Hashmap of String representation of a Worksheet.
      * Ex. {"operator"="\div",operand1="10", "operand2"="5", "answer"="2" }
      */
-    public Map<String, String> equationToHashMap(){
+    public Map<String, String> equationToHashMap() {
         Map<String, String> equationHashMap = new HashMap<>();
         equationHashMap.put(OPERATOR, question.getRoot().getSymbol().toString());
         equationHashMap.put(OPERAND1, question.getRoot().getLeftNode().getSymbol().toString());

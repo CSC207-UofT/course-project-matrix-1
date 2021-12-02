@@ -6,6 +6,7 @@ import static constants.EquationParts.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import equation_entities.Fraction;
 import equation_parameters.EquationDetails;
 import equation_parameters.FractionAddSubEquationDetails;
 import equation_parameters.FractionMultiDivEquationDetails;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import equation_parameters.WholeNumEquationDetails;
 import utilities.Randomizer;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class StandardEquationDirectorTest {
@@ -217,6 +219,7 @@ public class StandardEquationDirectorTest {
             System.out.println(director.getEquation().equationToHashMap());
         }
     }
+
     @Test
     public void testLCMNeg() {
         for (int i = 0; i < 100; i++) {
@@ -227,6 +230,7 @@ public class StandardEquationDirectorTest {
             System.out.println(director.getEquation().equationToHashMap());
         }
     }
+
     @Test
     public void testGCDPos() {
         for (int i = 0; i < 100; i++) {
@@ -237,6 +241,7 @@ public class StandardEquationDirectorTest {
             System.out.println(director.getEquation().equationToHashMap());
         }
     }
+
     @Test
     public void testGCDNeg() {
         for (int i = 0; i < 100; i++) {
@@ -247,9 +252,75 @@ public class StandardEquationDirectorTest {
             System.out.println(director.getEquation().equationToHashMap());
         }
     }
+
+    // Populate equation details
+    private void setupBasicFracAddSub(String operator, boolean isNegative) {
+        initializeFractionAddSub();
+        eqnDetails.setOperator(operator);
+        eqnDetails.setNegAllowed(isNegative);
+        ((FractionAddSubEquationDetails) eqnDetails).setMaxOperandValue(2);
+        ((FractionAddSubEquationDetails) eqnDetails).setMaxOperand2AndAnswerDenom(20);
+        ((FractionAddSubEquationDetails) eqnDetails).setOperand1DenomRange(generateRange(1, 20));
+        director = new StandardEquationDirector(randomizer, eqnDetails, FRACTION);
+        director.constructEquation();
+    }
+
+    // Populate equation details
+    private void setupBasicFracMultDiv(String operator, boolean isNegative) {
+        initializeFractionMultiDiv();
+        eqnDetails.setOperator(operator);
+        eqnDetails.setNegAllowed(isNegative);
+        ((FractionMultiDivEquationDetails) eqnDetails).setComplexity(1);
+        ((FractionMultiDivEquationDetails) eqnDetails).setAnsDenominatorRange(generateRange(5,20));
+        ((FractionMultiDivEquationDetails) eqnDetails).setMaxAnsValue(2);
+        director = new StandardEquationDirector(randomizer, eqnDetails, FRACTION);
+        director.constructEquation();
+    }
     //Fraction tests
+    @Test
+    public void testFracAdd() {
+        for (int i = 0; i < 100; i++) {
+            setupBasicFracAddSub(ADD, false);
+            int[] operand1 = ((Fraction) director.getEquation().getEquationParts()[0]).getImproperFraction();
+            int[] operand2 = ((Fraction) director.getEquation().getEquationParts()[2]).getImproperFraction();
+            assertTrue(operand1[0] / operand1[1] <= 2);
+            assertTrue(operand2[0] / operand2[1] <= 2);
+            assertTrue(operand1[1] <= 20 && operand1[1] >= 1);
+            assertTrue(operand2[1] <= 20 && operand2[1] >= 1);
+            System.out.println(Arrays.toString(director.getEquation().getEquationParts()));
+        }
+    }
+    @Test
+    public void testFracSub() {
+        for (int i = 0; i < 100; i++) {
+            setupBasicFracAddSub(SUB, true);
+            int[] operand1 = ((Fraction) director.getEquation().getEquationParts()[0]).getImproperFraction();
+            int[] operand2 = ((Fraction) director.getEquation().getEquationParts()[2]).getImproperFraction();
+            assertTrue(Math.abs(operand1[0] / operand1[1]) <= 2);
+            assertTrue(Math.abs(operand2[0] / operand2[1]) <= 2);
+            assertTrue(operand1[1] <= 20 && operand1[1] >= 1);
+            assertTrue(operand2[1] <= 20 && operand2[1] >= 1);
+        }
+    }
+    @Test
+    public void testFracMult() {
+        for (int i = 0; i < 100; i++) {
+            setupBasicFracMultDiv(MULT, false);
+            int[] answer = ((Fraction) director.getEquation().getEquationParts()[3]).getImproperFraction();
+            assertTrue(answer[0] / answer[1] <= 2);
+            System.out.println(Arrays.toString(director.getEquation().getEquationParts()));
+        }
+    }
 
-
+    @Test
+    public void testFracDiv() {
+        for (int i = 0; i < 100; i++) {
+            setupBasicFracMultDiv(DIV, true);
+            int[] answer = ((Fraction) director.getEquation().getEquationParts()[3]).getImproperFraction();
+            assertTrue(Math.abs(answer[0] / answer[1]) <= 2);
+            System.out.println(Arrays.toString(director.getEquation().getEquationParts()));
+        }
+    }
     public int[] generateRange(int min, int max) {
         return new int[]{min, max};
     }
