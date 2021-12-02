@@ -20,27 +20,47 @@ public class MixedFraction extends Fraction{
     }
 
     /**
+     * Uses a numerator and denominator to create an instance of a reduced Fraction.
+     *
+     * @param numerator   the unreduced numerator.
+     * @param denominator the unreduced denominator. Cannot be 0.
+     * @return the reduced Fraction.
+     */
+    @Override
+    public Fraction createReducedFraction(int numerator, int denominator) {
+        Fraction newFraction = new MixedFraction(numerator, denominator);
+        newFraction.reduce();
+        return newFraction;
+    }
+
+    /**
      * Return a mixed latex string representation of the fraction.
      *
      * @return a mixed latex string representation of the fraction. Ex. 2\frac{1}{3} which looks like 2 1/3.
      */
     @Override
     public String toString() {
-        int wholeNumber;
-        boolean fractionIsNegative = isFractionNegative();
+        if (fractionParts[0] == 0){
+            return "0";
+        }
         StringBuilder latexString = new StringBuilder();
+
+        //Find the whole number part (ex. 2), update the numerator, and correct the negative signs.
+        boolean fractionIsNegative = isFractionNegative();
+        int wholeNumber = fractionParts[0] / fractionParts[1];
+        fractionParts[0] = fractionParts[0] % fractionParts[1];
+
         if (fractionParts[0] != 0) {
-            wholeNumber = fractionParts[0] / fractionParts[1];
             if (wholeNumber == 0){
                 latexString.append("\\frac{").append(fractionParts[0]).append("}{").append(fractionParts[1]).append("}");
             } else {
                 latexString.append(wholeNumber).append("\\frac{").append(fractionParts[0] % fractionParts[1]).append("}{").append(fractionParts[1]).append("}");
             }
-            if (fractionIsNegative){
-                latexString.insert(0, "-");
-            }
         } else {
-            latexString.append("0");
+            latexString.append(wholeNumber);
+        }
+        if (fractionIsNegative){
+            latexString.insert(0, "-");
         }
         return String.valueOf(latexString);
     }

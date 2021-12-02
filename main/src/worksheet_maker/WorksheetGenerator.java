@@ -39,7 +39,6 @@ public class WorksheetGenerator {
      */
     public void populateWorksheet(EquationDetails equationDetails) {
         EquationDirector equationDirector = null;
-        //TODO: fix this to not be null
         //Create and assign the appropriate builder to a director.
         if (equationDetails instanceof WholeNumEquationDetails) {
             equationDirector = new StandardEquationDirector(randomizer, equationDetails, WHOLE_NUMBER);
@@ -48,7 +47,6 @@ public class WorksheetGenerator {
         } else if (equationDetails instanceof DecimalEquationDetails) {
             // TODO: Not yet implemented
             throw new RuntimeException("Decimal Standard Equations Not Implemented!");
-//            equationDirector = new StandardEquationDirector(DECIMAL);
         }
         assert equationDirector != null;
         for (int i = 0; i < equationDetails.getNumOfEquations(); i++) {

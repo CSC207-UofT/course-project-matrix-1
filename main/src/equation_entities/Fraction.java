@@ -1,7 +1,6 @@
 package equation_entities;
 
 import exceptions.IllegalOperatorForOperandTypeException;
-import exceptions.NotImplementedException;
 
 /**
  * Stores a fraction that has a whole number, numerator, and denominator each represented by an integer.
@@ -10,7 +9,7 @@ import exceptions.NotImplementedException;
  * @version 1.0
  * @since 2021-11-6
  */
-public class Fraction extends Value {
+public abstract class Fraction extends Value {
     // Represents the fraction as an improper fraction consisting of [numerator, denominator]. If the numerator is
     //negative, the entire fraction is considered to be negative.
     protected final int[] fractionParts = new int[2];
@@ -106,21 +105,7 @@ public class Fraction extends Value {
      * @param denominator the unreduced denominator. Cannot be 0.
      * @return the reduced Fraction.
      */
-    public Fraction createReducedFraction(int numerator, int denominator) {
-        Fraction newFraction = new Fraction(numerator, denominator);
-        newFraction.reduce();
-        return newFraction;
-    }
-
-    /**
-     * Returns the fraction as a mixed fraction, where the numerator is smaller than the denominator.
-     *
-     * @return the list of fraction parts, as [numerator, denominator, wholeNumber, negative], where negative = -1
-     * if the fraction is negative, and +1 if the fraction is positive.
-     */
-    public int[] getMixedFraction() {
-        return null;
-    }
+    public abstract Fraction createReducedFraction(int numerator, int denominator);
 
     /**
      * Returns the fraction as an improper fraction, where the whole number is 0.

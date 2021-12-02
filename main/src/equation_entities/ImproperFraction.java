@@ -20,6 +20,20 @@ public class ImproperFraction extends Fraction{
     }
 
     /**
+     * Uses a numerator and denominator to create an instance of a reduced Fraction.
+     *
+     * @param numerator   the unreduced numerator.
+     * @param denominator the unreduced denominator. Cannot be 0.
+     * @return the reduced Fraction.
+     */
+    @Override
+    public Fraction createReducedFraction(int numerator, int denominator) {
+        Fraction newFraction = new ImproperFraction(numerator, denominator);
+        newFraction.reduce();
+        return newFraction;
+    }
+
+    /**
      * Return an improper latex string representation of the fraction.
      *
      * @return an improper latex string representation of the fraction. Ex. frac{7}{3} which looks like 7/3.

@@ -16,4 +16,7 @@ public class AddTest {
     public void testToString(){
         assertEquals(operatorSymbol.toString(), "+");
     }
+
+    //TODO: add more test cases for fraction versions?
+
 }
