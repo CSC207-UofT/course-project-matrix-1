@@ -35,9 +35,7 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
-        //String path = "out/production/course-project-matrix-1/user_package/user_package.users_data/";
-        //TODO: Change it back - sean
-        String path = "C:\\Users\\seand\\OneDrive - University of Toronto\\Documents\\School\\Year Three\\CSC207\\Project\\Temp";
+        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/whole_num_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/whole_num_answers.pdf");
@@ -57,9 +55,7 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
-        //String path = "out/production/course-project-matrix-1/user_package/user_package.users_data/";
-        //TODO: Change it back - sean
-        String path = "C:\\Users\\seand\\OneDrive - University of Toronto\\Documents\\School\\Year Three\\CSC207\\Project\\Temp";
+        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/whole_num_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/whole_num_answers.pdf");
@@ -79,9 +75,7 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
-        //String path = "out/production/course-project-matrix-1/user_package/user_package.users_data/";
-        //TODO: Change it back - sean
-        String path = "C:\\Users\\seand\\OneDrive - University of Toronto\\Documents\\School\\Year Three\\CSC207\\Project\\Temp";
+        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/whole_num_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/whole_num_answers.pdf");
@@ -102,9 +96,7 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionAddSubEquationDetails, myFormatDetails, new Random().nextInt(100000));
-        //String path = "out/production/course-project-matrix-1/user_package/user_package.users_data/";
-        //TODO: Change it back - sean
-        String path = "C:\\Users\\seand\\OneDrive - University of Toronto\\Documents\\School\\Year Three\\CSC207\\Project\\Temp";
+        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/frac_add_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/frac_add_answers.pdf");
@@ -124,9 +116,7 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, new Random().nextInt(100000));
-        //String path = "out/production/course-project-matrix-1/user_package/user_package.users_data/";
-        //TODO: Change it back - sean
-        String path = "C:\\Users\\seand\\OneDrive - University of Toronto\\Documents\\School\\Year Three\\CSC207\\Project\\Temp";
+        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/frac_div_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/frac_div_answers.pdf");
@@ -147,9 +137,7 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, new Random().nextInt(100000));
-        //String path = "out/production/course-project-matrix-1/user_package/user_package.users_data/";
-        //TODO: Change it back - sean
-        String path = "C:\\Users\\seand\\OneDrive - University of Toronto\\Documents\\School\\Year Three\\CSC207\\Project\\Temp";
+        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/frac_multi_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/frac_multi_answers.pdf");

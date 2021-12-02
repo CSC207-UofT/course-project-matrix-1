@@ -1,21 +1,22 @@
 package equation_builders;
 
-import static constants.EquationType.*;
-import static constants.OperatorRep.*;
-import static constants.EquationParts.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import equation_entities.Fraction;
 import equation_parameters.EquationDetails;
 import equation_parameters.FractionAddSubEquationDetails;
 import equation_parameters.FractionMultiDivEquationDetails;
-import org.junit.Test;
 import equation_parameters.WholeNumEquationDetails;
+import org.junit.Test;
 import utilities.Randomizer;
 
 import java.util.Arrays;
 import java.util.Map;
+
+import static constants.EquationParts.*;
+import static constants.EquationType.FRACTION;
+import static constants.EquationType.WHOLE_NUMBER;
+import static constants.OperatorRep.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class StandardEquationDirectorTest {
     private StandardEquationDirector director;

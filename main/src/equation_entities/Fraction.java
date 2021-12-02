@@ -9,7 +9,7 @@ import exceptions.IllegalOperatorForOperandTypeException;
  * @version 1.0
  * @since 2021-11-6
  */
-public class Fraction extends Value {
+public abstract class Fraction extends Value {
     // Represents the fraction as an improper fraction consisting of [numerator, denominator]. If the numerator is
     //negative, the entire fraction is considered to be negative.
     protected final int[] fractionParts = new int[2];
@@ -105,11 +105,7 @@ public class Fraction extends Value {
      * @param denominator the unreduced denominator. Cannot be 0.
      * @return the reduced Fraction.
      */
-    public Fraction createReducedFraction(int numerator, int denominator) {
-        Fraction newFraction = new Fraction(numerator, denominator);
-        newFraction.reduce();
-        return newFraction;
-    }
+    public abstract Fraction createReducedFraction(int numerator, int denominator);
 
     /**
      * Returns the fraction as an improper fraction, where the whole number is 0.

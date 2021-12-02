@@ -9,10 +9,12 @@ import static constants.EquationParts.*;
 
 /**
  * Converts an Equation as a String into a TexFormula.
+ * Note that the helper methods createHorizontalLatex, createVerticalLatex, createDivisionBracketLatex are public, this
+ * is so that we are able to test the String value intermediates since latex itself cannot be easily tested.
  *
  * @author Sean Jeong
- * @version 1.0
- * @since 2021-11-05.
+ * @version 2.0
+ * @since 2021-12-02.
  */
 public class EquationStringToLatex {
     /**
@@ -53,7 +55,7 @@ public class EquationStringToLatex {
      * @param withAnswer        Determines if this equation should include the answer at the end of the Latex formula.
      * @return Horizontal format of a latex equation as a string.
      */
-    private String createHorizontalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
+    public String createHorizontalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
         String horizontalLatex = equationStringMap.get(OPERAND1) + equationStringMap.get(OPERATOR) + equationStringMap.get(OPERAND2) + "=";
         if (withAnswer) {
             horizontalLatex += equationStringMap.get(ANSWER);
@@ -73,7 +75,7 @@ public class EquationStringToLatex {
      * @param withAnswer        Determines if this equation should include the answer at the end of the Latex formula.
      * @return Vertical format of a latex equation as a string.
      */
-    private String createVerticalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
+    public String createVerticalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
         String verticalLatex = "\\begin{array}{r@{\\,}r@{\\,}}";
         verticalLatex += "&" + equationStringMap.get(OPERAND1) + "\\\\";
         verticalLatex += equationStringMap.get(OPERATOR) + "&" + equationStringMap.get(OPERAND2) + "\\\\";
@@ -93,7 +95,7 @@ public class EquationStringToLatex {
      * @param withAnswer        Determines if this equation should include the answer at the end of the Latex formula.
      * @return Division bracket format of a latex equation as a string.
      */
-    private String createDivisionBracketLatex(Map<String, String> equationStringMap, boolean withAnswer) {
+    public String createDivisionBracketLatex(Map<String, String> equationStringMap, boolean withAnswer) {
         String divisionBracketLatex = "\\begin{array}{r}";
         if (withAnswer) {
             divisionBracketLatex += equationStringMap.get(ANSWER) + "\\\\";
