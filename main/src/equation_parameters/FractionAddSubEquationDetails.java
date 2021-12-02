@@ -1,5 +1,15 @@
 package equation_parameters;
 
+/**
+ * Holds equation details specific to fractional addition and subtraction equations. This includes the range of the
+ * first operand's denominator (operand1DenomRange), the maximum denominator for the operand2 and its answer
+ * (maxOperand2AndAnswerDenom), the overall maximum value of the operands as an integer (maxOperandValue), and whether
+ * the fraction is improper or proper (fractionFormat).
+ *
+ * @author Sean Jeong
+ * @version 1.0
+ * @since 2021-12-2
+ */
 public class FractionAddSubEquationDetails extends EquationDetails {
     //The range that operand1's denominator can appear as. Must be greater than 0.
     private int[] operand1DenomRange;

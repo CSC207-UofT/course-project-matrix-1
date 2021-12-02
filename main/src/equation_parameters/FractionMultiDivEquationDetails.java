@@ -1,5 +1,14 @@
 package equation_parameters;
 
+/**
+ * Holds equation details specific to fractional multiplication and division equations. This includes the range of the
+ * answer's denominator, the complexity of the question, the maximum value of the answer, and the format of the
+ * fraction.
+ *
+ * @author Sean Jeong
+ * @version 1.0
+ * @since 2021-12-2
+ */
 public class FractionMultiDivEquationDetails extends EquationDetails {
     //The range that answer's denominator can appear as. Must be greater than 0.
     private int[] ansDenominatorRange;
