@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -19,6 +20,7 @@ import java.util.Objects;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
+@SuppressWarnings("ALL")
 public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
 
@@ -32,20 +34,20 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     JComboBox<String> topicChose = new JComboBox<>(topicOptions);
 
     // Create text fields
-    JTextField titleInput = new JTextField(1);
-    JTextField numQuestionsInput = new JTextField(1);
-    JTextField numRowsInput = new JTextField(1);
-    JTextField numColumnInput = new JTextField(1);
+    JTextField titleInput;
+    JTextField numQuestionsInput;
+    JTextField numRowsInput;
+    JTextField numColumnInput;
 
-    JTextField[] textFields = {titleInput, numQuestionsInput, numRowsInput, numColumnInput};
+    JTextField[] textFields;
 
     // Create combo box for question format
     String[] questionFormatOptions = {"Horizontal"};
     JComboBox<String> questionFormat = new JComboBox<>(questionFormatOptions);
 
     //TODO: add input for other types (ex. fraction, decimal) and change the equation detail here accordingly.
-    EquationDetails equationDetails = new WholeNumEquationDetails();
-    FormatDetails formatDetails = new FormatDetails();
+    EquationDetails equationDetails;
+    FormatDetails formatDetails;
 
     // Invalid input JLabel
     JLabel invalidFormat = new JLabel("Please enter valid input(s)", SwingConstants.CENTER);
@@ -58,9 +60,73 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     int numOfEquations = -1;
 
     public TopicScreen() {
-
         updatePanel(topicPanel);
 
+        equationDetails = new WholeNumEquationDetails();
+        formatDetails = new FormatDetails();
+
+        titleInput = new JTextField(1);
+        numQuestionsInput = new JTextField(1);
+        numRowsInput = new JTextField(1);
+        numColumnInput = new JTextField(1);
+
+        textFields = new JTextField[]{titleInput, numQuestionsInput, numRowsInput, numColumnInput};
+
+        // Set JComboBox
+        topicChose.setSelectedIndex(0);
+        numOptions.setSelectedIndex(0);
+        fillScreen();
+    }
+
+    /**
+     * Overloaded constructor method. Used to persist previous user input.
+     *
+     * @param worksheetDetails contains worksheet details that user inputted in this screen previously
+     */
+    public TopicScreen(Map<String, Object> worksheetDetails) {
+        updatePanel(topicPanel);
+
+        this.equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
+        this.formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
+
+        // Initialize equation details with previous input
+        if (equationDetails instanceof WholeNumEquationDetails){
+            numOptions.setSelectedItem("Integers");
+        }
+        // TODO: Do the same for Fractions
+
+        switch (equationDetails.getOperator()) {
+            case "+":
+                topicChose.setSelectedItem("Addition");
+                break;
+            case "-":
+                topicChose.setSelectedItem("Subtraction");
+                break;
+            case "/":
+                topicChose.setSelectedItem("Division");
+                break;
+            case "*":
+                topicChose.setSelectedItem("Multiplication");
+                break;
+        }
+
+        // Initialize format details with previous input
+        titleInput = new JTextField(formatDetails.getTitle(), 1);
+        numQuestionsInput = new JTextField(Integer.toString(equationDetails.getNumOfEquations()),1);
+        numRowsInput = new JTextField(Integer.toString(formatDetails.getNumRows()), 1);
+        numColumnInput = new JTextField(Integer.toString(formatDetails.getNumColumns()), 1);
+        questionFormat.setSelectedItem(formatDetails.getEquationFormat());
+
+        textFields = new JTextField[]{titleInput, numQuestionsInput, numRowsInput, numColumnInput};
+
+        fillScreen();
+    }
+
+
+    /**
+     * Adds all necessary parts of TopicScreen.
+     */
+    private void fillScreen() {
         // Create JLabels
         JLabel topicTitle = new JLabel("Choose Topic", SwingConstants.CENTER);
         JLabel topicTitleShadow = new JLabel("Choose Topic", SwingConstants.CENTER);
@@ -139,11 +205,9 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         // Create comboBox for number types (for now, just integers is available)
         numOptions.setBounds(convert(0.525, 'w'), convert(0.325, 'h'), convert(0.15, 'w'),
                 convert(0.05, 'h'));
-        numOptions.setSelectedIndex(0);
 
         topicChose.setBounds(convert(0.525, 'w'), convert(0.25, 'h'), convert(0.15, 'w'),
                 convert(0.05, 'h'));
-        topicChose.setSelectedIndex(0);
 
         updateTextFields(textFields);
 
@@ -173,7 +237,6 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         topicPanel.add(invalidQuestionType);
 
         changePanel(topicPanel);
-
     }
 
     private void checkValidDetails() {

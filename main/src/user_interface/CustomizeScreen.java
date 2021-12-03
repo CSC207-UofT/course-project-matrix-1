@@ -31,15 +31,16 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     // Invalid input JLabel
     JLabel operatorWarning = new JLabel("Operand's' minimum must be lower than the maximum", SwingConstants.CENTER);
 
-    JTextField op1MIN = new JTextField(1);
-    JTextField op1MAX = new JTextField(1);
-    JTextField op2MIN = new JTextField(1);
-    JTextField op2MAX = new JTextField(1);
+    // Create text fields
+    JTextField op1MIN;
+    JTextField op1MAX;
+    JTextField op2MIN;
+    JTextField op2MAX;
 
-    JTextField[] textFields = {op1MIN, op1MAX, op2MIN, op2MAX};
+    JTextField[] textFields;
 
     // Create checkbox
-    JCheckBox negAllowedBox = new JCheckBox("");
+    JCheckBox negAllowedBox;
 
     // Create the equation details variables with initial invalid values
     int[] operandRange1 = {-1, -1};
@@ -50,19 +51,69 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     String dateAndTime;
 
     // Create the temporary map's to be passed into worksheet viewer screen
-    Map<String, Object> worksheetHistoryDetails = new HashMap<>();
-
     EquationDetails equationDetails;
     FormatDetails formatDetails;
 
-    public CustomizeScreen(EquationDetails equationDetails, FormatDetails formatDetails) {
+    Map <String, Object> worksheetHistoryDetails;
 
+    public CustomizeScreen(EquationDetails equationDetails, FormatDetails formatDetails) {
         updatePanel(customizePanel);
+
+        // Initialize text fields
+        op1MIN = new JTextField(1);
+        op1MAX = new JTextField(1);
+        op2MIN = new JTextField(1);
+        op2MAX = new JTextField(1);
+
+        textFields = new JTextField[]{op1MIN, op1MAX, op2MIN, op2MAX};
+
+        // Initial check boxes
+        negAllowedBox = new JCheckBox("");
 
         // Gets the chosen operator/equationDetail type from the previous screen
         this.equationDetails = equationDetails;
         this.formatDetails = formatDetails;
+        this.worksheetHistoryDetails = new HashMap<>();
+        worksheetHistoryDetails.put("equationDetails", this.equationDetails);
+        worksheetHistoryDetails.put("formatDetails", this.formatDetails);
 
+        fillScreen();
+    }
+    /**
+     * Overloaded constructor method. Used to persist previous user input.
+     *
+     * @param worksheetDetails contains worksheet details that user inputted in this screen previously
+     */
+    public CustomizeScreen(Map <String, Object> worksheetDetails) {
+        updatePanel(customizePanel);
+
+        // Gets the chosen operator/equationDetail type from the previous screen
+        this.equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
+        this.formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
+        this.worksheetHistoryDetails = worksheetDetails;
+
+        // Initialize equation details with previous input
+        if (equationDetails instanceof WholeNumEquationDetails) {
+            operandRange1 = ((WholeNumEquationDetails) equationDetails).getOperandRange1();
+            operandRange2 = ((WholeNumEquationDetails) equationDetails).getOperandRange2();
+
+            op1MIN = new JTextField(Integer.toString(operandRange1[0]), 1);
+            op1MAX = new JTextField(Integer.toString(operandRange1[1]),1);
+            op2MIN = new JTextField(Integer.toString(operandRange2[0]),1);
+            op2MAX = new JTextField(Integer.toString(operandRange2[1]),1);
+        }
+        // TODO: Add previous user input for fractions
+        textFields = new JTextField[]{op1MIN, op1MAX, op2MIN, op2MAX};
+
+        negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
+
+        fillScreen();
+    }
+
+    /**
+     * Adds all necessary parts of CustomizeScreen.
+     */
+    private void fillScreen() {
         // Create Equation Details and Formatting JLabels and its shadow
         JLabel equationDetailsTitle = new JLabel("Equation Details", SwingConstants.CENTER);
         JLabel equationDetailsShadow = new JLabel("Equation Details", SwingConstants.CENTER);
@@ -212,7 +263,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         if (e.getSource() == generateWorksheetButton) {
             generateWorksheet();
         } else if (e.getSource() == customizeBackButton) {
-            new TopicScreen();
+            new TopicScreen(worksheetHistoryDetails);
         }
     }
 

@@ -54,32 +54,48 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
     EquationDetails equationDetails;
     FormatDetails formatDetails;
+    Map<String, Object> worksheetDetails;
 
-    public WorksheetViewerScreen(Map<String, Object> worksheetDetails) throws IOException {
 
+    public WorksheetViewerScreen(Map<String, Object> worksheetDetails, Boolean regenerateExact) throws IOException {
         updatePanel(previewPanel);
 
+        this.worksheetDetails = worksheetDetails;
         equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
         formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
 
         // Set the document title
         documentTitle = formatDetails.getTitle();
 
-        // Generate worksheet random seed, and store for later regeneration.
-        Random r = new Random();
-        int randomSeed = r.nextInt(1000000000);
-        worksheetDetails.put("seed", randomSeed);
-
-        ArrayList<JLabel> labels = new ArrayList<>();
+        // Generate worksheet random seed if new worksheet, and store for later regeneration.
+        if (!this.worksheetDetails.containsKey("seed") | !regenerateExact) {
+            this.worksheetDetails.put("seed", new Random().nextInt(1000000000));
+        }
 
         // Store the worksheet information to the user's history
         userController.storeUserRecord(worksheetDetails);
-//        //TODO: this method call sends in a map containing EquationDetails and FormatDetails, currently does not work
 
         // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
-        documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, (int) worksheetDetails.get("seed"));
+        documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, (int) this.worksheetDetails.get("seed"));
         int numPages = documents[0].getNumberOfPages();
 
+        fillScreen(numPages);
+    }
+
+    /**
+     * Overloaded constructor allows later specifying if worksheet should be generated exactly or identically.
+     */
+    public WorksheetViewerScreen(Map<String, Object> worksheetDetails) throws IOException {
+        new WorksheetViewerScreen(worksheetDetails, false);
+    }
+
+    /**
+     * Adds all necessary parts of WorksheetViewerScreen and displays worksheet.
+     *
+     * @param numPages number of pages
+     */
+    private void fillScreen(int numPages) {
+        ArrayList<JLabel> labels = new ArrayList<>();
         // Create an image of the documents first page to preview
         try {
             PDFRenderer pdfRenderer = new PDFRenderer(documents[0]);                    // Get the questions sheet
@@ -175,7 +191,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         } else if (e.getSource() == mainMenuButton) {
             new OptionScreen();
         } else if (e.getSource() == viewerBackButton) {
-            new CustomizeScreen(equationDetails, formatDetails);
+            new CustomizeScreen(worksheetDetails);
         }
 
     }
@@ -190,6 +206,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
             invalidPathLbl.setVisible(false);
             downloadSuccess.setVisible(true);
         } catch (IOException ex) {
+            ex.printStackTrace();
             downloadSuccess.setVisible(false);
             invalidPathLbl.setVisible(true);
         }

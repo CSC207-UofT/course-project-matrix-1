@@ -14,10 +14,8 @@ Most applications available online for math worksheet generation are confusing t
    2. Press the + symbol (above Export), hit JARs or Directories
    3. Select all the jar files in the libraries folder under `course-project-matrix-1`
    4. Hit ok twice
-4. Open the `user_interface` directory
-5. Run `StartUserInterface'
-6. Expand and minimize the window that appears. (This is a visual bug that will be fixed soon.)
-7. Register an account and login.
+4. Run `StartUserInterface.java' under the main/src/user_interface package
+5. Register an account and login.
 
 
 ### Other notes

@@ -223,17 +223,16 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
             // Check if Worksheet is Selected
             int index = table.getSelectedRow();
             if (index != -1) {
-
                 // Store Necessary info to Regenerate Worksheet
-                EquationDetails equationDetailsTemp = (EquationDetails) userHistoryList.get(index).get("equationDetails");
-                FormatDetails formatDetailsTemp = (FormatDetails) userHistoryList.get(index).get("formatDetails");
+                Map<String, Object> worksheetDetails = userHistoryList.get(index);
 
                 // Store the date and time the user regenerated the worksheet
                 dateAndTimeTemp = LocalDateTime.now().toString();
 
                 worksheetHistoryDetailsTemp.put("worksheetKey", dateAndTimeTemp);
-                worksheetHistoryDetailsTemp.put("equationDetails", equationDetailsTemp);
-                worksheetHistoryDetailsTemp.put("formatDetails", formatDetailsTemp);
+                worksheetHistoryDetailsTemp.put("seed", worksheetDetails.get("seed"));
+                worksheetHistoryDetailsTemp.put("equationDetails", worksheetDetails.get("equationDetails"));
+                worksheetHistoryDetailsTemp.put("formatDetails", worksheetDetails.get("formatDetails"));
 
                 try {
                     new WorksheetViewerScreen(worksheetHistoryDetailsTemp);

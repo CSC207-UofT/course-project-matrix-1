@@ -11,6 +11,7 @@ import java.util.Map;
  * @version 1.0
  */
 public class LocalDataAccess implements DataAccessInterface {
+    String dataFolder = "main/src/user_package/users_data";
 
     /**
      * Stores locally a map of username to User objects.
@@ -19,7 +20,10 @@ public class LocalDataAccess implements DataAccessInterface {
      */
     public void storeUsers(Map<String, User> existingUsers) {
         try {
-            FileOutputStream usersOut = new FileOutputStream("main/src/user_package/user_package.users_data/users.ser");
+            // Check if parent directory exists
+            makeParentDirectory(dataFolder);
+
+            FileOutputStream usersOut = new FileOutputStream(dataFolder + "/users.ser");
             ObjectOutputStream out = new ObjectOutputStream(usersOut);
             out.writeObject(existingUsers);
             out.close();
@@ -34,13 +38,17 @@ public class LocalDataAccess implements DataAccessInterface {
      */
     public void storeHistories(Map<String, History> existingHistories) {
         try {
-            FileOutputStream historiesOut = new FileOutputStream("main/src/user_package/user_package.users_data/history.ser");
+            // Check if parent directory exists
+            makeParentDirectory(dataFolder);
+
+            FileOutputStream historiesOut = new FileOutputStream(dataFolder + "/history.ser");
             ObjectOutputStream out = new ObjectOutputStream(historiesOut);
             out.writeObject(existingHistories);
             out.close();
             historiesOut.close();
         } catch (IOException i) {
             i.printStackTrace();
+            System.out.println(existingHistories instanceof Serializable);
         }
     }
 
@@ -52,10 +60,13 @@ public class LocalDataAccess implements DataAccessInterface {
     @SuppressWarnings("unchecked")
     public Map<String, User> getUsers() throws Exception {
         try {
+            // Check if parent directory exists
+            makeParentDirectory(dataFolder);
+
             // Attempt to read from file
-            FileInputStream usersIn = new FileInputStream("main/src/user_package/user_package.users_data/users.ser");
+            FileInputStream usersIn = new FileInputStream(dataFolder + "/users.ser");
             ObjectInputStream in = new ObjectInputStream(usersIn);
-            Map<String, User> existingUsers = (HashMap<String, User>) in.readObject();
+            Map<String, User> existingUsers = (Map<String, User>) in.readObject();
             in.close();
             usersIn.close();
             return existingUsers;
@@ -75,19 +86,37 @@ public class LocalDataAccess implements DataAccessInterface {
     @SuppressWarnings("unchecked")
     public Map<String, History> getHistories() throws Exception {
         try {
-            FileInputStream historiesIn = new FileInputStream("main/src/user_package/user_package.users_data/history.ser");
+            // Check if parent directory exists
+            makeParentDirectory(dataFolder);
+
+            FileInputStream historiesIn = new FileInputStream(dataFolder + "/history.ser");
             ObjectInputStream in = new ObjectInputStream(historiesIn);
             Map<String, History> existingHistories = (Map<String, History>) in.readObject();
             in.close();
             historiesIn.close();
             return existingHistories;
         } catch (FileNotFoundException i) {
-            return new HashMap<>() {
-            };
+            return new HashMap<>();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             throw new ClassNotFoundException();
         }
     }
 
+
+    /**
+     * Helper method to create parent directory, where user data will be stored.
+     *
+     * @param path where to store user and history data
+     * @throws FileNotFoundException when folder could not be made successfully
+     */
+    public void makeParentDirectory(String path) throws FileNotFoundException {
+        File file = new File(path);
+        if (!(file.exists() && file.isDirectory())){
+            boolean fileMade = file.mkdir();
+            if (!fileMade) {
+                throw new FileNotFoundException("users_data directory could not be made!");
+            }
+        }
+    }
 }
