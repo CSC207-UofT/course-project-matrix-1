@@ -21,7 +21,7 @@ public class StandardEquationDirector extends EquationDirector {
     /**
      * Creates an instance of StandardEquationDirector and its associated StandardEquationMaker.
      *
-     * @param randomizer the instance of randomizer that randomizes the questions generated.
+     * @param randomizer      the instance of randomizer that randomizes the questions generated.
      * @param equationDetails the details of the equation necessary to create the corresponding StandardEquationMaker.
      * @param operandType     specifies whether operand is a whole number, decimal or fraction.
      */
@@ -36,7 +36,6 @@ public class StandardEquationDirector extends EquationDirector {
 
     /**
      * Construct a standard equation given the following parameters.
-     *
      */
     @Override
     public void constructEquation() {

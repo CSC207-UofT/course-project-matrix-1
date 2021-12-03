@@ -10,33 +10,25 @@ public class Randomizer {
     private final Random rand;
     private int seed;
 
-    public Randomizer(){
+    public Randomizer() {
         rand = new Random();
     }
 
     /**
      * @param seed random seed for reproducibility
      */
-    public Randomizer(int seed){
+    public Randomizer(int seed) {
         this.seed = seed;
         rand = new Random();
         rand.setSeed(seed);
     }
 
-    /**
-     * Manually set seed for randomizer.
-     *
-     * @param seed seed to fix randomness
-     */
-    public void setSeed(int seed){
-        rand.setSeed(seed);
-    }
 
     /**
-     * Increment current random seed by 5.
+     * Increment current random seed by 500.
      */
-    public void incrementSeed(){
-        this.seed += 5;
+    public void incrementSeed() {
+        this.seed += 100;
         rand.setSeed(this.seed);
     }
 
@@ -47,11 +39,11 @@ public class Randomizer {
      * @return a negative or positive version of num.
      */
     public int makeNegativeRandom(int num) {
-        int x = rand.nextInt(2);
-        if (x == 0) {
+        int x = rand.nextInt(50);
+        if (x >= 25) {
             num = -1 * num;
         }
-        incrementSeed();    // increment seed for the next operation
+        incrementSeed();
         return num;
     }
 

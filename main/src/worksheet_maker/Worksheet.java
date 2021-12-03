@@ -34,7 +34,7 @@ public class Worksheet implements WorksheetInput, WorksheetOutput {
      *
      * @return a list of each equation as a Hashmap<String, String>.
      */
-    public List<Map<String, String>> worksheetToHashMapList(){
+    public List<Map<String, String>> worksheetToHashMapList() {
         List<Map<String, String>> worksheetHashMapList = new ArrayList<>();
         for (Equation equation : equations) {
             worksheetHashMapList.add(equation.equationToHashMap());

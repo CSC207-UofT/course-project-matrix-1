@@ -120,7 +120,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
             images.add(new JSeparator());
         }
         JScrollPane scrollPane = new JScrollPane(images);
-        scrollPane.setBounds(convert(0.35, 'w'), convert(0.25,'h'), convert(0.3, 'w'),
+        scrollPane.setBounds(convert(0.35, 'w'), convert(0.25, 'h'), convert(0.3, 'w'),
                 convert(0.45, 'h'));
 
         // Create JLabels
