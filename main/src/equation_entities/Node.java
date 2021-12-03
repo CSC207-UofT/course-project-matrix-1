@@ -125,7 +125,7 @@ public class Node {
             equationList.add(this.getSymbol().toString());
             equationList.addAll(this.getRightNode().toArrayList());
 
-            // TODO: Update for LCM and GCF
+            // TODO: Update for LCM and GCD
         }
         return equationList;
     }

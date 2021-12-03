@@ -42,11 +42,11 @@ public class StandardEquationMaker {
         if (operandType.equals(WHOLE_NUMBER)) {
             switch (operator) {
                 case ADD:
-                    //Proceeds to case multiply. Uses WholeNumIncreaseOperandConstructor();
+                    //Proceeds to case multiply. Uses WholeNumAddOperandConstructor();
                 case MULT:
-                    //Proceeds to case exponentiate. Uses WholeNumIncreaseOperandConstructor();
+                    //Proceeds to case exponentiate. Uses WholeNumAddOperandConstructor();
                 case EXP:
-                    this.operandConstructor = new WholeNumIncreaseOperandConstructor();
+                    this.operandConstructor = new WholeNumAddOperandConstructor();
                     break;
                 case SUB:
                     this.operandConstructor = new WholeNumSubOperandConstructor();
@@ -55,9 +55,9 @@ public class StandardEquationMaker {
                     this.operandConstructor = new WholeNumDivideOperandConstructor();
                     break;
                 case LCM:
-                    //Proceeds to case GCD. Uses WholeNumLCMGCFOperandConstructor();
+                    //Proceeds to case GCD. Uses WholeNumLCMGCDOperandConstructor();
                 case GCD:
-                    this.operandConstructor = new WholeNumLCMGCFOperandConstructor();
+                    this.operandConstructor = new WholeNumLCMGCDOperandConstructor();
                     break;
             }
         } else if (operandType.equals(FRACTION)) {

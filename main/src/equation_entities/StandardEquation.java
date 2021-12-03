@@ -6,7 +6,7 @@ import java.util.Map;
 import static constants.EquationParts.*;
 
 /**
- * Refers to an equation with any number of operands that use standard operators (BEDMAS + LCM + GCF). An example is
+ * Refers to an equation with any number of operands that use standard operators (BEDMAS + LCM + GCD). An example is
  * 5 + 3 = 8. The question will be stored as a binary expression tree, while the answer will be a string.
  *
  * @author Sean Jeong

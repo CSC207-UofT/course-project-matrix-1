@@ -15,7 +15,7 @@ import utilities.Randomizer;
  * @version 1.0
  * @since 2021-10-30
  */
-class WholeNumIncreaseOperandConstructor implements OperandConstructorInterface {
+class WholeNumAddOperandConstructor implements OperandConstructorInterface {
     /**
      * Builds the operands (first and second) for the standardEquation.
      *
