@@ -1,14 +1,15 @@
 package equation_builders;
 
+import equation_entities.GCD;
+import equation_entities.LCM;
 import equation_entities.*;
-
-import static constants.OperatorRep.*;
-
 import equation_parameters.EquationDetails;
 import exceptions.InvalidInputException;
 import utilities.Randomizer;
 
-import static constants.EquationType.*;
+import static constants.EquationType.FRACTION;
+import static constants.EquationType.WHOLE_NUMBER;
+import static constants.OperatorRep.*;
 
 /**
  * An equation maker for all types of standard equations.
@@ -22,10 +23,10 @@ import static constants.EquationType.*;
  * @since 2021-10-30
  */
 public class StandardEquationMaker {
-    protected StandardEquation standardEquation;
-    protected OperandConstructorInterface operandConstructor;
     protected final Randomizer randomizer;
     protected final String currentOperator;
+    protected StandardEquation standardEquation;
+    protected OperandConstructorInterface operandConstructor;
 
 
     /**
@@ -41,32 +42,35 @@ public class StandardEquationMaker {
         if (operandType.equals(WHOLE_NUMBER)) {
             switch (operator) {
                 case ADD:
-                    //Proceeds to case multiply. Uses WholeNumIncreaseOperands();
+                    //Proceeds to case multiply. Uses WholeNumAddOperandConstructor();
                 case MULT:
-                    //Proceeds to case exponentiate. Uses WholeNumIncreaseOperands();
+                    //Proceeds to case exponentiate. Uses WholeNumAddOperandConstructor();
                 case EXP:
-                    this.operandConstructor = new WholeNumIncreaseOperands();
+                    this.operandConstructor = new WholeNumAddOperandConstructor();
                     break;
                 case SUB:
-                    this.operandConstructor = new WholeNumSubOperands();
+                    this.operandConstructor = new WholeNumSubOperandConstructor();
                     break;
                 case DIV:
-                    this.operandConstructor = new WholeNumDivideOperands();
+                    this.operandConstructor = new WholeNumDivideOperandConstructor();
+                    break;
+                case LCM:
+                    //Proceeds to case GCD. Uses WholeNumLCMGCDOperandConstructor();
+                case GCD:
+                    this.operandConstructor = new WholeNumLCMGCDOperandConstructor();
                     break;
             }
         } else if (operandType.equals(FRACTION)) {
             switch (operator) {
                 case ADD:
-                    this.operandConstructor = new FractionAddOperands();
+                    this.operandConstructor = new FractionAddOperandConstructor();
                     break;
                 case SUB:
-                    this.operandConstructor = new FractionSubOperands();
+                    this.operandConstructor = new FractionSubOperandConstructor();
                     break;
                 case MULT:
-                    this.operandConstructor = new FractionMultiplyOperands();
-                    break;
                 case DIV:
-                    this.operandConstructor = new FractionDivideOperands();
+                    this.operandConstructor = new FractionMultDivOperandConstructor();
                     break;
             }
         }

@@ -5,7 +5,10 @@ import exceptions.InvalidInputException;
 import exceptions.RecordDoesNotExistException;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * History class. Holds a user's history of records for each worksheet generated and score (if given)

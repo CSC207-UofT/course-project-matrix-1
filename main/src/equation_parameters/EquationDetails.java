@@ -2,6 +2,14 @@ package equation_parameters;
 
 import java.io.Serializable;
 
+/**
+ * Holds equation details common to all types of equation details. This includes the number of questions, the operator,
+ * and if negatives are allowed.
+ *
+ * @author Sean Jeong
+ * @version 1.0
+ * @since 2021-12-2
+ */
 public abstract class EquationDetails implements Serializable {
     private int numOfEquations;
     private String operator;

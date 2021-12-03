@@ -1,4 +1,5 @@
 package user_interface;
+
 import user_package.UserController;
 import worksheet_maker.WorksheetController;
 
@@ -11,14 +12,14 @@ import worksheet_maker.WorksheetController;
  */
 class StartUserInterface {
 
-    static UserAccessInterface userAccessInterface;
+    static ControllerInterface controllerInterface;
     static UserController userController;
     static WorksheetController worksheetController;
 
-    public static void main(String[] args){
-
-        userAccessInterface = new UserAccessInterface();
-        userAccessInterface.makeControllerAndPresenter();
+    public static void main(String[] args) {
+        controllerInterface = new ControllerInterface();
+        controllerInterface.makeUserController();
+        // Create an instance of user controller to keep track of the user's information
 
         try {
             userController = new UserController();
@@ -26,11 +27,11 @@ class StartUserInterface {
             e.printStackTrace();
         }
 
-        userController = userAccessInterface.getUserController();
+        userController = controllerInterface.getUserController();
 
         // Create an instance of worksheet controller to generate the worksheet
         worksheetController = new WorksheetController();
-        worksheetController = userAccessInterface.makeWorksheetController();
+        worksheetController = controllerInterface.makeWorksheetController();
 
         Screen.userController = userController;
         Screen.worksheetController = worksheetController;

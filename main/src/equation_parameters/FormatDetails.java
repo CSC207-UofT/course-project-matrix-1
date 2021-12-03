@@ -2,6 +2,14 @@ package equation_parameters;
 
 import java.io.Serializable;
 
+/**
+ * Holds formatting details for the PDF. This includes the equation format, the title of the worksheet, the number of
+ * rows, and the number of columns.
+ *
+ * @author Sean Jeong
+ * @version 1.0
+ * @since 2021-12-2
+ */
 public final class FormatDetails implements Serializable {
     private String equationFormat;
     private String title;

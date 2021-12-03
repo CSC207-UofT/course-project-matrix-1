@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class DistributionCalculator {
 
-    private static final ArrayList<Integer> denomDistribution = new ArrayList<>();
+    private static ArrayList<Integer> denomDistribution = new ArrayList<>();
 
     /**
      * Uses the equation details to assign relative probabilities to each number for addition/subtraction so that
@@ -18,6 +18,7 @@ public class DistributionCalculator {
      * @param fracEqnDetails the parameters for fraction equation generation.
      */
     public static void assignProbability(EquationDetails fracEqnDetails) {
+        denomDistribution  = new ArrayList<>();
         FractionAddSubEquationDetails fracAddSubEqnDetails = (FractionAddSubEquationDetails) fracEqnDetails;
         if (fracAddSubEqnDetails.getOperand1DenomRange()[1] > fracAddSubEqnDetails.getMaxOperand2AndAnswerDenom()) {
             //Restrict the range of the denominators to be smaller than the max denominator for the answers.

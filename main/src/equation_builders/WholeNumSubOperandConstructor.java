@@ -14,7 +14,7 @@ import utilities.Randomizer;
  * @version 1.0
  * @since 2021-10-30
  */
-class WholeNumSubOperands implements OperandConstructorInterface {
+class WholeNumSubOperandConstructor implements OperandConstructorInterface {
     /**
      * Creates operands (first and second) in the subtraction standard equation's question. If not negAllowed, prevent
      * operand 2 from being greater than operand 1.

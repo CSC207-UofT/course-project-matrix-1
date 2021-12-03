@@ -7,8 +7,11 @@ import utilities.FactorFinder;
 import utilities.Randomizer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import static constants.OperatorRep.DIV;
 
 /**
  * Contains helper methods used by both fraction multiplication and division of operands.
@@ -18,8 +21,7 @@ import java.util.List;
  * @since 2021-11-28
  */
 
-public abstract class FractionMultDivOperands {
-    protected Randomizer randomizer;
+public class FractionMultDivOperandConstructor extends FractionOperandConstructor {
     // Arbitrary prime numbers that are used to add complexity to a fraction.
     int[] PRIMES = {2, 3, 5, 7, 11};
 
@@ -28,7 +30,7 @@ public abstract class FractionMultDivOperands {
      * fraction multiplication.
      *
      * @param fractionEquationDetails the parameters for fraction equation generation.
-     * @param randomizer the randomizer for a given equation
+     * @param randomizer              the randomizer for a given equation
      * @return an array of first operand and second operand values.
      */
     public Value[] buildOperands(EquationDetails fractionEquationDetails, Randomizer randomizer) {
@@ -61,22 +63,15 @@ public abstract class FractionMultDivOperands {
         // Ex. (-5)/6 * 9/5
         makeOperandsNegative(fracMultiDivEqnDetails.isNegAllowed(), operandsN);
 
-        // Return operand 1 and 2's numerator and denominator to create a Fraction.
-        return assignNumeratorDenominator(operandsN, operandsD);
-    }
-
-    /**
-     * If negative is allowed, the operands have a 50% chance of becoming negative.
-     *
-     * @param isNegAllowed whether negatives are allowed for this equation.
-     * @param operandsN    the numerator of the operands as a list of 2 ints.
-     */
-    protected void makeOperandsNegative(boolean isNegAllowed, int[] operandsN) {
-        if (isNegAllowed) {
-            operandsN[0] = randomizer.makeNegativeRandom(operandsN[0]);
-            operandsN[1] = randomizer.makeNegativeRandom(operandsN[1]);
-            //TODO: may need to change since the denominator can't be negative (since this is flipped in the division version)
+        //Flip operand 2 if it is division
+        //TODO: extract method?
+        if (fractionEquationDetails.getOperator().equals(DIV)){
+            int temp = operandsN[1];
+            operandsN[1] = operandsD[1];
+            operandsD[1] = temp;
         }
+        // Use operand 1 and 2's numerator and denominator to create a Fraction.
+        return createFractions(operandsN, operandsD, ((FractionMultiDivEquationDetails) fractionEquationDetails).getFractionFormat());
     }
 
     /**
@@ -85,16 +80,16 @@ public abstract class FractionMultDivOperands {
      * @param factors a list of factors that can be multiplied together.
      * @return a list of 2 numbers that together are the product of all the factors.
      */
-    protected int[] splitFactorsIntoTwoOperands(List<Integer> factors) {
+    private int[] splitFactorsIntoTwoOperands(List<Integer> factors) {
         List<Integer> operand1Factors = new ArrayList<>();
         List<Integer> operand2Factors = new ArrayList<>();
         operand1Factors.add(1);
         operand2Factors.add(1);
         Collections.sort(factors);
-        if (factors.size() >= 3){
+        if (factors.size() >= 3) {
             operand1Factors.add(factors.remove(0));
             operand1Factors.add(factors.remove(0));
-            operand2Factors.add(factors.remove(factors.size() -1));
+            operand2Factors.add(factors.remove(factors.size() - 1));
         }
         while (!factors.isEmpty()) {
             if (factors.size() % 2 == 0) {
@@ -128,7 +123,7 @@ public abstract class FractionMultDivOperands {
      * @param unreducedAnsDFactors a list of all the factors in the numerator of the answer.
      * @param unreducedAnsNFactors a list of all the factors in the denominator of the answer.
      */
-    protected void addComplexity(int complexity, List<Integer> unreducedAnsDFactors,
+    private void addComplexity(int complexity, List<Integer> unreducedAnsDFactors,
                                  List<Integer> unreducedAnsNFactors) {
         for (int i = 0; i < complexity; i++) {
             int prime = biasedSelectNumber(PRIMES);
@@ -152,15 +147,4 @@ public abstract class FractionMultDivOperands {
         // If all the numbers are passed through and still hasn't returned anything, just return the last number.
         return numbers[numbers.length - 1];
     }
-
-
-    /**
-     * Assigns the numerator and denominator to the fractions. If this is multiplication, they will be assigned
-     * normally. Otherwise, they will be flipped.
-     *
-     * @param operandsN the numerator operands as [numerator1, numerator2].
-     * @param operandsD the denominator operands as [denominator1, denominator2].
-     * @return the fractions as a list of [fraction1, fraction2].
-     */
-    public abstract Value[] assignNumeratorDenominator(int[] operandsN, int[] operandsD);
 }

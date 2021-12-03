@@ -91,7 +91,7 @@ public class WholeNum extends Value {
         int leastCommonMultiple = this.wholeNumber * ((WholeNum) otherValue).getValue();
         leastCommonMultiple = leastCommonMultiple / ((WholeNum) greatestCommonDivisor).getValue();
 
-        return new WholeNum(leastCommonMultiple);
+        return new WholeNum(Math.abs(leastCommonMultiple));
     }
 
     /**
@@ -102,7 +102,7 @@ public class WholeNum extends Value {
      */
     @Override
     public Value gcd(Value otherValue) {
-        return new WholeNum(EuclideanAlgorithm.findGreatestCommonDivisor(this.wholeNumber, ((WholeNum) otherValue).getValue()));
+        return new WholeNum(Math.abs(EuclideanAlgorithm.findGreatestCommonDivisor(this.wholeNumber, ((WholeNum) otherValue).getValue())));
     }
 
     /**
@@ -120,7 +120,6 @@ public class WholeNum extends Value {
      * @return the string representation of the int wholeNumber stored in this string.
      */
     @Override
-
     public String toString() {
         return String.valueOf(wholeNumber);
     }

@@ -42,12 +42,13 @@ public class FactorFinder {
             return (HashSet<Integer>) factors.clone();
         }
     }
+
     /**
      * Finds the prime factors associated with a certain number recursively. This method adds to primeFactorList as it
      * does so, increasing performance over time. Ex. 40 = [2, 2, 2, 5].
      *
      * @param number the number to find prime factors for.
-     * @return  a collection of the prime factors.
+     * @return a collection of the prime factors.
      */
     public static ArrayList<Integer> primeFactorize(int number) {
         if (allPrimeFactors.containsKey(number)) {
@@ -65,6 +66,7 @@ public class FactorFinder {
             return (ArrayList<Integer>) factors.clone();
         }
     }
+
     /**
      * Finds the prime factors associated with a certain number but returns them in a list where the same prime factors
      * are multiplied with each other and stored as one number. Ex. 40 = [8, 3].

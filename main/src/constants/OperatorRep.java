@@ -7,7 +7,7 @@ package constants;
  * @version 1.0
  * @since 2021-11-24.
  */
-public class OperatorRep {
+public final class OperatorRep {
     public final static String ADD = "+";
     public final static String SUB = "-";
     public final static String MULT = "*";

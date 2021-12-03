@@ -2,9 +2,6 @@ package utilities;
 
 import equation_parameters.FractionAddSubEquationDetails;
 import exceptions.InvalidInputException;
-import utilities.DistributionCalculator;
-import utilities.FactorFinder;
-import utilities.Randomizer;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -22,7 +19,7 @@ public class FractionCalculator {
      * @return the answer denominator.
      */
     public static int calculateAnswerD(FractionAddSubEquationDetails fracAddSubEqnDetails, int operand1D,
-                                   Randomizer rand) {
+                                       Randomizer rand) {
         int maxMultiple = fracAddSubEqnDetails.getMaxOperand2AndAnswerDenom() / operand1D;
         ArrayList<Integer> possibleAnswerD = new ArrayList<>();
         for (int i = 1; i < maxMultiple + 1; i++) {

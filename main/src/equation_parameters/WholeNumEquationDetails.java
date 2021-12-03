@@ -1,5 +1,12 @@
 package equation_parameters;
 
+/**
+ * Holds equation details specific to whole number equations. This includes the range of operand1 and operand2.
+ *
+ * @author Sean Jeong
+ * @version 1.0
+ * @since 2021-12-2
+ */
 public final class WholeNumEquationDetails extends EquationDetails {
     private int[] operandRange1;
     private int[] operandRange2;
@@ -19,9 +26,5 @@ public final class WholeNumEquationDetails extends EquationDetails {
     public void setOperandRange2(int[] operandRange2) {
         this.operandRange2 = operandRange2;
     }
-
-
-    //TODO: give this class more functionality. maybe move randomize operand here? would need to pass all of equation details down though (is this unnecessary parameters?)
-
 
 }

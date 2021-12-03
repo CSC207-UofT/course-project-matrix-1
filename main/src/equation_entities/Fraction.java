@@ -1,6 +1,6 @@
 package equation_entities;
 
-import exceptions.NotImplementedException;
+import exceptions.IllegalOperatorForOperandTypeException;
 
 /**
  * Stores a fraction that has a whole number, numerator, and denominator each represented by an integer.
@@ -9,31 +9,14 @@ import exceptions.NotImplementedException;
  * @version 1.0
  * @since 2021-11-6
  */
-public class Fraction extends Value {
+public abstract class Fraction extends Value {
     // Represents the fraction as an improper fraction consisting of [numerator, denominator]. If the numerator is
-    //negative, the enitre fraction is considered to be negative.
-    private final int[] fractionParts = new int[2];
-
-
-    /**
-     * Constructs the fraction, adding the value associated with the wholeNumber to the numerator.
-     *
-     * @param numerator   represents the top half of the fraction. Must be positive.
-     * @param denominator represents the bottom half of the fraction. Cannot be 0, must be positive.
-     * @param negative    if true, the number is negative.
-     * @param wholeNumber represents the whole number associated with the fraction.
-     */
-    public Fraction(int numerator, int denominator, boolean negative, int wholeNumber) {
-        fractionParts[0] = wholeNumber * denominator + numerator;
-        if (negative) {
-            fractionParts[0] = -1 * fractionParts[0];
-        }
-        fractionParts[1] = denominator;
-    }
-
+    //negative, the entire fraction is considered to be negative.
+    protected final int[] fractionParts = new int[2];
 
     /**
-     * Constructs the fraction. If the numerator is negative, the entire fraction is assumed to be negative.
+     * Constructs the fraction. If the numerator or denominator is negative (cannot both be negative), the entire
+     * fraction is assumed to be negative.
      *
      * @param numerator   an int that represents the top half of the fraction. Can be negative or positive.
      * @param denominator an int that represents the bottom half of the fraction. Cannot be 0, must be positive.
@@ -51,7 +34,7 @@ public class Fraction extends Value {
      */
     @Override
     public Value add(Value otherValue) {
-        int[] otherParts = ((Fraction) otherValue).getImproperFraction();
+        int[] otherParts = ((Fraction) otherValue).getFraction();
         return createReducedFraction(fractionParts[0] * otherParts[1] + fractionParts[1] * otherParts[0], fractionParts[1] * otherParts[1]);
     }
 
@@ -63,7 +46,7 @@ public class Fraction extends Value {
      */
     @Override
     public Value subtract(Value otherValue) {
-        int[] otherParts = ((Fraction) otherValue).getImproperFraction();
+        int[] otherParts = ((Fraction) otherValue).getFraction();
         return createReducedFraction(fractionParts[0] * otherParts[1] - fractionParts[1] * otherParts[0], fractionParts[1] * otherParts[1]);
     }
 
@@ -75,7 +58,7 @@ public class Fraction extends Value {
      */
     @Override
     public Value divide(Value otherValue) {
-        int[] otherParts = ((Fraction) otherValue).getImproperFraction();
+        int[] otherParts = ((Fraction) otherValue).getFraction();
         return createReducedFraction(fractionParts[0] * otherParts[1], fractionParts[1] * otherParts[0]);
     }
 
@@ -87,32 +70,32 @@ public class Fraction extends Value {
      */
     @Override
     public Value multiply(Value otherValue) {
-        int[] otherParts = ((Fraction) otherValue).getImproperFraction();
+        int[] otherParts = ((Fraction) otherValue).getFraction();
         return createReducedFraction(fractionParts[0] * otherParts[0], fractionParts[1] * otherParts[1]);
     }
 
     /**
-     * Fraction exponentiate is not implemented! Throw exception if called.
+     * Fraction exponentiate is not implemented since it's not a good question!
      */
     @Override
     public Value exponentiate(Value otherValue) {
-        throw new NotImplementedException();
+        throw new IllegalOperatorForOperandTypeException();
     }
 
     /**
-     * Fraction LCM is not implemented! Throw exception if called.
+     * Fraction LCM is not implemented since it's not a good question!
      */
     @Override
     public Value lcm(Value otherValue) {
-        throw new NotImplementedException();
+        throw new IllegalOperatorForOperandTypeException();
     }
 
     /**
-     * Fraction GCD is not implemented! Throw exception if called.
+     * Fraction GCD is not implemented since it's not a good question!
      */
     @Override
     public Value gcd(Value otherValue) {
-        throw new NotImplementedException();
+        throw new IllegalOperatorForOperandTypeException();
     }
 
     /**
@@ -122,28 +105,14 @@ public class Fraction extends Value {
      * @param denominator the unreduced denominator. Cannot be 0.
      * @return the reduced Fraction.
      */
-    public Fraction createReducedFraction(int numerator, int denominator) {
-        Fraction newFraction = new Fraction(numerator, denominator);
-        newFraction.reduce();
-        return newFraction;
-    }
-
-    /**
-     * Returns the fraction as a mixed fraction, where the numerator is smaller than the denominator.
-     *
-     * @return the list of fraction parts, as [numerator, denominator, wholeNumber, negative], where negative = -1
-     * if the fraction is negative, and +1 if the fraction is positive.
-     */
-    public int[] getMixedFraction() {
-        return null;
-    }
+    public abstract Fraction createReducedFraction(int numerator, int denominator);
 
     /**
      * Returns the fraction as an improper fraction, where the whole number is 0.
      *
      * @return the list of fraction parts, as [numerator, denominator]
      */
-    public int[] getImproperFraction() {
+    public int[] getFraction() {
         return fractionParts;
     }
 
@@ -161,12 +130,23 @@ public class Fraction extends Value {
         }
     }
 
-    @Override
-    public String toString() {
-        if (fractionParts[0] != 0) {
-            return ("\\frac{" + fractionParts[0] + "}{" + fractionParts[1] + "}");
-        } else {
-            return ("0");
+    /**
+     * Modify a fraction so that the numerator and denominator don't contain negatives. If they do, remove the negative
+     * and return True.
+     *
+     * @return if the fraction contains any negative values.
+     */
+    protected boolean isFractionNegative() {
+        boolean fractionIsNegative = false;
+        if (fractionParts[0] < 0){
+            fractionIsNegative = true;
+            fractionParts[0] = -fractionParts[0];
+        } else if (fractionParts[1] < 0){
+            fractionIsNegative = true;
+            fractionParts[1] = -fractionParts[1];
         }
+        return fractionIsNegative;
     }
+
+
 }

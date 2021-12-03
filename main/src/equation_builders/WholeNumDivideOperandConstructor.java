@@ -17,7 +17,7 @@ import java.util.List;
  * @version 1.0
  * @since 2021-10-30
  */
-class WholeNumDivideOperands implements OperandConstructorInterface {
+class WholeNumDivideOperandConstructor implements OperandConstructorInterface {
     /**
      * Creates operands (first and second) in the division standard equation's question. Operand 1 must be divisible by
      * operand 2 to yield a negative answer.
