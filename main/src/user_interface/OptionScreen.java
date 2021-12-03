@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class OptionScreen extends Screen implements MouseListener {
 
-    // Create Buttons for the Option screen
+    // Create buttons
     JButton createWSButton = new JButton("Generate Worksheet");
     JButton userHistoryButton = new JButton();
     JButton userProfileButton = new JButton();
@@ -99,21 +99,18 @@ public class OptionScreen extends Screen implements MouseListener {
     public void mousePressed(MouseEvent e) {
         if (e.getSource() == createWSButton) {
             new TopicScreen();
-        }
-        else if (e.getSource() == userProfileButton) {
+        } else if (e.getSource() == userProfileButton) {
             new UserProfileScreen();
-        }
-        else if (e.getSource() == userHistoryButton) {
+        } else if (e.getSource() == userHistoryButton) {
             new WorksheetHistoryScreen();
-        }
-        else if (e.getSource() == logoutButton) {
+        } else if (e.getSource() == logoutButton) {
 
             // Display an option pane confirming the user would like to log out
             int option = JOptionPane.showConfirmDialog(frame, "Would you like to logout?",
                     "Logout", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if (option == JOptionPane.YES_OPTION) {
-                new LoginScreen();
+                new LoginScreen();      // Log the user out if they clicked yes
             }
         }
     }
@@ -121,8 +118,7 @@ public class OptionScreen extends Screen implements MouseListener {
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == createWSButton) {
             highlightButton(createWSButton, 'd');
-        }
-        else if (e.getSource() == logoutButton) {
+        } else if (e.getSource() == logoutButton) {
             highlightButton(logoutButton, 'd');
             logoutButton.setBackground(red);
         }
@@ -131,8 +127,7 @@ public class OptionScreen extends Screen implements MouseListener {
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == createWSButton) {
             defaultButton(createWSButton, 'd');
-        }
-        else if (e.getSource() == logoutButton) {
+        } else if (e.getSource() == logoutButton) {
             defaultButton(logoutButton, 'd');
             logoutButton.setBackground(red);
         }
@@ -145,6 +140,7 @@ public class OptionScreen extends Screen implements MouseListener {
      * swing/RoundedBorder.java which was seen before implementing this private class.
      *
      */
+    @SuppressWarnings("ALL")
     private static class RoundedBorder implements Border {
 
         private final int radius;

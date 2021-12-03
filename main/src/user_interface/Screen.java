@@ -47,14 +47,14 @@ public class Screen extends JFrame implements MouseListener, KeyListener {
     Font defaultButtonFont = new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02));
     Font highlightButtonFont = new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225));
 
-    // Create the Colors
+    // Create the Colors used
     Color lightBlue = new Color(142, 202, 234, 255);
     Color lightGray = new Color(220, 220, 220);
     Color lightYellow = new Color(217, 207, 131, 252);
     Color red = new Color(196, 67, 67);
     Color darkGray = Color.DARK_GRAY;
 
-    // Create the borders to be used (panels, buttons, and text fields)
+    // Create the borders to be used (for panels, buttons, and text fields)
     MatteBorder panelBorder = new MatteBorder(convert(0.15, 'h'),2,2,2, lightBlue);
     MatteBorder loginPanelBorder = new MatteBorder(convert(0.35, 'h'),2,2,2, lightBlue);
     MatteBorder defaultButtonBorder = new MatteBorder(4, 4, 4, 4, darkGray);
@@ -67,7 +67,7 @@ public class Screen extends JFrame implements MouseListener, KeyListener {
     /**
      * Remove the previous panel and make the current panel visible
      *
-     * @param panel the panel to be shown
+     * @param panel the panel to be displayed
      */
     public void changePanel(JPanel panel) {
         frame.getContentPane().removeAll();
@@ -104,19 +104,19 @@ public class Screen extends JFrame implements MouseListener, KeyListener {
      * @param w the constant multiplied by the screen width to get the label width
      * @param h the constant multiplied by the screen height to get the label height
      * @param textSize the constant used to get the text size for the label
-     * @param fontColor the color of the font (r being red, anything else being dark gray)
+     * @param fontColor the color of the font
      */
     public void updateLabel(JLabel label, double x, double y, double w, double h, double textSize, char fontColor) {
         label.setFont(new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * textSize)));
         label.setBounds(convert(x, 'w'), convert(y, 'h'), convert(w, 'w'),
                 convert(h, 'h'));
+
+        // Update the color of the font
         if (fontColor == 'd'){
             label.setForeground(darkGray);
-        }
-        else if (fontColor == 'w'){
+        } else if (fontColor == 'w'){
             label.setForeground(Color.WHITE);
-        }
-        else if (fontColor == 'b') {
+        } else if (fontColor == 'b') {
             label.setForeground(lightBlue);
         }
     }
@@ -171,6 +171,7 @@ public class Screen extends JFrame implements MouseListener, KeyListener {
      * Update the settings of the button to the default (font, color, and border). Overloaded method with one button.
      *
      * @param button a JButton that will be updated to the default settings
+     * @param borderColor the button border color
      */
     public void defaultButton(JButton button, char borderColor) {
         button.setOpaque(true);
@@ -180,8 +181,7 @@ public class Screen extends JFrame implements MouseListener, KeyListener {
 
         if (borderColor == 'd') {
             button.setBorder(defaultButtonBorder);
-        }
-        else if (borderColor == 'b') {
+        } else if (borderColor == 'b') {
             button.setBorder(enterButtonBorder);
         }
 
@@ -191,16 +191,16 @@ public class Screen extends JFrame implements MouseListener, KeyListener {
      * Update the button to be highlighted with a bigger font.
      *
      * @param button a JButton that will be highlighted
+     * @param borderColor the button border color
      */
     public void highlightButton(JButton button, char borderColor) {
-        button.setForeground(lightBlue);
         button.setOpaque(true);
+        button.setForeground(lightBlue);
         button.setFont(highlightButtonFont);
 
         if (borderColor == 'd') {
             button.setBorder(defaultButtonBorder);
-        }
-        else if (borderColor == 'b') {
+        } else if (borderColor == 'b') {
             button.setBorder(enterButtonBorder);
         }
 
@@ -230,12 +230,12 @@ public class Screen extends JFrame implements MouseListener, KeyListener {
      * - num must be less than 1
      *
      * @param num the constant to be multiplied by the width or height
-     * @param c the width or height to be multiplied by num (w for width, h for height)
+     * @param dimension the width or height to be multiplied by num (w for width, h for height)
      */
-    public int convert(double num, char c) {
-        if (c == 'w')
+    public int convert(double num, char dimension) {
+        if (dimension == 'w') {
             return (int) Math.round(num * width);
-        else {
+        } else {
             return (int) Math.round(num * height);
         }
     }

@@ -22,9 +22,10 @@ public class UserProfileScreen extends Screen implements MouseListener {
 
     public UserProfileScreen() {
 
+        // Update the panel to the default settings
         updatePanel(userProfilePanel);
 
-        // Create the user profile and its shadow
+        // Create the title labels
         JLabel userProfileTitle = new JLabel("User Profile", SwingConstants.CENTER);
         JLabel userProfileTitleShadow = new JLabel("User Profile", SwingConstants.CENTER);
 
@@ -70,15 +71,12 @@ public class UserProfileScreen extends Screen implements MouseListener {
     public void mousePressed(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
             new OptionScreen();
-        }
-        else if (e.getSource() == deleteUserButton) {
-
+        } else if (e.getSource() == deleteUserButton) {
             // Create an option pane confirming the user would like to delete their account
             int option = JOptionPane.showConfirmDialog(frame, "Confirm deletion of " + username + "'s account?",
                     "Delete Account", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (option == JOptionPane.YES_OPTION) {
-
                 // Delete the account and display a pane showing the account was deleted
                 userController.deleteAccount(username);
                 JOptionPane.showMessageDialog(frame, "Account Successfully Deleted", "", JOptionPane.PLAIN_MESSAGE);
@@ -90,8 +88,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
             highlightButton(userProfileBackButton, 'd');
-        }
-        else if (e.getSource() == deleteUserButton) {
+        } else if (e.getSource() == deleteUserButton) {
             highlightButton(deleteUserButton, 'd');
             deleteUserButton.setBackground(red);
         }
@@ -100,8 +97,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == userProfileBackButton) {
             defaultButton(userProfileBackButton, 'd');
-        }
-        else if (e.getSource() == deleteUserButton) {
+        } else if (e.getSource() == deleteUserButton) {
             defaultButton(deleteUserButton, 'd');
             deleteUserButton.setBackground(red);
         }

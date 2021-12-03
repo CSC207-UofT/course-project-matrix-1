@@ -41,10 +41,10 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     JTextField secondFieldInput;
     JTextField maxVal;
 
+    JTextField[] textFields;
+
     String[] formatOptions = {"Mixed", "Improper"};
     JComboBox<String> formatComboBox = new JComboBox<>(formatOptions);
-
-    JTextField[] textFields;
 
     // Create checkbox
     JCheckBox negAllowedBox;
@@ -84,6 +84,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         worksheetHistoryDetails.put("equationDetails", this.equationDetails);
         worksheetHistoryDetails.put("formatDetails", this.formatDetails);
 
+        // Check if the equationDetails are Integers or Fractions and fill screen accordingly
         if (equationDetails instanceof WholeNumEquationDetails) {
             // Initialize text fields
             op1MIN = new JTextField(1);
@@ -94,9 +95,11 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
             // Initial check boxes
             negAllowedBox = new JCheckBox("");
+
+            // Fill the integers screen
             fillScreen();
-        }
-        else if (equationDetails instanceof FractionAddSubEquationDetails ||
+
+        } else if (equationDetails instanceof FractionAddSubEquationDetails ||
                 equationDetails instanceof FractionMultiDivEquationDetails) {
             // Initialize text fields
             denMIN = new JTextField(1);
@@ -109,6 +112,8 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             negAllowedBox = new JCheckBox("");
             formatComboBox.setSelectedIndex(0);
             formatComboBox.setVisible(true);
+
+            // Fill the fraction screen
             fillFractionScreen();
         }
         updateTextFields(textFields);
@@ -119,9 +124,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
      * @param worksheetDetails contains worksheet details that user inputted in this screen previously
      */
     public CustomizeScreen(Map <String, Object> worksheetDetails) {
-        updatePanel(customizePanel);
 
-        // Add common panel features
+        // Update the panel and add common panel features
+        updatePanel(customizePanel);
         addPanelFeatures();
 
         // Gets the chosen operator/equationDetail type from the previous screen
@@ -163,24 +168,24 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     }
 
     /**
-     * Adds all necessary parts of CustomizeScreen.
+     * Adds all necessary parts of CustomizeScreen for integers
      */
     private void fillScreen() {
-        // Create equation questions labels
+        // Create labels
         JLabel op1Range = new JLabel("Operand 1 Range");
         JLabel dash = new JLabel("-");
         JLabel op2Range = new JLabel("Operand 2 Range");
         JLabel dash2 = new JLabel("-");
         JLabel negAllowed = new JLabel("Negative are Allowed?");
 
-        // Update the labels for the equation customization
+        // Update the labels
         updateLabel(op1Range, 0.25, 0.24, 0.6, 0.1, 0.02, 'd');
         updateLabel(dash, 0.645, 0.24, 0.05, 0.1, 0.025, 'd');
         updateLabel(op2Range, 0.25, 0.335, 0.6, 0.1, 0.02, 'd');
         updateLabel(dash2, 0.645, 0.335, 0.1, 0.1, 0.025, 'd');
         updateLabel(negAllowed, 0.25, 0.43, 0.6, 0.1, 0.02, 'd');
 
-        // Minimum and maximum text fields
+        // Update the minimum and maximum text fields
         updateTextFieldLocation(op1MIN, 0.525, 0.265, 0.1, 0.05);
         updateTextFieldLocation(op1MAX, 0.675, 0.265, 0.1, 0.05);
         updateTextFieldLocation(op2MIN, 0.525, 0.36, 0.1, 0.05);
@@ -208,6 +213,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         customizePanel.add(negAllowedBox);
     }
 
+    /**
+     * Adds all necessary parts of CustomizeScreen for fractions
+     */
     private void fillFractionScreen(){
         // Create labels
         JLabel denRange = new JLabel();
@@ -217,6 +225,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         JLabel negAllowed = new JLabel("Negative are Allowed?");
         JLabel format = new JLabel("Format");
 
+        // Add components based on operator
         if (equationDetails instanceof FractionAddSubEquationDetails) {
             denRange.setText("Operand 1's Denominator Range");
             maxAns.setText("Max Answer Denominator");
@@ -238,7 +247,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         updateLabel(negAllowed, 0.225, 0.525, 0.6, 0.1, 0.015, 'd');
         updateLabel(format, 0.225, 0.62, 0.6, 0.1,0.015, 'd');
 
-        // Minimum and maximum text fields
+        // Update the minimum and maximum text fields
         updateTextFieldLocation(denMIN, 0.53, 0.265, 0.1, 0.05);
         updateTextFieldLocation(denMAX, 0.68, 0.265, 0.1, 0.05);
         updateTextFieldLocation(secondFieldInput, 0.53, 0.36, 0.1, 0.05);
@@ -267,7 +276,10 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         customizePanel.add(format);
     }
 
-    private void generateIntegerWorksheet() {
+    /**
+     * Check if the inputs entered for integers is valid. Let the user know of invalid inputs.
+     */
+    private void checkIntegerWorksheetInput() {
 
         boolean passed = true;
 
@@ -288,13 +300,15 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 op2MinTemp = Integer.parseInt(op2MIN.getText().trim());
                 op2MaxTemp = Integer.parseInt(op2MAX.getText().trim());
             }
+
+            // Check operand 2 is not zero for division
             if (Objects.equals(equationDetails.getOperator(), "/")) {
                 boolean checkNotDiv = true;
-                boolean noZeroOrNeg = true;
+                boolean checkNoZero = true;
                 for (int i = op1MinTemp; i <= op1MaxTemp; i++) {
                     for (int j = op2MinTemp; j <= op2MaxTemp; j++) {
                         if (j <= 0) {
-                            noZeroOrNeg = false;
+                            checkNoZero = false;
                             break;
                         }
                         if (i % j == 0) {
@@ -303,7 +317,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                         }
                     }
                 }
-                if (!noZeroOrNeg) {
+                if (!checkNoZero) {
                     operatorWarning.setText("Operand 2 cannot include 0 or negatives");
                     operatorWarning.setVisible(true);
                     passed = false;
@@ -314,6 +328,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 }
             }
 
+            // Check to ensure operand 2 has a number less than a number in operand 1 range
             if (Objects.equals(equationDetails.getOperator(), "-")) {
                 boolean allNeg = false;
                 if (!negAllowed) {
@@ -359,33 +374,32 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             ((WholeNumEquationDetails) this.equationDetails).setOperandRange2(operandRange2);
             createWorksheetDetails();
         }
-
     }
 
-    private void generateFractionWorksheet() {
+    /**
+     * Check if the input entered for fractions is valid. Let user know of invalid inputs.
+     */
+    private void checkFractionWorksheetInput() {
 
         boolean passed = true;
 
-        // Create temporary equation details and format details variables
+        // Create temporary fraction variables
         int denMINTemp, denMAXTemp, secondFieldInputTemp, maxValTemp;
-       // denMINTemp = denMAXTemp = secondFieldInputTemp = maxValTemp = -1;
 
-        // Check if any operand range cannot be parsed (invalid input)
+        // Check if any number inputs cannot be parsed (invalid input)
         if (tryToParse(denMIN.getText().trim()) == null || tryToParse(denMAX.getText().trim()) == null ||
                 tryToParse(secondFieldInput.getText().trim()) == null || tryToParse(maxVal.getText().trim()) == null) {
             operatorWarning.setText("Please enter positive numbers (greater than 0)");
             operatorWarning.setVisible(true);
             passed = false;
-        }
-
-        else {
-            // Each operand value can be parsed (is an integer)
+        } else {
+            // Each input value can be parsed (is an integer)
             denMINTemp = Integer.parseInt(denMIN.getText().trim());
             denMAXTemp = Integer.parseInt(denMAX.getText().trim());
             secondFieldInputTemp = Integer.parseInt(secondFieldInput.getText().trim());
             maxValTemp = Integer.parseInt(maxVal.getText().trim());
 
-            // Check to see if all operand range are greater than zero and max > min
+            // Check to see if the max > min and all inputs are positive
             if (denMINTemp > 0 && denMAXTemp > 0 && maxValTemp > 0 && denMAXTemp >= denMINTemp &&
                     (secondFieldInputTemp > 0)) {
                 denRange = new int[]{denMINTemp, denMAXTemp};      // Set the denominator range to inputted values
@@ -406,21 +420,19 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             }
         }
 
-        // Get selection for checkbox, question format, and title
+        // Get selection for checkbox and question format
         fractionNegAllowed = negAllowedBox.isSelected();
         fractionFormat = (String) formatComboBox.getSelectedItem();
 
         // If all inputs check out, add to the equation details and formatting details maps
         if (passed) {
-
             this.equationDetails.setNegAllowed(fractionNegAllowed);
 
             if (equationDetails instanceof FractionAddSubEquationDetails) {
                 ((FractionAddSubEquationDetails)this.equationDetails).setOperand1DenomRange(denRange);
                 ((FractionAddSubEquationDetails)this.equationDetails).setMaxOperand2AndAnswerDenom(secondField);
                 ((FractionAddSubEquationDetails)this.equationDetails).setMaxOperandValue(maxNumVal);
-            }
-            else if (equationDetails instanceof FractionMultiDivEquationDetails) {
+            } else if (equationDetails instanceof FractionMultiDivEquationDetails) {
                 ((FractionMultiDivEquationDetails) this.equationDetails).setAnsDenominatorRange(denRange);
                 ((FractionMultiDivEquationDetails) this.equationDetails).setComplexity(secondField);
                 ((FractionMultiDivEquationDetails) this.equationDetails).setMaxAnsValue(maxNumVal);
@@ -429,6 +441,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         }
     }
 
+    /**
+     * Adds common panel features to each screen (fractions and integers).
+     */
     private void addPanelFeatures() {
 
         // Create Equation Details and Formatting JLabels and its shadow
@@ -440,6 +455,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         updateLabel(equationDetailsShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
         updateLabel(operatorWarning, 0.25, 0.72, 0.5, 0.07, 0.01, 'w');
 
+        // Update the warning color and visibility
         operatorWarning.setOpaque(true);
         operatorWarning.setBackground(lightYellow);
         operatorWarning.setVisible(false);
@@ -454,6 +470,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         generateWorksheetButton.addMouseListener(this);
         customizeBackButton.addMouseListener(this);
 
+        // Update the location of the combo box
         formatComboBox.setBounds(convert(0.53, 'w'), convert(0.64, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
         formatComboBox.setVisible(false);
@@ -466,9 +483,14 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         customizePanel.add(formatComboBox);
         customizePanel.add(operatorWarning);
 
+        // Change the panel to hte customize panel
         changePanel(customizePanel);
     }
 
+    /**
+     * Generate the worksheet using the equation, format, and worksheet key details.
+     * Then proceed to the preview screen.
+     */
     private void createWorksheetDetails() {
         // Find the exact date/time the user created the worksheet
         dateAndTime = LocalDateTime.now().toString();
@@ -489,10 +511,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         if (e.getSource() == generateWorksheetButton) {
 
             if (equationDetails instanceof WholeNumEquationDetails) {
-                generateIntegerWorksheet();
-            }
-            else {
-                generateFractionWorksheet();
+                checkIntegerWorksheetInput();
+            } else {
+              checkFractionWorksheetInput();
             }
         }
         else if (e.getSource() == customizeBackButton) {
@@ -503,8 +524,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
             highlightButton(generateWorksheetButton, 'b');
-        }
-        else if (e.getSource() == customizeBackButton) {
+        } else if (e.getSource() == customizeBackButton) {
             highlightButton(customizeBackButton, 'd');
         }
     }
@@ -512,18 +532,16 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == generateWorksheetButton) {
             defaultButton(generateWorksheetButton, 'b');
-        }
-        else if (e.getSource() == customizeBackButton) {
+        } else if (e.getSource() == customizeBackButton) {
             defaultButton(customizeBackButton, 'd');
         }
     }
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode()==KeyEvent.VK_ENTER) {
             if (equationDetails instanceof WholeNumEquationDetails) {
-                generateIntegerWorksheet();
-            }
-            else {
-                generateFractionWorksheet();
+                checkIntegerWorksheetInput();
+            } else {
+                checkFractionWorksheetInput();
             }
         }
     }

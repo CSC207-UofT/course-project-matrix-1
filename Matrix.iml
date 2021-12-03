@@ -6,9 +6,9 @@
       <sourceFolder url="file://$MODULE_DIR$/main/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main/test" isTestSource="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="corretto-11" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="libraries1" level="project" />
+    <orderEntry type="library" name="libraries2" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>

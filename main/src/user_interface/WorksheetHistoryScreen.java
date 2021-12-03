@@ -195,15 +195,17 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     public String getOperator(String operatorInputted) {
         if (Objects.equals(operatorInputted, "+")) {
             return "Addition";
-        }
-        else if (Objects.equals(operatorInputted, "-")) {
+        } else if (Objects.equals(operatorInputted, "-")) {
             return "Subtraction";
-        }
-        else if (Objects.equals(operatorInputted, "*")) {
+        } else if (Objects.equals(operatorInputted, "*")) {
             return "Multiplication";
         }
-        else if (Objects.equals(operatorInputted, "/")) {
-            return "Division";
+        else if (Objects.equals(operatorInputted, "^")) {
+            return "Exponentiation";
+        } else if (Objects.equals(operatorInputted, "LCM")) {
+            return "LCM";
+        } else if (Objects.equals(operatorInputted, "GCD")) {
+            return "GCD";
         }
         return null;
     }

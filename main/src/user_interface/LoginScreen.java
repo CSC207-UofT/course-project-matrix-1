@@ -29,6 +29,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
 
     public LoginScreen() {
 
+        // Set the panel layout and unique border
         loginPanel.setLayout(null);
         loginPanel.setBorder(loginPanelBorder);
 
@@ -108,14 +109,11 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
      */
     public void mousePressed(MouseEvent e) {
         if (e.getSource() == loginButton) {
-            userLogin();
-        }
-        // Move to create new user screen
-        else if (e.getSource() == createUserButton) {
-            new NewUserScreen();
-        }
-        else if (e.getSource() == exitButton) {
-            System.exit(0);
+            userLogin();               // Attempt to log the user in
+        } else if (e.getSource() == createUserButton) {
+            new NewUserScreen();       // Move to create new user screen
+        } else if (e.getSource() == exitButton) {
+            System.exit(0);     // Close the program
         }
     }
 
@@ -127,11 +125,9 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == loginButton) {
             highlightButton(loginButton, 'b');
-        }
-        else if (e.getSource() == createUserButton) {
+        } else if (e.getSource() == createUserButton) {
             highlightButton(createUserButton, 'd');
-        }
-        else if (e.getSource() == exitButton) {
+        } else if (e.getSource() == exitButton) {
             highlightButton(exitButton, 'd');
             exitButton.setBackground(red);
         }
@@ -145,11 +141,9 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == loginButton) {
             defaultButton(loginButton, 'b');
-        }
-        else if (e.getSource() == createUserButton) {
+        } else if (e.getSource() == createUserButton) {
             defaultButton(createUserButton, 'd');
-        }
-        else if (e.getSource() == exitButton) {
+        } else if (e.getSource() == exitButton) {
             defaultButton(exitButton, 'd');
             exitButton.setBackground(red);
         }
