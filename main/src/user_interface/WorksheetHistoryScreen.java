@@ -199,8 +199,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
             return "Subtraction";
         } else if (Objects.equals(operatorInputted, "*")) {
             return "Multiplication";
-        }
-        else if (Objects.equals(operatorInputted, "^")) {
+        } else if (Objects.equals(operatorInputted, "^")) {
             return "Exponentiation";
         } else if (Objects.equals(operatorInputted, "LCM")) {
             return "LCM";

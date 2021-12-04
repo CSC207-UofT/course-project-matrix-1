@@ -118,10 +118,13 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
                 break;
             case "^":
                 topicChose.setSelectedItem("Exponentiation");
+                break;
             case "LCM":
                 topicChose.setSelectedItem("LCM");
+                break;
             case "GCD":
                 topicChose.setSelectedItem("GCD");
+                break;
         }
 
         // Initialize format details with previous input
@@ -289,6 +292,10 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         int numOfEquationsTemp, numOfRowsTemp, numOfColumnsTemp;
         numOfEquationsTemp = numOfRowsTemp = numOfColumnsTemp= -1;
 
+        // Set the title and question format
+        equationFormat = (String) questionFormat.getSelectedItem();
+        worksheetTitle = titleInput.getText();
+
         // Check if any formatting text fields are empty
         if (tryToParse(numQuestionsInput.getText().trim()) == null || tryToParse(numRowsInput.getText().trim()) == null ||
                 tryToParse(numColumnInput.getText().trim()) == null || worksheetTitle.trim().length() == 0) {
@@ -315,11 +322,12 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         if (((String) topicChose.getSelectedItem() == "Exponentiation" && (String) numOptions.getSelectedItem() == FRACTION) ||
                 ((String) topicChose.getSelectedItem() == "LCM" && (String) numOptions.getSelectedItem() == FRACTION) ||
                 ((String) topicChose.getSelectedItem() == "GCF" && (String) numOptions.getSelectedItem() == FRACTION)) {
-            invalidQuestionType.setText("Invalid Operator & Question Format Combination");
+            invalidQuestionType.setText("Invalid Operator & Question Type Combination");
             invalidQuestionType.setVisible(true);
             passed = false;
-        } else if ((String) topicChose.getSelectedItem() != "Division" && equationFormat == DIVISION_BRACKET) {
-            invalidQuestionType.setText("Invalid Operator & Question Type Combination");
+        } else if ((String) topicChose.getSelectedItem() != "Division" && equationFormat == DIVISION_BRACKET ||
+                (String) topicChose.getSelectedItem() == "Exponentiation" && equationFormat != HORIZONTAL) {
+            invalidQuestionType.setText("Invalid Operator & Question Format Combination");
             invalidQuestionType.setVisible(true);
             passed = false;
         } else if ((String) numOptions.getSelectedItem() == FRACTION && equationFormat != HORIZONTAL) {
@@ -327,10 +335,6 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
             invalidQuestionType.setVisible(true);
             passed = false;
         }
-
-        // Set the title and question format
-        equationFormat = (String) questionFormat.getSelectedItem();
-        worksheetTitle = titleInput.getText();
 
         // All inputs are valid and can be added to equation and format details
         if (passed) {
