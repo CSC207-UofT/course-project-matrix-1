@@ -119,8 +119,6 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         } catch (IOException ex) {
             invalidPathLbl.setVisible(true);
         }
-        documents[0].close();
-
         // Create a panel to display the preview of the worksheets as a scroll pane
         JPanel images = new JPanel();
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
