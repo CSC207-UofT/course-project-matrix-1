@@ -139,7 +139,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         // Update the Settings of the JLabels
         updateLabel(previewTitle, 0.2, 0.16, 0.6, 0.1, 0.03075, 'b');
         updateLabel(previewTitleShadow, 0.2025, 0.1625, 0.6, 0.1, 0.03075, 'd');
-        updateLabel(noWorksheets, 0.2, 0.15, 0.3, 0.05, 0.015, 'r');
+        updateLabel(noWorksheets, 0.17, 0.67, 0.3, 0.05, 0.015, 'r');
         updateLabel(invalidScore, 0.625, 0.67, 0.15, 0.05, 0.013, 'w');
         invalidScore.setOpaque(true);
         invalidScore.setBackground(lightYellow);
