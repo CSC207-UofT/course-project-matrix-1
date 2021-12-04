@@ -158,6 +158,10 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 maxNumVal = ((FractionMultiDivEquationDetails) equationDetails).getMaxAnsValue();
             }
 
+            denMIN = new JTextField(Integer.toString(denRange[0]), 1);
+            denMAX = new JTextField(Integer.toString(denRange[1]),1);
+            secondFieldInput = new JTextField(Integer.toString(secondField),1);
+            maxVal = new JTextField(Integer.toString(maxNumVal),1);
             textFields = new JTextField[]{denMIN, denMAX, secondFieldInput, maxVal};
             negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
 
