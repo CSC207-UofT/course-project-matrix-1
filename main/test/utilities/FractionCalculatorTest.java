@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class FractionCalculatorTest {
-    private FractionAddSubEquationDetails eqnDetails = new FractionAddSubEquationDetails();
+    private final FractionAddSubEquationDetails eqnDetails = new FractionAddSubEquationDetails();
     private Randomizer randomizer;
 
     @Before

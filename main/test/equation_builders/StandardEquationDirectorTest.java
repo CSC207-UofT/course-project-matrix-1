@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 public class StandardEquationDirectorTest {
     private StandardEquationDirector director;
     private EquationDetails eqnDetails;
-    private Randomizer randomizer = new Randomizer(100000);
+    private final Randomizer randomizer = new Randomizer(100000);
 
     // Instantiate equation details
     public void initializeFractionAddSub() {

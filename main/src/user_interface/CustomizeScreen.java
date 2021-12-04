@@ -432,10 +432,12 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 ((FractionAddSubEquationDetails)this.equationDetails).setOperand1DenomRange(denRange);
                 ((FractionAddSubEquationDetails)this.equationDetails).setMaxOperand2AndAnswerDenom(secondField);
                 ((FractionAddSubEquationDetails)this.equationDetails).setMaxOperandValue(maxNumVal);
+                ((FractionAddSubEquationDetails) this.equationDetails).setFractionFormat(fractionFormat);
             } else if (equationDetails instanceof FractionMultiDivEquationDetails) {
                 ((FractionMultiDivEquationDetails) this.equationDetails).setAnsDenominatorRange(denRange);
                 ((FractionMultiDivEquationDetails) this.equationDetails).setComplexity(secondField);
                 ((FractionMultiDivEquationDetails) this.equationDetails).setMaxAnsValue(maxNumVal);
+                ((FractionMultiDivEquationDetails) this.equationDetails).setFractionFormat(fractionFormat);
             }
             createWorksheetDetails();
         }
