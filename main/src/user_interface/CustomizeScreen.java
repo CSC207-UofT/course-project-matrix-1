@@ -293,7 +293,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             // Check if any operand range cannot be parsed (invalid input)
             if (tryToParse(op1MIN.getText().trim()) == null || tryToParse(op1MAX.getText().trim()) == null ||
                     tryToParse(op2MIN.getText().trim()) == null || tryToParse(op2MAX.getText().trim()) == null) {
-                operatorWarning.setText("Operand's must be positive numbers");
+                operatorWarning.setText("Operand's must be positive integer");
                 operatorWarning.setVisible(true);
                 passed = false;
             } else {
@@ -365,7 +365,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 operatorWarning.setVisible(true);
                 passed = false;
             } else {
-                operatorWarning.setText("Operand's must be positive numbers");
+                operatorWarning.setText("Operand's must be positive integer");
                 operatorWarning.setVisible(true);
                 passed = false;
             }
@@ -392,7 +392,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         // Check if any number inputs cannot be parsed (invalid input)
         if (tryToParse(denMIN.getText().trim()) == null || tryToParse(denMAX.getText().trim()) == null ||
                 tryToParse(secondFieldInput.getText().trim()) == null || tryToParse(maxVal.getText().trim()) == null) {
-            operatorWarning.setText("Please enter positive numbers (greater than 0)");
+            operatorWarning.setText("Please enter positive integer (greater than 0)");
             operatorWarning.setVisible(true);
             passed = false;
         } else {
