@@ -2,17 +2,18 @@ package user_interface;
 
 import equation_parameters.EquationDetails;
 import equation_parameters.FormatDetails;
+import user_package.UserController;
+import user_package.UserPresenter;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * Worksheet History Screen class for the User Interface. The worksheet history screen displays the details of previous
@@ -23,6 +24,11 @@ import java.util.*;
  * @since 2021-11-14
  */
 public class WorksheetHistoryScreen extends Screen implements MouseListener, KeyListener {
+
+    //
+    static UserAccessInterface userAccessInterface;
+    static UserController userController;
+    static UserPresenter userPresenter;
 
     // Create JLabels
     JLabel noWorksheets = new JLabel("No Worksheets Available", SwingConstants.CENTER);
@@ -35,7 +41,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     JButton regenerateButton = new JButton("Regenerate");
 
     // Create JTextField for New Score Option
-    JTextField newScore = new JTextField(1);
+    JTextField scoreInput = new JTextField(1);
 
     // Create the Temporary Maps that will be passed into Worksheet Viewer Screen
     Map<String, Object> worksheetHistoryDetailsTemp = new HashMap<>();
@@ -44,7 +50,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     List<Map<String, Object>> userHistoryList;
 
     // Create JTable and Arrays affiliated with it (rows and columns)
-    String[] columnNames = {"Title", "Date Created", "Topic", "Number of Equations", "Score"};
+    String[] columnNames = {"Title","Date Created","Topic","Number of Equations","Score"};
     String[][] data = {};
     JTable table;
 
@@ -67,9 +73,16 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
 
         // Store necessary info for each element in the JTable
         try {
-            userHistoryList = userController.getUserHistory();
+            // This class is a part of the View in the Model-View-Presenter architecture.
+            // Thus, this class will ask the UserPresenter to takeover for the user requests.
+            // Therefore, we need a UserPresenter instance, as seen below.
+            userAccessInterface = new UserAccessInterface();
+            userPresenter = userAccessInterface.getUserPresenter();
+            userController = userAccessInterface.getUserController();
+            userHistoryList = userPresenter.getUserHistory();
+
             // Run through each Worksheet
-            for (Map<String, Object> map : userHistoryList) {
+            for (Map <String, Object> map : userHistoryList) {
 
                 // Store FormatDetails and EquationDetails for each Worksheet
                 FormatDetails tempMapFormatDetails = (FormatDetails) map.get("formatDetails");
@@ -94,9 +107,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                 currentWorksheetArray.add(String.valueOf(tempMapEquationDetails.getNumOfEquations()));
 
                 // Add score to ArrayList or 0 if no score
-                if (userHistoryList.get(twoDimArrayList.size()).get("score") != null) {
+                if (userHistoryList.get(twoDimArrayList.size()).get("score") != null){
                     currentWorksheetArray.add(String.valueOf(userHistoryList.get(twoDimArrayList.size()).get("score")));
-                } else {
+                }else {
                     currentWorksheetArray.add("0");
                 }
 
@@ -108,9 +121,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                 twoDimArrayList.add(tempArray);
             }
             // Make noWorksheets JLabel message visible if there are no worksheets
-        } catch (NullPointerException u) {
-            noWorksheets.setVisible(true);
-        }
+        } catch (NullPointerException u) {noWorksheets.setVisible(true);}
 
         // Convert Two Dimensional ArrayList to Two Dimensional Array
         data = twoDimArrayList.toArray(data);
@@ -131,7 +142,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         updateLabel(noWorksheets, 0.2, 0.15, 0.3, 0.05, 0.015, 'r');
         updateLabel(invalidScore, 0.625, 0.67, 0.15, 0.05, 0.013, 'w');
         invalidScore.setOpaque(true);
-        invalidScore.setBackground(new Color(217, 207, 131, 252));
+        invalidScore.setBackground(lightYellow);
         invalidScore.setVisible(false);
 
         // Update the Location and Settings of each Button
@@ -143,13 +154,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         defaultButton(removeButton, 'd');
         defaultButton(updateScoreButton, 'b');
         defaultButton(regenerateButton, 'd');
-        updateScoreButton.setOpaque(true);
-        updateScoreButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4,
-                4, new Color(142, 202, 234, 255)));
 
         // Update the Location of each Text Field
-        newScore.setBounds(convert(0.6, 'w'), convert(0.725, 'h'), convert(0.2, 'w'),
-                convert(0.05, 'h'));
+        updateTextFieldLocation(scoreInput, 0.6, 0.725, 0.2, 0.05);
 
         // Add Mouse Listener to each Button
         customizeBackButton.addMouseListener(this);
@@ -158,9 +165,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         regenerateButton.addMouseListener(this);
 
         // Add Key Listener for the newScore JTextField
-        newScore.addKeyListener(this);
+        scoreInput.addKeyListener(this);
 
-        scrollPane.setBounds(convert(0.2, 'w'), convert(0.26, 'h'), convert(0.6, 'w'),
+        scrollPane.setBounds(convert(0.2, 'w'), convert(0.26,'h'), convert(0.6, 'w'),
                 convert(0.4, 'h'));
         scrollPane.setViewportView(table);
 
@@ -174,7 +181,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         historyPanel.add(updateScoreButton);
         historyPanel.add(regenerateButton);
         historyPanel.add(scrollPane);
-        historyPanel.add(newScore);
+        historyPanel.add(scoreInput);
 
         changePanel(historyPanel);
     }
@@ -192,8 +199,12 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
             return "Subtraction";
         } else if (Objects.equals(operatorInputted, "*")) {
             return "Multiplication";
-        } else if (Objects.equals(operatorInputted, "/")) {
-            return "Division";
+        } else if (Objects.equals(operatorInputted, "^")) {
+            return "Exponentiation";
+        } else if (Objects.equals(operatorInputted, "LCM")) {
+            return "LCM";
+        } else if (Objects.equals(operatorInputted, "GCD")) {
+            return "GCD";
         }
         return null;
     }
@@ -245,12 +256,12 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     }
 
     private void updateScore() {
-        if (tryToParse(newScore.getText()) == null) {
+        if (tryToParse(scoreInput.getText()) == null) {
             invalidScore.setVisible(true);
         } else {
             int index = table.getSelectedRow();
             if (index != -1) {
-                int score = Integer.parseInt(newScore.getText());
+                int score = Integer.parseInt(scoreInput.getText());
                 EquationDetails tempMapEquationDetails = (EquationDetails) userHistoryList.get(index).get("equationDetails");
                 int maxScore = tempMapEquationDetails.getNumOfEquations();
                 // Check if score is illegal option and return message if true
@@ -262,7 +273,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                     String tempKey = (String) userHistoryList.get(index).get("worksheetKey");
                     userController.storeUserScore(tempKey, score);
                     invalidScore.setVisible(false);
-                    userHistoryList = userController.getUserHistory();
+                    userHistoryList = userPresenter.getUserHistory();
                     new WorksheetHistoryScreen();
                 }
             }
@@ -272,11 +283,14 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == customizeBackButton) {
             highlightButton(customizeBackButton, 'd');
-        } else if (e.getSource() == removeButton) {
+        }
+        else if (e.getSource() == removeButton) {
             highlightButton(removeButton, 'd');
-        } else if (e.getSource() == updateScoreButton) {
+        }
+        else if (e.getSource() == updateScoreButton) {
             highlightButton(updateScoreButton, 'b');
-        } else if (e.getSource() == regenerateButton) {
+        }
+        else if (e.getSource() == regenerateButton) {
             highlightButton(regenerateButton, 'd');
         }
     }
@@ -284,18 +298,16 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == customizeBackButton) {
             defaultButton(customizeBackButton, 'd');
-        } else if (e.getSource() == removeButton) {
+        }
+        else if (e.getSource() == removeButton) {
             defaultButton(removeButton, 'd');
-        } else if (e.getSource() == updateScoreButton) {
+        }
+        else if (e.getSource() == updateScoreButton) {
             defaultButton(updateScoreButton, 'b');
-        } else if (e.getSource() == regenerateButton) {
+        }
+        else if (e.getSource() == regenerateButton) {
             defaultButton(regenerateButton, 'd');
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
     }
 
     /**
@@ -303,14 +315,9 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
      *
      * @param e keeps track of which key is being pressed
      */
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+    public void keyPressed(KeyEvent e){
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
             updateScore();
         }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 }

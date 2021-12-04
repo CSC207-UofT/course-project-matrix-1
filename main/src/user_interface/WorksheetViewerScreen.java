@@ -52,14 +52,17 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     // Create a variable to hold he title of the document
     String documentTitle;
 
+    // Create equation and format details
     EquationDetails equationDetails;
     FormatDetails formatDetails;
     Map<String, Object> worksheetDetails;
 
-
     public WorksheetViewerScreen(Map<String, Object> worksheetDetails, Boolean regenerateExact) throws IOException {
+
+        // Update the default panel settings
         updatePanel(previewPanel);
 
+        // Get the equation and format details passed in
         this.worksheetDetails = worksheetDetails;
         equationDetails = (EquationDetails) worksheetDetails.get("equationDetails");
         formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
@@ -75,7 +78,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         // Store the worksheet information to the user's history
         userController.storeUserRecord(worksheetDetails);
 
-        // Generate the documents worksheets (use temporary random seed of 0 until Phase 2)
+        // Generate the documents worksheets
         documents = worksheetController.generateWorksheetAndPDF(equationDetails, formatDetails, (int) this.worksheetDetails.get("seed"));
         int numPages = documents[0].getNumberOfPages();
 
@@ -90,11 +93,12 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     }
 
     /**
-     * Adds all necessary parts of WorksheetViewerScreen and displays worksheet.
+     * Adds all necessary parts of WorksheetViewerScreen and displays a preview of the worksheet.
      *
      * @param numPages number of pages
+     * @throws IOException if unable to find files for generated worksheet
      */
-    private void fillScreen(int numPages) {
+    private void fillScreen(int numPages) throws IOException {
         ArrayList<JLabel> labels = new ArrayList<>();
         // Create an image of the documents first page to preview
         try {
@@ -104,6 +108,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
                 bim = pdfRenderer.renderImageWithDPI(i, 400, ImageType.RGB);
                 ImageIcon wsImage = new ImageIcon(bim);
                 Image newWsImage = wsImage.getImage();
+
+                // Scale the image to the Panel
                 Image wsScaledImage = newWsImage.getScaledInstance((int) (convert(0.575, 'h') * bim.getWidth() * 1.0 / bim.getHeight()), convert(0.45, 'h'), Image.SCALE_SMOOTH);
                 wsImage = new ImageIcon(wsScaledImage);
                 JLabel wsImageLblTemp = new JLabel(wsImage, SwingConstants.CENTER);
@@ -111,16 +117,21 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
                 labels.add(wsImageLblTemp);
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            invalidPathLbl.setVisible(true);
         }
+        documents[0].close();
+
+        // Create a panel to display the preview of the worksheets as a scroll pane
         JPanel images = new JPanel();
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
         for (int i = 0; i < labels.toArray().length; i++) {
             images.add(labels.get(i));
             images.add(new JSeparator());
         }
+
+        // Update the location of the scroll pane
         JScrollPane scrollPane = new JScrollPane(images);
-        scrollPane.setBounds(convert(0.35, 'w'), convert(0.25, 'h'), convert(0.3, 'w'),
+        scrollPane.setBounds(convert(0.35, 'w'), convert(0.25,'h'), convert(0.3, 'w'),
                 convert(0.45, 'h'));
 
         // Create JLabels
@@ -135,7 +146,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         updateLabel(invalidPathLbl, 0.4, 0.78, 0.2, 0.05, 0.0125, 'w');
         updateLabel(downloadSuccess, 0.2, 0.78, 0.6, 0.05, 0.0125, 'w');
 
-        // Initially set the invalid file path label to not visible
+        // Initially set the invalid file path label to not visible and update its settings
         invalidPathLbl.setOpaque(true);
         invalidPathLbl.setBackground(new Color(217, 207, 131, 252));
         invalidPathLbl.setVisible(false);
@@ -181,6 +192,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         previewPanel.add(downloadSuccess);
         previewPanel.add(scrollPane);
 
+        // Change the panel to the preview panel
         changePanel(previewPanel);
     }
 
@@ -196,21 +208,24 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
     }
 
+    /**
+     * Download the questions and answer worksheets as pdf's to the specified download path
+     */
     private void downloadDocument() {
         try {
             documents[0].save(downloadPathInput.getText() + "/" + documentTitle + "_questions.pdf");
             documents[1].save(downloadPathInput.getText() + "/" + documentTitle + "_answers.pdf");
             documents[0].close();
             documents[1].close();
+
+            // Inform user that the download was successful
             downloadSuccess.setText("The Worksheet has been downloaded to " + downloadPathInput.getText());
             invalidPathLbl.setVisible(false);
             downloadSuccess.setVisible(true);
         } catch (IOException ex) {
-            ex.printStackTrace();
             downloadSuccess.setVisible(false);
             invalidPathLbl.setVisible(true);
         }
-
     }
 
     public void mouseEntered(MouseEvent e) {
@@ -241,18 +256,11 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
     public void keyPressed(KeyEvent e) {
-        // Attempt to save the generated worksheet's questions and answers to user's download path
-        downloadDocument();
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+            downloadDocument();
+        }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
 }
 

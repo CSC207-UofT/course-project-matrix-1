@@ -3,7 +3,6 @@ package user_interface;
 import exceptions.UserDoesNotExistException;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -20,6 +19,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
     // Create Buttons
     JButton loginButton = new JButton("Login");
     JButton createUserButton = new JButton("Create User");
+    JButton exitButton = new JButton("Exit");
 
     // Invalid username JLabel
     JLabel invalidUsernameError = new JLabel("Invalid Username", SwingConstants.CENTER);
@@ -29,9 +29,9 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
 
     public LoginScreen() {
 
+        // Set the panel layout and unique border
         loginPanel.setLayout(null);
-        loginPanel.setBorder(BorderFactory.createMatteBorder(convert(0.35, 'h'), 2, 2,
-                2, new Color(142, 202, 234, 255)));
+        loginPanel.setBorder(loginPanelBorder);
 
         // Create Title labels and its shadow
         JLabel matrixTitle = new JLabel("Matrix - A Worksheet Generator", SwingConstants.CENTER);
@@ -41,14 +41,18 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         // Update the location of each button
         updateButtonLocation(loginButton, 0.4125, 0.62, 0.175, 0.08);
         updateButtonLocation(createUserButton, 0.4125, 0.72, 0.175, 0.08);
+        updateButtonLocation(exitButton, 0.025, 0.845, 0.125, 0.06);
 
         // Update the settings of each button
         defaultButton(loginButton, 'b');
         defaultButton(createUserButton, 'd');
+        defaultButton(exitButton, 'd');
+        exitButton.setBackground(red);
 
         // Add Mouse Listener for hover and clicking features
         loginButton.addMouseListener(this);
         createUserButton.addMouseListener(this);
+        exitButton.addMouseListener(this);
 
         // Update the settings of each label
         updateLabel(matrixTitle, 0.15, 0.14, 0.7, 0.1, 0.03, 'd');
@@ -58,16 +62,14 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
 
         // Create the settings of the invalid label and initially set it to not visible
         invalidUsernameError.setOpaque(true);
-        invalidUsernameError.setBackground(new Color(217, 207, 131, 252));
+        invalidUsernameError.setBackground(lightYellow);
         invalidUsernameError.setVisible(false);
 
         // Set the location of the text field
-        usernameInput.setBounds(convert(0.5, 'w'), convert(0.5, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        usernameInput.setBorder(BorderFactory.createMatteBorder(2, 2, 2,
-                2, Color.DARK_GRAY));
+        updateTextFieldLocation(usernameInput, 0.5, 0.5, 0.175, 0.05);
+        usernameInput.setBorder(textFieldBorder);
         usernameInput.setOpaque(true);
-        usernameInput.setBackground(new Color(220, 220, 220));
+        usernameInput.setBackground(lightGray);
 
         // Add Key Listener for the username TextField
         usernameInput.addKeyListener(this);
@@ -77,6 +79,7 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         loginPanel.add(matrixTitleShadow);
         loginPanel.add(loginButton);
         loginPanel.add(createUserButton);
+        loginPanel.add(exitButton);
         loginPanel.add(username);
         loginPanel.add(usernameInput);
         loginPanel.add(invalidUsernameError);
@@ -106,11 +109,11 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
      */
     public void mousePressed(MouseEvent e) {
         if (e.getSource() == loginButton) {
-            userLogin();
-        }
-        // Move to create new user screen
-        else if (e.getSource() == createUserButton) {
-            new NewUserScreen();
+            userLogin();               // Attempt to log the user in
+        } else if (e.getSource() == createUserButton) {
+            new NewUserScreen();       // Move to create new user screen
+        } else if (e.getSource() == exitButton) {
+            System.exit(0);     // Close the program
         }
     }
 
@@ -124,6 +127,9 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
             highlightButton(loginButton, 'b');
         } else if (e.getSource() == createUserButton) {
             highlightButton(createUserButton, 'd');
+        } else if (e.getSource() == exitButton) {
+            highlightButton(exitButton, 'd');
+            exitButton.setBackground(red);
         }
     }
 
@@ -137,15 +143,14 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
             defaultButton(loginButton, 'b');
         } else if (e.getSource() == createUserButton) {
             defaultButton(createUserButton, 'd');
+        } else if (e.getSource() == exitButton) {
+            defaultButton(exitButton, 'd');
+            exitButton.setBackground(red);
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
     /**
-     * key Pressed feature when each key is being pressed
+     * key Pressed feature when the enter key is pressed
      *
      * @param e keeps track of which key is being pressed
      */
@@ -154,10 +159,5 @@ public class LoginScreen extends Screen implements MouseListener, KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             userLogin();
         }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 }

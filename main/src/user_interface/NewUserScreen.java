@@ -3,7 +3,6 @@ package user_interface;
 import exceptions.UsernameTakenException;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -23,13 +22,13 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
     JButton newUserBackButton = new JButton("Back");
 
     // Create Invalid Input JLabel
-    JLabel newUserInvalidInput = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
+    JLabel newUserInvalidInput = new JLabel("", SwingConstants.CENTER);
 
     // Create text fields
     JTextField newUsernameInput = new JTextField(1);
     JTextField nameInput = new JTextField(1);
     JTextField ageInput = new JTextField(1);
-    JTextField[] newUserTextFields = {newUsernameInput, nameInput, ageInput};
+    JTextField [] newUserTextFields = {newUsernameInput, nameInput, ageInput};
 
     // Create combo box for user role
     String[] roleOptions = {"Student", "Teacher"};
@@ -37,6 +36,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
 
     public NewUserScreen() {
 
+        // Update the panel to the default settings
         updatePanel(newUserPanel);
 
         // Create the title
@@ -58,10 +58,9 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         updateLabel(roleLBL, 0.325, 0.65, 0.6, 0.1, 0.025, 'd');
         updateLabel(newUserInvalidInput, 0.425, 0.74, 0.15, 0.05, 0.014, 'w');
 
-        newUserInvalidInput.setOpaque(true);
-        newUserInvalidInput.setBackground(new Color(217, 207, 131, 252));
-
         // Initially set the invalid input to not visible
+        newUserInvalidInput.setOpaque(true);
+        newUserInvalidInput.setBackground(lightYellow);
         newUserInvalidInput.setVisible(false);
 
         // Update the location of the combobox
@@ -70,12 +69,9 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         role.setSelectedIndex(0);
 
         // Update the location of the text fields
-        newUsernameInput.setBounds(convert(0.5, 'w'), convert(0.3, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        nameInput.setBounds(convert(0.5, 'w'), convert(0.425, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
-        ageInput.setBounds(convert(0.5, 'w'), convert(0.55, 'h'), convert(0.175, 'w'),
-                convert(0.05, 'h'));
+        updateTextFieldLocation(newUsernameInput, 0.5, 0.3, 0.175, 0.05);
+        updateTextFieldLocation(nameInput, 0.5, 0.425, 0.175, 0.05);
+        updateTextFieldLocation(ageInput, 0.5, 0.55, 0.175, 0.05);
 
         updateTextFields(newUserTextFields);
 
@@ -89,7 +85,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         createUserButton.addMouseListener(this);
         newUserBackButton.addMouseListener(this);
 
-        // Add Key Listener for the JTextFields
+        // Add KeyListener for each text field
         newUsernameInput.addKeyListener(this);
         nameInput.addKeyListener(this);
         ageInput.addKeyListener(this);
@@ -109,10 +105,17 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         newUserPanel.add(newUserBackButton);
         newUserPanel.add(newUserInvalidInput);
 
+        // Change the panel to the new user screen panel
         changePanel(newUserPanel);
     }
 
-    private void createUser() {
+    /**
+     * Attempt to create the new user. If the user information is not valid,
+     * invalid input(s) or taken username will appear.
+     */
+    private void createUser(){
+
+        // Initialize the current username and name to be checked for valid inputs
         String currUsername = newUsernameInput.getText();
         String currName = nameInput.getText();
 
@@ -135,16 +138,13 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
             }
         }
     }
-
     public void mousePressed(MouseEvent e) {
-
         if (e.getSource() == createUserButton) {
             createUser();
-        } else if (e.getSource() == newUserBackButton) {
+        } else if (e.getSource() == newUserBackButton){
             new LoginScreen();
         }
     }
-
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == createUserButton) {
             highlightButton(createUserButton, 'b');
@@ -152,7 +152,6 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
             highlightButton(newUserBackButton, 'd');
         }
     }
-
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == createUserButton) {
             defaultButton(createUserButton, 'b');
@@ -161,20 +160,9 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
             createUser();
         }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
     }
 }
