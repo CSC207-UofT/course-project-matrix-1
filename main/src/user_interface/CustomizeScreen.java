@@ -95,7 +95,6 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
             // Initial check boxes
             negAllowedBox = new JCheckBox("");
-
             // Fill the integers screen
             fillScreen();
 
