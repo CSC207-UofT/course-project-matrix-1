@@ -245,11 +245,25 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                 worksheetHistoryDetailsTemp.put("equationDetails", worksheetDetails.get("equationDetails"));
                 worksheetHistoryDetailsTemp.put("formatDetails", worksheetDetails.get("formatDetails"));
 
-                try {
-                    new WorksheetViewerScreen(worksheetHistoryDetailsTemp);
-                } catch (IOException ex) {
-                    invalidScore.setText("Worksheet cannot be regenerated");
-                    invalidScore.setVisible(true);
+                // Display an option pane asking the user if they want similar or identical worksheet
+                int isIdentical = JOptionPane.showConfirmDialog(frame,
+                        "Would you like an identical worksheet? (press no for similar worksheet)?",
+                        "Regeneration Options", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (isIdentical == JOptionPane.YES_OPTION){
+                    try {
+                        // Give identical worksheet
+                        new WorksheetViewerScreen(worksheetHistoryDetailsTemp, true);
+                    } catch (IOException ex) {
+                        invalidScore.setText("Worksheet cannot be regenerated");
+                        invalidScore.setVisible(true);
+                    }
+                } else if (isIdentical == JOptionPane.NO_OPTION){
+                    try {
+                        new WorksheetViewerScreen(worksheetHistoryDetailsTemp, false);
+                    } catch (IOException ex) {
+                        invalidScore.setText("Worksheet cannot be regenerated");
+                        invalidScore.setVisible(true);
+                    }
                 }
             }
         }
