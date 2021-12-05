@@ -258,6 +258,10 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
         }
     }
 
+    /**
+     * Check if JTextField holds a valid score for selected worksheet and if so, store the score and displays it.
+     * If the score is invalid, let the user know via warnings.
+     */
     private void updateScore() {
         if (tryToParse(scoreInput.getText()) == null) {
             invalidScore.setVisible(true);
