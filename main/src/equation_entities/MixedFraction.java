@@ -8,7 +8,7 @@ package equation_entities;
  * @version 1.0
  * @since 2021-11-30
  */
-public class MixedFraction extends Fraction{
+public class MixedFraction extends Fraction {
     /**
      * Constructs a mixed fraction. If the numerator is negative, the entire fraction is assumed to be negative.
      *
@@ -40,7 +40,7 @@ public class MixedFraction extends Fraction{
      */
     @Override
     public String toString() {
-        if (fractionParts[0] == 0){
+        if (fractionParts[0] == 0) {
             return "0";
         }
         StringBuilder latexString = new StringBuilder();
@@ -51,7 +51,7 @@ public class MixedFraction extends Fraction{
         fractionParts[0] = fractionParts[0] % fractionParts[1];
 
         if (fractionParts[0] != 0) {
-            if (wholeNumber == 0){
+            if (wholeNumber == 0) {
                 latexString.append("\\frac{").append(fractionParts[0]).append("}{").append(fractionParts[1]).append("}");
             } else {
                 latexString.append(wholeNumber).append("\\frac{").append(fractionParts[0] % fractionParts[1]).append("}{").append(fractionParts[1]).append("}");
@@ -59,7 +59,7 @@ public class MixedFraction extends Fraction{
         } else {
             latexString.append(wholeNumber);
         }
-        if (fractionIsNegative){
+        if (fractionIsNegative) {
             latexString.insert(0, "-");
         }
         return String.valueOf(latexString);

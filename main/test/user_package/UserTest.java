@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class UserTest {
     /**
-     * Create instance of userPackage.User class to test methods.
+     * Create instance of User class to test methods.
      */
     User newUser;
 

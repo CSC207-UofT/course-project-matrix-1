@@ -96,9 +96,8 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
      * Adds all necessary parts of WorksheetViewerScreen and displays a preview of the worksheet.
      *
      * @param numPages number of pages
-     * @throws IOException if unable to find files for generated worksheet
      */
-    private void fillScreen(int numPages) throws IOException {
+    private void fillScreen(int numPages) {
         ArrayList<JLabel> labels = new ArrayList<>();
         // Create an image of the documents first page to preview
         try {
@@ -129,7 +128,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
         // Update the location of the scroll pane
         JScrollPane scrollPane = new JScrollPane(images);
-        scrollPane.setBounds(convert(0.35, 'w'), convert(0.25,'h'), convert(0.3, 'w'),
+        scrollPane.setBounds(convert(0.35, 'w'), convert(0.25, 'h'), convert(0.3, 'w'),
                 convert(0.45, 'h'));
 
         // Create JLabels
@@ -207,7 +206,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     }
 
     /**
-     * Download the questions and answer worksheets as pdf's to the specified download path
+     * Download the questions and answer worksheets as pdfs to the specified download path
      */
     private void downloadDocument() {
         try {
@@ -255,7 +254,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             downloadDocument();
         }
     }

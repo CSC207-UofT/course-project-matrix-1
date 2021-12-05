@@ -21,7 +21,7 @@ public abstract class FractionAddSubOperandConstructor extends FractionOperandCo
      * addition/subtraction.
      *
      * @param fractionEquationDetails the parameters for fraction equation generation.
-     * @param randomizer     Randomizer instance used to perform random number generation.
+     * @param randomizer              Randomizer instance used to perform random number generation.
      * @return array of first operand and second operand values as Fractions.
      */
     public Value[] buildOperands(EquationDetails fractionEquationDetails, Randomizer randomizer) {

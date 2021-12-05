@@ -3,12 +3,8 @@ package utilities;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-import static constants.EquationParts.OPERAND1;
-import static constants.EquationParts.OPERAND2;
-import static constants.OperatorRep.DIV;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class RandomizerTest {
     public Randomizer rand = new Randomizer(1000);

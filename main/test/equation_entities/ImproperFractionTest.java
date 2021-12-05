@@ -9,15 +9,15 @@ public class ImproperFractionTest {
 
     @Test
     public void testPositiveToString() {
-        improperFraction = new ImproperFraction(20,8);
+        improperFraction = new ImproperFraction(20, 8);
         improperFraction.reduce();
-        assertEquals("\\frac{5}{2}",improperFraction.toString());
+        assertEquals("\\frac{5}{2}", improperFraction.toString());
     }
 
     @Test
     public void testNegativeToString() {
-        improperFraction = new ImproperFraction(-20,8);
+        improperFraction = new ImproperFraction(-20, 8);
         improperFraction.reduce();
-        assertEquals("-\\frac{5}{2}",improperFraction.toString());
+        assertEquals("-\\frac{5}{2}", improperFraction.toString());
     }
 }

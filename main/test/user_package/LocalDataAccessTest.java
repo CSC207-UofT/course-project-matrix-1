@@ -6,11 +6,11 @@ import equation_parameters.WholeNumEquationDetails;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.text.Format;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class LocalDataAccessTest {
     Map<String, User> userMap;

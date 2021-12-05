@@ -10,13 +10,11 @@ import utilities.Randomizer;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Random;
 
 import static constants.EquationParts.*;
 import static constants.EquationType.FRACTION;
 import static constants.EquationType.WHOLE_NUMBER;
 import static constants.FractionFormats.IMPROPER;
-import static constants.FractionFormats.MIXED;
 import static constants.OperatorRep.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -100,7 +98,7 @@ public class StandardEquationDirectorTest {
     }
 
     @Test
-    public void testMultPos() {
+    public void testMultiplyPos() {
         for (int i = 0; i < 100; i++) {
             setupBasicWholeNum(MULT, false);
             Map<String, String> eqn = director.getEquation().equationToHashMap();
@@ -112,7 +110,7 @@ public class StandardEquationDirectorTest {
     }
 
     @Test
-    public void testMultNeg() {
+    public void testMultiplyNeg() {
         for (int i = 0; i < 100; i++) {
             setupBasicWholeNum(MULT, true);
             Map<String, String> eqn = director.getEquation().equationToHashMap();
@@ -271,7 +269,7 @@ public class StandardEquationDirectorTest {
     }
 
     // Populate equation details
-    private void setupBasicFracMultDiv(String operator, boolean isNegative) {
+    private void setupBasicFracMultiplyDiv(String operator, boolean isNegative) {
         initializeFractionMultiDiv();
         eqnDetails.setOperator(operator);
         eqnDetails.setNegAllowed(isNegative);
@@ -309,9 +307,9 @@ public class StandardEquationDirectorTest {
         }
     }
     @Test
-    public void testFracMult() {
+    public void testFracMultiply() {
         for (int i = 0; i < 100; i++) {
-            setupBasicFracMultDiv(MULT, false);
+            setupBasicFracMultiplyDiv(MULT, false);
             int[] answer = ((Fraction) director.getEquation().getEquationParts()[3]).getFraction();
             assertTrue(answer[0] / answer[1] <= 2);
             System.out.println(Arrays.toString(director.getEquation().getEquationParts()));
@@ -320,7 +318,7 @@ public class StandardEquationDirectorTest {
     @Test
     public void testFracDiv() {
         for (int i = 0; i < 100; i++) {
-            setupBasicFracMultDiv(DIV, true);
+            setupBasicFracMultiplyDiv(DIV, true);
             int[] answer = ((Fraction) director.getEquation().getEquationParts()[3]).getFraction();
             assertTrue(Math.abs(answer[0] / answer[1]) <= 2);
             System.out.println(Arrays.toString(director.getEquation().getEquationParts()));

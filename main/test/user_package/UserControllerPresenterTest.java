@@ -10,22 +10,27 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserControllerTest {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+public class UserControllerPresenterTest {
     /**
-     * Create instance of userPackage.User class to test methods.
+     * Create instance of User class to test methods.
      */
     UserController userController;
+    UserPresenter userPresenter;
 
     @Before
     public void setUp() throws Exception {
         userController = new UserController();
+        userPresenter = new UserPresenter(userController.getUserManager(),
+                userController.getHistoryManager(),
+                userController.getCurrentUsername());
         try {
             userController.registerUser("guest", "Guest", 20, "Student");
         } catch (UsernameTakenException i) {
@@ -62,7 +67,7 @@ public class UserControllerTest {
     @Test
     public void testGetUserDetailsSuccessful() {
         userController.login("guest");
-        Map<String, Object> userDetails = userController.getUserDetails();
+        Map<String, Object> userDetails = userPresenter.getUserDetails();
         assert userDetails.get("name").equals("Guest");
         assert userDetails.get("age").equals(20);
         assert userDetails.get("role").equals("Student");
@@ -73,8 +78,11 @@ public class UserControllerTest {
      */
     @Test(expected = NotLoggedInException.class)
     public void testGetUserDetailsEmpty() throws Exception {
-        UserController userController_2 = new UserController();
-        userController_2.getUserDetails();
+        UserController userController2 = new UserController();
+        UserPresenter userPresenter2 = new UserPresenter(userController2.getUserManager(),
+                userController2.getHistoryManager(),
+                userController2.getCurrentUsername());
+        userPresenter2.getUserDetails();
     }
 
 
@@ -111,8 +119,12 @@ public class UserControllerTest {
 
         // Test retrieval of new UserController
         UserController newUserController = new UserController();
+        UserPresenter newUserPresenter = new UserPresenter(newUserController.getUserManager(),
+                newUserController.getHistoryManager(),
+                newUserController.getCurrentUsername());
         newUserController.login("guest2");
-        List<Map<String, Object>> userHistory = newUserController.getUserHistory();
+
+        List<Map<String, Object>> userHistory = newUserPresenter.getUserHistory();
 
         assertEquals("00000000", userHistory.get(0).get("worksheetKey"));
         assertEquals("11111111", userHistory.get(1).get("worksheetKey"));
@@ -127,7 +139,7 @@ public class UserControllerTest {
         } catch (UsernameTakenException i) {
             userController.login("SCH99");
         }
-        Map<String, Object> userDetails = userController.getUserDetails();
+        Map<String, Object> userDetails = userPresenter.getUserDetails();
         assert userDetails.get("name").equals("Arnold");
         assert userDetails.get("age").equals(20);
         assert userDetails.get("role").equals("Student");
@@ -139,7 +151,7 @@ public class UserControllerTest {
         Map<String, Object> record = new HashMap<>();
         record.put("worksheetKey", "760");
         userController.storeUserRecord(record);
-        List<Map<String, Object>> userHistory = userController.getUserHistory();
+        List<Map<String, Object>> userHistory = userPresenter.getUserHistory();
         assert userHistory.get(userHistory.size() - 1).equals(record);
     }
 
@@ -155,7 +167,7 @@ public class UserControllerTest {
         userController.storeUserRecord(record2);
         userController.removeUserRecord("2");
 
-        List<Map<String, Object>> userHistory = userController.getUserHistory();
+        List<Map<String, Object>> userHistory = userPresenter.getUserHistory();
         assertNotEquals(record2, userHistory.get(userHistory.size() - 1));
     }
 
@@ -172,7 +184,7 @@ public class UserControllerTest {
         userController.storeUserRecord(record);
         userController.storeUserScore("156", 39);
 
-        for (Map<String, Object> currRecord : userController.getUserHistory()) {
+        for (Map<String, Object> currRecord : userPresenter.getUserHistory()) {
             if (currRecord.get("worksheetKey") == "156") {
                 assertEquals(currRecord.get("score"), 39);
             }

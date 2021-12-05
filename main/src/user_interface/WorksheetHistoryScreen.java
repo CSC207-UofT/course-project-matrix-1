@@ -2,8 +2,6 @@ package user_interface;
 
 import equation_parameters.EquationDetails;
 import equation_parameters.FormatDetails;
-import user_package.UserController;
-import user_package.UserPresenter;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -13,7 +11,6 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.List;
 
 /**
  * Worksheet History Screen class for the User Interface. The worksheet history screen displays the details of previous
@@ -24,12 +21,6 @@ import java.util.List;
  * @since 2021-11-14
  */
 public class WorksheetHistoryScreen extends Screen implements MouseListener, KeyListener {
-
-    //
-    static UserAccessInterface userAccessInterface;
-    static UserController userController;
-    static UserPresenter userPresenter;
-
     // Create JLabels
     JLabel noWorksheets = new JLabel("No Worksheets Available", SwingConstants.CENTER);
     JLabel invalidScore = new JLabel("Invalid Score", SwingConstants.CENTER);
@@ -62,7 +53,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
 
 
     public WorksheetHistoryScreen() {
-
         updatePanel(historyPanel);
 
         // Set noWorksheets and invalidScore JLabel messages to not visible
@@ -73,12 +63,6 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
 
         // Store necessary info for each element in the JTable
         try {
-            // This class is a part of the View in the Model-View-Presenter architecture.
-            // Thus, this class will ask the UserPresenter to takeover for the user requests.
-            // Therefore, we need a UserPresenter instance, as seen below.
-            userAccessInterface = new UserAccessInterface();
-            userPresenter = userAccessInterface.getUserPresenter();
-            userController = userAccessInterface.getUserController();
             userHistoryList = userPresenter.getUserHistory();
 
             // Run through each Worksheet

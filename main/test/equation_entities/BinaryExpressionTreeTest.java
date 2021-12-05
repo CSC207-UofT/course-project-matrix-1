@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class BinaryExpressionTreeTest {
     BinaryExpressionTree bet;
+
     @Test
     public void testSolveAddBET() {
         bet = new BinaryExpressionTree(new Add());
@@ -17,6 +18,7 @@ public class BinaryExpressionTreeTest {
         n.setRightNode(new Node(new WholeNum(209)));
         assertEquals(bet.solve().toString(), "206");
     }
+
     @Test
     public void testSolveSubBET() {
         bet = new BinaryExpressionTree(new Subtract());
@@ -25,14 +27,16 @@ public class BinaryExpressionTreeTest {
         n.setRightNode(new Node(new WholeNum(-20)));
         assertEquals(bet.solve().toString(), "17");
     }
+
     @Test
-    public void testSolveMultBET() {
+    public void testSolveMultiplyBET() {
         bet = new BinaryExpressionTree(new Multiply());
         Node n = bet.getRoot();
         n.setLeftNode(new Node(new WholeNum(-3)));
         n.setRightNode(new Node(new WholeNum(-20)));
         assertEquals(bet.solve().toString(), "60");
     }
+
     @Test
     public void testSolveDivBET() {
         bet = new BinaryExpressionTree(new Divide());
@@ -41,6 +45,7 @@ public class BinaryExpressionTreeTest {
         n.setRightNode(new Node(new WholeNum(-4)));
         assertEquals(bet.solve().toString(), "5");
     }
+
     @Test
     public void testSolveLongBET() {
         bet = new BinaryExpressionTree(new Multiply());
@@ -52,6 +57,7 @@ public class BinaryExpressionTreeTest {
         n.setRightNode(r);
         assertEquals(bet.solve().toString(), "6");
     }
+
     @Test
     public void testAddToArrayList() {
         bet = new BinaryExpressionTree(new Add());
@@ -61,6 +67,7 @@ public class BinaryExpressionTreeTest {
         List<String> expected = new ArrayList<>(List.of(new String[]{"-3", "+", "-20"}));
         assertEquals(bet.toStringArrayList(), expected);
     }
+
     @Test
     public void testSubToArrayList() {
         bet = new BinaryExpressionTree(new Subtract());
@@ -70,6 +77,7 @@ public class BinaryExpressionTreeTest {
         List<String> expected = new ArrayList<>(List.of(new String[]{"-3", "-", "-20"}));
         assertEquals(bet.toStringArrayList(), expected);
     }
+
     @Test
     public void testMultiplyToArrayList() {
         bet = new BinaryExpressionTree(new Multiply());
@@ -79,6 +87,7 @@ public class BinaryExpressionTreeTest {
         List<String> expected = new ArrayList<>(List.of(new String[]{"-3", "\\times", "-20"}));
         assertEquals(bet.toStringArrayList(), expected);
     }
+
     @Test
     public void testDivideToArrayList() {
         bet = new BinaryExpressionTree(new Divide());

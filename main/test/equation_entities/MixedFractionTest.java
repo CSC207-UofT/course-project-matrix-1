@@ -9,15 +9,15 @@ public class MixedFractionTest {
 
     @Test
     public void testPositiveToString() {
-        mixedFraction = new MixedFraction(20,8);
+        mixedFraction = new MixedFraction(20, 8);
         mixedFraction.reduce();
-        assertEquals("2\\frac{1}{2}",mixedFraction.toString());
+        assertEquals("2\\frac{1}{2}", mixedFraction.toString());
     }
 
     @Test
     public void testNegativeToString() {
-        mixedFraction = new MixedFraction(-20,8);
+        mixedFraction = new MixedFraction(-20, 8);
         mixedFraction.reduce();
-        assertEquals("-2\\frac{1}{2}",mixedFraction.toString());
+        assertEquals("-2\\frac{1}{2}", mixedFraction.toString());
     }
 }

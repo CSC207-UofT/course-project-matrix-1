@@ -8,7 +8,7 @@ package equation_entities;
  * @version 1.0
  * @since 2021-11-30
  */
-public class ImproperFraction extends Fraction{
+public class ImproperFraction extends Fraction {
     /**
      * Constructs an improper fraction. If the numerator is negative, the entire fraction is assumed to be negative.
      *
@@ -44,7 +44,7 @@ public class ImproperFraction extends Fraction{
         StringBuilder latexString = new StringBuilder();
         if (fractionParts[0] != 0) {
             latexString.append("\\frac{").append(fractionParts[0]).append("}{").append(fractionParts[1]).append("}");
-            if (fractionIsNegative){
+            if (fractionIsNegative) {
                 latexString.insert(0, "-");
             }
         } else {

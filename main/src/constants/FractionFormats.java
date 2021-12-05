@@ -9,5 +9,5 @@ package constants;
  */
 public class FractionFormats {
     public final static String MIXED = "Mixed";
-    public final static String IMPROPER ="Improper";
+    public final static String IMPROPER = "Improper";
 }
