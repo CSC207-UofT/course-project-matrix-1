@@ -82,26 +82,6 @@ public class UserController {
         historyManager.deleteUserHistory(username);
     }
 
-    public Map<String, Object> getUserDetails() throws NotLoggedInException {
-        if (isLoggedIn()) {
-            return userManager.getUserDetails(currentUsername[0]);
-        }
-        throw new NotLoggedInException();
-    }
-
-    /**
-     * Returns the history of worksheet generation records of a user.
-     * Throws a NotLoggedInException if called when no user is logged in.
-     *
-     * @return list containing worksheet generation records (details)
-     */
-    public List<Map<String, Object>> getUserHistory() throws NotLoggedInException {
-        if (isLoggedIn()) {
-            return historyManager.getUserHistoryRaw(currentUsername[0]);
-        }
-        throw new NotLoggedInException();
-    }
-
     /**
      * Stores the user's score for the respective worksheet.
      * Throws a RecordDoesNotExistException if worksheet specified does not exist
@@ -145,5 +125,4 @@ public class UserController {
             throw new NotLoggedInException();
         }
     }
-
 }

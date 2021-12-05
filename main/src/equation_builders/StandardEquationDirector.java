@@ -29,7 +29,7 @@ public class StandardEquationDirector extends EquationDirector {
         super(equationDetails, randomizer);
         this.standardEquationMaker = new StandardEquationMaker(equationDetails.getOperator(), randomizer, operandType);
         if (operandType.equals("Fraction") && (equationDetails instanceof FractionAddSubEquationDetails)) {
-            //Reweight numbers so that primes are less likely.
+            // Reweigh numbers so that primes are less likely.
             DistributionCalculator.assignProbability(equationDetails);
         }
     }

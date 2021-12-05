@@ -10,14 +10,6 @@ import java.util.Map;
  * @since 2021-10-12
  */
 public interface Equation {
-
-//    /**
-//     * Returns the array representation of the equation.
-//     *
-//     * @return the array representation of the equation, where every symbol is a separate item in the array.
-//     */
-//    List<String> getEquation();
-
     /**
      * Returns a Hashmap of String representation of an Equation. Key is operator, operand1, operand2, and answer.
      * Values are a String representation of each of those for a given equation.

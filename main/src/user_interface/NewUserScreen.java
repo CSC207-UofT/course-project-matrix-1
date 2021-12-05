@@ -28,7 +28,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
     JTextField newUsernameInput = new JTextField(1);
     JTextField nameInput = new JTextField(1);
     JTextField ageInput = new JTextField(1);
-    JTextField [] newUserTextFields = {newUsernameInput, nameInput, ageInput};
+    JTextField[] newUserTextFields = {newUsernameInput, nameInput, ageInput};
 
     // Create combo box for user role
     String[] roleOptions = {"Student", "Teacher"};
@@ -113,7 +113,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
      * Attempt to create the new user. If the user information is not valid,
      * invalid input(s) or taken username will appear.
      */
-    private void createUser(){
+    private void createUser() {
 
         // Initialize the current username and name to be checked for valid inputs
         String currUsername = newUsernameInput.getText();
@@ -138,13 +138,15 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
             }
         }
     }
+
     public void mousePressed(MouseEvent e) {
         if (e.getSource() == createUserButton) {
             createUser();
-        } else if (e.getSource() == newUserBackButton){
+        } else if (e.getSource() == newUserBackButton) {
             new LoginScreen();
         }
     }
+
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == createUserButton) {
             highlightButton(createUserButton, 'b');
@@ -152,6 +154,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
             highlightButton(newUserBackButton, 'd');
         }
     }
+
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == createUserButton) {
             defaultButton(createUserButton, 'b');
@@ -161,7 +164,7 @@ public class NewUserScreen extends Screen implements MouseListener, KeyListener 
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             createUser();
         }
     }

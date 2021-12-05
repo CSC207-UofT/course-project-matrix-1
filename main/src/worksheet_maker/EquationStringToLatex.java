@@ -59,7 +59,7 @@ public class EquationStringToLatex {
      */
     public String createHorizontalLatex(Map<String, String> equationStringMap, boolean withAnswer) {
         String horizontalLatex;
-        if (equationStringMap.get(OPERATOR).equals(LCM) || equationStringMap.get(OPERATOR).equals(GCD)){
+        if (equationStringMap.get(OPERATOR).equals(LCM) || equationStringMap.get(OPERATOR).equals(GCD)) {
             horizontalLatex = equationStringMap.get(OPERATOR) + "(" + equationStringMap.get(OPERAND1) + "," + equationStringMap.get(OPERAND2) + ")" + "=";
         } else {
             horizontalLatex = equationStringMap.get(OPERAND1) + equationStringMap.get(OPERATOR) + equationStringMap.get(OPERAND2) + "=";

@@ -50,12 +50,12 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     JCheckBox negAllowedBox;
 
     // Create the equation details variables with initial invalid values for fraction worksheet
-    int [] operandRange1 = {-1, -1};
-    int [] operandRange2 = {-1, -1};
+    int[] operandRange1 = {-1, -1};
+    int[] operandRange2 = {-1, -1};
     boolean negAllowed = false;
 
     // Create the equation details with initial invalid values for fraction worksheet
-    int [] denRange = {-1, -1};
+    int[] denRange = {-1, -1};
     int secondField = -1;
     int maxNumVal = -1;
     boolean fractionNegAllowed = false;
@@ -69,7 +69,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     FormatDetails formatDetails;
 
     // Create the temporary map's to be passed into worksheet viewer screen
-    Map <String, Object> worksheetHistoryDetails;
+    Map<String, Object> worksheetHistoryDetails;
 
     public CustomizeScreen(EquationDetails equationDetails, FormatDetails formatDetails) {
         updatePanel(customizePanel);
@@ -117,12 +117,13 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         }
         updateTextFields(textFields);
     }
+
     /**
      * Overloaded constructor method. Used to persist previous user input.
      *
      * @param worksheetDetails contains worksheet details that user inputted in this screen previously
      */
-    public CustomizeScreen(Map <String, Object> worksheetDetails) {
+    public CustomizeScreen(Map<String, Object> worksheetDetails) {
 
         // Update the panel and add common panel features
         updatePanel(customizePanel);
@@ -139,14 +140,13 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             operandRange2 = ((WholeNumEquationDetails) equationDetails).getOperandRange2();
 
             op1MIN = new JTextField(Integer.toString(operandRange1[0]), 1);
-            op1MAX = new JTextField(Integer.toString(operandRange1[1]),1);
-            op2MIN = new JTextField(Integer.toString(operandRange2[0]),1);
-            op2MAX = new JTextField(Integer.toString(operandRange2[1]),1);
+            op1MAX = new JTextField(Integer.toString(operandRange1[1]), 1);
+            op2MIN = new JTextField(Integer.toString(operandRange2[0]), 1);
+            op2MAX = new JTextField(Integer.toString(operandRange2[1]), 1);
             textFields = new JTextField[]{op1MIN, op1MAX, op2MIN, op2MAX};
             negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
             fillScreen();
-        }
-        else {
+        } else {
             if (equationDetails instanceof FractionAddSubEquationDetails) {
                 denRange = ((FractionAddSubEquationDetails) equationDetails).getOperand1DenomRange();
                 secondField = ((FractionAddSubEquationDetails) equationDetails).getMaxOperand2AndAnswerDenom();
@@ -158,9 +158,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             }
 
             denMIN = new JTextField(Integer.toString(denRange[0]), 1);
-            denMAX = new JTextField(Integer.toString(denRange[1]),1);
-            secondFieldInput = new JTextField(Integer.toString(secondField),1);
-            maxVal = new JTextField(Integer.toString(maxNumVal),1);
+            denMAX = new JTextField(Integer.toString(denRange[1]), 1);
+            secondFieldInput = new JTextField(Integer.toString(secondField), 1);
+            maxVal = new JTextField(Integer.toString(maxNumVal), 1);
             textFields = new JTextField[]{denMIN, denMAX, secondFieldInput, maxVal};
             negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
 
@@ -219,7 +219,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     /**
      * Adds all necessary parts of CustomizeScreen for fractions
      */
-    private void fillFractionScreen(){
+    private void fillFractionScreen() {
         // Create labels
         JLabel denRange = new JLabel();
         JLabel maxAns = new JLabel();
@@ -233,8 +233,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             denRange.setText("Operand 1's Denominator Range");
             maxAns.setText("Max Answer Denominator");
             maxValLbl.setText("Max Operand Value");
-        }
-        else if (equationDetails instanceof FractionMultiDivEquationDetails) {
+        } else if (equationDetails instanceof FractionMultiDivEquationDetails) {
             denRange.setText("Answer's Denominator Range");
             maxAns.setText("Complexity");
             maxValLbl.setText("Max Answer Value");
@@ -248,7 +247,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         updateLabel(maxAns, 0.225, 0.335, 0.6, 0.1, 0.015, 'd');
         updateLabel(maxValLbl, 0.225, 0.43, 0.6, 0.1, 0.015, 'd');
         updateLabel(negAllowed, 0.225, 0.525, 0.6, 0.1, 0.015, 'd');
-        updateLabel(format, 0.225, 0.62, 0.6, 0.1,0.015, 'd');
+        updateLabel(format, 0.225, 0.62, 0.6, 0.1, 0.015, 'd');
 
         // Update the minimum and maximum text fields
         updateTextFieldLocation(denMIN, 0.53, 0.265, 0.1, 0.05);
@@ -286,89 +285,89 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
         boolean passed = true;
 
-            // Create temporary equation details and format details variables
-            int op1MinTemp, op1MaxTemp, op2MinTemp, op2MaxTemp;
-            op1MinTemp = op1MaxTemp = op2MinTemp = op2MaxTemp = -1;
+        // Create temporary equation details and format details variables
+        int op1MinTemp, op1MaxTemp, op2MinTemp, op2MaxTemp;
+        op1MinTemp = op1MaxTemp = op2MinTemp = op2MaxTemp = -1;
 
-            // Check if any operand range cannot be parsed (invalid input)
-            if (tryToParse(op1MIN.getText().trim()) == null || tryToParse(op1MAX.getText().trim()) == null ||
-                    tryToParse(op2MIN.getText().trim()) == null || tryToParse(op2MAX.getText().trim()) == null) {
-                operatorWarning.setText("Operand's must be positive numbers");
+        // Check if any operand range cannot be parsed (invalid input)
+        if (tryToParse(op1MIN.getText().trim()) == null || tryToParse(op1MAX.getText().trim()) == null ||
+                tryToParse(op2MIN.getText().trim()) == null || tryToParse(op2MAX.getText().trim()) == null) {
+            operatorWarning.setText("Operand's must be positive numbers");
+            operatorWarning.setVisible(true);
+            passed = false;
+        } else {
+            // Each operand value can be parsed (is an integer)
+            op1MinTemp = Integer.parseInt(op1MIN.getText().trim());
+            op1MaxTemp = Integer.parseInt(op1MAX.getText().trim());
+            op2MinTemp = Integer.parseInt(op2MIN.getText().trim());
+            op2MaxTemp = Integer.parseInt(op2MAX.getText().trim());
+        }
+
+        // Check operand 2 is not zero for division
+        if (Objects.equals(equationDetails.getOperator(), "/")) {
+            boolean checkNotDiv = true;
+            boolean checkNoZero = true;
+            for (int i = op1MinTemp; i <= op1MaxTemp; i++) {
+                for (int j = op2MinTemp; j <= op2MaxTemp; j++) {
+                    if (j <= 0) {
+                        checkNoZero = false;
+                        break;
+                    }
+                    if (i % j == 0) {
+                        checkNotDiv = false;
+                        break;
+                    }
+                }
+            }
+            if (!checkNoZero) {
+                operatorWarning.setText("Operand 2 cannot include 0 or negatives");
                 operatorWarning.setVisible(true);
                 passed = false;
-            } else {
-                // Each operand value can be parsed (is an integer)
-                op1MinTemp = Integer.parseInt(op1MIN.getText().trim());
-                op1MaxTemp = Integer.parseInt(op1MAX.getText().trim());
-                op2MinTemp = Integer.parseInt(op2MIN.getText().trim());
-                op2MaxTemp = Integer.parseInt(op2MAX.getText().trim());
+            } else if (checkNotDiv) {
+                operatorWarning.setText("Operand 2 range must have a number divisible by a number in Operand 1 range");
+                operatorWarning.setVisible(true);
+                passed = false;
             }
+        }
 
-            // Check operand 2 is not zero for division
-            if (Objects.equals(equationDetails.getOperator(), "/")) {
-                boolean checkNotDiv = true;
-                boolean checkNoZero = true;
+        // Check to ensure operand 2 has a number less than a number in operand 1 range
+        if (Objects.equals(equationDetails.getOperator(), "-")) {
+            boolean allNeg = false;
+            if (!negAllowed) {
+                allNeg = true;
                 for (int i = op1MinTemp; i <= op1MaxTemp; i++) {
                     for (int j = op2MinTemp; j <= op2MaxTemp; j++) {
-                        if (j <= 0) {
-                            checkNoZero = false;
-                            break;
-                        }
-                        if (i % j == 0) {
-                            checkNotDiv = false;
+                        if ((i - j) >= 0) {
+                            allNeg = false;
                             break;
                         }
                     }
                 }
-                if (!checkNoZero) {
-                    operatorWarning.setText("Operand 2 cannot include 0 or negatives");
-                    operatorWarning.setVisible(true);
-                    passed = false;
-                } else if (checkNotDiv) {
-                    operatorWarning.setText("Operand 2 range must have a number divisible by a number in Operand 1 range");
-                    operatorWarning.setVisible(true);
-                    passed = false;
-                }
             }
-
-            // Check to ensure operand 2 has a number less than a number in operand 1 range
-            if (Objects.equals(equationDetails.getOperator(), "-")) {
-                boolean allNeg = false;
-                if (!negAllowed) {
-                    allNeg = true;
-                    for (int i = op1MinTemp; i <= op1MaxTemp; i++) {
-                        for (int j = op2MinTemp; j <= op2MaxTemp; j++) {
-                            if ((i - j) >= 0) {
-                                allNeg = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (allNeg) {
-                    operatorWarning.setText("Operand 2 must have a number less than a number in Operand 1");
-                    operatorWarning.setVisible(true);
-                    passed = false;
-                }
-            }
-
-            // Get selection for checkbox, question format, and title
-            negAllowed = negAllowedBox.isSelected();
-
-            // Check to see if all operand range are greater than zero and max > min
-            if (op1MinTemp >= 0 && op1MaxTemp >= 0 && op2MinTemp >= 0 && op2MaxTemp >= 0
-                    && op1MaxTemp >= op1MinTemp && op2MaxTemp >= op2MinTemp) {
-                operandRange1 = new int[]{op1MinTemp, op1MaxTemp};      // Set the operand 1 range to inputted values
-                operandRange2 = new int[]{op2MinTemp, op2MaxTemp};      // Set the operand 2 range to inputted values
-            } else if (op1MaxTemp < op1MinTemp || op2MaxTemp < op2MinTemp) {
-                operatorWarning.setText("Operand's' minimum must be lower than the maximum");
-                operatorWarning.setVisible(true);
-                passed = false;
-            } else {
-                operatorWarning.setText("Operand's must be positive numbers");
+            if (allNeg) {
+                operatorWarning.setText("Operand 2 must have a number less than a number in Operand 1");
                 operatorWarning.setVisible(true);
                 passed = false;
             }
+        }
+
+        // Get selection for checkbox, question format, and title
+        negAllowed = negAllowedBox.isSelected();
+
+        // Check to see if all operand range are greater than zero and max > min
+        if (op1MinTemp >= 0 && op1MaxTemp >= 0 && op2MinTemp >= 0 && op2MaxTemp >= 0
+                && op1MaxTemp >= op1MinTemp && op2MaxTemp >= op2MinTemp) {
+            operandRange1 = new int[]{op1MinTemp, op1MaxTemp};      // Set the operand 1 range to inputted values
+            operandRange2 = new int[]{op2MinTemp, op2MaxTemp};      // Set the operand 2 range to inputted values
+        } else if (op1MaxTemp < op1MinTemp || op2MaxTemp < op2MinTemp) {
+            operatorWarning.setText("Operand's' minimum must be lower than the maximum");
+            operatorWarning.setVisible(true);
+            passed = false;
+        } else {
+            operatorWarning.setText("Operand's must be positive numbers");
+            operatorWarning.setVisible(true);
+            passed = false;
+        }
 
         // If all inputs check out, add to the equation details and formatting details maps
         if (passed) {
@@ -432,9 +431,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             this.equationDetails.setNegAllowed(fractionNegAllowed);
 
             if (equationDetails instanceof FractionAddSubEquationDetails) {
-                ((FractionAddSubEquationDetails)this.equationDetails).setOperand1DenomRange(denRange);
-                ((FractionAddSubEquationDetails)this.equationDetails).setMaxOperand2AndAnswerDenom(secondField);
-                ((FractionAddSubEquationDetails)this.equationDetails).setMaxOperandValue(maxNumVal);
+                ((FractionAddSubEquationDetails) this.equationDetails).setOperand1DenomRange(denRange);
+                ((FractionAddSubEquationDetails) this.equationDetails).setMaxOperand2AndAnswerDenom(secondField);
+                ((FractionAddSubEquationDetails) this.equationDetails).setMaxOperandValue(maxNumVal);
                 ((FractionAddSubEquationDetails) this.equationDetails).setFractionFormat(fractionFormat);
             } else if (equationDetails instanceof FractionMultiDivEquationDetails) {
                 ((FractionMultiDivEquationDetails) this.equationDetails).setAnsDenominatorRange(denRange);
@@ -518,10 +517,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             if (equationDetails instanceof WholeNumEquationDetails) {
                 checkIntegerWorksheetInput();
             } else {
-              checkFractionWorksheetInput();
+                checkFractionWorksheetInput();
             }
-        }
-        else if (e.getSource() == customizeBackButton) {
+        } else if (e.getSource() == customizeBackButton) {
             new TopicScreen(worksheetHistoryDetails);
         }
     }
@@ -541,8 +539,9 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             defaultButton(customizeBackButton, 'd');
         }
     }
+
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             if (equationDetails instanceof WholeNumEquationDetails) {
                 checkIntegerWorksheetInput();
             } else {

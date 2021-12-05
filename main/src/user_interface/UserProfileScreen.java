@@ -18,7 +18,7 @@ public class UserProfileScreen extends Screen implements MouseListener {
     JButton deleteUserButton = new JButton("Delete Account");
 
     // Create a map of the user's details
-    Map<String, Object> userDetails = userController.getUserDetails();
+    Map<String, Object> userDetails = userPresenter.getUserDetails();
 
     public UserProfileScreen() {
 

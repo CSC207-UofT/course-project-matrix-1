@@ -112,7 +112,7 @@ public class LocalDataAccess implements DataAccessInterface {
      */
     public void makeParentDirectory(String path) throws FileNotFoundException {
         File file = new File(path);
-        if (!(file.exists() && file.isDirectory())){
+        if (!(file.exists() && file.isDirectory())) {
             boolean fileMade = file.mkdir();
             if (!fileMade) {
                 throw new FileNotFoundException("users_data directory could not be made!");

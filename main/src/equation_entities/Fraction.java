@@ -121,7 +121,6 @@ public abstract class Fraction extends Value {
      */
     public void reduce() {
         for (int i = 2; i < Math.min(Math.abs(fractionParts[0]), fractionParts[1]) + 1; i++) {
-            int limit = Math.min(Math.abs(fractionParts[0]), fractionParts[1]) + 1;
             if (fractionParts[0] % i == 0 && fractionParts[1] % i == 0) {
                 fractionParts[0] = fractionParts[0] / i;
                 fractionParts[1] = fractionParts[1] / i;
@@ -138,10 +137,10 @@ public abstract class Fraction extends Value {
      */
     protected boolean isFractionNegative() {
         boolean fractionIsNegative = false;
-        if (fractionParts[0] < 0){
+        if (fractionParts[0] < 0) {
             fractionIsNegative = true;
             fractionParts[0] = -fractionParts[0];
-        } else if (fractionParts[1] < 0){
+        } else if (fractionParts[1] < 0) {
             fractionIsNegative = true;
             fractionParts[1] = -fractionParts[1];
         }

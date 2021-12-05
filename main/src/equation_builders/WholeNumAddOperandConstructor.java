@@ -8,7 +8,7 @@ import utilities.Randomizer;
 
 
 /**
- * Handles the construction of operands for the whole number addition. The same algorithim is also used for
+ * Handles the construction of operands for the whole number addition. The same algorithm is also used for
  * multiplication, or exponentiation. Both operands are uniformly distributed across their specified range.
  *
  * @author Will Jeong, Stanley Hua

@@ -7,7 +7,6 @@ import utilities.FactorFinder;
 import utilities.Randomizer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class FractionMultDivOperandConstructor extends FractionOperandConstructo
 
         //Flip operand 2 if it is division
         //TODO: extract method?
-        if (fractionEquationDetails.getOperator().equals(DIV)){
+        if (fractionEquationDetails.getOperator().equals(DIV)) {
             int temp = operandsN[1];
             operandsN[1] = operandsD[1];
             operandsD[1] = temp;
@@ -124,7 +123,7 @@ public class FractionMultDivOperandConstructor extends FractionOperandConstructo
      * @param unreducedAnsNFactors a list of all the factors in the denominator of the answer.
      */
     private void addComplexity(int complexity, List<Integer> unreducedAnsDFactors,
-                                 List<Integer> unreducedAnsNFactors) {
+                               List<Integer> unreducedAnsNFactors) {
         for (int i = 0; i < complexity; i++) {
             int prime = biasedSelectNumber(PRIMES);
             unreducedAnsDFactors.add(prime);

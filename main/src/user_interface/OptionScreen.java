@@ -44,11 +44,11 @@ public class OptionScreen extends Screen implements MouseListener {
         // Get the images from within the class and display them inside the JLabel (that is inside the button)
         ImageIcon profileIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userProfileIcon.png")));
         Image profileImage = profileIconImage.getImage();
-        Image profileScaledImage = profileImage.getScaledInstance(155,150, Image.SCALE_SMOOTH);
+        Image profileScaledImage = profileImage.getScaledInstance(155, 150, Image.SCALE_SMOOTH);
 
         ImageIcon historyIconImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("userHistoryIcon.png")));
         Image historyImage = historyIconImage.getImage();
-        Image historyScaledImage = historyImage.getScaledInstance(67,67, Image.SCALE_SMOOTH);
+        Image historyScaledImage = historyImage.getScaledInstance(67, 67, Image.SCALE_SMOOTH);
 
         // Resize and create JLabels for the images
         profileIconImage = new ImageIcon(profileScaledImage);
@@ -132,13 +132,13 @@ public class OptionScreen extends Screen implements MouseListener {
             logoutButton.setBackground(red);
         }
     }
+
     /**
      * RoundedBorder private class that creates a circle border for the JButtons.
-     *
+     * <p>
      * Note that for this particular class, it is similar to
      * https://github.com/kikonen/glazed-share/blob/master/extensions/issuesbrowser/source/com/publicobject/misc/
      * swing/RoundedBorder.java which was seen before implementing this private class.
-     *
      */
     @SuppressWarnings("ALL")
     private static class RoundedBorder implements Border {
@@ -150,7 +150,7 @@ public class OptionScreen extends Screen implements MouseListener {
         }
 
         public Insets getBorderInsets(Component c) {
-            return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
+            return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
         }
 
         public boolean isBorderOpaque() {

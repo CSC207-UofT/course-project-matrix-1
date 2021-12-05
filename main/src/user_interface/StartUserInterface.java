@@ -1,40 +1,34 @@
 package user_interface;
 
 import user_package.UserController;
+import user_package.UserPresenter;
 import worksheet_maker.WorksheetController;
 
 /**
- * User Interface class. Create instances of user controller and worksheet controller
- * for screen (start screen).
+ * StartUserInterface class. Instantiates user controller & user presenter for user functionality, and
+ * worksheet controller for worksheet generation functionality. This allows all screens access to these
+ * controllers/presenters.
  *
- * @author Ethan Ing
- * @since 2021-11-01
+ * @author Ethan Ing, Stanley Hua
+ * @version 2
+ * @since 2021-12-04
  */
 class StartUserInterface {
-
-    static ControllerInterface controllerInterface;
-    static UserController userController;
-    static WorksheetController worksheetController;
-
-    public static void main(String[] args) {
-        controllerInterface = new ControllerInterface();
-        controllerInterface.makeUserController();
-        // Create an instance of user controller to keep track of the user's information
-
+    public static void main(String[] args) throws Exception {
         try {
-            userController = new UserController();
+            // Controller & Presenter for user functionality
+            Screen.userController = new UserController();
+            Screen.userPresenter = new UserPresenter(Screen.userController.getUserManager(),
+                    Screen.userController.getHistoryManager(),
+                    Screen.userController.getCurrentUsername());
+
+            // Controller for worksheet generation
+            Screen.worksheetController = new WorksheetController();
+
+            // Start GUI
+            Screen.main(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        userController = controllerInterface.getUserController();
-
-        // Create an instance of worksheet controller to generate the worksheet
-        worksheetController = new WorksheetController();
-        worksheetController = controllerInterface.makeWorksheetController();
-
-        Screen.userController = userController;
-        Screen.worksheetController = worksheetController;
-        Screen.main(null);
     }
 }

@@ -17,18 +17,19 @@ public abstract class FractionOperandConstructor implements OperandConstructorIn
 
     /**
      * Create a different type of fraction depending on the fraction format.
-     * @param operandsN the numerator operands as [numerator1, numerator2].
-     * @param operandsD the denominator operands as [denominator1, denominator2].
+     *
+     * @param operandsN      the numerator operands as [numerator1, numerator2].
+     * @param operandsD      the denominator operands as [denominator1, denominator2].
      * @param fractionFormat the fraction format for the operand. Mixed or improper (note: they only differ in how they
      *                       are represented, they have the exact same functionality otherwise)
      * @return array of first operand and second operand values as Fractions.
      */
     protected Value[] createFractions(int[] operandsN, int[] operandsD, String fractionFormat) {
-        if (fractionFormat.equals(IMPROPER)){
+        if (fractionFormat.equals(IMPROPER)) {
             return new Value[]{new ImproperFraction(operandsN[0], operandsD[0]), new ImproperFraction(operandsN[1], operandsD[1])};
-        } else if (fractionFormat.equals(MIXED)){
+        } else if (fractionFormat.equals(MIXED)) {
             return new Value[]{new MixedFraction(operandsN[0], operandsD[0]), new MixedFraction(operandsN[1], operandsD[1])};
-        } else{
+        } else {
             throw new NotImplementedException();
         }
     }

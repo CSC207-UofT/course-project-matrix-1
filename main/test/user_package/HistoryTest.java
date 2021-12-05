@@ -30,7 +30,7 @@ public class HistoryTest {
 
     /**
      * Tests getWorksheetHistory method.
-     *  - Checks that current worksheet history is not empty.
+     * - Checks that current worksheet history is not empty.
      */
     @Test
     public void testGetWorksheetHistory() {
@@ -39,7 +39,7 @@ public class HistoryTest {
 
     /**
      * Tests findRecordInHistory method.
-     *  - Checks to see if record in historyExample can be found.
+     * - Checks to see if record in historyExample can be found.
      */
     @Test
     public void testFindRecordInHistoryPresent() {
@@ -53,7 +53,7 @@ public class HistoryTest {
 
     /**
      * Tests findRecordInHistory method.
-     *  - Checks to see if exception is raised when specified worksheet does not exist.
+     * - Checks to see if exception is raised when specified worksheet does not exist.
      */
     @Test(expected = RecordDoesNotExistException.class)
     public void testFindRecordInHistoryAbsent() throws RecordDoesNotExistException {
@@ -62,8 +62,8 @@ public class HistoryTest {
 
     /**
      * Tests addWorksheetRecord method.
-     *  - Checks to see if worksheet is added.
-     *  - Assumes findRecordInHistory is working.
+     * - Checks to see if worksheet is added.
+     * - Assumes findRecordInHistory is working.
      */
     @Test
     public void testAddWorksheetRecord() {
@@ -81,8 +81,8 @@ public class HistoryTest {
 
     /**
      * Tests removeWorksheetRecord method.
-     *  - If worksheet is successfully removed, findRecordInHistory should throw an exception.
-     *  - Assumes addWorksheetRecord and findRecordInHistory are working.
+     * - If worksheet is successfully removed, findRecordInHistory should throw an exception.
+     * - Assumes addWorksheetRecord and findRecordInHistory are working.
      */
     @Test(expected = RecordDoesNotExistException.class)
     public void testRemoveWorksheetRecord() throws RecordDoesNotExistException {

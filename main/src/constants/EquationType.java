@@ -9,6 +9,5 @@ package constants;
  */
 public final class EquationType {
     public final static String WHOLE_NUMBER = "Whole Number";
-    public final static String DECIMAL = "Decimal";
     public final static String FRACTION = "Fraction";
 }

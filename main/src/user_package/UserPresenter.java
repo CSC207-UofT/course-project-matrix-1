@@ -8,6 +8,7 @@ import java.util.Map;
 /**
  * Presenter class. Acts as the presenter in the Model-View-Presenter architecture.
  * The view classes in the user interface access this class as the Presenter.
+ *
  * @author Kerim Saltoglu
  * @since 2021-11-29
  */
@@ -17,8 +18,7 @@ public class UserPresenter {
     private final HistoryManager historyManager;
     private final String[] currentUsername;  // it is an alias of the currentUsername from UserController
 
-    public UserPresenter(UserManager userManager, HistoryManager historyManager, String[] currentUsername)
-            throws Exception {
+    public UserPresenter(UserManager userManager, HistoryManager historyManager, String[] currentUsername) {
         this.userManager = userManager;
         this.historyManager = historyManager;
         this.currentUsername = currentUsername;

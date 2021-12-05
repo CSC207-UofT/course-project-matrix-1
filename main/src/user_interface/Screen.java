@@ -1,6 +1,7 @@
 package user_interface;
 
 import user_package.UserController;
+import user_package.UserPresenter;
 import worksheet_maker.WorksheetController;
 
 import javax.swing.*;
@@ -38,6 +39,7 @@ public class Screen extends JFrame implements MouseListener, KeyListener {
 
     // Create a user controller and worksheet controller instance
     static UserController userController;
+    static UserPresenter userPresenter;
     static WorksheetController worksheetController;
 
     // Keep track of the username inputted

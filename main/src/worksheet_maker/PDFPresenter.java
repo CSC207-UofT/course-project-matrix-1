@@ -30,7 +30,7 @@ public class PDFPresenter {
      *
      * @param formatDetails Hashmap showing details necessary for formatting a PDF. Includes equation format, title,
      *                      number of rows, and number of columns.
-     * @return A list of PDF's, where the first is a question sheet and the second is the answer sheet. Both pdfs can
+     * @return A list of PDFs, where the first is a question sheet and the second is the answer sheet. Both pdfs can
      * be saved to a path using .save().
      * @throws IOException if images cannot be added to the PDF.
      */
