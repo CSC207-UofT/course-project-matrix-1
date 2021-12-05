@@ -243,6 +243,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
                     }
                 } else if (isIdentical == JOptionPane.NO_OPTION){
                     try {
+                        // Give similar worksheet
                         new WorksheetViewerScreen(worksheetHistoryDetailsTemp, false);
                     } catch (IOException ex) {
                         invalidScore.setText("Worksheet cannot be regenerated");
