@@ -26,5 +26,4 @@ public final class WholeNumEquationDetails extends EquationDetails {
     public void setOperandRange2(int[] operandRange2) {
         this.operandRange2 = operandRange2;
     }
-
 }
