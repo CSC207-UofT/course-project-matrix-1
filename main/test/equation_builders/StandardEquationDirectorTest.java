@@ -20,9 +20,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class StandardEquationDirectorTest {
+    private final Randomizer randomizer = new Randomizer(100000);
     private StandardEquationDirector director;
     private EquationDetails eqnDetails;
-    private final Randomizer randomizer = new Randomizer(100000);
 
     // Instantiate equation details
     public void initializeFractionAddSub() {
@@ -274,12 +274,13 @@ public class StandardEquationDirectorTest {
         eqnDetails.setOperator(operator);
         eqnDetails.setNegAllowed(isNegative);
         ((FractionMultiDivEquationDetails) eqnDetails).setComplexity(1);
-        ((FractionMultiDivEquationDetails) eqnDetails).setAnsDenominatorRange(generateRange(5,20));
+        ((FractionMultiDivEquationDetails) eqnDetails).setAnsDenominatorRange(generateRange(5, 20));
         ((FractionMultiDivEquationDetails) eqnDetails).setMaxAnsValue(2);
         ((FractionMultiDivEquationDetails) eqnDetails).setFractionFormat(IMPROPER);
         director = new StandardEquationDirector(randomizer, eqnDetails, FRACTION);
         director.constructEquation();
     }
+
     //Fraction tests
     @Test
     public void testFracAdd() {
@@ -294,6 +295,7 @@ public class StandardEquationDirectorTest {
             System.out.println(Arrays.toString(director.getEquation().getEquationParts()));
         }
     }
+
     @Test
     public void testFracSub() {
         for (int i = 0; i < 100; i++) {
@@ -306,6 +308,7 @@ public class StandardEquationDirectorTest {
             assertTrue(operand2[1] <= 20 && operand2[1] >= 1);
         }
     }
+
     @Test
     public void testFracMultiply() {
         for (int i = 0; i < 100; i++) {
@@ -315,6 +318,7 @@ public class StandardEquationDirectorTest {
             System.out.println(Arrays.toString(director.getEquation().getEquationParts()));
         }
     }
+
     @Test
     public void testFracDiv() {
         for (int i = 0; i < 100; i++) {
@@ -324,6 +328,7 @@ public class StandardEquationDirectorTest {
             System.out.println(Arrays.toString(director.getEquation().getEquationParts()));
         }
     }
+
     public int[] generateRange(int min, int max) {
         return new int[]{min, max};
     }

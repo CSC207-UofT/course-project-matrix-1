@@ -8,12 +8,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static constants.EquationParts.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class EquationStringToLatexTest {
     private final Map<String, String> wholeNumEquationMap = new HashMap<>();
     private final Map<String, String> fractionEquationMap = new HashMap<>();
     private final EquationStringToLatex equationStringToLatex = new EquationStringToLatex();
+
     @Before
     public void init() {
         wholeNumEquationMap.put(OPERATOR, "\\div");

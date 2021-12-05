@@ -9,8 +9,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Map;
 import java.util.Objects;
+
 import static constants.EquationFormats.*;
-import static constants.EquationType.*;
+import static constants.EquationType.FRACTION;
+import static constants.EquationType.WHOLE_NUMBER;
 
 /**
  * Topic Screen class for the User Interface. The topic screen prompts the user for their desired
@@ -96,7 +98,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         this.formatDetails = (FormatDetails) worksheetDetails.get("formatDetails");
 
         // Initialize equation details with previous input
-        if (equationDetails instanceof WholeNumEquationDetails){
+        if (equationDetails instanceof WholeNumEquationDetails) {
             numOptions.setSelectedItem(WHOLE_NUMBER);
         } else if (equationDetails instanceof FractionAddSubEquationDetails || equationDetails instanceof FractionMultiDivEquationDetails) {
             numOptions.setSelectedItem(FRACTION);
@@ -129,7 +131,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
         // Initialize format details with previous input
         titleInput = new JTextField(formatDetails.getTitle(), 1);
-        numQuestionsInput = new JTextField(Integer.toString(equationDetails.getNumOfEquations()),1);
+        numQuestionsInput = new JTextField(Integer.toString(equationDetails.getNumOfEquations()), 1);
         numRowsInput = new JTextField(Integer.toString(formatDetails.getNumRows()), 1);
         numColumnInput = new JTextField(Integer.toString(formatDetails.getNumColumns()), 1);
         questionFormat.setSelectedItem(formatDetails.getEquationFormat());
@@ -171,8 +173,8 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         updateLabel(numQuestions, 0.25, 0.6, 0.6, 0.1, 0.02, 'd');
         updateLabel(numRows, 0.25, 0.675, 0.6, 0.1, 0.02, 'd');
         updateLabel(numColumns, 0.25, 0.75, 0.6, 0.1, 0.02, 'd');
-        updateLabel(invalidFormat, 0.35, 0.831, 0.3,0.03,0.0125, 'w');
-        updateLabel(invalidQuestionType, 0.3, 0.3775, 0.4,0.03,0.012, 'w');
+        updateLabel(invalidFormat, 0.35, 0.831, 0.3, 0.03, 0.0125, 'w');
+        updateLabel(invalidQuestionType, 0.3, 0.3775, 0.4, 0.03, 0.012, 'w');
 
         // Create the settings of the invalid input warnings
         invalidFormat.setOpaque(true);
@@ -247,7 +249,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
      * Check if the user's inputted values are valid and add them to equation and format details.
      * If they are invalid, let the user know via warnings.
      */
-    private void checkValidDetails(){
+    private void checkValidDetails() {
         String type = (String) numOptions.getSelectedItem();
 
         // Add the topic to the equation details
@@ -290,7 +292,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
         // Create temporary equation details and format details variables
         int numOfEquationsTemp, numOfRowsTemp, numOfColumnsTemp;
-        numOfEquationsTemp = numOfRowsTemp = numOfColumnsTemp= -1;
+        numOfEquationsTemp = numOfRowsTemp = numOfColumnsTemp = -1;
 
         // Set the title and question format
         equationFormat = (String) questionFormat.getSelectedItem();
@@ -373,7 +375,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             checkValidDetails();
         }
     }

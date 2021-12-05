@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 public class WorksheetControllerTest {
     private final FormatDetails myFormatDetails = new FormatDetails();
+
     @Before
     public void init() {
         myFormatDetails.setEquationFormat(HORIZONTAL);
@@ -24,6 +25,7 @@ public class WorksheetControllerTest {
         myFormatDetails.setNumRows(2);
         myFormatDetails.setNumColumns(2);
     }
+
     @Test
     public void testWholeNumHorizontalVisual() throws IOException {
         WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
@@ -90,14 +92,14 @@ public class WorksheetControllerTest {
         FractionAddSubEquationDetails fractionAddSubEquationDetails = new FractionAddSubEquationDetails();
         fractionAddSubEquationDetails.setNumOfEquations(30);
         fractionAddSubEquationDetails.setOperator("+");
-        fractionAddSubEquationDetails.setOperand1DenomRange(new int[] {10,30});
+        fractionAddSubEquationDetails.setOperand1DenomRange(new int[]{10, 30});
         fractionAddSubEquationDetails.setMaxOperand2AndAnswerDenom(50);
         fractionAddSubEquationDetails.setMaxOperandValue(2);
         fractionAddSubEquationDetails.setNegAllowed(true);
         fractionAddSubEquationDetails.setFractionFormat(MIXED);
 
         WorksheetController wc = new WorksheetController();
-        PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionAddSubEquationDetails, myFormatDetails,5168);
+        PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionAddSubEquationDetails, myFormatDetails, 5168);
         String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/frac_add_questions.pdf");
         pdf[0].close();
@@ -105,12 +107,13 @@ public class WorksheetControllerTest {
         pdf[1].close();
         assertEquals(2, pdf.length);
     }
+
     @Test
     public void testFracDivVisual() throws IOException {
         FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
         fractionMultiDivEquationDetails.setNumOfEquations(30);
         fractionMultiDivEquationDetails.setOperator("/");
-        fractionMultiDivEquationDetails.setAnsDenominatorRange(new int[] {10, 20});
+        fractionMultiDivEquationDetails.setAnsDenominatorRange(new int[]{10, 20});
         fractionMultiDivEquationDetails.setComplexity(1);
         fractionMultiDivEquationDetails.setMaxAnsValue(2);
         fractionMultiDivEquationDetails.setNegAllowed(true);
@@ -133,7 +136,7 @@ public class WorksheetControllerTest {
         FractionMultiDivEquationDetails fractionMultiDivEquationDetails = new FractionMultiDivEquationDetails();
         fractionMultiDivEquationDetails.setNumOfEquations(30);
         fractionMultiDivEquationDetails.setOperator("*");
-        fractionMultiDivEquationDetails.setAnsDenominatorRange(new int[] {10, 20});
+        fractionMultiDivEquationDetails.setAnsDenominatorRange(new int[]{10, 20});
         fractionMultiDivEquationDetails.setComplexity(1);
         fractionMultiDivEquationDetails.setMaxAnsValue(2);
         fractionMultiDivEquationDetails.setNegAllowed(true);

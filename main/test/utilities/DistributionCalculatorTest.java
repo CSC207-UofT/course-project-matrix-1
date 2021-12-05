@@ -15,6 +15,7 @@ public class DistributionCalculatorTest {
         DistributionCalculator.assignProbability(fractionAddSubEquationDetails);
         System.out.println(DistributionCalculator.getDenomDistribution());
     }
+
     @Test
     public void testModifyWeights() {
         ArrayList<Integer> unweighted = new ArrayList<>();

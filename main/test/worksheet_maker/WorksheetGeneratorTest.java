@@ -9,9 +9,9 @@ import java.util.Random;
 import static org.junit.Assert.assertEquals;
 
 public class WorksheetGeneratorTest {
+    private final WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
     private WorksheetGenerator wg;
     private Worksheet ws;
-    private final WholeNumEquationDetails wholeNumEquationDetails = new WholeNumEquationDetails();
 
     @Before
     public void init() {

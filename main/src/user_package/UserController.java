@@ -5,7 +5,6 @@ import exceptions.RecordDoesNotExistException;
 import exceptions.UserDoesNotExistException;
 import exceptions.UsernameTakenException;
 
-import java.util.List;
 import java.util.Map;
 
 /**

@@ -12,12 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class EquationsToPDImagesTest {
     FormatDetails formatDetails = new FormatDetails();
-    List<Map<String, String>> equations =  new ArrayList<>();
-//    String[][] equations = {{"5", "+", "4", "=", "9"}, {"5", "+", "3", "=", "8"}};
+    List<Map<String, String>> equations = new ArrayList<>();
+    //    String[][] equations = {{"5", "+", "4", "=", "9"}, {"5", "+", "3", "=", "8"}};
     PDDocument[] worksheetPDFs = new PDDocument[2];
     EquationsToPDImages equationsToPDImages = new EquationsToPDImages();
 
@@ -43,21 +44,24 @@ public class EquationsToPDImagesTest {
         q2.put("answer", "8");
         equations.add(q2);
     }
+
     @Test
     public void test2PDFsExist() throws IOException {
         PDImageXObject[][] images = equationsToPDImages.createResizedImages(formatDetails, equations, worksheetPDFs);
         assertEquals(images.length, 2);
     }
+
     @Test
     public void testNumImages() throws IOException {
         PDImageXObject[][] images = equationsToPDImages.createResizedImages(formatDetails, equations, worksheetPDFs);
         assertEquals(images[0].length, 2);
         assertEquals(images[1].length, 2);
     }
+
     @Test
     public void testAnswerWidthLongerThanQuestion() throws IOException {
         PDImageXObject[][] images = equationsToPDImages.createResizedImages(formatDetails, equations, worksheetPDFs);
-        for (int i = 0; i < images.length; i++){
+        for (int i = 0; i < images.length; i++) {
             //First just contains the question, second contains question and answer.
             assertTrue(images[0][i].getWidth() < images[1][i].getWidth());
         }

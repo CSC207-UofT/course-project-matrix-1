@@ -6,8 +6,8 @@ import java.util.Map;
 
 import static constants.EquationFormats.*;
 import static constants.EquationParts.*;
-import static constants.OperatorRep.LCM;
 import static constants.OperatorRep.GCD;
+import static constants.OperatorRep.LCM;
 
 /**
  * Converts an Equation as a String into a TexFormula.

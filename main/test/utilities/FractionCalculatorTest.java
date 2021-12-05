@@ -27,12 +27,13 @@ public class FractionCalculatorTest {
             assertEquals(ans, 20);
         }
     }
+
     @Test
     public void testDivisibleAnswerD() {
         for (int i = 0; i < 100; i++) {
             int ans = FractionCalculator.calculateAnswerD(eqnDetails, 4, randomizer);
             System.out.println(ans);
-            assertTrue(ans<=20 && ans >=4);
+            assertTrue(ans <= 20 && ans >= 4);
             assertEquals(0, ans % 4);
         }
     }
@@ -46,12 +47,12 @@ public class FractionCalculatorTest {
     }
 
     @Test
-    public void testCalculateOperand2D(){
+    public void testCalculateOperand2D() {
         for (int i = 0; i < 100; i++) {
             WholeNum operand1 = new WholeNum(4);
             WholeNum ans = new WholeNum(20);
-            WholeNum operand2 = new WholeNum (FractionCalculator.calculateOperand2D(eqnDetails, operand1.getValue(), ans.getValue(), randomizer));
-            assertEquals(((WholeNum)operand2.lcm(operand1)).getValue(), ans.getValue());
+            WholeNum operand2 = new WholeNum(FractionCalculator.calculateOperand2D(eqnDetails, operand1.getValue(), ans.getValue(), randomizer));
+            assertEquals(((WholeNum) operand2.lcm(operand1)).getValue(), ans.getValue());
             System.out.println(operand2);
         }
     }

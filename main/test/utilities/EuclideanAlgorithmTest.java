@@ -2,19 +2,21 @@ package utilities;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class EuclideanAlgorithmTest {
     @Test
-    public void testPrimeFindGreatestCommonDivisor(){
-        assertEquals(EuclideanAlgorithm.findGreatestCommonDivisor(3,4), 1);
+    public void testPrimeFindGreatestCommonDivisor() {
+        assertEquals(EuclideanAlgorithm.findGreatestCommonDivisor(3, 4), 1);
     }
+
     @Test
-    public void testOperandIsGreatestCommonDivisor(){
-        assertEquals(EuclideanAlgorithm.findGreatestCommonDivisor(2,4), 2);
+    public void testOperandIsGreatestCommonDivisor() {
+        assertEquals(EuclideanAlgorithm.findGreatestCommonDivisor(2, 4), 2);
     }
+
     @Test
-    public void testComplexGreatestCommonDivisor(){
-        assertEquals(EuclideanAlgorithm.findGreatestCommonDivisor(18,8), 2);
+    public void testComplexGreatestCommonDivisor() {
+        assertEquals(EuclideanAlgorithm.findGreatestCommonDivisor(18, 8), 2);
     }
 }
