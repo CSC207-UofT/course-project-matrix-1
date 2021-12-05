@@ -38,5 +38,4 @@ public abstract class EquationDetails implements Serializable {
     public void setNegAllowed(boolean negAllowed) {
         this.negAllowed = negAllowed;
     }
-
 }

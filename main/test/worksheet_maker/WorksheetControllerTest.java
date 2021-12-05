@@ -36,9 +36,9 @@ public class WorksheetControllerTest {
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
         String path = "out/production/course-project-matrix-1/user_package/users_data/";
-        pdf[0].save(path + "/whole_num_questions.pdf");
+        pdf[0].save(path + "/whole_num_horizontal_questions.pdf");
         pdf[0].close();
-        pdf[1].save(path + "/whole_num_answers.pdf");
+        pdf[1].save(path + "/whole_num_horizontal_answers.pdf");
         pdf[1].close();
         assertEquals(2, pdf.length);
     }
@@ -56,9 +56,9 @@ public class WorksheetControllerTest {
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
         String path = "out/production/course-project-matrix-1/user_package/users_data/";
-        pdf[0].save(path + "/whole_num_questions.pdf");
+        pdf[0].save(path + "/whole_num_vertical_questions.pdf");
         pdf[0].close();
-        pdf[1].save(path + "/whole_num_answers.pdf");
+        pdf[1].save(path + "/whole_num_vertical_answers.pdf");
         pdf[1].close();
         assertEquals(2, pdf.length);
     }
@@ -78,9 +78,9 @@ public class WorksheetControllerTest {
         System.out.println(num);
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, num);
         String path = "out/production/course-project-matrix-1/user_package/users_data/";
-        pdf[0].save(path + "/whole_num_questions.pdf");
+        pdf[0].save(path + "/whole_num_divbracket_questions.pdf");
         pdf[0].close();
-        pdf[1].save(path + "/whole_num_answers.pdf");
+        pdf[1].save(path + "/whole_num_divbracket_answers.pdf");
         pdf[1].close();
         assertEquals(2, pdf.length);
     }

@@ -47,5 +47,4 @@ public final class FormatDetails implements Serializable {
     public void setNumColumns(int numColumns) {
         this.numColumns = numColumns;
     }
-
 }
