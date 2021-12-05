@@ -323,12 +323,14 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         // Check invalid combinations (question types, format, and topics)
         if (((String) topicChose.getSelectedItem() == "Exponentiation" && (String) numOptions.getSelectedItem() == FRACTION) ||
                 ((String) topicChose.getSelectedItem() == "LCM" && (String) numOptions.getSelectedItem() == FRACTION) ||
-                ((String) topicChose.getSelectedItem() == "GCF" && (String) numOptions.getSelectedItem() == FRACTION)) {
+                ((String) topicChose.getSelectedItem() == "GCD" && (String) numOptions.getSelectedItem() == FRACTION)) {
             invalidQuestionType.setText("Invalid Operator & Question Type Combination");
             invalidQuestionType.setVisible(true);
             passed = false;
         } else if ((String) topicChose.getSelectedItem() != "Division" && equationFormat == DIVISION_BRACKET ||
-                (String) topicChose.getSelectedItem() == "Exponentiation" && equationFormat != HORIZONTAL) {
+                (String) topicChose.getSelectedItem() == "Exponentiation" && equationFormat != HORIZONTAL ||
+                (String) topicChose.getSelectedItem() == "LCM" && equationFormat != HORIZONTAL ||
+                (String) topicChose.getSelectedItem() == "GCD" && equationFormat != HORIZONTAL) {
             invalidQuestionType.setText("Invalid Operator & Question Format Combination");
             invalidQuestionType.setVisible(true);
             passed = false;
