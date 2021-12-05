@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static constants.OperatorRep.*;
+
 /**
  * Worksheet History Screen class for the User Interface. The worksheet history screen displays the details of previous
  * worksheets as well as performing features such as worksheet removal, worksheet scoring, and regeneration of
@@ -174,25 +176,25 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
 
     /**
      * Add the operator (in word form) to the String that displays the worksheet information.
-     * Precondition: - operator inputted must be either +,-,*, or /
+     * Precondition: - operator inputted must be either +,-,*, /, LCM, or GCD
      *
-     * @param operatorInputted the operator inputted as a character
+     * @param operatorInputted the operator inputted as a String
      */
     public String getOperator(String operatorInputted) {
-        if (Objects.equals(operatorInputted, "+")) {
+        if (Objects.equals(operatorInputted, ADD)) {
             return "Addition";
-        } else if (Objects.equals(operatorInputted, "-")) {
+        } else if (Objects.equals(operatorInputted, SUB)) {
             return "Subtraction";
-        } else if (Objects.equals(operatorInputted, "*")) {
+        } else if (Objects.equals(operatorInputted, MULT)) {
             return "Multiplication";
-        } else if (Objects.equals(operatorInputted, "/")) {
+        } else if (Objects.equals(operatorInputted, DIV)) {
             return "Division";
-        } else if (Objects.equals(operatorInputted, "^")) {
+        } else if (Objects.equals(operatorInputted, EXP)) {
             return "Exponentiation";
-        } else if (Objects.equals(operatorInputted, "LCM")) {
-            return "LCM";
-        } else if (Objects.equals(operatorInputted, "GCD")) {
-            return "GCD";
+        } else if (Objects.equals(operatorInputted, LCM)) {
+            return LCM;
+        } else if (Objects.equals(operatorInputted, GCD)) {
+            return GCD;
         }
         return null;
     }
