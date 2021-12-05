@@ -326,7 +326,9 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
             invalidQuestionType.setVisible(true);
             passed = false;
         } else if ((String) topicChose.getSelectedItem() != "Division" && equationFormat == DIVISION_BRACKET ||
-                (String) topicChose.getSelectedItem() == "Exponentiation" && equationFormat != HORIZONTAL) {
+                (String) topicChose.getSelectedItem() == "Exponentiation" && equationFormat != HORIZONTAL ||
+                (String) topicChose.getSelectedItem() == "LCM" && equationFormat != HORIZONTAL ||
+                (String) topicChose.getSelectedItem() == "GCF" && equationFormat != HORIZONTAL) {
             invalidQuestionType.setText("Invalid Operator & Question Format Combination");
             invalidQuestionType.setVisible(true);
             passed = false;
