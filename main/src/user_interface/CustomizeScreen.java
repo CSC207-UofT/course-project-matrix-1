@@ -363,7 +363,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
             operandRange1 = new int[]{op1MinTemp, op1MaxTemp};      // Set the operand 1 range to inputted values
             operandRange2 = new int[]{op2MinTemp, op2MaxTemp};      // Set the operand 2 range to inputted values
         } else if (op1MaxTemp < op1MinTemp || op2MaxTemp < op2MinTemp) {
-            operatorWarning.setText("Operand's' minimum must be lower than the maximum");
+            operatorWarning.setText("Operand's minimum must be lower than the maximum");
             operatorWarning.setVisible(true);
             passed = false;
         } else {
