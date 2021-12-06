@@ -5,9 +5,12 @@ import equation_parameters.FractionAddSubEquationDetails;
 import equation_parameters.FractionMultiDivEquationDetails;
 import equation_parameters.WholeNumEquationDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Random;
 
@@ -17,13 +20,29 @@ import static org.junit.Assert.assertEquals;
 
 public class WorksheetControllerTest {
     private final FormatDetails myFormatDetails = new FormatDetails();
+    private final String path = "out/production/course-project-matrix-1/worksheet_tests/";
 
     @Before
-    public void init() {
+    public void init() throws FileNotFoundException {
+        // Create temporary folder
+        File file = new File(this.path);
+        if (!(file.exists() && file.isDirectory())) {
+            boolean fileMade = file.mkdir();
+            if (!fileMade) {
+                throw new FileNotFoundException("testing directory could not be made!");
+            }
+        }
+
         myFormatDetails.setEquationFormat(HORIZONTAL);
         myFormatDetails.setTitle("Test Worksheet");
         myFormatDetails.setNumRows(2);
         myFormatDetails.setNumColumns(2);
+    }
+
+    @After
+    public void tearDown() {
+        // Remove temporary folder
+        deleteDirectory(new File(this.path));
     }
 
     @Test
@@ -37,7 +56,6 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
-        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/whole_num_horizontal_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/whole_num_horizontal_answers.pdf");
@@ -57,7 +75,6 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
-        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/whole_num_vertical_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/whole_num_vertical_answers.pdf");
@@ -79,7 +96,6 @@ public class WorksheetControllerTest {
         int num = new Random().nextInt(100000);
         System.out.println(num);
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, num);
-        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/whole_num_divbracket_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/whole_num_divbracket_answers.pdf");
@@ -100,7 +116,6 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionAddSubEquationDetails, myFormatDetails, 5168);
-        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/frac_add_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/frac_add_answers.pdf");
@@ -123,7 +138,6 @@ public class WorksheetControllerTest {
         int num = new Random().nextInt(100000);
         System.out.println(num);
         PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, num);
-        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/frac_div_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/frac_div_answers.pdf");
@@ -146,7 +160,6 @@ public class WorksheetControllerTest {
         int num = new Random().nextInt(100000);
         System.out.println(num);
         PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, num);
-        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/frac_multi_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/frac_multi_answers.pdf");
@@ -165,7 +178,6 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, new Random().nextInt(100000));
-        String path = "out/production/course-project-matrix-1/user_package/users_data/";
         pdf[0].save(path + "/whole_num_LCM_questions.pdf");
         pdf[0].close();
         pdf[1].save(path + "/whole_num_LCM_answers.pdf");
@@ -174,4 +186,17 @@ public class WorksheetControllerTest {
     }
 
 
+    /**
+     * Recursively delete a directory.
+     *
+     * @param directory files to delete
+     */
+    void deleteDirectory(File directory) {
+        File[] allContents = directory.listFiles();
+        if (allContents != null) {
+            for (File file : allContents) {
+                deleteDirectory(file);
+            }
+        }
+    }
 }
