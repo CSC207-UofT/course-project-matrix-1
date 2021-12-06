@@ -177,6 +177,9 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
         mainMenuButton.addMouseListener(this);
         viewerBackButton.addMouseListener(this);
 
+        // Add Key Listener for the newScore JTextField
+        downloadPathInput.addKeyListener(this);
+
         // Add all components to the panel
         previewPanel.add(downloadButton);
         previewPanel.add(mainMenuButton);
@@ -263,6 +266,7 @@ public class WorksheetViewerScreen extends Screen implements MouseListener, KeyL
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            // Attempt to save the generated worksheet's questions and answers to user's download path
             downloadDocument();
         }
     }
