@@ -8,7 +8,7 @@ import exceptions.UsernameTakenException;
 import java.util.Map;
 
 /**
- * Accesses or updates user information based on inputs from UserInterface. Every data updating method has the data
+ * Accesses or updates user information based on inputs from UserInterface. All data updating method has the data
  * saved. Using dependency injection, a DataAccessInterface-implementing object is created and injected into UserManager and
  * HistoryManager.
  * <p>

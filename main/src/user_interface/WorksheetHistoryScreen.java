@@ -24,31 +24,31 @@ import static constants.OperatorRep.*;
  */
 public class WorksheetHistoryScreen extends Screen implements MouseListener, KeyListener {
     // Create JLabels
-    JLabel noWorksheets = new JLabel("No Worksheets Available", SwingConstants.CENTER);
-    JLabel invalidScore = new JLabel("Invalid Score", SwingConstants.CENTER);
+    final JLabel noWorksheets = new JLabel("No Worksheets Available", SwingConstants.CENTER);
+    final JLabel invalidScore = new JLabel("Invalid Score", SwingConstants.CENTER);
 
     // Create JButtons
-    JButton customizeBackButton = new JButton("Back");
-    JButton removeButton = new JButton("Remove");
-    JButton updateScoreButton = new JButton("Update Score");
-    JButton regenerateButton = new JButton("Regenerate");
+    final JButton customizeBackButton = new JButton("Back");
+    final JButton removeButton = new JButton("Remove");
+    final JButton updateScoreButton = new JButton("Update Score");
+    final JButton regenerateButton = new JButton("Regenerate");
 
     // Create JTextField for New Score Option
-    JTextField scoreInput = new JTextField(1);
+    final JTextField scoreInput = new JTextField(1);
 
     // Create the Temporary Maps that will be passed into Worksheet Viewer Screen
-    Map<String, Object> worksheetHistoryDetailsTemp = new HashMap<>();
+    final Map<String, Object> worksheetHistoryDetailsTemp = new HashMap<>();
 
     // Create List containing a Map that will take output from getUserHistory method in userController
     List<Map<String, Object>> userHistoryList;
 
     // Create JTable and Arrays affiliated with it (rows and columns)
-    String[] columnNames = {"Title", "Date Created", "Topic", "Number of Equations", "Score"};
+    final String[] columnNames = {"Title", "Date Created", "Topic", "Number of Equations", "Score"};
     String[][] data = {};
-    JTable table;
+     JTable table;
 
     // Create JScrollPane that holds the JTable
-    JScrollPane scrollPane = new JScrollPane(table);
+    final JScrollPane scrollPane = new JScrollPane(table);
 
     // Store the date and time when user regenerates a worksheet
     String dateAndTimeTemp;

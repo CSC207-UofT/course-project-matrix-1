@@ -11,7 +11,7 @@ import java.util.Map;
  * @version 1.0
  */
 public class LocalDataAccess implements DataAccessInterface {
-    String dataFolder = "main/src/user_package/users_data";
+    final String dataFolder = "main/src/user_package/users_data";
 
     /**
      * Stores locally a map of username to User objects.

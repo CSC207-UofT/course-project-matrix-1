@@ -23,11 +23,11 @@ import java.util.Objects;
 public class CustomizeScreen extends Screen implements MouseListener, KeyListener {
 
     // Create buttons
-    JButton generateWorksheetButton = new JButton("Generate Worksheet");
-    JButton customizeBackButton = new JButton("Back");
+    final JButton generateWorksheetButton = new JButton("Generate Worksheet");
+    final JButton customizeBackButton = new JButton("Back");
 
     // Invalid input JLabel
-    JLabel operatorWarning = new JLabel("Operand's minimum must be lower than the maximum", SwingConstants.CENTER);
+    final JLabel operatorWarning = new JLabel("Operand's minimum must be lower than the maximum", SwingConstants.CENTER);
 
     // Create text fields for the Integer worksheet
     JTextField op1MIN;
@@ -43,8 +43,8 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
     JTextField[] textFields;
 
-    String[] formatOptions = {"Mixed", "Improper"};
-    JComboBox<String> fractionFormatOptions = new JComboBox<>(formatOptions);
+    final String[] formatOptions = {"Mixed", "Improper"};
+    final JComboBox<String> fractionFormatOptions = new JComboBox<>(formatOptions);
 
     // Create checkbox
     JCheckBox negAllowedBox;
@@ -65,11 +65,11 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     String dateAndTime;
 
     // Create the equation and format details
-    EquationDetails equationDetails;
-    FormatDetails formatDetails;
+    final EquationDetails equationDetails;
+    final FormatDetails formatDetails;
 
     // Create the temporary map's to be passed into worksheet viewer screen
-    Map<String, Object> worksheetHistoryDetails;
+    final Map<String, Object> worksheetHistoryDetails;
 
     public CustomizeScreen(EquationDetails equationDetails, FormatDetails formatDetails) {
         updatePanel(customizePanel);

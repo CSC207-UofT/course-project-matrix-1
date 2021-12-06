@@ -18,21 +18,21 @@ import java.awt.event.MouseListener;
 public class NewUserScreen extends Screen implements MouseListener, KeyListener {
 
     // Create buttons
-    JButton createUserButton = new JButton("Create User");
-    JButton newUserBackButton = new JButton("Back");
+    final JButton createUserButton = new JButton("Create User");
+    final JButton newUserBackButton = new JButton("Back");
 
     // Create Invalid Input JLabel
-    JLabel newUserInvalidInput = new JLabel("", SwingConstants.CENTER);
+    final JLabel newUserInvalidInput = new JLabel("", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField newUsernameInput = new JTextField(1);
-    JTextField nameInput = new JTextField(1);
-    JTextField ageInput = new JTextField(1);
-    JTextField[] newUserTextFields = {newUsernameInput, nameInput, ageInput};
+    final JTextField newUsernameInput = new JTextField(1);
+    final JTextField nameInput = new JTextField(1);
+    final JTextField ageInput = new JTextField(1);
+    final JTextField[] newUserTextFields = {newUsernameInput, nameInput, ageInput};
 
     // Create combo box for user role
-    String[] roleOptions = {"Student", "Teacher"};
-    JComboBox<String> role = new JComboBox<>(roleOptions);
+    final String[] roleOptions = {"Student", "Teacher"};
+    final JComboBox<String> role = new JComboBox<>(roleOptions);
 
     public NewUserScreen() {
 

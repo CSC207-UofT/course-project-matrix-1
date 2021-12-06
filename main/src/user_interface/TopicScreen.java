@@ -25,32 +25,32 @@ import static constants.OperatorRep.*;
 public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
     // Create buttons
-    JButton topicNextButton = new JButton("Next");
-    JButton topicScreenBackButton = new JButton("Back");
+    final JButton topicNextButton = new JButton("Next");
+    final JButton topicScreenBackButton = new JButton("Back");
 
     // Create combo box options
-    String[] numTypeOptions = {WHOLE_NUMBER, FRACTION};
-    JComboBox<String> numOptions = new JComboBox<>(numTypeOptions);
-    String[] topicOptions = {"Addition", "Subtraction", "Multiplication", "Division", "Exponentiation", "LCM", "GCD"};
-    JComboBox<String> topicChose = new JComboBox<>(topicOptions);
-    String[] questionFormatOptions = {HORIZONTAL, VERTICAL, DIVISION_BRACKET};
-    JComboBox<String> questionFormat = new JComboBox<>(questionFormatOptions);
+    final String[] numTypeOptions = {WHOLE_NUMBER, FRACTION};
+    final JComboBox<String> numOptions = new JComboBox<>(numTypeOptions);
+    final String[] topicOptions = {"Addition", "Subtraction", "Multiplication", "Division", "Exponentiation", "LCM", "GCD"};
+    final JComboBox<String> topicChose = new JComboBox<>(topicOptions);
+    final String[] questionFormatOptions = {HORIZONTAL, VERTICAL, DIVISION_BRACKET};
+    final JComboBox<String> questionFormat = new JComboBox<>(questionFormatOptions);
 
     // Create text fields
-    JTextField titleInput;
-    JTextField numQuestionsInput;
-    JTextField numRowsInput;
-    JTextField numColumnInput;
+    final JTextField titleInput;
+    final JTextField numQuestionsInput;
+    final JTextField numRowsInput;
+    final JTextField numColumnInput;
 
-    JTextField[] textFields;
+    final JTextField[] textFields;
 
     // Make Equation and format details
     EquationDetails equationDetails;
-    FormatDetails formatDetails;
+    final FormatDetails formatDetails;
 
     // Invalid input JLabel
-    JLabel invalidFormat = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
-    JLabel invalidQuestionType = new JLabel("Invalid Combination", SwingConstants.CENTER);
+    final JLabel invalidFormat = new JLabel("Invalid Input(s)", SwingConstants.CENTER);
+    final JLabel invalidQuestionType = new JLabel("Invalid Combination", SwingConstants.CENTER);
 
     // Create variables for the details and formatting
     String equationFormat = " ";

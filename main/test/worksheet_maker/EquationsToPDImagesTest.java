@@ -17,11 +17,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class EquationsToPDImagesTest {
-    FormatDetails formatDetails = new FormatDetails();
-    List<Map<String, String>> equations = new ArrayList<>();
+    final FormatDetails formatDetails = new FormatDetails();
+    final List<Map<String, String>> equations = new ArrayList<>();
     //    String[][] equations = {{"5", "+", "4", "=", "9"}, {"5", "+", "3", "=", "8"}};
-    PDDocument[] worksheetPDFs = new PDDocument[2];
-    EquationsToPDImages equationsToPDImages = new EquationsToPDImages();
+    final PDDocument[] worksheetPDFs = new PDDocument[2];
+    final EquationsToPDImages equationsToPDImages = new EquationsToPDImages();
 
     @Before
     public void init() {

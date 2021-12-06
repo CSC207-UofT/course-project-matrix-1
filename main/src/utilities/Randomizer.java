@@ -10,9 +10,6 @@ public class Randomizer {
     private final Random rand;
     private int seed;
 
-    public Randomizer() {
-        rand = new Random();
-    }
 
     /**
      * @param seed random seed for reproducibility

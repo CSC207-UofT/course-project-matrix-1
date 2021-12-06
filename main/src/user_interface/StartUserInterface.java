@@ -14,7 +14,7 @@ import worksheet_maker.WorksheetController;
  * @since 2021-12-04
  */
 class StartUserInterface {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         try {
             // Controller & Presenter for user functionality
             Screen.userController = new UserController();

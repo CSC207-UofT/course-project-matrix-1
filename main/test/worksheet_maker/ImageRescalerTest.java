@@ -3,7 +3,6 @@ package worksheet_maker;
 import constants.PDFDimensions;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -17,10 +17,10 @@ import java.util.Objects;
 public class OptionScreen extends Screen implements MouseListener {
 
     // Create buttons
-    JButton createWSButton = new JButton("Generate Worksheet");
-    JButton userHistoryButton = new JButton();
-    JButton userProfileButton = new JButton();
-    JButton logoutButton = new JButton("Log out");
+    final JButton createWSButton = new JButton("Generate Worksheet");
+    final JButton userHistoryButton = new JButton();
+    final JButton userProfileButton = new JButton();
+    final JButton logoutButton = new JButton("Log out");
 
     public OptionScreen() {
 

@@ -2,7 +2,7 @@
 
 ### Motivation
 
-Most applications available online for math worksheet generation are confusing to navigate. They either contain too little or too much parameters. We sought to fill in the gap by creating an application that provides pseudo-random math worksheets with easy-to-use functionality. Additionally, users can view their history and even regenerate past worksheets (or recreate similar worksheets)!
+Most applications available online for math worksheet generation are confusing to navigate. They either contain too little or too many parameters. We sought to fill in the gap by creating an application that provides pseudo-random math worksheets with easy-to-use functionality. Additionally, users can view their history and even regenerate past worksheets (or recreate similar worksheets)!
 
 ---
 

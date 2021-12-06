@@ -14,11 +14,11 @@ import java.util.Map;
 public class UserProfileScreen extends Screen implements MouseListener {
 
     // Create buttons
-    JButton userProfileBackButton = new JButton("Back");
-    JButton deleteUserButton = new JButton("Delete Account");
+    final JButton userProfileBackButton = new JButton("Back");
+    final JButton deleteUserButton = new JButton("Delete Account");
 
     // Create a map of the user's details
-    Map<String, Object> userDetails = userPresenter.getUserDetails();
+    final Map<String, Object> userDetails = userPresenter.getUserDetails();
 
     public UserProfileScreen() {
 

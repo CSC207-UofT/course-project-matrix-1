@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class FractionCalculator {
-    public FractionCalculator() {
-    }
 
     /**
      * Uses the operand1 denominator to generate a set of possible answer denominators, and randomly selects from

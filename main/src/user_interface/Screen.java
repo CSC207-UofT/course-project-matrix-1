@@ -21,43 +21,43 @@ import java.awt.event.MouseListener;
 public class Screen extends JFrame implements MouseListener, KeyListener {
 
     // Screen size Dimensions are set to full screen
-    static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    static int width = screenSize.width;
-    static int height = screenSize.height;
+    static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    static final int width = screenSize.width;
+    static final int height = screenSize.height;
 
     // Create all Panels and Frames
-    static JFrame frame = new JFrame();
+    static final JFrame frame = new JFrame();
     // Create a user controller and worksheet controller instance
     static UserController userController;
     static UserPresenter userPresenter;
     static WorksheetController worksheetController;
     // Keep track of the username inputted
     static String username;
-    JPanel loginPanel = new JPanel();
-    JPanel optionPanel = new JPanel();
-    JPanel topicPanel = new JPanel();
-    JPanel customizePanel = new JPanel();
-    JPanel previewPanel = new JPanel();
-    JPanel historyPanel = new JPanel();
-    JPanel newUserPanel = new JPanel();
-    JPanel userProfilePanel = new JPanel();
+    final JPanel loginPanel = new JPanel();
+    final JPanel optionPanel = new JPanel();
+    final JPanel topicPanel = new JPanel();
+    final JPanel customizePanel = new JPanel();
+    final JPanel previewPanel = new JPanel();
+    final JPanel historyPanel = new JPanel();
+    final JPanel newUserPanel = new JPanel();
+    final JPanel userProfilePanel = new JPanel();
     // Create the fonts
-    Font defaultButtonFont = new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02));
-    Font highlightButtonFont = new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225));
+    final Font defaultButtonFont = new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.02));
+    final Font highlightButtonFont = new Font("Monospaced", Font.BOLD, (int) Math.round((width * 0.5 + height) * 0.0225));
 
     // Create the Colors used
-    Color lightBlue = new Color(142, 202, 234, 255);
-    Color lightGray = new Color(220, 220, 220);
-    Color lightYellow = new Color(217, 207, 131, 252);
-    Color red = new Color(196, 67, 67);
-    Color darkGray = Color.DARK_GRAY;
+    final Color lightBlue = new Color(142, 202, 234, 255);
+    final Color lightGray = new Color(220, 220, 220);
+    final Color lightYellow = new Color(217, 207, 131, 252);
+    final Color red = new Color(196, 67, 67);
+    final Color darkGray = Color.DARK_GRAY;
 
     // Create the borders to be used (for panels, buttons, and text fields)
-    MatteBorder panelBorder = new MatteBorder(convert(0.15, 'h'), 2, 2, 2, lightBlue);
-    MatteBorder loginPanelBorder = new MatteBorder(convert(0.35, 'h'), 2, 2, 2, lightBlue);
-    MatteBorder defaultButtonBorder = new MatteBorder(4, 4, 4, 4, darkGray);
-    MatteBorder enterButtonBorder = new MatteBorder(4, 4, 4, 4, lightBlue);
-    MatteBorder textFieldBorder = new MatteBorder(2, 2, 2, 2, darkGray);
+    final MatteBorder panelBorder = new MatteBorder(convert(0.15, 'h'), 2, 2, 2, lightBlue);
+    final MatteBorder loginPanelBorder = new MatteBorder(convert(0.35, 'h'), 2, 2, 2, lightBlue);
+    final MatteBorder defaultButtonBorder = new MatteBorder(4, 4, 4, 4, darkGray);
+    final MatteBorder enterButtonBorder = new MatteBorder(4, 4, 4, 4, lightBlue);
+    final MatteBorder textFieldBorder = new MatteBorder(2, 2, 2, 2, darkGray);
 
     public Screen() {
     }

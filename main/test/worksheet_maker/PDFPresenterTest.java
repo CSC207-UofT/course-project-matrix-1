@@ -5,7 +5,6 @@ import equation_entities.StandardEquation;
 import equation_entities.WholeNum;
 import equation_parameters.FormatDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 

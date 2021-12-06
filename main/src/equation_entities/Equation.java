@@ -1,7 +1,5 @@
 package equation_entities;
 
-import equation_builders.OperandConstructorInterface;
-
 import java.util.Map;
 
 /**

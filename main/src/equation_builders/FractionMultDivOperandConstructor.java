@@ -22,7 +22,7 @@ import static constants.OperatorRep.DIV;
 
 public class FractionMultDivOperandConstructor extends FractionOperandConstructor {
     // Arbitrary prime numbers that are used to add complexity to a fraction.
-    int[] PRIMES = {2, 3, 5, 7, 11};
+    final int[] PRIMES = {2, 3, 5, 7, 11};
 
     /**
      * Uses the maximum value of the answer, answers' denominator range, and complexity to get reasonable operands for

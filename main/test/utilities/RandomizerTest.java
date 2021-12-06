@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertTrue;
 
 public class RandomizerTest {
-    public Randomizer rand = new Randomizer(1000);
+    public final Randomizer rand = new Randomizer(1000);
 
     @Test
     public void testRandomizeMinMax() {

@@ -28,22 +28,22 @@ import java.util.Random;
 public class WorksheetViewerScreen extends Screen implements MouseListener, KeyListener {
 
     // Create buttons
-    JButton downloadButton = new JButton("Download");
-    JButton printPageButton = new JButton("Print");
-    JButton historyButton = new JButton("History");
-    JButton mainMenuButton = new JButton("Main Menu");
-    JButton viewerBackButton = new JButton("Back");
-    JButton nextPreviewPage = new JButton("<");
-    JButton previousPreviewPage = new JButton(">");
-    JButton[] viewerButtons = {printPageButton, historyButton, mainMenuButton, viewerBackButton,
+    final JButton downloadButton = new JButton("Download");
+    final JButton printPageButton = new JButton("Print");
+    final JButton historyButton = new JButton("History");
+    final JButton mainMenuButton = new JButton("Main Menu");
+    final JButton viewerBackButton = new JButton("Back");
+    final JButton nextPreviewPage = new JButton("<");
+    final JButton previousPreviewPage = new JButton(">");
+    final JButton[] viewerButtons = {printPageButton, historyButton, mainMenuButton, viewerBackButton,
             nextPreviewPage, previousPreviewPage};
 
     // Create invalid path JLabel
-    JLabel invalidPathLbl = new JLabel("Invalid file path", SwingConstants.CENTER);
-    JLabel downloadSuccess = new JLabel("", SwingConstants.CENTER);
+    final JLabel invalidPathLbl = new JLabel("Invalid file path", SwingConstants.CENTER);
+    final JLabel downloadSuccess = new JLabel("", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField downloadPathInput = new JTextField(1);
+    final JTextField downloadPathInput = new JTextField(1);
 
     // Initialize a buffered image and pd document
     BufferedImage bim = null;

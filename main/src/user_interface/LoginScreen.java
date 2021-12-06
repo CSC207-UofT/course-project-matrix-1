@@ -17,15 +17,15 @@ import java.awt.event.MouseListener;
 public class LoginScreen extends Screen implements MouseListener, KeyListener {
 
     // Create Buttons
-    JButton loginButton = new JButton("Login");
-    JButton createUserButton = new JButton("Create User");
-    JButton exitButton = new JButton("Exit");
+    final JButton loginButton = new JButton("Login");
+    final JButton createUserButton = new JButton("Create User");
+    final JButton exitButton = new JButton("Exit");
 
     // Invalid username JLabel
-    JLabel invalidUsernameError = new JLabel("Invalid Username", SwingConstants.CENTER);
+    final JLabel invalidUsernameError = new JLabel("Invalid Username", SwingConstants.CENTER);
 
     // Create text fields
-    JTextField usernameInput = new JTextField(1);
+    final JTextField usernameInput = new JTextField(1);
 
     public LoginScreen() {
 
