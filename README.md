@@ -19,4 +19,4 @@ Most applications available online for math worksheet generation are confusing t
 
 
 ### Other notes
-* All our other files are PDFs under the `phase 1 directory` under `main` directory
+* Design document, progress report, and accesibility report are PDFs under the `phase 2 directory` under `main` directory.

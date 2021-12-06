@@ -1,5 +1,7 @@
 package equation_entities;
 
+import equation_builders.OperandConstructorInterface;
+
 import java.util.Map;
 
 /**
@@ -9,7 +11,7 @@ import java.util.Map;
  * @version 1.0
  * @since 2021-10-12
  */
-public interface Equation {
+public interface Equation{
     /**
      * Returns a Hashmap of String representation of an Equation. Key is operator, operand1, operand2, and answer.
      * Values are a String representation of each of those for a given equation.

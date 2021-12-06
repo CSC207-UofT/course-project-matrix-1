@@ -5,6 +5,7 @@ import equation_entities.StandardEquation;
 import equation_entities.WholeNum;
 import equation_parameters.FormatDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,7 +37,9 @@ public class PDFPresenterTest {
         formatDetails.setNumRows(10);
         formatDetails.setNumColumns(10);
         PDDocument[] pdf = pdfPresenter.createPDF(formatDetails);
+        pdf[0].close();
+        pdf[1].close();
         assertEquals(2, pdf.length);
-
     }
+
 }

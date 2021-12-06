@@ -94,7 +94,6 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         int num = new Random().nextInt(100000);
-        System.out.println(num);
         PDDocument[] pdf = wc.generateWorksheetAndPDF(wholeNumEquationDetails, myFormatDetails, num);
         pdf[0].save(path + "/whole_num_divbracket_questions.pdf");
         pdf[0].close();
@@ -136,7 +135,6 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         int num = new Random().nextInt(100000);
-        System.out.println(num);
         PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, num);
         pdf[0].save(path + "/frac_div_questions.pdf");
         pdf[0].close();
@@ -158,7 +156,6 @@ public class WorksheetControllerTest {
 
         WorksheetController wc = new WorksheetController();
         int num = new Random().nextInt(100000);
-        System.out.println(num);
         PDDocument[] pdf = wc.generateWorksheetAndPDF(fractionMultiDivEquationDetails, myFormatDetails, num);
         pdf[0].save(path + "/frac_multi_questions.pdf");
         pdf[0].close();

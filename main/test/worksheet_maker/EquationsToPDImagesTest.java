@@ -3,6 +3,7 @@ package worksheet_maker;
 import equation_parameters.FormatDetails;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +29,6 @@ public class EquationsToPDImagesTest {
         formatDetails.setTitle("Test");
         formatDetails.setNumRows(10);
         formatDetails.setNumColumns(10);
-
         worksheetPDFs[0] = new PDDocument();
         worksheetPDFs[1] = new PDDocument();
         Map<String, String> q1 = new HashMap<>();
@@ -65,5 +65,10 @@ public class EquationsToPDImagesTest {
             //First just contains the question, second contains question and answer.
             assertTrue(images[0][i].getWidth() < images[1][i].getWidth());
         }
+    }
+    @After
+    public void teardown() throws IOException {
+        worksheetPDFs[0].close();
+        worksheetPDFs[1].close();
     }
 }

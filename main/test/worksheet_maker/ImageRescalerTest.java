@@ -3,6 +3,7 @@ package worksheet_maker;
 import constants.PDFDimensions;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,6 +30,7 @@ public class ImageRescalerTest {
         int column_width = PDFDimensions.PRINT_WIDTH / columns;
         int row_height = PDFDimensions.PRINT_HEIGHT / rows;
         double rescaleFactor = imageRescaler.findRescaleFactor(new PDImageXObject[]{p1}, rows, columns);
+        pd.close();
         assertTrue((rescaleFactor * p1.getHeight() <= row_height)
                 && (rescaleFactor * p1.getWidth() <= column_width));
     }
@@ -47,6 +49,7 @@ public class ImageRescalerTest {
         int column_width = PDFDimensions.PRINT_WIDTH / columns;
         int row_height = PDFDimensions.PRINT_HEIGHT / rows;
         double rescaleFactor = imageRescaler.findRescaleFactor(new PDImageXObject[]{p1, p2}, rows, columns);
+        pd.close();
         assertTrue((rescaleFactor * p1.getHeight() <= row_height)
                 && (rescaleFactor * p1.getWidth() <= column_width));
         assertEquals(rescaleFactor, imageRescaler.findRescaleFactor(new PDImageXObject[]{p1}, rows, columns),
