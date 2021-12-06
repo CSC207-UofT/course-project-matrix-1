@@ -22,10 +22,9 @@ import static constants.OperatorRep.*;
  * @author Ethan Ing, Piotr Pralat
  * @since 2021-11-01
  */
-@SuppressWarnings("ALL")
 public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
-    // Craete buttons
+    // Create buttons
     JButton topicNextButton = new JButton("Next");
     JButton topicScreenBackButton = new JButton("Back");
 
@@ -143,7 +142,7 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
     }
 
     /**
-     * Adds all necessary parts of TopicScreen (labels, textfields, buttons).
+     * Adds all necessary parts of TopicScreen (labels, text fields, buttons).
      */
     private void fillScreen() {
 
@@ -322,20 +321,20 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
         }
 
         // Check invalid combinations (question types, format, and topics)
-        if (((String) topicChose.getSelectedItem() == "Exponentiation" && (String) numOptions.getSelectedItem() == FRACTION) ||
-                ((String) topicChose.getSelectedItem() == "LCM" && (String) numOptions.getSelectedItem() == FRACTION) ||
-                ((String) topicChose.getSelectedItem() == "GCD" && (String) numOptions.getSelectedItem() == FRACTION)) {
+        if ((Objects.equals(topicChose.getSelectedItem(), "Exponentiation") && Objects.equals(numOptions.getSelectedItem(), FRACTION)) ||
+                (Objects.equals(topicChose.getSelectedItem(), "LCM") && Objects.equals(numOptions.getSelectedItem(), FRACTION)) ||
+                (Objects.equals(topicChose.getSelectedItem(), "GCD") && Objects.equals(numOptions.getSelectedItem(), FRACTION))) {
             invalidQuestionType.setText("Invalid Operator & Question Type Combination");
             invalidQuestionType.setVisible(true);
             passed = false;
-        } else if ((String) topicChose.getSelectedItem() != "Division" && equationFormat == DIVISION_BRACKET ||
-                (String) topicChose.getSelectedItem() == "Exponentiation" && equationFormat != HORIZONTAL ||
-                (String) topicChose.getSelectedItem() == "LCM" && equationFormat != HORIZONTAL ||
-                (String) topicChose.getSelectedItem() == "GCD" && equationFormat != HORIZONTAL) {
+        } else if (!Objects.equals(topicChose.getSelectedItem(), "Division") && Objects.equals(equationFormat, DIVISION_BRACKET) ||
+                Objects.equals(topicChose.getSelectedItem(), "Exponentiation") && !Objects.equals(equationFormat, HORIZONTAL) ||
+                Objects.equals(topicChose.getSelectedItem(), "LCM") && !Objects.equals(equationFormat, HORIZONTAL) ||
+                Objects.equals(topicChose.getSelectedItem(), "GCD") && !Objects.equals(equationFormat, HORIZONTAL)) {
             invalidQuestionType.setText("Invalid Operator & Question Format Combination");
             invalidQuestionType.setVisible(true);
             passed = false;
-        } else if ((String) numOptions.getSelectedItem() == FRACTION && equationFormat != HORIZONTAL) {
+        } else if (Objects.equals(numOptions.getSelectedItem(), FRACTION) && !Objects.equals(equationFormat, HORIZONTAL)) {
             invalidQuestionType.setText("Invalid Question Type & Format Combination");
             invalidQuestionType.setVisible(true);
             passed = false;
