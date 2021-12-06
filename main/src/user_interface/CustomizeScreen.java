@@ -44,7 +44,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
     JTextField[] textFields;
 
     String[] formatOptions = {"Mixed", "Improper"};
-    JComboBox<String> formatComboBox = new JComboBox<>(formatOptions);
+    JComboBox<String> fractionFormatOptions = new JComboBox<>(formatOptions);
 
     // Create checkbox
     JCheckBox negAllowedBox;
@@ -109,8 +109,8 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
             // Initial check boxes
             negAllowedBox = new JCheckBox("");
-            formatComboBox.setSelectedIndex(0);
-            formatComboBox.setVisible(true);
+            fractionFormatOptions.setSelectedIndex(0);
+            fractionFormatOptions.setVisible(true);
 
             // Fill the fraction screen
             fillFractionScreen();
@@ -151,21 +151,24 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
                 denRange = ((FractionAddSubEquationDetails) equationDetails).getOperand1DenomRange();
                 secondField = ((FractionAddSubEquationDetails) equationDetails).getMaxOperand2AndAnswerDenom();
                 maxNumVal = ((FractionAddSubEquationDetails) equationDetails).getMaxOperandValue();
+                fractionFormat = ((FractionAddSubEquationDetails) equationDetails).getFractionFormat();
             } else if (equationDetails instanceof FractionMultiDivEquationDetails) {
                 denRange = ((FractionMultiDivEquationDetails) equationDetails).getAnsDenominatorRange();
                 secondField = ((FractionMultiDivEquationDetails) equationDetails).getComplexity();
                 maxNumVal = ((FractionMultiDivEquationDetails) equationDetails).getMaxAnsValue();
+                fractionFormat = ((FractionMultiDivEquationDetails) equationDetails).getFractionFormat();
             }
 
             denMIN = new JTextField(Integer.toString(denRange[0]), 1);
             denMAX = new JTextField(Integer.toString(denRange[1]), 1);
             secondFieldInput = new JTextField(Integer.toString(secondField), 1);
             maxVal = new JTextField(Integer.toString(maxNumVal), 1);
+            fractionFormatOptions.setSelectedItem(fractionFormat);
             textFields = new JTextField[]{denMIN, denMAX, secondFieldInput, maxVal};
             negAllowedBox = new JCheckBox("", equationDetails.isNegAllowed());
 
             fillFractionScreen();
-            formatComboBox.setVisible(true);
+            fractionFormatOptions.setVisible(true);
         }
         updateTextFields(textFields);
     }
@@ -424,7 +427,7 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
 
         // Get selection for checkbox and question format
         fractionNegAllowed = negAllowedBox.isSelected();
-        fractionFormat = (String) formatComboBox.getSelectedItem();
+        fractionFormat = (String) fractionFormatOptions.getSelectedItem();
 
         // If all inputs check out, add to the equation details and formatting details maps
         if (passed) {
@@ -475,16 +478,16 @@ public class CustomizeScreen extends Screen implements MouseListener, KeyListene
         customizeBackButton.addMouseListener(this);
 
         // Update the location of the combo box
-        formatComboBox.setBounds(convert(0.53, 'w'), convert(0.64, 'h'), convert(0.1, 'w'),
+        fractionFormatOptions.setBounds(convert(0.53, 'w'), convert(0.64, 'h'), convert(0.1, 'w'),
                 convert(0.05, 'h'));
-        formatComboBox.setVisible(false);
+        fractionFormatOptions.setVisible(false);
 
         // Add all components to the panel
         customizePanel.add(equationDetailsTitle);
         customizePanel.add(equationDetailsShadow);
         customizePanel.add(generateWorksheetButton);
         customizePanel.add(customizeBackButton);
-        customizePanel.add(formatComboBox);
+        customizePanel.add(fractionFormatOptions);
         customizePanel.add(operatorWarning);
 
         // Change the panel to hte customize panel
