@@ -13,6 +13,7 @@ import java.util.Objects;
 import static constants.EquationFormats.*;
 import static constants.EquationType.FRACTION;
 import static constants.EquationType.WHOLE_NUMBER;
+import static constants.OperatorRep.*;
 
 /**
  * Topic Screen class for the User Interface. The topic screen prompts the user for their desired
@@ -106,26 +107,26 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
 
         // Set the selected items to be seen on the screen
         switch (equationDetails.getOperator()) {
-            case "+":
+            case ADD:
                 topicChose.setSelectedItem("Addition");
                 break;
-            case "-":
+            case SUB:
                 topicChose.setSelectedItem("Subtraction");
                 break;
-            case "/":
+            case DIV:
                 topicChose.setSelectedItem("Division");
                 break;
-            case "*":
+            case MULT:
                 topicChose.setSelectedItem("Multiplication");
                 break;
-            case "^":
+            case EXP:
                 topicChose.setSelectedItem("Exponentiation");
                 break;
-            case "LCM":
-                topicChose.setSelectedItem("LCM");
+            case LCM:
+                topicChose.setSelectedItem(LCM);
                 break;
-            case "GCD":
-                topicChose.setSelectedItem("GCD");
+            case GCD:
+                topicChose.setSelectedItem(GCD);
                 break;
         }
 
@@ -257,34 +258,34 @@ public class TopicScreen extends Screen implements MouseListener, KeyListener {
             String topic = (String) topicChose.getSelectedItem();
             if (Objects.equals(topic, "Addition")) {
                 equationDetails = new FractionAddSubEquationDetails();
-                this.equationDetails.setOperator("+");
+                this.equationDetails.setOperator(ADD);
             } else if (Objects.equals(topic, "Subtraction")) {
                 equationDetails = new FractionAddSubEquationDetails();
-                this.equationDetails.setOperator("-");
+                this.equationDetails.setOperator(SUB);
             } else if (Objects.equals(topic, "Multiplication")) {
                 equationDetails = new FractionMultiDivEquationDetails();
-                this.equationDetails.setOperator("*");
+                this.equationDetails.setOperator(MULT);
             } else if (Objects.equals(topic, "Division")) {
                 equationDetails = new FractionMultiDivEquationDetails();
-                this.equationDetails.setOperator("/");
+                this.equationDetails.setOperator(DIV);
             }
         } else if (Objects.equals(type, WHOLE_NUMBER)) {
             String topic = (String) topicChose.getSelectedItem();
             equationDetails = new WholeNumEquationDetails();
             if (Objects.equals(topic, "Addition")) {
-                this.equationDetails.setOperator("+");
+                this.equationDetails.setOperator(ADD);
             } else if (Objects.equals(topic, "Subtraction")) {
-                this.equationDetails.setOperator("-");
+                this.equationDetails.setOperator(SUB);
             } else if (Objects.equals(topic, "Multiplication")) {
-                this.equationDetails.setOperator("*");
+                this.equationDetails.setOperator(MULT);
             } else if (Objects.equals(topic, "Division")) {
-                this.equationDetails.setOperator("/");
+                this.equationDetails.setOperator(DIV);
             } else if (Objects.equals(topic, "Exponentiation")) {
-                this.equationDetails.setOperator("^");
-            } else if (Objects.equals(topic, "LCM")) {
-                this.equationDetails.setOperator("LCM");
-            } else if (Objects.equals(topic, "GCD")) {
-                this.equationDetails.setOperator("GCD");
+                this.equationDetails.setOperator(EXP);
+            } else if (Objects.equals(topic, LCM)) {
+                this.equationDetails.setOperator(LCM);
+            } else if (Objects.equals(topic, GCD)) {
+                this.equationDetails.setOperator(GCD);
             }
         }
 
