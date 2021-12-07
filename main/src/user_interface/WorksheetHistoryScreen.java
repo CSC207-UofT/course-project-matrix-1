@@ -45,7 +45,7 @@ public class WorksheetHistoryScreen extends Screen implements MouseListener, Key
     // Create JTable and Arrays affiliated with it (rows and columns)
     final String[] columnNames = {"Title", "Date Created", "Topic", "Number of Equations", "Score"};
     String[][] data = {};
-     JTable table;
+    JTable table;
 
     // Create JScrollPane that holds the JTable
     final JScrollPane scrollPane = new JScrollPane(table);
